@@ -7,9 +7,14 @@ import com.gg.gop.dto.MemberDto;
 @Mapper
 public interface MemberDao {
 	
-	//로그인해서 아이디를 반환하는 메서드
-	MemberDto getMemberId(String u_id);
-	//회원가입하는 메서드
+	//로그인 (아이디return)
+	MemberDto getMemberId(String m_id);
+	//회원가입
 	void insertMember(MemberDto memberDto);
+	//회원탈퇴
+	void deleteMember(String m_id);
+	//내정보 수정
+	void updateMember(MemberDto memberDto);
+	
 
 }
