@@ -1,14 +1,20 @@
 package com.gg.gop.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
 
 	@GetMapping("/")
-	public String Main() {
+	public String Main(HttpSession session, Model model) {
+		session.removeAttribute("sDto");
 		return "index";
+		
+		//이전 사용했던 세션들을 끊어줌 어떤거 끊어줘야 될까나~~
 	}
 
 }

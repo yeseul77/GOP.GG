@@ -5,8 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
+ <%@include file="/WEB-INF/tiles/header.jsp" %>
 
 <h2> GOP.GG 회원가입 </h2>
 <form action="/register" method="post">
@@ -15,5 +17,6 @@
 <input type="text" name="m_name" placeholder="닉네임"><br>
 <button type="submit">회원가입</button>
 </form>
+ <%@include file="/WEB-INF/tiles/footer.jsp" %>
 </body>
 </html>

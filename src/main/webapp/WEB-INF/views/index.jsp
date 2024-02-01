@@ -7,7 +7,17 @@
 <title>Insert title here</title>
 </head>
 <body>
+ <%@include file="/WEB-INF/tiles/header.jsp" %>
+
+
+<h1>INDEX.JSP</h1>
+
+
+
+
+
+ <%@include file="/WEB-INF/tiles/footer.jsp" %>
 
 </body>
-<h1>main 페이지 !</h1>
+    
 </html>
