@@ -1,31 +1,18 @@
 package com.gg.gop.dto;
 
-import lombok.Getter;
-
+import lombok.Data;
 import java.time.LocalDateTime;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.util.StringUtils;
 
-@Getter
+@Data
 public class MemberDto {
-
-	private Long u_no; // 회원 번호 (PK)
-	private String u_id; // 로그인 ID
-	private String u_pw; // 비밀번호
-	private String u_name; // 이름
+	
+	
+	private Long m_no; //회원 고유 번호
+	private String m_id; // 로그인 ID (PK) =  이메일형식
+	private String m_pw; // 비밀번호
+	private String m_name; // 소환사(게임명)
 	private Boolean deleteYn; // 삭제 여부
 	private LocalDateTime modifiedDate; // 최종 수정일시
-
-	public void clearPassword() {
-		this.u_pw = "";
-	}
-
-	public void encodingPassword(PasswordEncoder passwordEncoder) {
-		if (StringUtils.isEmpty(u_pw)) {
-			return;
-		}
-		u_pw = passwordEncoder.encode(u_pw);
-	}
 
 }

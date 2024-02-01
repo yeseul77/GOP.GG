@@ -7,6 +7,6 @@ public class AdminDto {
 	//권한 1,2,3을 주는식으로 
 	private Long a_id;                
 	private Long a_pw;                
-    private String auth;			//권한
+    private String auth;//권한
 
 }
