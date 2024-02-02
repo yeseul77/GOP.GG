@@ -1,7 +1,10 @@
 package com.gg.gop.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +25,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+	
 
 	// 회원가입==============================================
 	@GetMapping("/register")
@@ -31,20 +37,32 @@ public class MemberController {
 	}
 
 	@PostMapping("/register")
-	public String registre(MemberDto memberDto, RedirectAttributes rttr, Model model) {
-		try {
-			memberService.register(memberDto);// 중복이 없으면 로그인 페이지로
-			rttr.addFlashAttribute("msg", "가입성공");
-			return "redirect:/login";
-		} catch (DuplicateKeyException e) {
-			return "redirect:/register?error_code=-1"; // 중복이 발생하면 회원가입 페이지로
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("msg", "가입실패 재입력해주세요!");
-			return "redirect:/register?error_code=-99";
-			// 그 외의 예외가 발생하면 일반적인 오류로 처리하고 회원가입 페이지로
-		}
-	}
+	    public String registerCheck(MemberDto member, Model model) {
+	        HashMap<String, Object> resultMap = new HashMap<>();
+
+	        try {
+	            member.setM_pw(passwordEncoder.encode(member.getM_pw()));
+	            resultMap.put("success", true);
+	            resultMap.put("message", "회원가입 성공");
+	        } catch (Exception e) {
+	            resultMap.put("success", false);
+	            resultMap.put("message", "회원가입 실패: " + e.getMessage());
+	        }
+
+	        model.addAllAttributes(resultMap);
+	        return resultMap.get("success") == Boolean.TRUE ? "redirect:/login" : "/register";
+	    }
+	
+	
+		//아이디 중복체크 
+	    @GetMapping("/checkId")
+	    public Map<String, Boolean> checkIdDuplication(@RequestParam String m_id) {
+	        boolean isDuplicated = memberService.isIdDuplicated(m_id);
+	        Map<String, Boolean> result = new HashMap<>();
+	        result.put("isDuplicated", isDuplicated);
+	        return result;
+	    }
+	
 
 	// 로그인====================================================
 	@GetMapping("/login")
@@ -59,21 +77,29 @@ public class MemberController {
 	}
 
 	@PostMapping("/login")
-	public String login(@RequestParam String m_id, @RequestParam String m_pw, Model model, HttpSession session,
-			RedirectAttributes rttr) {
-		// 서비스를 통해 로그인 여부 확인
-		MemberDto loginUser = memberService.login(m_id, m_pw);
+	public String login(@RequestParam HashMap<String, String> member, 
+	                    Model model, HttpSession session, RedirectAttributes rttr) {
+	    // memberService.login 메서드의 파라미터를 수정해야 합니다.
+	    MemberDto memberDto = memberService.login(member);
 
-		if (loginUser != null) {
-			session.setAttribute("loginUser", loginUser);
-			return "redirect:/index";
-		} else {
-			// 로그인 실패 시 다시 로그인페이지로
-			rttr.addFlashAttribute("msg", "로그인실패ㅠㅠ");
-			return "redirect:/iogin";
+	    if (memberDto != null) {
+	        session.setAttribute("member", memberDto);  // 로그인 성공 후 회원정보를 출력하기 위해
 
-		}
+	        Object url = session.getAttribute("urlPrior_login");
+	  
+	        if (url != null) {
+	            session.removeAttribute("urlPrior_login");
+	            return "redirect:" + url.toString();
+	        } else {
+	            return "redirect:/";
+	        }
+	    } else {
+	        rttr.addFlashAttribute("msg", "로그인 실패");
+	        return "redirect:/member/login"; 
+	    }
 	}
+		
+
 
 	// 로그아웃===========================================
 	@PostMapping("/logout")
@@ -89,7 +115,7 @@ public class MemberController {
 	// 조회후 > 수정 MemberDto member = memberService.getMemberById(m_id);
 	// 회원 정보 조회=======================================
 	@GetMapping("/mypage")
-	public String viewProfile(Model model, HttpSession session) {
+	public String serchProfile(Model model, HttpSession session) {
 		String m_id = (String) session.getAttribute("m_id");
 
 		if (m_id != null) {
@@ -110,26 +136,7 @@ public class MemberController {
 	}
 
 	// 회원 정보 수정,탈퇴=============================
-	@GetMapping("/mypage")
-	public String changeProfileForm(Model model, HttpSession session) {
-		String m_id = (String) session.getAttribute("m_id");
 
-		if (m_id != null) {
-			MemberDto memberDto = memberService.getMemberById(m_id);
-
-			if (memberDto != null) {
-				model.addAttribute("memberDto", memberDto);
-				return "member/editProfile";
-			} else {
-				// 회원 정보가 없을 경우 예외 처리
-				model.addAttribute("error", "회원 정보를 찾을 수 없습니다.");
-				return "redirect:/";
-			}
-		} else {
-			// 로그인 되어 있지 않을 경우 로그인 페이지로 이동
-			return "redirect:/login";
-		}
-	}
 
 	@PostMapping("/mypage")
 	public String changeProfile(MemberDto memberDto, HttpSession session, RedirectAttributes rttr, Model model) {

@@ -1,18 +1,26 @@
 package com.gg.gop.dto;
 
 import lombok.Data;
-import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
+
 
 
 @Data
+@Getter
+@Setter
 public class MemberDto {
 	
 	
-	private Long m_no; //회원 고유 번호
-	private String m_id; // 로그인 ID (PK) =  이메일형식
+	private String m_id; // 로그인 ID  =  이메일형식
 	private String m_pw; // 비밀번호
 	private String m_name; // 소환사(게임명)
-	private Boolean deleteYn; // 삭제 여부
-	private LocalDateTime modifiedDate; // 최종 수정일시
+	private String m_tier; // 소환사 티어 
+	
+	// 관리자 권한
+	private String role; //권한  
+	private Boolean deleteYn; // 탈퇴 여부 0이면가입 탈퇴면1
+    //private LocalDateTime modifiedDate; // 최종 수정일시
 
-}
+	}
+

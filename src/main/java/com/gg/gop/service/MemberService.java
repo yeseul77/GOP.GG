@@ -1,30 +1,50 @@
 package com.gg.gop.service;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.gg.gop.dao.MemberDao;
 import com.gg.gop.dto.MemberDto;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Service
 public class MemberService {
 
 	@Autowired
 	private MemberDao memberDao;
+	
+	
 
 	// 입력받은 id,pw가 다르면 로그인 실패하는 메서드
-	public MemberDto login(String m_id, String m_pw) {
-		MemberDto memberDto = memberDao.getMemberId(m_id);
-
-//		if (memberDto.getM_pw().equals(m_pw))
-//			return memberDto.getM_id(); // 로그인성공
-
-		return null; // 로그인실패
-		// 저장된 dto에 pw와,입력된 pw값이 같으면 id값을 리턴 = 로그인성공
-		// 다르다면 null 반환 =로그인 실패
+	public MemberDto login(HashMap<String, String>memberDto) {
+		// 복호화는 안되지만 비교는 가능 
+		//아이디 aaa - 1234-->db : 432pi3p45328095-403 비교해줌
+		String encoPwd = memberDao.getSecurityPw(memberDto.get("m_id"));
+	
+		BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
+		if (encoPwd != null) {
+			log.info("아이디존재함");
+			if (pwEncoder.matches(memberDto.get("m_pw"), encoPwd)) {
+			log.info("로그인성공");
+				return memberDao.getMemberInfo(memberDto.get("m_id"));
+			} else {
+				log.info("비밀번호오류");
+				return null;
+			}
+		} else {
+			log.info("아이디오류");
+			return null;
+		}
 	}
+
 //회원가입
-	public void register(MemberDto memberDto) {
-		memberDao.insertMember(memberDto);
+	public boolean register(MemberDto memberDto) {
+		BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
+		memberDto.setM_pw(pwEncoder.encode(memberDto.getM_pw()));
+		return	memberDao.insertMember(memberDto);
 	}
 	//회원탈퇴
 	public Boolean withdraw(String m_id, String m_pw) {
@@ -43,7 +63,13 @@ public class MemberService {
 		memberDao.updatemyInfo(memberDto);
 		
 	}
+	//아이디중복체크
+	   public boolean isIdDuplicated(String m_id) {
+	        return memberDao.isIdDuplicated(m_id);
+	    }
+	
+	}
 
 		
-	}
+
 

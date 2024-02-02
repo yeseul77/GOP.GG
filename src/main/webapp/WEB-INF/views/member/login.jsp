@@ -16,9 +16,10 @@
 						<h2>GOP.GG로그인</h2>
 					</div>
 					<div class="login_input">
-						<label for="loginId">아이디</label> <input type="text" id="u_id" name="u_id" placeholder="아이디" /> 
-						<label for="password"class="skip_info">비밀번호</label> 
-						<input type="password" id="u_pw"name="u_pw" placeholder="비밀번호" />
+						<label for="loginId">아이디</label> 
+						<input type="text" id="m_id" name="m_id" placeholder="아이디"/> 
+						<label for="password">비밀번호</label> 
+						<input type="password" id="m_pw" name="m_pw" placeholder="비밀번호" />
 						<button type="button" class="login_btn">로그인</button>
 						<button type="button" class="register_btn">회원가입</button>
 					</div>

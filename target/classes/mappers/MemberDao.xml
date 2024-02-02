@@ -5,17 +5,45 @@
 
 <mapper namespace="com.gg.gop.dao.MemberDao">
 
+	<!-- 회원가입 -->
+	<insert id="insertMember" parameterType="com.gg.gop.dto.MemberDto">
+		INSERT INTO member_tb
+		(m_id,m_pw,m_name)
+		VALUES(#{m_id},#{m_pw},#{m_name});
+	</insert>
+
+	<!-- 로그인 -->
+	<select id="login" resultType="String">
+		SELECT m_id,m_pw
+		FROM member_tb
+		WHERE m_id=#{m_id}
+		AND m_pw=#{m_pw}
+	</select>
+
+	<!-- 회원정보조회 R -->
+	<select id="getMemberById" parameterType="string"
+		resultType="com.gg.gop.dto.MemberDto">
+		SELECT m_id
+		FROM member_tb
+		WHERE
+	</select>
 
 
+	<!-- 회원정보수정 U -->
+	<update id="updateMember" parameterType="com.gg.gop.dto.MemberDto">
+		UPDATE member_tb
+		SET m_pw = #{m_pw}, m_name = #{m_name}
+		<if test="m_pw != null and m_pw != ''">
+			, m_pw = #{m_pw}
+		</if>
+		WHERE m_id = #{m_id}
+	</update>
 
-
-
-<!-- 탈퇴 -->
-<delete id="deleteMember">
-	DELETE
-	FROM g_member
-	WHERE m_id=#{m_id}
-</delete>
-
+	<!-- 탈퇴 D -->
+	<delete id="deleteMember">
+		UPDATE member_tb
+		SET delete_Yn=1
+		WHERE m_id=#{m_id}
+	</delete>
 
 </mapper>

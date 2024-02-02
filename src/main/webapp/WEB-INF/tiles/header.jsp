@@ -26,15 +26,15 @@
 </div>
 
 <script>
-	function gohome() {
-		let id = '${memberDto.m_id}';
+// 	function gohome() {
+// 		let id = '${memberDto.m_id}';
 
-		if (id == '') { //로그인 전
-			location.href = "/";
-		} else { //로그인 후
-			location.href = "/board/list?pageNum=1";
-		}
-	}
+// 		if (id == '') { //로그인 전
+// 			location.href = "/";
+// 		} else { //로그인 후
+// 			location.href = "/board/list?pageNum=1";
+// 		}
+// 	}
 </script>
 <style>
 /*

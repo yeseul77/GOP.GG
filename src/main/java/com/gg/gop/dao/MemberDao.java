@@ -1,17 +1,21 @@
 package com.gg.gop.dao;
 
+import java.util.HashMap;
+
 import org.apache.ibatis.annotations.Mapper;
 import com.gg.gop.dto.MemberDto;
 
 @Mapper
 public interface MemberDao {
 
-	// 로그인 (아이디return)
-	MemberDto getMemberId(String m_id);
+
+	
+	//로그인 
+	boolean login(HashMap<String, String> hMap);
 
 	// 회원가입
-	void insertMember(MemberDto memberDto);
-
+	boolean insertMember(MemberDto memberDto);
+	MemberDto getMemberInfo(String string);
 	// 회원정보조회
 	MemberDto getMemberById(String m_id);
 
@@ -22,5 +26,12 @@ public interface MemberDao {
 
 	// 회원탈퇴
 	void deleteMember(String m_id);
+	
+	//회원아이디중복조회
+	boolean isIdDuplicated(String m_id);
+
+	String getSecurityPw(String string);
+
+	
 
 }
