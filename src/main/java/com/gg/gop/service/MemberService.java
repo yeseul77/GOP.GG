@@ -16,7 +16,6 @@ public class MemberService {
 	@Autowired
 	private MemberDao memberDao;
 	
-	
 
 	// 입력받은 id,pw가 다르면 로그인 실패하는 메서드
 	public MemberDto login(HashMap<String, String>memberDto) {
@@ -63,11 +62,14 @@ public class MemberService {
 		memberDao.updatemyInfo(memberDto);
 		
 	}
-	//아이디중복체크
-	   public boolean isIdDuplicated(String m_id) {
-	        return memberDao.isIdDuplicated(m_id);
-	    }
 	
+//아이디 중복체크
+	public String checkid(String m_id) {
+		 if(memberDao.idcheck(m_id)==false) {
+				return "ok"; // 
+			}
+			return "fail";
+		}	
 	}
 
 		

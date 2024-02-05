@@ -11,7 +11,7 @@ public class MainController {
 
 	@GetMapping("/")
 	public String Main(HttpSession session, Model model) {
-		session.removeAttribute("sDto");
+		session.removeAttribute("");
 		return "index";
 		
 		//이전 사용했던 세션들을 끊어줌 어떤거 끊어줘야 될까나~~

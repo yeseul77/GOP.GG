@@ -7,8 +7,6 @@ import com.gg.gop.dto.MemberDto;
 
 @Mapper
 public interface MemberDao {
-
-
 	
 	//로그인 
 	boolean login(HashMap<String, String> hMap);
@@ -28,8 +26,9 @@ public interface MemberDao {
 	void deleteMember(String m_id);
 	
 	//회원아이디중복조회
-	boolean isIdDuplicated(String m_id);
+	boolean idcheck(String m_id);
 
+	
 	String getSecurityPw(String string);
 
 	

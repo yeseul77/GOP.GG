@@ -1,8 +1,6 @@
 package com.gg.gop.controller;
 
 import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,7 +12,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.gg.gop.dto.MemberDto;
 import com.gg.gop.service.MemberService;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class MemberController {
 
@@ -53,16 +53,6 @@ public class MemberController {
 	        return resultMap.get("success") == Boolean.TRUE ? "redirect:/login" : "/register";
 	    }
 	
-	
-		//아이디 중복체크 
-	    @GetMapping("/checkId")
-	    public Map<String, Boolean> checkIdDuplication(@RequestParam String m_id) {
-	        boolean isDuplicated = memberService.isIdDuplicated(m_id);
-	        Map<String, Boolean> result = new HashMap<>();
-	        result.put("isDuplicated", isDuplicated);
-	        return result;
-	    }
-	
 
 	// 로그인====================================================
 	@GetMapping("/login")
@@ -84,7 +74,7 @@ public class MemberController {
 
 	    if (memberDto != null) {
 	        session.setAttribute("member", memberDto);  // 로그인 성공 후 회원정보를 출력하기 위해
-
+	        log.info("ID={}, PW={}");
 	        Object url = session.getAttribute("urlPrior_login");
 	  
 	        if (url != null) {
@@ -137,6 +127,8 @@ public class MemberController {
 
 	// 회원 정보 수정,탈퇴=============================
 
+	
+
 
 	@PostMapping("/mypage")
 	public String changeProfile(MemberDto memberDto, HttpSession session, RedirectAttributes rttr, Model model) {
@@ -151,6 +143,16 @@ public class MemberController {
 		}
 	}
 
+	
+	
+	
+	@GetMapping("/mypage/withdraw")
+	public String withrawCheck(Model model, HttpSession session) {
+		return "member/withdraw";
+		}
+	
+	
+	
 	@PostMapping("/mypage/withdraw") // 탈퇴
 	public String withdraw(@RequestParam String m_id, @RequestParam String m_pw, HttpSession session,
 			RedirectAttributes rttr) {
