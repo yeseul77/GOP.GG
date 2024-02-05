@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
 </body>
 <h1>main 페이지 !</h1>
 </html>
