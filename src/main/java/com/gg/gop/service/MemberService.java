@@ -40,11 +40,16 @@ public class MemberService {
 	}
 
 //회원가입
-	public boolean register(MemberDto memberDto) {
-		BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
-		memberDto.setM_pw(pwEncoder.encode(memberDto.getM_pw()));
-		return	memberDao.insertMember(memberDto);
-	}
+	public void register(MemberDto member) {
+	    member.setRole("USER"); // 기본 권한 설정
+        memberDao.insertMember(member);
+    }
+	
+	
+	
+	
+	
+	
 	//회원탈퇴
 	public Boolean withdraw(String m_id, String m_pw) {
 	    memberDao.deleteMember(m_id);
@@ -69,7 +74,9 @@ public class MemberService {
 				return "ok"; // 
 			}
 			return "fail";
-		}	
+		}
+
+
 	}
 
 		

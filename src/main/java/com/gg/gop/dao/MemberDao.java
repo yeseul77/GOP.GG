@@ -1,6 +1,6 @@
 package com.gg.gop.dao;
 
-import java.util.HashMap;
+
 
 import org.apache.ibatis.annotations.Mapper;
 import com.gg.gop.dto.MemberDto;
@@ -8,12 +8,13 @@ import com.gg.gop.dto.MemberDto;
 @Mapper
 public interface MemberDao {
 	
-	//로그인 
-	boolean login(HashMap<String, String> hMap);
+	//로그인
+	MemberDto getMemberInfo(String string);
 
 	// 회원가입
-	boolean insertMember(MemberDto memberDto);
-	MemberDto getMemberInfo(String string);
+	void insertMember(MemberDto member);
+	
+	
 	// 회원정보조회
 	MemberDto getMemberById(String m_id);
 
@@ -30,6 +31,9 @@ public interface MemberDao {
 
 	
 	String getSecurityPw(String string);
+
+	
+
 
 	
 

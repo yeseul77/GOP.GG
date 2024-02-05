@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.gg.gop.dao.MemberDao;
 import com.gg.gop.dto.MemberDto;
 import com.gg.gop.service.MemberService;
 import jakarta.servlet.http.HttpSession;
@@ -27,31 +29,40 @@ public class MemberController {
 	private MemberService memberService;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private MemberDao memberDao;
 	
 
 	// 회원가입==============================================
 	@GetMapping("/register")
-	public String registreForm(Model model) {
-		System.out.println("회원가입 폼URL");
+	public String registreForm(HttpSession session) {
+		System.out.println("회원가입 폼");
 		return "member/register";
 	}
 
-	@PostMapping("/register")
-	    public String registerCheck(MemberDto member, Model model) {
-	        HashMap<String, Object> resultMap = new HashMap<>();
 
-	        try {
-	            member.setM_pw(passwordEncoder.encode(member.getM_pw()));
-	            resultMap.put("success", true);
-	            resultMap.put("message", "회원가입 성공");
-	        } catch (Exception e) {
-	            resultMap.put("success", false);
-	            resultMap.put("message", "회원가입 실패: " + e.getMessage());
-	        }
-
-	        model.addAllAttributes(resultMap);
-	        return resultMap.get("success") == Boolean.TRUE ? "redirect:/login" : "/register";
+	
+	 @PostMapping("/register")
+	    public String register(MemberDto memberDto) {
+	       
+	        return "redirect:/login"; // 회원가입 후 로그인 페이지로 리다이렉트
 	    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 	// 로그인====================================================
