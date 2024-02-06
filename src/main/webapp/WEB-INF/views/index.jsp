@@ -137,6 +137,7 @@
 </script>
 </head>
 <body>
+<<<<<<< HEAD
 <h1>Summoner Search</h1>
 <form id="searchForm">
     <label for="gameName">gameName:</label>
@@ -170,4 +171,19 @@
 </div>
 
 </body>
+=======
+ <%@include file="/WEB-INF/tiles/header.jsp" %>
+
+
+<h1>INDEX.JSP</h1>
+
+
+
+
+
+ <%@include file="/WEB-INF/tiles/footer.jsp" %>
+
+</body>
+    
+>>>>>>> 5bf9997d194ad8ecf7044b88bfa0659dec6a0a96
 </html>
