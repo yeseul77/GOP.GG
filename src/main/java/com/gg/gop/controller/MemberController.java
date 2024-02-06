@@ -2,12 +2,12 @@ package com.gg.gop.controller;
 
 import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gg.gop.dao.MemberDao;
@@ -16,7 +16,7 @@ import com.gg.gop.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+
 @Controller
 public class MemberController {
 
@@ -27,41 +27,26 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
-    @Autowired
-    private MemberDao memberDao;
-	
-
+ 
+ 
 	// 회원가입==============================================
 	@GetMapping("/register")
 	public String registreForm(HttpSession session) {
 		System.out.println("회원가입 폼");
 		return "member/register";
 	}
-
-
-	
-	 @PostMapping("/register")
-	    public String register(MemberDto memberDto) {
-	       
-	        return "redirect:/login"; // 회원가입 후 로그인 페이지로 리다이렉트
+	@PostMapping("/register")
+	public String register(MemberDto member, RedirectAttributes redirectAttributes) {
+	    if (memberService.register(member)) {
+	        // 회원가입 성공 시 로그인 페이지로 리다이렉트
+	        redirectAttributes.addFlashAttribute("message", "회원가입 성공!");
+	        return "redirect:/login";
+	    } else {
+	        // 회원가입 실패 시 에러 메시지와 함께 회원가입 폼으로 리다이렉트
+	        redirectAttributes.addFlashAttribute("errorMessage", "회원가입 실패. 아이디가 이미 존재하거나 오류가 발생했습니다.");
+	        return "redirect:/member/register";
 	    }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}
 	
 	
 
@@ -85,7 +70,7 @@ public class MemberController {
 
 	    if (memberDto != null) {
 	        session.setAttribute("member", memberDto);  // 로그인 성공 후 회원정보를 출력하기 위해
-	        log.info("ID={}, PW={}");
+	
 	        Object url = session.getAttribute("urlPrior_login");
 	  
 	        if (url != null) {
@@ -95,7 +80,7 @@ public class MemberController {
 	            return "redirect:/";
 	        }
 	    } else {
-	        rttr.addFlashAttribute("msg", "로그인 실패");
+	        rttr.addFlashAttribute("message", "로그인 실패");
 	        return "redirect:/member/login"; 
 	    }
 	}
