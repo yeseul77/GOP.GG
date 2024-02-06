@@ -1,18 +1,19 @@
 package com.gg.gop.dao;
 
-
-
 import org.apache.ibatis.annotations.Mapper;
 import com.gg.gop.dto.MemberDto;
 
 @Mapper
 public interface MemberDao {
 	
-	//로그인
-	MemberDto getMemberInfo(String string);
 
 	// 회원가입
-	void insertMember(MemberDto member);
+	void insertMember(MemberDto memberDto);
+	MemberDto findById(String m_id);
+	
+	//로그인
+	 MemberDto findByLogin(String m_id, String m_pw);
+	
 	
 	
 	// 회원정보조회
@@ -30,7 +31,7 @@ public interface MemberDao {
 	boolean idcheck(String m_id);
 
 	
-	String getSecurityPw(String string);
+
 
 	
 
