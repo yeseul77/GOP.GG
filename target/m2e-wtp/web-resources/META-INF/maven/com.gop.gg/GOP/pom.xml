@@ -100,6 +100,23 @@
 			<artifactId>json-simple</artifactId>
 			<version>1.1.1</version>
 		</dependency>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+				<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+				<dependency>
+					<groupId>com.example</groupId>
+					<artifactId>demo</artifactId>
+					<version>0.0.1-SNAPSHOT</version>
+				</dependency>
+>>>>>>> 5bf9997d194ad8ecf7044b88bfa0659dec6a0a96
+>>>>>>> main
 	</dependencies>
 
 	<build>
