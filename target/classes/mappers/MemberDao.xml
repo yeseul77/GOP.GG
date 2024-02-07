@@ -4,8 +4,8 @@
 <!-- 회원가입 -->
 <insert id="insertMember"
 		parameterType="com.gg.gop.dto.MemberDto">
-		INSERT INTO member_tb (m_id, m_pw, m_name) 
-		VALUES (#{m_id}, #{m_pw},#{m_name})
+		INSERT INTO member_tb (m_id, m_pw, m_name,email,deleteYn) 
+		VALUES (#{m_id}, #{m_pw},#{m_name},#{email},false)
 	</insert>
 
 	<select id="findById" parameterType="String"
@@ -30,13 +30,10 @@
 
 
 	<!-- 회원정보수정 U -->
-	<update id="updateMember"
+	<update id="updateMemberInfo"
 		parameterType="com.gg.gop.dto.MemberDto">
 		UPDATE member_tb
 		SET m_pw = #{m_pw}, m_name = #{m_name}
-		<if test="m_pw != null and m_pw != ''">
-			, m_pw = #{m_pw}
-		</if>
 		WHERE m_id = #{m_id}
 	</update>
 

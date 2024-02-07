@@ -9,26 +9,31 @@ public interface MemberDao {
 
 	// 회원가입
 	void insertMember(MemberDto memberDto);
-	MemberDto findById(String m_id);
+	MemberDto findById(Long id);
 	
 	//로그인
-	 MemberDto findByLogin(String m_id, String m_pw);
+	 MemberDto findByLogin(String id, String m_pw);
 	
-	
-	
-	// 회원정보조회
-	MemberDto getMemberById(String m_id);
 
-	void updatemyInfo(MemberDto memberDto);
-
-	// 내정보 수정
-	void updateMember(MemberDto memberDto);
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 
 	// 회원탈퇴
 	void deleteMember(String m_id);
 	
 	//회원아이디중복조회
 	boolean idcheck(String m_id);
+	Object findById(Long id);
+
 
 	
 

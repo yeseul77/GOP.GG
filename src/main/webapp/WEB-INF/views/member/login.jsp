@@ -10,9 +10,11 @@
 <!-- 헤더 위치 -->
  <%@include file="/WEB-INF/tiles/header.jsp" %>
  <!-- 헤더 위치 -->
-<h3 style="text-align:center;">[ 소환사님 <span style="font-size:30px;">&#128378;</span> ]
-    <span style="color: red"><c:out value="${message}"/></span></h3>
-<p></p>
+<h3 style="text-align:center;">소환사님 
+<span style="font-size:30px;">&#128378;</span> 
+    <span style="color: blue">
+    <c:out value="${message}"/></span></h3>
+
 
 <form action="/login" method="post">
     <fieldset style="text-align:center; width: 500px; margin: auto ">

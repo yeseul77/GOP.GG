@@ -3,13 +3,11 @@ package com.gg.gop.service;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 import com.gg.gop.dao.MemberDao;
 import com.gg.gop.dto.MemberDto;
 
-import lombok.extern.slf4j.Slf4j;
-@Slf4j
+
 @Service
 public class MemberService {
 
@@ -17,11 +15,10 @@ public class MemberService {
 	private MemberDao memberDao;
 	
 
-
 	//회원가입
 	  public boolean register(MemberDto memberDto) {
 	        try {
-	            if (memberDao.findById(memberDto.getM_id()) == null) {
+	            if (memberDao.findById(memberDto.getId()) == null) {
 	            	memberDao.insertMember(memberDto);
 	                return true; // 회원가입 성공
 	            } else {
@@ -33,12 +30,17 @@ public class MemberService {
 	        }
 	    }
 
-//로그인
+	  //로그인
 	  public MemberDto login(HashMap<String, String> loginInfo) {
 	        return memberDao.findByLogin(loginInfo.get("m_id"), loginInfo.get("m_pw"));
 	    
 		}
 
+
+	  
+	  
+	  
+	  
 	  
 	  
 	  
@@ -61,17 +63,6 @@ public class MemberService {
 	    return true;
 	}
 
-	//회원정보 조회
-	public MemberDto getMemberById(String m_id) {
-		 return memberDao.getMemberById(m_id);
-	}
-	
-	// 회원정보수정
-		
-	public void updatemyInfo(MemberDto memberDto) {
-		memberDao.updatemyInfo(memberDto);
-		
-	}
 	
 //아이디 중복체크
 	public String checkid(String m_id) {
@@ -82,10 +73,4 @@ public class MemberService {
 		}
 
 
-
-
 	}
-
-		
-
-

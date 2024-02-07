@@ -1,108 +1,60 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <html>
 <head>
     <title>GOP.GG</title>
     <style>
-        /*
-        * top-bar
-        */
-        .top-bar {
-            background-color: #008000;
-            color: #fff;
-            min-height: 58px;
-            line-height: 58px;
-            border: none;
+        /* 전체 페이지 스타일 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
         }
 
-        .top-left {
-            float: left !important;
-            padding: 0px;
-            margin: 0px;
+        /* 상단 네비게이션 스타일 */
+        .topnav {
+            background-color: #333;
+            overflow: hidden;
         }
 
-        .logo {
-            margin-top: 4px;
-            margin-right: 5px;
-            width: 50px;
-            border-radius: 10px;
-        }
-
-        .top-right {
-            float: right !important;
-        }
-
-        .top-right ul {
-            list-style: none;
-            padding: 0px;
-            margin: 0px;
-        }
-
-        .top-right ul li {
+        .topnav a {
             float: left;
-            padding-left: 20px;
-        }
-
-        .top-right ul li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
             text-decoration: none;
         }
 
-        .top-right ul li a:link {
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* 로그인/로그아웃 정보 스타일 */
+        .user-info {
+            float: right;
             color: white;
-        }
-
-        .top-right ul li a:visited {
-            color: #fff;
-        }
-
-        .top-right ul li a:hover {
-            color: #ffa07a;
-        }
-
-        .suc {
-            display: none;
-        }
-
-        .bef {
-            display: block;
+            padding: 14px 16px;
         }
     </style>
 </head>
 <body>
-<div class="top-bar">
-    <div class="content">
-
-        <h2 class="top-left top-home">GOP.GG</h2>
-        <nav class="top-right">
-            <c:if test="${empty m_id}">
-                <ul>
-                    <li class="suc" id="m_name">소환사님</li>
-                    <li class="suc">
-                        <form action="/member/logout" method="post">
-                            <button>로그아웃</button>
-                        </form>
-                    </li>
-                    <li class="bef"><a href="/login">로그인</a></li>
-                    <li class="bef"><a href="/register">회원가입</a></li>
-                    <li class="bef"><a href="/mypage">마이페이지</a></li>
-                </ul>
-            </c:if>
-            <c:if test="${!empty m_id}">
-                <ul>
-                    <li class="suc" id="m_name">소환사님</li>
-                    <li class="suc">
-                        <form action="/member/logout" method="post">
-                            <button>로그아웃</button>
-                        </form>
-                    </li>
-                    <li class="bef"><a href="/logout">로그아웃</a></li>
-                    <li class="bef"><a href="/mypage">마이페이지</a></li>
-                </ul>
-            </c:if>
-        </nav>
+    <div class="topnav">
+        <a href="/index">Home</a>
+        <a href="/board">BOARD</a>
+        <a href="/mypage">MY PAGE</a>
+        <% if (session.getAttribute("m_id") == null) { %>
+            <!-- 로그인하지 않은 사용자에게 보이는 부분 -->
+            <a href="/login">LOGIN</a>
+            <a href="/register">REGISTER</a>
+        <% } else { %>
+            <!-- 로그인한 사용자에게만 보이는 부분 -->
+            <div class="user-info">
+                접속자정보 : <%= session.getAttribute("m_name") %> 
+                <a href="/mypage">MY PAGE</a> <!-- 마이페이지 링크 추가 -->
+                <a href="/logout">LOGOUT</a>
+            </div>
+        <% } %>
     </div>
-</div>
-
 </body>
 </html>

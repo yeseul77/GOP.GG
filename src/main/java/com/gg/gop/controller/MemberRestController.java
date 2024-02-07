@@ -7,7 +7,6 @@ import com.gg.gop.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@Slf4j
 public class MemberRestController {
 	@Autowired
 	private MemberService memberService;

@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
+<!-- 헤더 위치 -->
+ <%@include file="/WEB-INF/tiles/header.jsp" %>
+ <!--헤더 위치 -->
     <title>Summoner Search</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
@@ -137,7 +141,7 @@
 </script>
 </head>
 <body>
-<<<<<<< HEAD
+
 <h1>Summoner Search</h1>
 <form id="searchForm">
     <label for="gameName">gameName:</label>
@@ -170,20 +174,12 @@
     </table>
 </div>
 
-</body>
-=======
- <%@include file="/WEB-INF/tiles/header.jsp" %>
-
-
-<h1>INDEX.JSP</h1>
 
 
 
-
-
+<!-- 푸터 위치 -->
  <%@include file="/WEB-INF/tiles/footer.jsp" %>
-
+ <!-- 푸터 위치 -->
 </body>
-    
->>>>>>> 5bf9997d194ad8ecf7044b88bfa0659dec6a0a96
+
 </html>

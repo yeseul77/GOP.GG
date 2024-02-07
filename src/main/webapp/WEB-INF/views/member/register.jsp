@@ -22,6 +22,9 @@
 <tr>
     <td><input type="text" name="m_name" id="m_name" placeholder="닉네임"><br></td>
 </tr>
+<tr>
+    <td><input type="text" name="email" id="email" placeholder="이메일을입력해주세요"><br></td>
+</tr>
 </table>
 <button type="submit">회원가입</button>
 </form>
