@@ -22,16 +22,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ChatRoomController {
 	private final ChatService chatService;
-	@GetMapping("/duo_matching/chatList")
+	@GetMapping("/chat/chatList")
 	public String chatList(Model model, HttpSession session) {
-		String username=session.getAttribute("member2").toString();
+//		String username=session.getAttribute("member2").toString();
 //		List<ChatRoom> roomList=chatService.findAllRoom();
 		List<ChatDto> roomList=new ArrayList<ChatDto>();
 		roomList=chatService.roomlist();
 //		log.info(""+roomList.size());
 //		log.info(roomList.get(roomList.size()-1).getTitle());
 //		model.addAttribute("roomList",roomList);
-		model.addAttribute("username",username);
+//		model.addAttribute("username",username);
 		return"chatting/chatList";
 	}
 	
