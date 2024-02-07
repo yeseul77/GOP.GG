@@ -1,13 +1,13 @@
-
-
+let username
 let socket = new WebSocket("ws://192.168.0.153:80/ws/chat");
 
-
-//let username=document.getElementById('username').value
+$(document).ready(function(){
+	username=document.getElementById('username').value
+})
 
 function enterRoom(socket) {
-//	var enterMsg = { "type": "ENTER", /*"roomId": JSON.stringify(chatroomId),*/ "sender": JSON.stringify(username), "msg": "" };
-//	socket.send(JSON.stringify(enterMsg));
+	var enterMsg = { "type": "ENTER", /*"roomId": JSON.stringify(chatroomId),*/ "sender": JSON.stringify(username), "msg": "" };
+	socket.send(JSON.stringify(enterMsg));
 }
 
 

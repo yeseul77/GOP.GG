@@ -30,7 +30,7 @@ public class ChatRoomController {
 		roomList=chatService.roomlist();
 //		log.info(""+roomList.size());
 //		log.info(roomList.get(roomList.size()-1).getTitle());
-		model.addAttribute("roomList",roomList);
+//		model.addAttribute("roomList",roomList);
 		model.addAttribute("username",username);
 		return"chatting/chatList";
 	}
@@ -57,6 +57,10 @@ public class ChatRoomController {
 		model.addAttribute("username", username);
 		model.addAttribute("chatroomId",chatroomId);
 		return "chatting/chatroom"; 	
+	}
+	@GetMapping("/chatlist")
+	public String gochatlist() {
+		return "chat/chatlist";
 	}
 	
 }

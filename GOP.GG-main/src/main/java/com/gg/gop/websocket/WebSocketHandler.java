@@ -18,7 +18,7 @@ import com.gg.gop.dto.ChatMessage;
 import com.gg.gop.service.ChatService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,19 +31,22 @@ public class WebSocketHandler extends TextWebSocketHandler{
 	private final ChatService cSer;
 	
 	private final Set<WebSocketSession> sessions = ConcurrentHashMap.newKeySet();
-	
+	private final HttpSession session2;
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {}
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		String payload=message.getPayload();
+
 		ChatMessage chatMessage=objectMapper.readValue(payload, ChatMessage.class);
 //		ChatRoom room=cSer.findRoomById(chatMessage.getRoomId());
 //		Set<WebSocketSession> sessions=room.getSessions();
 		log.info("handler");
 		if(chatMessage.getType().equals(ChatMessage.MessageType.ENTER)) {
-			sessions.add(session/*=username*/);
+			sessions.add(session);
+			String username=session2.getAttribute("member1").toString();
+			log.info("==={}",username);
 			log.info(session.toString());
 			chatMessage.setMessage(chatMessage.getSender()+"입장");
 			sendToEachSocket(sessions, new TextMessage(objectMapper.writeValueAsString(chatMessage)));
