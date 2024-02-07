@@ -5,6 +5,27 @@
 <head>
     <title>Summoner Search</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+fetch('/summonerSaveData', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data2)
+})
+.then(response => {
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    return response.json();
+})
+.then(data => {
+    console.log('Response:', data);
+})
+.catch(error => {
+    console.error('Error:', error);
+});
+</script>
     <script>
     $(document).ready(function () {
         var gameName;
@@ -46,6 +67,7 @@
 	            var infodata = [];
             	for (var k = 0; k < data[i].info.teams.length; k++) {
             		var tt = {
+            			matchId: data[i].metadata.matchId,
             			teamchampionkills: data[i].info.teams[k].objectives.champion.kills,
                     	teamwin: data[i].info.teams[k].win
             		}
@@ -79,11 +101,11 @@
                 gamedata.push(dataList);
             }
             console.log(gamedata);
-            let temp = JSON.stringify(gamedata);
-			data2 = { 'gamedataList': temp };
+			let data2 = JSON.stringify(gamedata);
+			console.log("Sending data:", data2);
             $.ajax({
-                type: "POST",
-                url: "summonerSaveData",
+                type: "GET",
+                url: "/summonerSaveData",
                 data: data2,
                 success: function (res) {
                     console.log(res);
@@ -179,7 +201,7 @@
             console.error("Error occurred during AJAX request:", textStatus, errorThrown);
             alert("Error occurred during AJAX request. See the console for details.");
         }
-
+        
 
         $(document).on("click", ".btn_toggle", function () {
             var currentIndex = $(this).data('index');

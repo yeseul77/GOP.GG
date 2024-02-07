@@ -9,8 +9,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.gg.gop.dao.SummonerDao;
 
 @Service
@@ -41,35 +41,15 @@ public class SummonerService {
 		return gameInfoList;
 	}
 
-	@Transactional
-	public int saveGamedata(List<Map> map1) { // 최근전적 정보 db에 저장하기
-		int data = 0;
-		for (Map gamedata : map1) {
-			try {
-				if (!isDuplicateKey(gamedata)) {
-					data += sDao.saveGamedata(gamedata);
-				}
-			} catch (DuplicateKeyException e) {
-				System.out.println(e.getMessage());
-				// 중복된 키 예외에 대한 추가적인 처리를 수행할 수 있습니다.
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		System.out.println("Data saved to DB: " + data);
-		return data;
-	}
-
-	public List<Map> saveAndRetrieveGamedata(List<Map> mapList) {
+	public List<Map> saveAndRetrieveGamedata(List<Map> mapList) throws JsonProcessingException {
 		List<Map> savedDataList = new ArrayList<>();
 		boolean hasDuplicateKey = false;
 
 		for (Map gamedata : mapList) {
 			try {
-				if (!isDuplicateKey(gamedata)) {
+				if (!hasDuplicateKey(gamedata)) {
 					// 중복된 키가 없으면 데이터를 저장
-					int savedCount = sDao.saveGamedata(gamedata);
-					System.out.println("Saved count: " + savedCount);
+					sDao.saveinfodata(gamedata);
 
 					// 저장된 데이터를 가져와서 리스트에 추가
 					Map savedData = sDao.getGameDataFromDB(gamedata);
@@ -99,7 +79,7 @@ public class SummonerService {
 		return savedDataList;
 	}
 
-	public List<Map> getGameInfoFromDB(String riotIdGameName, String riotIdTagline) {
+	public List<Map> getGameInfoFromDB(String riotIdGameName, String riotIdTagline)throws JsonProcessingException {
 		try {
 			Map<String, String> paramMap = new HashMap<>();
 			paramMap.put("riotIdGameName", riotIdGameName);
@@ -111,7 +91,7 @@ public class SummonerService {
 		}
 	}
 
-	private boolean isDuplicateKey(Map gamedata) throws DuplicateKeyException {
+	private boolean hasDuplicateKey(Map<String, Object> gamedata) throws DuplicateKeyException {
 		String matchId = (String) gamedata.get("matchId");
 		String riotIdGameName = (String) gamedata.get("riotIdGameName");
 		int count = sDao.checkDuplicateKey(matchId, riotIdGameName);
@@ -119,10 +99,10 @@ public class SummonerService {
 			throw new DuplicateKeyException(
 					"Duplicate key found for matchId: " + matchId + " and riotIdGameName: " + riotIdGameName);
 		}
-		return false; // 중복 키가 발견되지 않았을 때만 false를 반환해야 합니다.
+		return count > 0; // 중복 키가 발견되었는지 여부를 반환
 	}
 
-	private List<Map> retrieveAllDataFromDB() {
+	private List<Map> retrieveAllDataFromDB()throws JsonProcessingException {
 		// 모든 데이터를 DB에서 가져와서 반환하는 메소드
 		try {
 			return sDao.retrieveAllDataFromDB();
@@ -132,4 +112,25 @@ public class SummonerService {
 		}
 	}
 
+	public int saveinfodata(Map<String, Object> info) {
+		int data = 0;
+	    String matchId = (String) info.get("matchId");
+	    if (matchId != null) {
+	    	 data = sDao.saveinfodata(info);
+	    } else {
+	        System.out.println("matchId is null. Cannot insert data.");
+	    }
+	    return data;
+	}
+
+	public int saveteamsdata(Map<String, Object> teams) {
+	    int data = 0;
+	    String matchId = (String) teams.get("matchId");
+	    if (matchId != null) {
+	        data = sDao.saveteamsdata(teams); // DAO 메소드 호출 결과를 저장
+	    } else {
+	        System.out.println("matchId is null. Cannot insert data.");
+	    }
+	    return data; // DAO 메소드 호출 결과 반환
+	}
 }
