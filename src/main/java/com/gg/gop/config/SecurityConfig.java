@@ -11,12 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
-
-//환경설정 클래스를 정의하면 시큐리티 로그인창이 안나타남
 @EnableWebSecurity // 시큐리티6 활성화 및 웹보안설정 부트3.0이상에서 생략가능
 @Configuration
-//메소드 레벨의 보안을 구성하고 @PreAuthorize, @PostAuthorize, @Secured 등의
-//어노테이션을 사용하여 메소드에 대한 접근 제어를 지원
 @EnableMethodSecurity(prePostEnabled = true, securedEnabled = true)
 
 //환경설정 클래스 정의하면 시큐리티 로그인창 안뜸
@@ -27,23 +23,31 @@ public class SecurityConfig{
 	 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		//csrf,cors 보안
-		//http.csrf().disable().cors().disable(); //부트 2.X 버전 방식
-		http.csrf(csrf -> csrf.disable());
-		//http.cors(cors -> cors.disable());
+	     
+		http.csrf(csrf -> csrf.disable());//csrf를 비활성화
 		http.formLogin(form -> form.loginPage("/member/login").loginProcessingUrl("/member/login")
 				.defaultSuccessUrl("/").failureUrl("/member/login/error")
-				//.usernameParameter("id") //기본값은 username
-				// .passwordParameter("pw") //기본값은 password
-				// .successHandler((authenticationSuccessHandler())
-				//.failureHandler(authenticationFailureHandler)
-				//.permitAll() //생략하는 이유: 모든 사용자의 접근을 허용 하지만
-				//authorizeHttpRequests("허용할 url...")를 정의해야됨
+			
 		);
 		http.logout(logout -> logout.logoutUrl("/member/logout").logoutSuccessUrl("/"));
 		http.exceptionHandling(handler -> handler.accessDeniedHandler(accessDeniedHandler));
 		return http.build();		
 	}
+	
+	
+	
+//	폼 기반 로그인을 활성화하고, 사용자 정의 로그인 페이지의 경로를 /member/login으로 설정합니다.
+//	로그인 처리 URL도 /member/login으로 설정하며, 로그인 성공 시 사용자를 루트 URL(/)로 리다이렉션하고, 실패 시 /member/login/error로 리다이렉션합니다.
+//
+//	http.logout(logout -> logout.logoutUrl("/member/logout").logoutSuccessUrl("/"));: 로그아웃 기능을 활성화하고,
+//	로그아웃 처리 URL을 /member/logout으로 설정합니다. 로그아웃 성공 시 사용자를 루트 URL(/)로 리다이렉션합니다.
+//
+//	http.exceptionHandling(handler -> handler.accessDeniedHandler(accessDeniedHandler));:
+//	접근 거부(권한이 없는 리소스에 접근하려고 할 때) 발생 시 사용할 AccessDeniedHandler를 구성합니다. 이 핸들러는 사용자 정의 예외 처리 로직을 수행할 수 있도록 해줍니다.
+//
+//	return http.build();:
+	//설정된 HttpSecurity 객체를 기반으로 SecurityFilterChain을 빌드하고 반환합
+	
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

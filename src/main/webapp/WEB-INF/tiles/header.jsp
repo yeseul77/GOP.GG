@@ -42,16 +42,15 @@
     <div class="topnav">
         <a href="/index">Home</a>
         <a href="/board">BOARD</a>
-        <a href="/mypage">MY PAGE</a>
-        <% if (session.getAttribute("m_id") == null) { %>
-            <!-- 로그인하지 않은 사용자에게 보이는 부분 -->
+        <% if (session.getAttribute("email") == null) { %>
             <a href="/login">LOGIN</a>
             <a href="/register">REGISTER</a>
+            <a href="/register">MY PAGE</a>
         <% } else { %>
             <!-- 로그인한 사용자에게만 보이는 부분 -->
+            <a href="/mypage">MY PAGE</a>
             <div class="user-info">
-                접속자정보 : <%= session.getAttribute("m_name") %> 
-                <a href="/mypage">MY PAGE</a> <!-- 마이페이지 링크 추가 -->
+                접속자정보 : ${username} 
                 <a href="/logout">LOGOUT</a>
             </div>
         <% } %>
