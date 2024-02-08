@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,10 +36,8 @@
                     <select id="deactivateReason" name="deactivateReason">
                         <option value="">-- 선택하세요 --</option>
                   
-                        <option value="hard">송태민때문에</option>
-                        <option value="hard">송태민때문에</option>
-                        <option value="hard">송태민때문에</option>
-                        <option value="hard">송태민때문에</option>
+                        <option value="hard">그냥 </option>
+                 
                    
                         <option value="other">기타</option>
                     </select>
