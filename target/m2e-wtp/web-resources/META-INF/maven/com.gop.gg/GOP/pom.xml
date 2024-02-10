@@ -19,12 +19,6 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-				<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		
-		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -96,12 +90,18 @@
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+			<version>2.7.14</version>
+		</dependency>
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
 			<version>1.1.1</version>
 		</dependency>
+<<<<<<< HEAD
+=======
 <<<<<<< HEAD
 =======
 				<dependency>
@@ -116,6 +116,7 @@
 					<version>0.0.1-SNAPSHOT</version>
 				</dependency>
 >>>>>>> 5bf9997d194ad8ecf7044b88bfa0659dec6a0a96
+>>>>>>> main
 	</dependencies>
 
 	<build>
@@ -128,6 +129,7 @@
 						<exclude>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
+							<version>1.18.20</version> 
 						</exclude>
 					</excludes>
 				</configuration>

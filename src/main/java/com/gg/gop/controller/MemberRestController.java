@@ -15,7 +15,6 @@ public class MemberRestController {
 	//아이디 중복체크 
     @GetMapping("/checkId")
     public String CheckId(String m_id) {
-		log.info("m_id", m_id);
 		String res=memberService.checkid(m_id);
 		return res;
     }
