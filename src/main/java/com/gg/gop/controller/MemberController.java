@@ -63,8 +63,15 @@ public class MemberController {
 
 	    // 사용자가 존재하는지 확인
 	    MemberDto memberDto = memberService.login(member);
-	    if (memberDto != null) {
-	        // 로그인 성공
+	    if (memberDto.getEmail()==null ||
+	    		memberDto.getPassword() .equals("")){
+	    rttr.addFlashAttribute("msgType", "실패메세지");
+	    rttr.addFlashAttribute("message", "모든  항목을 입력해 주세요");
+	return "redirect:/register";
+	    }
+	    if (memberDto != null) {   // 로그인 성공
+	    	   rttr.addFlashAttribute("msgType", "성공^^");
+	   	    rttr.addFlashAttribute("message", "로그인에 성공@");
 	        session.setAttribute("email", memberDto.getEmail()); // 사용자 이메일을 세션에 저장
 	        session.setAttribute("Loginstate", true); // 로그인 상태를 세션에 저장 
 	        System.out.println("email: " + session.getAttribute("email"));
@@ -72,17 +79,19 @@ public class MemberController {
 	        return "redirect:/";
 	    } else {
 	        // 로그인 실패
-	        rttr.addFlashAttribute("message", "로그인 실패");
+	    	  rttr.addFlashAttribute("msgType", "실패메세지");
+	  	    rttr.addFlashAttribute("message", "다시 로그인 해주세요");
 	        return "redirect:/login";
 	    }
 	}
 
 
+
 	// 로그아웃===========================================
 	@PostMapping("/logout")
 	public String logout(HttpSession session, RedirectAttributes rttr) {
-		session.invalidate();
-		rttr.addFlashAttribute("message", "로그아웃되었습니다.");
+		session.invalidate(); //세션message무효화처리 
+		rttr.addFlashAttribute("", "로그아웃되었습니다.");
 		return "redirect:/";
 
 	}
