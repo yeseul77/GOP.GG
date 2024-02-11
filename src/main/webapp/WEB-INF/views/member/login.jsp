@@ -25,7 +25,7 @@
             <div style="height: 40px">
                 <label>ID &nbsp; : </label>
                 <input type="text" name="email" placeholder="아이디를 입력해 주세요.">
-            </div>ㅁ
+            </div>
             <div>
                 <label>PW : </label>
                 <input type="password" name="password" placeholder="비밀번호를 입력해 주세요.">

@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.gg.gop.dto.MemberDto;
@@ -98,13 +99,13 @@ public class MemberController {
 	
 
 	//=================================================================
-	@GetMapping("/mypage")
+	@GetMapping("/member/mypage")
 	public String mypageFomr(HttpSession session) {
 		return "/member/mypage";
 	}
 	
 	
-	@PostMapping("/mypage")
+	@PostMapping("/member/mypage")
 	public String updateMemberInfo(@ModelAttribute MemberDto memberDto,
 	                               HttpSession session,
 	                               RedirectAttributes rttr) {
@@ -132,6 +133,22 @@ public class MemberController {
 	    }
 	    return "redirect:/mypage";
 	}
+	
+	
+	//회원 프로필 사진등록
+	@GetMapping("/member/Imageform")
+	public String UserImageForm() {
+		return "member/Imageform";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// 조회후 > 수정 MemberDto member = memberService.getMemberById(m_id);
 	// 회원 정보 조회=======================================
