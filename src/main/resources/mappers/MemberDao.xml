@@ -41,5 +41,7 @@
 		SET delete_Yn=1
 		WHERE email=#{email}
 	</delete>
-
+	
+	
 </mapper>
+

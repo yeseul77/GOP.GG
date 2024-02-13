@@ -1,4 +1,4 @@
-package com.gg.gop.controller;
+ package com.gg.gop.controller;
 
 import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,36 +62,28 @@ public class MemberController {
 	    member.put("email", email);
 	    member.put("password", password);
 
-	    // 사용자가 존재하는지 확인
-	    MemberDto memberDto = memberService.login(member);
-	    if (memberDto.getEmail()==null ||
-	    		memberDto.getPassword() .equals("")){
-	    rttr.addFlashAttribute("msgType", "실패메세지");
-	    rttr.addFlashAttribute("message", "모든  항목을 입력해 주세요");
-	return "redirect:/register";
-	    }
-	    if (memberDto != null) {   // 로그인 성공
-	    	   rttr.addFlashAttribute("msgType", "성공^^");
-	   	    rttr.addFlashAttribute("message", "로그인에 성공@");
+	    try {
+	        MemberDto memberDto = memberService.login(member);
+	        rttr.addFlashAttribute("msgType", "성공^^");
+	        rttr.addFlashAttribute("message", "로그인에 성공@");
 	        session.setAttribute("email", memberDto.getEmail()); // 사용자 이메일을 세션에 저장
-	        session.setAttribute("Loginstate", true); // 로그인 상태를 세션에 저장 
-	        System.out.println("email: " + session.getAttribute("email"));
-	        System.out.println("Loginstate:" + session.getAttribute("Loginstate")); 
+	        session.setAttribute("Loginstate", true); // 로그인 상태를 세션에 저장
+	        session.setAttribute("username", memberDto.getUsername()); 
+
 	        return "redirect:/";
-	    } else {
+	    } catch (Exception e) {
 	        // 로그인 실패
-	    	  rttr.addFlashAttribute("msgType", "실패메세지");
-	  	    rttr.addFlashAttribute("message", "다시 로그인 해주세요");
+	        rttr.addFlashAttribute("msgType", "실패메세지");
+	        rttr.addFlashAttribute("message", "다시 로그인 해주세요");
 	        return "redirect:/login";
 	    }
 	}
 
 
-
 	// 로그아웃===========================================
 	@PostMapping("/logout")
 	public String logout(HttpSession session, RedirectAttributes rttr) {
-		session.invalidate(); //세션message무효화처리 
+		session.invalidate(); //세션무효화처리 
 		rttr.addFlashAttribute("", "로그아웃되었습니다.");
 		return "redirect:/";
 
@@ -136,43 +128,26 @@ public class MemberController {
 	
 	
 	//회원 프로필 사진등록
-	@GetMapping("/member/Imageform")
+	@RequestMapping("/member/imageform")
 	public String UserImageForm() {
-		return "member/Imageform";
+		return "member/imageform";
 	}
 	
 	
 	
 	
+	//회원 사진 업로드(DB저장+업로드)
+	@RequestMapping("/member/imageupdate")
+	public String memberUpdate() {
+		//파일 업로드 API
+		return "";
+	}
 	
 	
+
 	
 	
-	
-	
-	// 조회후 > 수정 MemberDto member = memberService.getMemberById(m_id);
-	// 회원 정보 조회=======================================
-//	@GetMapping("/mypage")
-//	public String serchProfile(Model model, HttpSession session) {
-//		String m_id = (String) session.getAttribute("m_id");
-//
-//		if (m_id != null) {
-//			MemberDto memberDto = memberService.getMemberById(m_id);
-//
-//			if (memberDto != null) {
-//				model.addAttribute("memberDto", memberDto);
-//				return "member/mypage";
-//			} else {
-//				// 회원 정보가 없을 경우 예외 처리
-//				model.addAttribute("error", "회원 정보를 찾을 수 없습니다.");
-//				return "redirect:/";
-//			}
-//		} else {
-//			// 로그인 되어 있지 않을 경우 로그인 페이지로 이동
-//			return "redirect:/login";
-//		}
-//	}
-//
+
 //	// 회원 정보 수정,탈퇴===============================================
 //
 //	@PostMapping("/mypage")
@@ -188,28 +163,29 @@ public class MemberController {
 //		}
 //	}
 //
-
-	@GetMapping("/mypage/withdraw")
-	public String withrawCheck(Model model, HttpSession session) {
-		return "member/withdraw";
-		}
+	   // 회원 탈퇴 확인 페이지 요청
+    @GetMapping("/mypage/withdraw")
+    public String withdrawCheck(Model model, HttpSession session) {
+        // 회원 탈퇴 확인 페이지를 보여줍니다.
+        return "member/withdraw";
+    }
 	
 	
-	
-	@PostMapping("/mypage/withdraw") // 탈퇴
-	public String withdraw(@RequestParam String m_id, @RequestParam String m_pw, HttpSession session,
-			RedirectAttributes rttr) {
+	// 회원 탈퇴 처리 요청
+    @PostMapping("/mypage/withdraw")
+    public String withdraw(@RequestParam String email, @RequestParam String password, HttpSession session, RedirectAttributes rttr) {
+        // 회원 탈퇴 처리를 수행합니다.
+        Boolean result = memberService.withdraw(password, password);
 
-		Boolean result = memberService.withdraw(m_id, m_pw);
-
-		if (result) {
-			session.invalidate();
-			rttr.addFlashAttribute("message", "회원 탈퇴가 성공적으로 이루어졌습니다.");
-			return "redirect:/";
-		} else {
-			rttr.addFlashAttribute("message", "회원 탈퇴에 실패했습니다. 아이디와 비밀번호를 다시 확인해주세요.");
-			return "redirect:/mypage";
-		}
-	}
-
+        if (result) {
+            // 탈퇴 처리 성공
+            session.invalidate(); // 세션 무효화
+            rttr.addFlashAttribute("message", "회원 탈퇴가 성공적으로 이루어졌습니다.");
+            return "redirect:/"; // 홈페이지로 리다이렉트
+        } else {
+            // 탈퇴 처리 실패
+            rttr.addFlashAttribute("message", "회원 탈퇴에 실패했습니다. 아이디와 비밀번호를 다시 확인해주세요.");
+            return "redirect:/mypage"; // 마이페이지로 리다이렉트
+        }
+    }
 }
