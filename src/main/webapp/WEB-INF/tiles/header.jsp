@@ -1,5 +1,7 @@
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 <head>
+<meta charset="UTF-8">
     <title>GOP.GG</title>
     <style>
         /* 전체 페이지 스타일 */
@@ -39,24 +41,7 @@
     </style>
 </head>
 <body>
-    <div class="topnav">
-        <a href="/index">Home</a>
-        <a href="/board">BOARD</a>
-        <% if (session.getAttribute("email") == null) { %>
-            <a href="/login">LOGIN</a>
-            <a href="/register">REGISTER</a>
-            <a href="/register">MY PAGE</a>
-        <% } else { %>
-            <!-- 로그인한 사용자에게만 보이는 부분 -->
-            <a href="/mypage">MY PAGE</a>
-            <div class="user-info">
-                접속자정보 : ${username} 
-                <a href="/logout">LOGOUT</a>
-            </div>
-            <a href="/chat/chatList">Matching</a>
-        <% } %>
-    </div>
-    
+<nav>
     <div id="myNavbar">
       <ul>
         <li class="active"><a href="${contextPath}/">Home</a></li>
@@ -78,5 +63,6 @@
         </ul>
       </c:if>
     </div>
-  </div>
 </nav>
+</body>
+</html>

@@ -27,12 +27,16 @@ socket.onerror = function(e) {
 }
 
 socket.onmessage = function(e) {
-	console.log("e.data", e.data);
-	console.log(e.data.sender);
+	let data=e.data;
+	var msg=JSON.parse(data);
+	console.log("e.data",data);
+//	console.log(e.data[10]);
+	console.log(msg.sender);
 	let msgArea = document.querySelector('.msgArea');
 	let newMsg = document.createElement('div');
-	newMsg.innerText = e.data.sender;
-	newMsg.innerText += e.data.msg;
+	newMsg.innerText = msg.sender;
+	newMsg.innerText += ":";
+	newMsg.innerText+=msg.msg;
 	console.log(newMsg)
 	msgArea.append(newMsg);
 }

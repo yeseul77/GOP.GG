@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ChatRoomController {
 	private final ChatService chatService;
-	@PreAuthorize("isAuthenticated()")
+//	@PreAuthorize("isAuthenticated()")
 //	@Secured("ROLE_ADMIN")
 	@GetMapping("/chat/chatList")
 	public String chatList(Model model, HttpSession session) {

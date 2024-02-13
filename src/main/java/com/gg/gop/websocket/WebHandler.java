@@ -30,6 +30,7 @@ public class WebHandler extends TextWebSocketHandler{
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		String payload=message.getPayload();
+		log.info(message.getClass().getName());
 		ChatMessage chatMessage=objectMapper.readValue(payload, ChatMessage.class);
 		log.info("handler");
 		if(chatMessage.getType().equals(ChatMessage.MessageType.ENTER)) {
@@ -41,16 +42,17 @@ public class WebHandler extends TextWebSocketHandler{
 			chatMessage.setMessage(chatMessage.getSender()+"퇴장");
 			sendToEachSocket(sessions,new TextMessage(objectMapper.writeValueAsString(chatMessage)));
 		}else {
-			log.info("pay: {}", payload);
+			log.info("pay: {}", message);
+			log.info("{}",payload);
 			sendToEachSocket(sessions, message);
 		}
 	}
 	private void sendToEachSocket(List<WebSocketSession> sessions, TextMessage message) throws Exception{
 		String payload=message.getPayload();
 		ChatMessage chatMessage=objectMapper.readValue(payload, ChatMessage.class);
-		String chatId=chatMessage.getRoomId();
-		ModelAndView modelAndView = new ModelAndView();
-		ModelAndView chatroomId=modelAndView.addObject("chatroomId");
+//		String chatId=chatMessage.getRoomId();
+//		ModelAndView modelAndView = new ModelAndView();
+//		ModelAndView chatroomId=modelAndView.addObject("chatroomId");
 //		log.info(chatroomId.toString());
 		sessions.parallelStream().forEach(roomSession->{
 //			if(chatId.equals(messageId)) {
