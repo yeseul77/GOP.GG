@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gg.gop.dao.SummonerDao">
+
+	<insert id="saveGamedata">
+		INSERT INTO gameinfo2 VALUES(#{matchId}, #{gameDuration}, #{queueId},
+		#{riotIdGameName}, #{riotIdTagline});
+		<!-- 나머지 필드들도 추가 -->
+	</insert>
+	<select id="getGameInfoFromDB" resultType="map">
+		select * from
+		gameinfo2 where riotIdGameName = #{riotIdGameName} and
+		riotIdTagline =
+		#{riotIdTagline};
+	</select>
+	<select id="checkDuplicateKey" resultType="int">
+		SELECT COUNT(*) FROM
+		gameinfo2 WHERE matchId = #{matchId} AND riotIdGameName
+		=
+		#{riotIdGameName};
+	</select>
+	<select id="getGameDataFromDB" resultType="map"
+		parameterType="map">
+		SELECT * FROM gameinfo2
+		WHERE matchId = #{matchId} AND
+		riotIdGameName = #{riotIdGameName};
+	</select>
+
+	<select id="retrieveAllDataFromDB" resultType="map">
+		SELECT * FROM gameinfo2;
+	</select>
+</mapper>
