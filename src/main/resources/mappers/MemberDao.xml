@@ -5,14 +5,14 @@
 	<insert id="insertMember"
 		parameterType="com.gg.gop.dto.MemberDto">
 		INSERT INTO member_tb
-		(email,username,password,role,deleteYn)
+		(email,username,m_pw,role)
 		VALUES
-		(#{email},#{username},#{password},#{role},false)
+		(#{email},#{username},#{password},#{role})
 	</insert>
 	<!-- 로그인 -->
 	<select id="login" parameterType="HashMap" resultType="boolean">
 		select
-		count(*) from member_tb where email=#{email} and password=#{password}
+		count(*) from member_tb where email=#{email} and m_pw=#{password}
 	</select>
 
 	<select id="getSecurityPw" parameterType="String"
@@ -22,23 +22,21 @@
 	</select>
 
 	<select id="getMemberInfo" resultType="MemberDto">
-		select email,password,username
+		select email,m_pw,username
 		from member_tb
 		where email=#{email};
 	</select>
-
-
 	<!-- 회원정보수정 U -->
 	<update id="updateMemberInfo" parameterType="MemberDto">
 		UPDATE member_tb
-		SETpassword=#{password}, username = #{username}
+		SET m_pw=#{password}, username = #{username}
 		WHERE email = #{email}
 	</update>
 
 	<!-- 탈퇴 D 가입된회원은 0 , 탈퇴면 1로 변경 -->
 	<delete id="deleteMember">
 		UPDATE member_tb
-		SET delete_Yn=1
+		SET status=1
 		WHERE email=#{email}
 	</delete>
 

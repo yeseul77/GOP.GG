@@ -25,12 +25,19 @@ public class SecurityConfig{
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 	     
 		http.csrf(csrf -> csrf.disable());//csrf를 비활성화
-		http.formLogin(form -> form.loginPage("/member/login").loginProcessingUrl("/member/login")
-				.defaultSuccessUrl("/").failureUrl("/member/login/error")
-			
+		http.formLogin(form -> form
+				.loginPage("/login")
+				.loginProcessingUrl("/login")
+				.usernameParameter("email")
+				.passwordParameter("password")
+				.defaultSuccessUrl("/")
+				.failureUrl("/member/error")
 		);
-		http.logout(logout -> logout.logoutUrl("/member/logout").logoutSuccessUrl("/"));
-		http.exceptionHandling(handler -> handler.accessDeniedHandler(accessDeniedHandler));
+		http.logout(logout -> logout
+				.logoutUrl("/member/logout")
+				.logoutSuccessUrl("/"));
+		http.exceptionHandling(handler -> handler
+				.accessDeniedHandler(accessDeniedHandler));
 		return http.build();		
 	}
 	

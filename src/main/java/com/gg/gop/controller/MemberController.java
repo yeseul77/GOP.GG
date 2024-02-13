@@ -52,29 +52,33 @@ public class MemberController {
 		
 	}
 
-	@PostMapping("/login")
-	public String login(@RequestParam String email, 
-	                    @RequestParam String password,
-	                    RedirectAttributes rttr, HttpSession session) {
-	    // HashMap을 사용하여 사용자 정보를 저장
-	    HashMap<String, String> member = new HashMap<>();
-	    member.put("email", email);
-	    member.put("password", password);
-
-	    // 사용자가 존재하는지 확인
-	    MemberDto memberDto = memberService.login(member);
-	    if (memberDto != null) {
-	        // 로그인 성공
-	        session.setAttribute("email", memberDto.getEmail()); // 사용자 이메일을 세션에 저장
-	        session.setAttribute("Loginstate", true); // 로그인 상태를 세션에 저장 
-	        System.out.println("email: " + session.getAttribute("email"));
-	        System.out.println("Loginstate:" + session.getAttribute("Loginstate")); 
-	        return "redirect:/";
-	    } else {
-	        // 로그인 실패
-	        rttr.addFlashAttribute("message", "로그인 실패");
-	        return "redirect:/login";
-	    }
+//	@PostMapping("/login")
+//	public String login(@RequestParam String email, 
+//	                    @RequestParam String password,
+//	                    RedirectAttributes rttr, HttpSession session) {
+//	    // HashMap을 사용하여 사용자 정보를 저장
+//	    HashMap<String, String> member = new HashMap<>();
+//	    member.put("email", email);
+//	    member.put("password", password);
+//
+//	    // 사용자가 존재하는지 확인
+//	    MemberDto memberDto = memberService.login(member);
+//	    if (memberDto != null) {
+//	        // 로그인 성공
+//	        session.setAttribute("email", memberDto.getEmail()); // 사용자 이메일을 세션에 저장
+//	        session.setAttribute("Loginstate", true); // 로그인 상태를 세션에 저장 
+//	        System.out.println("email: " + session.getAttribute("email"));
+//	        System.out.println("Loginstate:" + session.getAttribute("Loginstate")); 
+//	        return "redirect:/";
+//	    } else {
+//	        // 로그인 실패
+//	        rttr.addFlashAttribute("message", "로그인 실패");
+//	        return "redirect:/login";
+//	    }
+//	}
+	@GetMapping("member/error")
+	public String loginfail() {
+		return "member/error";
 	}
 
 

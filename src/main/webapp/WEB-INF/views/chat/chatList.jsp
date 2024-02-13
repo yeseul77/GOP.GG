@@ -10,6 +10,7 @@
 <script src="/javascript/chatlist.js"></script>
 </head>
 <body>
+<%@include file="/WEB-INF/tiles/header.jsp" %>
 <input type="hidden" id="username" name="username" value="${username}" />
 <form action="/chat/createRoom" method="post">
 	<input type="text" name="name" placeholder="채팅방 이름">
@@ -26,5 +27,6 @@
 	</br>
 </c:forEach>
 </div>
+<%@include file="/WEB-INF/tiles/footer.jsp" %>
 </body>
 </html>
