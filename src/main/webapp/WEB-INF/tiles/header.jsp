@@ -53,6 +53,7 @@
                 접속자정보 : ${username} 
                 <a href="/logout">LOGOUT</a>
             </div>
+            <a href-""></a>
         <% } %>
     </div>
 </body>
