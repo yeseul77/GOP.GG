@@ -19,6 +19,8 @@ public class MemberDto {
 	private String password;
 	private String role; 
 	private Boolean deleteYn; // 탈퇴 여부 0이면가입 탈퇴면1
+	private String profile;//사진정보
+	
 	// private String m_tier; // 소환사 티어
 	// private LocalDateTime modifiedDate; // 최종 수정일시
 	
@@ -64,6 +66,14 @@ public class MemberDto {
 	    public void setDeleteYn(Boolean deleteYn) {
 	        this.deleteYn = deleteYn;
 	    }
+
+		public String getProfile() {
+			return profile;
+		}
+
+		public void setProfile(String profile) {
+			this.profile = profile;
+		}
 
 	
 }
