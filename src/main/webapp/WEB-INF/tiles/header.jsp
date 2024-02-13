@@ -53,7 +53,7 @@
                 접속자정보 : ${username} 
                 <a href="/logout">LOGOUT</a>
             </div>
-            <a href-""></a>
+            <a href="/chat/chatList">Matching</a>
         <% } %>
     </div>
 </body>
