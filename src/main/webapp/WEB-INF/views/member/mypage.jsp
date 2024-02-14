@@ -4,6 +4,9 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
+<!-- 헤더 위치 -->
+ <%@include file="/WEB-INF/tiles/header.jsp" %>
+ <!--헤더 위치 -->
 <head>
 <title>Bootstrap Example</title>
 <meta charset="utf-8">
@@ -45,7 +48,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">회원정보수정 폼</div>
 			<div class="panel-body">
-				<form name="frm" action="${contextPath}/memupdate" method="post">
+				<form name="frm" action="${contextPath}/mypage" method="post">
 					<input type="hidden" id="email" name="email"
 						value="${memberDto.email}" /> <input type="hidden" id="password"
 						name="password" value="" />
@@ -109,5 +112,8 @@
 
 		</div>
 	</div>
+	<!-- 푸터 위치 -->
+ <%@include file="/WEB-INF/tiles/footer.jsp" %>
+ <!-- 푸터 위치 -->
 </body>
 </html>
