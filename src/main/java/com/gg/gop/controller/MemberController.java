@@ -93,6 +93,10 @@ public class MemberController {
 		return "member/mypage";
 	}
 	
+	
+	
+	
+	
 	//이거는 수정해야될부분 ★
 	@GetMapping("/member/mypageupdate")
 	public String infoupdateform() {
@@ -116,10 +120,7 @@ public class MemberController {
 	}
 
 	
-	
-	
-	
-	
+
 	
 	// 회원 탈퇴 확인 페이지 요청
 	@GetMapping("/member/mypage/withdraw")
