@@ -87,20 +87,19 @@ public class MemberController {
 
 	// 내정보 =====================================
 
-		//일단 JSP로 만들어놨지만...
+	
+	//이거는 수정해야될부분
 	@GetMapping("/member/mypage")
-	public String showmypage() {
+	public String infoupdateform() {
 		return "member/mypage";
 	}
 	
-	
-	
-	
-	
-	//이거는 수정해야될부분 ★
-	@GetMapping("/member/mypageupdate")
-	public String infoupdateform() {
-		return "member/mypageupdate";
+	@PostMapping("/member/mypage")
+	public String infoupdate(HttpSession session,Model model,MemberDto memberDto) {
+		
+		
+		
+		return"member/mypage";
 	}
 	
 	
