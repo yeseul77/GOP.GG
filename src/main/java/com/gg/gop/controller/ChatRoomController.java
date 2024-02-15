@@ -26,24 +26,19 @@ import lombok.extern.slf4j.Slf4j;
 public class ChatRoomController {
 	private final ChatService chatService;
 
-	//	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated()")
 //	@Secured("ROLE_ADMIN")
 	@GetMapping("/chat/chatList")
 	public String chatList(Model model, HttpSession session, Principal test) {
 		log.info("name={}",test.getName());
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
 		UserDetails userDetails = (UserDetails)principal;
-		log.info("{}",userDetails.getUsername());
-		
-//		String username=session.getAttribute("member2").toString();
-//		List<ChatRoom> roomList=chatService.findAllRoom();
+		log.info("{}",userDetails.getUsername());		
 		List<ChatDto> roomList=new ArrayList<ChatDto>();
 		roomList=chatService.roomlist();
 		log.info("{}",session.getAttribute(userDetails.getUsername()));
-//		log.info(""+roomList.size());
-//		log.info(roomList.get(roomList.size()-1).getTitle());
 		model.addAttribute("roomList",roomList);
-//		model.addAttribute("username",username);
+
 		return"chat/chatList";
 	}
 	
@@ -64,7 +59,12 @@ public class ChatRoomController {
 	public String chatRoom(Model model,@RequestParam(name="chatroomId") Object chatroomId, HttpSession session) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
 		UserDetails userDetails = (UserDetails)principal;
-		Object username= userDetails.getUsername();
+		String username= userDetails.getUsername().toString();
+		Boolean result=chatService.findAllRoom(Integer.parseInt((String) chatroomId),username);
+		if(!result) {
+			model.addAttribute("alert","진입실패");
+			return "redirect:/chat/chatList";
+		}
 		log.info("test");
 		log.info(""+chatroomId);
 		model.addAttribute("username", username);
