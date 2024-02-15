@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>chatList</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script defer type="javascript" src="/javascript/chatlist.js"></script>
+<script src="/javascript/chatlist.js"></script>
 </head>
 <body>
 <%@include file="/WEB-INF/tiles/header.jsp" %>

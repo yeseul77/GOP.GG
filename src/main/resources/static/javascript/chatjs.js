@@ -1,10 +1,15 @@
 
 
-let socket = new WebSocket("ws://192.168.0.153:80/ws/chat");
+let socket = new WebSocket("ws://"+location.host+"/ws/chat");
 
 
-let username=document.getElementById('username').value
-let chatroomId=document.getElementById('chatroomId').value
+let username
+let chatroomId
+
+$('document').ready(function(){
+	username=document.getElementById('username').value
+	chatroomId=document.getElementById('chatroomId').value
+})
 
 function enterRoom(socket) {
 	var enterMsg = { "type": "ENTER", "roomId": chatroomId, "sender": username, "msg": "" };

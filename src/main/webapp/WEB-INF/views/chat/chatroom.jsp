@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-<script defer src="/javascript/chatjs.js"></script>
+<script src="/javascript/chatjs.js"></script>
 </head>
 <body>
 <input type="hidden" id="username" name="username" value="${username}" />

@@ -32,33 +32,19 @@ public class WebHandler extends TextWebSocketHandler{
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-//		// Spring Security 세션에서 인증 정보 가져오기
-//		String httpSessionId = (String) session.getAttributes().get("HTTPSESSIONID");
-//        
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        String username = authentication.getName();
-//        log.info(username);
+		
 	}
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//		UserDetails principal = (UserDetails) o.getAuthentication().getPrincipal();
-//		SecurityContext securityContext = (SecurityContext) session.getAttributes().get("SPRING_SECURITY_CONTEXT");
-//        SecurityContextImpl o = (SecurityContextImpl) session.getAttributes().get("SPRING_SECURITY_CONTEXT");
-//        UserDetails principal = (UserDetails) o.getAuthentication().getPrincipal();
-//        log.info("username = {}" , principal.getUsername());
-        
-//		Principal principal = null;
-		log.info("========{}",session.getPrincipal());
-//		log.info("{}",session);
+		log.info("========{}",session.getPrincipal().getName());
 		String payload=message.getPayload();
 		log.info(message.getClass().getName());
 		ChatMessage chatMessage=objectMapper.readValue(payload, ChatMessage.class);
 		log.info("handler");
 		if(chatMessage.getType().equals(ChatMessage.MessageType.ENTER)) {
 			sessions.add(session);
-			chatMessage.setMessage(chatMessage.getSender()+"입장");
+			chatMessage.setMessage(session.getPrincipal().getName()+"입장");
 			sendToEachSocket(sessions, new TextMessage(objectMapper.writeValueAsString(chatMessage)));
 		}else if(chatMessage.getType().equals(ChatMessage.MessageType.QUIT)){
 			sessions.remove(session);
@@ -73,18 +59,12 @@ public class WebHandler extends TextWebSocketHandler{
 	private void sendToEachSocket(List<WebSocketSession> sessions, TextMessage message) throws Exception{
 		String payload=message.getPayload();
 		ChatMessage chatMessage=objectMapper.readValue(payload, ChatMessage.class);
-//		String chatId=chatMessage.getRoomId();
-//		ModelAndView modelAndView = new ModelAndView();
-//		ModelAndView chatroomId=modelAndView.addObject("chatroomId");
-//		log.info(chatroomId.toString());
 		sessions.parallelStream().forEach(roomSession->{
-//			if(chatId.equals(messageId)) {
-				try {
-					roomSession.sendMessage(message);
-				}catch(IOException e) {
-					throw new RuntimeException(e);
-				}
-//			}
+			try {
+				roomSession.sendMessage(message);
+			}catch(IOException e) {
+				throw new RuntimeException(e);
+			}
 		});
 	}
 	

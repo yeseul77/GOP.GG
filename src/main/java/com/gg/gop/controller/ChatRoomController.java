@@ -52,13 +52,10 @@ public class ChatRoomController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
 		UserDetails userDetails = (UserDetails)principal;
 		Object username= userDetails.getUsername();
-//		String username=null;
 		log.info(userDetails.getUsername());
 		log.info("{}",username);
-//		ChatRoom room=chatService.createRoom(name);
 		Object title=chatService.createRoom(name, username);
 		model.addAttribute("room",title);
-//		log.info("{}",room.getRoomId());
 		model.addAttribute("username",username);
 		return "chat/chatroom";
 	}
@@ -69,10 +66,7 @@ public class ChatRoomController {
 		UserDetails userDetails = (UserDetails)principal;
 		Object username= userDetails.getUsername();
 		log.info("test");
-//		ChatRoom room=chatService.findRoomById(chatroomId);
 		log.info(""+chatroomId);
-//		ChatRoom room=chatService.findRoomById(chatroomId);
-//		String username=session.getAttribute("member2").toString();	
 		model.addAttribute("username", username);
 		model.addAttribute("chatroomId",chatroomId);
 		return "chat/chatroom";
