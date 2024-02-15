@@ -14,11 +14,11 @@
 <table class="registertable" style="text-align:center; border: 1px">
 <tr>
     <td><input type="text" name="email" id="email" placeholder="아이디"><br></td>
-    <td><button type="button" onclick="registercheck()">중복확인</button></td>
+    <td><button type="button"> <!--  onclick="registercheck()"-->중복확인</button></td>
 </tr>
 <tr>
-    <td><input type="password" name="password" id="password" onkeyup="pwcheck()" placeholder="비밀번호"><br></td>
-    <td><input type="password" name="password2" id="password2" onkeyup="pwcheck()" placeholder="비밀번호확인"><br></td>
+    <td><input type="password" name="password" id="password" placeholder="비밀번호"><!-- onkeyup="pwcheck()" --> <br></td>
+    <td><input type="password" name="password2" id="password2"  placeholder="비밀번호확인"><!-- onkeyup="pwcheck()" --><br></td>
 </tr>
 <tr>
     <td><input type="text" name="username" id="username" placeholder="닉네임"><br></td>

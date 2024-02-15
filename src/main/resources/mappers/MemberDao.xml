@@ -3,28 +3,28 @@
 <mapper namespace="com.gg.gop.dao.MemberDao">
 	<!-- 회원가입 -->
 	<insert id="insertMember"
-		parameterType="com.gg.gop.dto.MemberDto">
+		parameterType="MemberDto">
 		INSERT INTO member_tb
-		(email,username,m_pw,role)
+		(email,username,password,role)
 		VALUES
 		(#{email},#{username},#{password},#{role})
 	</insert>
 	<!-- 로그인 -->
 	<select id="login" parameterType="HashMap" resultType="boolean">
 		select
-		count(*) from member_tb where email=#{email} and m_pw=#{password}
+		count(*) from member_tb where email=#{username} and m_pw=#{password}
 	</select>
 
 	<select id="getSecurityPw" parameterType="String"
 		resultType="String">
 		select password from member_tb
-		where email=#{email}
+		where email=#{username}
 	</select>
 
 	<select id="getMemberInfo" resultType="MemberDto">
-		select email,m_pw,username
+		select email,password
 		from member_tb
-		where email=#{email};
+		where email=#{username};
 	</select>
 	<!-- 회원정보수정 U -->
 	<update id="updateMemberInfo" parameterType="MemberDto">

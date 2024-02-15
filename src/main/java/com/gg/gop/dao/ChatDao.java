@@ -9,7 +9,7 @@ import com.gg.gop.dto.ChatDto;
 @Mapper
 public interface ChatDao {
 	List<ChatDto> getRoomList();
-	Boolean createRoom(String title, String userId);
+	Boolean createRoom(String title, Object userId);
 	ChatDto intoRoom(int roomId);
 	Boolean deleteRoom(int chatroomId);
 }

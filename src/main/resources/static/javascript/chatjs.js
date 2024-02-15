@@ -27,29 +27,26 @@ socket.onerror = function(e) {
 }
 
 socket.onmessage = function(e) {
-	let data=e.data;
-	var msg=JSON.parse(data);
-	console.log("e.data",data);
-//	console.log(e.data[10]);
-	console.log(msg.sender);
+	console.log("e.data", e.data);
+	let msg=JSON.parse(e.data);
+	console.log(msg.message);
 	let msgArea = document.querySelector('.msgArea');
 	let newMsg = document.createElement('div');
-	newMsg.innerText = msg.sender;
-	newMsg.innerText += ":";
-	newMsg.innerText+=msg.msg;
+	newMsg.innerText =msg.sender+": ";
+	newMsg.innerText += msg.message;
 	console.log(newMsg)
 	msgArea.append(newMsg);
 }
 
 function sendMsg() {
 	let content = document.querySelector('.content').value;
-	var talkMsg = {"type": "TALK", "roomId": chatroomId, "sender": username, "msg": content};
+	var talkMsg = {"type": "TALK", "roomId": chatroomId, "sender": username, "message": content};
 	socket.send(JSON.stringify(talkMsg))
 }
 
 function quit() {
-	var quitMsg = { "type": "QUIT", "roomId": chatroomId, "sender": username, "msg": "" }
+	var quitMsg = { "type": "QUIT", "roomId": chatroomId, "sender": username, "message": "" }
 	socket.send(JSON.stringify(quitMsg));
 	socket.close();
-	location.href = "/duo_matching/chatList";
+	location.href = "/chat/chatList";
 }

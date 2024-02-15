@@ -33,13 +33,13 @@ public class ChatService {
 //		return chatRooms.get(roomId);
 //	}
 	
-	public String createRoom(String title, String username) {
+	public String createRoom(String title, Object username) {
 //		String randomId=UUID.randomUUID().toString();
 //		ChatRoom chatRoom=ChatRoom.builder()
 //								  .roomId(randomId)
 //								  .build();
 //		chatRooms.put(randomId, chatRoom);
-		log.info(username);
+		log.info("{}",username);
 		Boolean result=cDao.createRoom(title, username);
 		if(result) {
 			log.info("create complet");

@@ -1,9 +1,12 @@
 package com.gg.gop.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,15 +25,21 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ChatRoomController {
 	private final ChatService chatService;
-//	@PreAuthorize("isAuthenticated()")
+
+	//	@PreAuthorize("isAuthenticated()")
 //	@Secured("ROLE_ADMIN")
 	@GetMapping("/chat/chatList")
-	public String chatList(Model model, HttpSession session) {
+	public String chatList(Model model, HttpSession session, Principal test) {
+		log.info("name={}",test.getName());
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		UserDetails userDetails = (UserDetails)principal;
+		log.info("{}",userDetails.getUsername());
+		
 //		String username=session.getAttribute("member2").toString();
 //		List<ChatRoom> roomList=chatService.findAllRoom();
 		List<ChatDto> roomList=new ArrayList<ChatDto>();
 		roomList=chatService.roomlist();
-		log.info("{}",session.getAttribute("member2"));
+		log.info("{}",session.getAttribute(userDetails.getUsername()));
 //		log.info(""+roomList.size());
 //		log.info(roomList.get(roomList.size()-1).getTitle());
 		model.addAttribute("roomList",roomList);
@@ -40,10 +49,14 @@ public class ChatRoomController {
 	
 	@PostMapping("/chat/createRoom")
 	public String createRoom(Model model, @RequestParam(name="name") String name, HttpSession session) {
-		String username=session.getAttribute("member1").toString();
-		log.info(username);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		UserDetails userDetails = (UserDetails)principal;
+		Object username= userDetails.getUsername();
+//		String username=null;
+		log.info(userDetails.getUsername());
+		log.info("{}",username);
 //		ChatRoom room=chatService.createRoom(name);
-		String title=chatService.createRoom(name, username);
+		Object title=chatService.createRoom(name, username);
 		model.addAttribute("room",title);
 //		log.info("{}",room.getRoomId());
 		model.addAttribute("username",username);
@@ -52,12 +65,15 @@ public class ChatRoomController {
 	
 	@GetMapping("/chat/chatroom")
 	public String chatRoom(Model model,@RequestParam(name="chatroomId") Object chatroomId, HttpSession session) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		UserDetails userDetails = (UserDetails)principal;
+		Object username= userDetails.getUsername();
 		log.info("test");
 //		ChatRoom room=chatService.findRoomById(chatroomId);
 		log.info(""+chatroomId);
 //		ChatRoom room=chatService.findRoomById(chatroomId);
 //		String username=session.getAttribute("member2").toString();	
-//		model.addAttribute("username", username);
+		model.addAttribute("username", username);
 		model.addAttribute("chatroomId",chatroomId);
 		return "chat/chatroom";
 	}
