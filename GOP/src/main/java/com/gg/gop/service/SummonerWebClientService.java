@@ -25,7 +25,7 @@ public class SummonerWebClientService {
 
 	public List<String> getMatchIdInfo(String puuid) {
 		System.out.println("service");
-		String url = RIOT_API_URL2 + puuid + "/ids?start=0&count=3&api_key=" + RIOT_API_KEY;
+		String url = RIOT_API_URL2 + puuid + "/ids?start=0&count=10&api_key=" + RIOT_API_KEY;
 		WebClient webClient = WebClient.builder().baseUrl(url).build();
 		List<String> matchIdList = webClient.get().uri(uriBuilder -> uriBuilder.build()).retrieve()
 				.bodyToMono(new ParameterizedTypeReference<List<String>>() {

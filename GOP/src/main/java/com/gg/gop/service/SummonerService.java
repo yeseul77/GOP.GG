@@ -7,12 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.gg.gop.dao.SummonerDao;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class SummonerService {
 
@@ -41,96 +43,99 @@ public class SummonerService {
 		return gameInfoList;
 	}
 
-	public List<Map> saveAndRetrieveGamedata(List<Map> mapList) throws JsonProcessingException {
-		List<Map> savedDataList = new ArrayList<>();
-		boolean hasDuplicateKey = false;
+	public List<Map> saveAndRetrieveGameData(List<Map> gameDataList) throws JsonProcessingException {
+	    List<Map> savedDataList = new ArrayList<>();
+	    boolean hasDuplicateKey = false;
 
-		for (Map gamedata : mapList) {
-			try {
-				if (!hasDuplicateKey(gamedata)) {
-					// 중복된 키가 없으면 데이터를 저장
-					sDao.saveinfodata(gamedata);
+	    for (Map gameData : gameDataList) {
+	        try {
+	            log.info("Processing game data: {}", gameData);
+	            if (!hasDuplicateKey(gameData)) {
+	                // 게임 정보 저장
+	                sDao.saveinfodata((Map<String, Object>) gameData.get("info"));
+	                // 팀 정보 저장
+	                sDao.saveteamsdata((Map<String, Object>) gameData.get("teams"));
 
-					// 저장된 데이터를 가져와서 리스트에 추가
-					Map savedData = sDao.getGameDataFromDB(gamedata);
-					if (savedData != null) {
-						savedDataList.add(savedData);
-					}
-				} else {
-					hasDuplicateKey = true;
-				}
-			} catch (DuplicateKeyException e) {
-				System.out.println(e.getMessage());
-				// 중복된 키 예외에 대한 추가적인 처리를 수행할 수 있습니다.
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+	                // 저장된 데이터 조회하지 않고, 저장된 데이터를 그대로 사용
+	                savedDataList.add(gameData);
+	            } else {
+	                hasDuplicateKey = true;
+	            }
+	        } catch (Exception e) {
+	            log.error("Exception occurred:", e);
+	        }
+	    }
 
-		// 중복된 키가 없으면서 데이터가 저장된 경우에만 웹 클라이언트 호출
-		if (!hasDuplicateKey && !savedDataList.isEmpty()) {
-			// 웹 클라이언트 호출 코드 추가
-			System.out.println("Calling web client...");
+	    if (hasDuplicateKey) {
+	        // 중복된 데이터가 있을 경우, 에러 처리 또는 적절한 조치를 취할 수 있음
+	    }
 
-			// 서버로부터 저장된 데이터를 다시 불러옴
-			savedDataList = retrieveAllDataFromDB();
-		}
-
-		return savedDataList;
+	    log.info("savedDataList: {}", savedDataList);
+	    return savedDataList;
 	}
 
-	public List<Map> getGameInfoFromDB(String riotIdGameName, String riotIdTagline)throws JsonProcessingException {
+	private boolean hasDuplicateKey(Map<String, Object> gameData) {
+		String matchId = (String) gameData.get("matchId");
+		String riotIdGameName = (String) gameData.get("riotIdGameName");
+		int count = sDao.checkDuplicateKey(matchId, riotIdGameName);
+		log.info("Duplicate count for matchId {} and riotIdGameName {}: {}", matchId, riotIdGameName, count);
+		return count > 0;
+	}
+
+	private List<Map> retrieveAllDataFromDB() throws JsonProcessingException {
 		try {
-			Map<String, String> paramMap = new HashMap<>();
-			paramMap.put("riotIdGameName", riotIdGameName);
-			paramMap.put("riotIdTagline", riotIdTagline);
-			return sDao.getGameInfoFromDB(paramMap);
+			return sDao.retrieveAllDataFromDB();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("Error retrieving data from database:", e);
 			return Collections.emptyList();
 		}
 	}
 
-	private boolean hasDuplicateKey(Map<String, Object> gamedata) throws DuplicateKeyException {
-		String matchId = (String) gamedata.get("matchId");
-		String riotIdGameName = (String) gamedata.get("riotIdGameName");
-		int count = sDao.checkDuplicateKey(matchId, riotIdGameName);
-		if (count > 0) {
-			throw new DuplicateKeyException(
-					"Duplicate key found for matchId: " + matchId + " and riotIdGameName: " + riotIdGameName);
-		}
-		return count > 0; // 중복 키가 발견되었는지 여부를 반환
-	}
+	public List<Map<String, Object>> getCombinedGameData(String gameName, String tagLine) {
+		List<Map<String, Object>> gameInfoList = sDao.getGameInfoFromDB(gameName, tagLine);
+		List<Map<String, Object>> gameTeamsList = sDao.getGameTeamsFromDB(gameName, tagLine);
 
-	private List<Map> retrieveAllDataFromDB()throws JsonProcessingException {
-		// 모든 데이터를 DB에서 가져와서 반환하는 메소드
-		try {
-			return sDao.retrieveAllDataFromDB();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return Collections.emptyList(); // 빈 리스트 반환 또는 적절한 방식으로 처리
+		Map<String, List<Map<String, Object>>> gameDataByMatchId = new HashMap<>();
+		Map<String, List<Map<String, Object>>> gameTeamsByMatchId = new HashMap<>();
+
+		for (Map<String, Object> gameInfo : gameInfoList) {
+			String matchId = (String) gameInfo.get("matchId");
+			gameDataByMatchId.computeIfAbsent(matchId, k -> new ArrayList<>()).add(gameInfo);
 		}
+		for (Map<String, Object> gameTeams : gameTeamsList) {
+			String matchId = (String) gameTeams.get("matchId");
+			gameTeamsByMatchId.computeIfAbsent(matchId, k -> new ArrayList<>()).add(gameTeams);
+		}
+		List<Map<String, Object>> combinedDataList = new ArrayList<>();
+
+		for (String matchId : gameDataByMatchId.keySet()) {
+			Map<String, Object> combinedData = new HashMap<>();
+			List<Map<String, Object>> gameInfoData = gameDataByMatchId.get(matchId);
+			List<Map<String, Object>> gameTeamsData = gameTeamsByMatchId.getOrDefault(matchId, new ArrayList<>());
+			combinedData.put("info", gameInfoData);
+			combinedData.put("teams", gameTeamsData);
+			combinedDataList.add(combinedData);
+		}
+		return combinedDataList;
 	}
 
 	public int saveinfodata(Map<String, Object> info) {
-		int data = 0;
 	    String matchId = (String) info.get("matchId");
 	    if (matchId != null) {
-	    	 data = sDao.saveinfodata(info);
+	        return sDao.saveinfodata(info);
 	    } else {
-	        System.out.println("matchId is null. Cannot insert data.");
+	        log.error("matchId is null. Cannot insert data.");
+	        return 0; // 또는 적절한 오류 코드를 반환하십시오.
 	    }
-	    return data;
 	}
 
 	public int saveteamsdata(Map<String, Object> teams) {
-	    int data = 0;
 	    String matchId = (String) teams.get("matchId");
 	    if (matchId != null) {
-	        data = sDao.saveteamsdata(teams); // DAO 메소드 호출 결과를 저장
+	        return sDao.saveteamsdata(teams);
 	    } else {
-	        System.out.println("matchId is null. Cannot insert data.");
+	        log.error("matchId is null. Cannot insert data.");
+	        return 0; // 또는 적절한 오류 코드를 반환하십시오.
 	    }
-	    return data; // DAO 메소드 호출 결과 반환
 	}
 }

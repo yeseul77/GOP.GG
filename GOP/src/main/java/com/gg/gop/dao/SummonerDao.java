@@ -12,14 +12,15 @@ public interface SummonerDao { // 소환사 전적 검색
 	int saveinfodata(Map<String, Object> gamedata);
 
 	int saveteamsdata(Map<String, Object> gamedata);
-
-	List<Map> getGameInfoFromDB(Map<String, String> paramMap);
 	
-	int checkDuplicateKey(@Param("matchId") String matchId, @Param("riotIdGameName") String riotIdGameName);
+	Map getGameDataFromDB(Map<String, Object> gameData);
 
+	List<Map<String, Object>> getGameInfoFromDB(String gameName, String tagLine);
+
+	List<Map<String, Object>> getGameTeamsFromDB(String gameName, String tagLine);
+
+	int checkDuplicateKey(String matchId, String riotIdGameName);
+  
 	List<Map> retrieveAllDataFromDB();
 
-	Map getGameDataFromDB(Map gamedata);
-
-	
 }
