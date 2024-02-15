@@ -39,5 +39,7 @@
 		SET status=1
 		WHERE email=#{email}
 	</delete>
-
+	
+	
 </mapper>
+
