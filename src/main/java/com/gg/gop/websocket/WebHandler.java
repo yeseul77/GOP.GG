@@ -19,6 +19,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gg.gop.dto.ChatMessage;
+import com.gg.gop.service.ChatService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 public class WebHandler extends TextWebSocketHandler{
 	private final ObjectMapper objectMapper;
 	private final List<WebSocketSession> sessions=new ArrayList<WebSocketSession>(); //= ConcurrentHashMap.newKeySet();
-
+	private final ChatService cSer;
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		
@@ -59,6 +60,8 @@ public class WebHandler extends TextWebSocketHandler{
 	private void sendToEachSocket(List<WebSocketSession> sessions, TextMessage message) throws Exception{
 		String payload=message.getPayload();
 		ChatMessage chatMessage=objectMapper.readValue(payload, ChatMessage.class);
+		List<String> memberList=cSer.findRoomMember(chatMessage.getRoomId());
+		log.info("{}",memberList.toString());
 		sessions.parallelStream().forEach(roomSession->{
 			try {
 				roomSession.sendMessage(message);

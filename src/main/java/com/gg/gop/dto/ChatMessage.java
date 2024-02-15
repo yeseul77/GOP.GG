@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Data
-@Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,7 +17,7 @@ public class ChatMessage {
 		ENTER,TALK,QUIT,submit
 	}
 	private MessageType type;
-	private String roomId;
+	private int roomId;
 	private String sender;
 	private String message;
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gg.gop.dao.ChatDao;
 import com.gg.gop.dto.ChatDto;
+import com.gg.gop.dto.ChatMemberDto;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -49,11 +50,15 @@ public class ChatService {
 		return title;
 	}
 
-	public ChatDto findAllRoom(int chatroomId) {
-//		return new ArrayList<>(chatRooms.values());
-		return cDao.intoRoom(chatroomId);
+	public Boolean findAllRoom(int chatroomId,String memberId) {
+		Boolean check=cDao.plusroom(chatroomId, memberId);
+		return check;
 	}
-
+	
+	public List<String> findRoomMember(int roomId){
+		return cDao.getRoomMember(roomId);
+	}
+	
 	public List<ChatDto> roomlist() {
 		List<ChatDto> clist=cDao.getRoomList();
 		return clist;
