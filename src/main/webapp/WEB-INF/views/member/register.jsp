@@ -15,13 +15,18 @@
 </head>
 <body>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> 239a3c5 (0213오전까지한거커밋)
+=======
+
+>>>>>>> 239a3c587345cfbe9e035541bb076e985d2f9dd7
 <%@include file="/WEB-INF/tiles/header.jsp" %>
 
 <h2 style="text-align:center;">GOP.GG 회원가입</h2>
 <form action="/register" method="post">
+<<<<<<< HEAD
 <<<<<<< HEAD
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 <table class="registertable" style="text-align:center; border: 1px">
@@ -61,6 +66,28 @@
     </table>
 </form>
 
+=======
+    <table class="table" style="width:50%; margin:auto;">
+        <tr>
+            <td><input type="text" name="email" id="email" class="form-control" placeholder="아이디 (이메일)"></td>
+            <td><button type="button" class="btn btn-primary" onclick="registerCheck()">중복확인</button></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="password" name="password" id="password" class="form-control" placeholder="비밀번호"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="password" name="password2" id="password2" class="form-control" placeholder="비밀번호 확인"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="text" name="username" id="username" class="form-control" placeholder="닉네임"></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center;"><button type="submit" class="btn btn-success">회원가입</button></td>
+        </tr>
+    </table>
+</form>
+
+>>>>>>> 239a3c587345cfbe9e035541bb076e985d2f9dd7
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -109,7 +136,10 @@ $(document).ready(function(){
 });
 </script>
 
+<<<<<<< HEAD
 >>>>>>> 239a3c5 (0213오전까지한거커밋)
+=======
+>>>>>>> 239a3c587345cfbe9e035541bb076e985d2f9dd7
 <%@include file="/WEB-INF/tiles/footer.jsp" %>
 </body>
 </html>
