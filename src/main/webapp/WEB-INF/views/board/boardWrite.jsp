@@ -27,13 +27,30 @@ $(document).ready(function(){
 	});
 });
 </script>
+<script>
+$(document).ready(function(){
+    $("#resetbtn").click(function(){
+        var title = $("#title").val();
+        var content = $("#resetbtn").val();
+        if(title !== "" || content !== "") {
+            var confirmLeave = confirm("작성한 내용을 지우고 목록으로 돌아가시겠습니까?");
+            if(confirmLeave) {
+                window.location.href = "${pageContext.request.contextPath}/boardlist";
+            }
+        } else {
+            window.location.href = "${pageContext.request.contextPath}/boardlist";
+        }
+    });
+});
+
+</script>
 <!-- 헤더 위치 -->
  <%@include file="/WEB-INF/tiles/header.jsp" %>
  <!--헤더 위치 -->
 </head>
 <body>
 <h2>글쓰기</h2>
-<form name="boardform" method="post" action="${contextPath}/board/write">
+<form name="boardform" method="post" action="${contextPath}/boardwrite">
 <div>
 제목
 <input name="title" id="title" size="80" placeholder="제목을 입력해주세요">
@@ -44,7 +61,7 @@ $(document).ready(function(){
 </div>
 <div style="width:650px; text-align:center;">
 <button type="button" id="savebtn" >저장</button>
-<button type="reset">취소</button>
+<button type="button" id="resetbtn" class="btn btn-default">취소</button>
 </div>
 </form>
 <!-- 푸터 위치 -->

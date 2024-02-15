@@ -27,8 +27,8 @@
  
     function passwordCheck(){
     	var memPassword1=$("#password1").val();
-    	var memPassword2=$("#mPassword2").val();
-    	if(memPassword1 != memPassword2){
+    	var memPassword2=$("#password2").val();
+    	if(password1 != password2){
     		$("#passMessage").html("비밀번호가 서로 일치하지 않습니다.");
     	}else{
     		$("#passMessage").html("");
@@ -56,7 +56,7 @@
 						style="text-align: center; border: 1px solid #dddddd;">
 						<tr>
 							<td style="width: 110px; vertical-align: middle;">아이디</td>
-							<td>${memberDto.email}</td>
+							<td>${sessionScope.email}</td>
 						</tr>
 						<tr>
 							<td style="width: 110px; vertical-align: middle;">닉네임</td>

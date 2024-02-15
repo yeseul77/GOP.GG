@@ -67,6 +67,7 @@ public class MemberController {
 			session.setAttribute("Loginstate", true); // 로그인 상태를 세션에 저장
 			session.setAttribute("username", memberDto.getUsername());
 
+
 			return "redirect:/";
 		} catch (Exception e) {
 			// 로그인 실패
