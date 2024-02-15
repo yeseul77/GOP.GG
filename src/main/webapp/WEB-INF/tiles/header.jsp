@@ -12,7 +12,7 @@
     <div id="myNavbar">
       <ul>
         <li class="active"><a href="${contextPath}/">Home</a></li>
-        <li><a href="${contextPath}/boardMain">자유게시판</a></li>            
+        <li><a href="${contextPath}/boardlist">자유게시판</a></li>            
       </ul>
       <c:if test="${sessionScope.Loginstate == null or !sessionScope.Loginstate}">
         <ul>
