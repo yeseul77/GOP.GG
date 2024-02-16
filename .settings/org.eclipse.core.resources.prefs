@@ -1,11 +1,6 @@
-=\=\=\=\=\=\=
-<<<<<<<=HEAD
->>>>>>>=main
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
 encoding//src/main/resources/application.properties=UTF-8
-encoding//src/main/webapp/WEB-INF/tiles/header.jsp=UTF-8
-encoding//src/main/webapp/WEB-INF/views/member/register.jsp=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8

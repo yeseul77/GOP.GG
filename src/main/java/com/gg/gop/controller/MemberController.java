@@ -67,6 +67,7 @@ public class MemberController {
 			session.setAttribute("Loginstate", true); // 로그인 상태를 세션에 저장
 			session.setAttribute("username", memberDto.getUsername());
 
+
 			return "redirect:/";
 		} catch (Exception e) {
 			// 로그인 실패
@@ -89,17 +90,17 @@ public class MemberController {
 
 	
 	//이거는 수정해야될부분
-	@GetMapping("/member/mypage")
+	@GetMapping("/member/memberinfo")
 	public String infoupdateform() {
-		return "member/mypage";
+		return "member/memberinfo";
 	}
 	
-	@PostMapping("/member/mypage")
+	@PostMapping("/member/memberinfo")
 	public String infoupdate(HttpSession session,Model model,MemberDto memberDto) {
 		
 		
 		
-		return"member/mypage";
+		return"member/memberinfo";
 	}
 	
 	
@@ -107,7 +108,7 @@ public class MemberController {
 
 	// 회원 프로필 사진등록
 	@RequestMapping("/member/imageform")
-	public String UserImageForm() {
+	public String ImageForm() {
 		return "member/imageform";
 	}
 

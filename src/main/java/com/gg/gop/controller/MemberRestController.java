@@ -13,8 +13,8 @@ public class MemberRestController {
 	
 	//아이디 중복체크 
     @GetMapping("/checkId")
-    public String CheckId(String m_id) {
-		String res=memberService.checkid(m_id);
+    public String CheckId(String email) {
+		String res=memberService.checkid(email);
 		return res;
     }
 	

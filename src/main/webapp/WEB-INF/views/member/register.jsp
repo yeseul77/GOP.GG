@@ -74,6 +74,13 @@
         </tr>
     </table>
 </form>
+<<<<<<< HEAD
+=======
+		<p>
+			이미 계정이 있으신가요? <a href="/login">로그인</a>
+		</p>
+
+>>>>>>> YS
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -117,9 +124,7 @@ function registerCheck() {
     }
 }
 
-$(document).ready(function(){
-    // 여기서 메시지 관련 스크립트를 처리합니다.
-});
+
 </script>
 
 <%@include file="/WEB-INF/tiles/footer.jsp" %>

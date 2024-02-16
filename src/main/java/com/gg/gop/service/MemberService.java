@@ -65,6 +65,13 @@ public class MemberService {
 		return "fail";
 	}
 
+<<<<<<< HEAD
+=======
+	public Boolean withdraw(String email, String password) {
+		
+		return null;
+	}
+>>>>>>> YS
 
 	
 	//회원 정보 수정 ,삭제 ,탈퇴

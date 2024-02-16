@@ -1,10 +1,13 @@
 package com.gg.gop.dto;
 
+<<<<<<< HEAD
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+=======
+>>>>>>> YS
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +29,9 @@ public class MemberDto implements UserDetails{
 	private String role; 
 	private Boolean deleteYn; // 탈퇴 여부 0이면가입 탈퇴면1
 	private String profile;//사진정보
+	
+	//내프로필에 첨부된 파일리스트
+	//private List<Memberprofile> mfList;  
 	
 	// private String m_tier; // 소환사 티어
 	// private LocalDateTime modifiedDate; // 최종 수정일시

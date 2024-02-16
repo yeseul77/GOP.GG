@@ -21,7 +21,7 @@ public class MyUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		//로그인 성공시 User를  반환, 실패시 핸들러에 전달 
 		MemberDto mb = memberDao.getMemberInfo(username);
-		log.info("======member:{}",mb);
+
 		if(mb==null) {
 			//로그인실패시 예외를 로그인실패핸들러에 던짐
 			throw new UsernameNotFoundException(username + " 사용자를 찾을 수 없습니다");
