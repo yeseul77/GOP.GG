@@ -53,5 +53,5 @@ function quit() {
 	var quitMsg = { "type": "QUIT", "roomId": chatroomId, "sender": username, "message": "" }
 	socket.send(JSON.stringify(quitMsg));
 	socket.close();
-	location.href = "/chat/chatList";
+	location.href = "/chat/out?chatroomId="+chatroomId;
 }
