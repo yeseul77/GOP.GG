@@ -66,4 +66,7 @@ public class ChatService {
 	public Boolean outRoom(int roomId, String memberId) {
 		return cDao.outRoom(roomId, memberId);
 	}
+	public ChatDto roomData(int roomId) {
+		return cDao.intoRoom(roomId);
+	}
 }

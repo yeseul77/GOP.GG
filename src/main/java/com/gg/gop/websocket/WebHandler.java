@@ -11,6 +11,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gg.gop.dto.ChatDto;
 import com.gg.gop.dto.ChatMessage;
 import com.gg.gop.service.ChatService;
 
@@ -43,8 +44,6 @@ public class WebHandler extends TextWebSocketHandler{
 				};
 			}
 		}
-		
-		
 		log.info("handler set complet");
 		if(chatMessage.getType().equals(ChatMessage.MessageType.ENTER)) {
 			chatMessage.setMessage(session.getPrincipal().getName()+"입장");
@@ -53,6 +52,16 @@ public class WebHandler extends TextWebSocketHandler{
 			sessions.remove(session);
 			chatMessage.setMessage(chatMessage.getSender()+"퇴장");
 			sendToEachSocket(roomSession,new TextMessage(objectMapper.writeValueAsString(chatMessage)));
+		}else if(chatMessage.getType().equals(ChatMessage.MessageType.submit)) {
+			List<WebSocketSession> hostSession=new ArrayList<>();
+			ChatDto roomData=cSer.roomData(roomId);
+			for(int i=0;i<sessions.size();i++) {
+				if(sessions.get(i).getPrincipal().getName().equals(roomData.getUserId())) {
+					hostSession.add(sessions.get(i));
+					break;
+				}
+			sendToEachSocket(hostSession,message);
+			}
 		}else {
 			log.info("pay: {}", message);
 			log.info("{}",payload);
