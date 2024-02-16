@@ -14,20 +14,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
->>>>>>> 239a3c5 (0213오전까지한거커밋)
-=======
-
->>>>>>> 239a3c587345cfbe9e035541bb076e985d2f9dd7
 <%@include file="/WEB-INF/tiles/header.jsp" %>
 
 <h2 style="text-align:center;">GOP.GG 회원가입</h2>
 <form action="/register" method="post">
-<<<<<<< HEAD
-<<<<<<< HEAD
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 <table class="registertable" style="text-align:center; border: 1px">
 <tr>
@@ -45,7 +36,6 @@
 <button type="submit">회원가입</button>
 </form>
 
-=======
     <table class="table" style="width:50%; margin:auto;">
         <tr>
             <td><input type="text" name="email" id="email" class="form-control" placeholder="아이디 (이메일)"></td>
@@ -65,8 +55,6 @@
         </tr>
     </table>
 </form>
-
-=======
     <table class="table" style="width:50%; margin:auto;">
         <tr>
             <td><input type="text" name="email" id="email" class="form-control" placeholder="아이디 (이메일)"></td>
@@ -86,8 +74,6 @@
         </tr>
     </table>
 </form>
-
->>>>>>> 239a3c587345cfbe9e035541bb076e985d2f9dd7
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -136,10 +122,6 @@ $(document).ready(function(){
 });
 </script>
 
-<<<<<<< HEAD
->>>>>>> 239a3c5 (0213오전까지한거커밋)
-=======
->>>>>>> 239a3c587345cfbe9e035541bb076e985d2f9dd7
 <%@include file="/WEB-INF/tiles/footer.jsp" %>
 </body>
 </html>
