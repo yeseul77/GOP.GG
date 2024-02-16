@@ -1,9 +1,5 @@
 package com.gg.gop.controller;
 
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.gg.gop.dto.ChatDto;
 import com.gg.gop.service.ChatService;
 
 import jakarta.servlet.http.HttpSession;
@@ -29,16 +24,7 @@ public class ChatRoomController {
 	@PreAuthorize("isAuthenticated()")
 //	@Secured("ROLE_ADMIN")
 	@GetMapping("/chat/chatList")
-	public String chatList(Model model, HttpSession session, Principal test) {
-		log.info("name={}",test.getName());
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
-		UserDetails userDetails = (UserDetails)principal;
-		log.info("{}",userDetails.getUsername());		
-		List<ChatDto> roomList=new ArrayList<ChatDto>();
-		roomList=chatService.roomlist();
-		log.info("{}",session.getAttribute(userDetails.getUsername()));
-		model.addAttribute("roomList",roomList);
-
+	public String chatList(Model model) {
 		return"chat/chatList";
 	}
 	
@@ -52,7 +38,7 @@ public class ChatRoomController {
 		Object title=chatService.createRoom(name, username);
 		model.addAttribute("room",title);
 		model.addAttribute("username",username);
-		return "chat/chatroom";
+		return "chat/chatList";
 	}
 	
 	@GetMapping("/chat/chatroom")
@@ -72,4 +58,13 @@ public class ChatRoomController {
 		return "chat/chatroom";
 	}
 	
+	@GetMapping("/chat/out")
+	public String Chatout(Model model,@RequestParam(name="chatroomId") Object chatroomId) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		UserDetails userDetails = (UserDetails)principal;
+		String username= userDetails.getUsername().toString();
+		int roomId=Integer.parseInt((String)chatroomId);
+		chatService.outRoom(roomId, username);
+		return "chat/chatList";
+	}
 }

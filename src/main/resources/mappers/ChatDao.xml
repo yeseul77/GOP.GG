@@ -7,13 +7,13 @@
 		select * from chatroom order by chatroomId desc
 	</select>
 	<insert id="createRoom">
-		insert into chatroom(title, userId) values(#{title}, #{userId})
+		insert into chatroom (title, userId) values(#{title}, #{userId})
 	</insert>
 	<select id="intoRoom">
-		select * from chatroom where chatroomId
+		select * from chatroom where chatroomId= #{roomId}
 	</select>
 	<delete id="deleteRoom">
-		delete table chatroom where chatroomId=#{chatroomId}
+		delete from chatroom where chatroomId=#{chatroomId}
 	</delete>
 	<insert id="plusroom">
 		insert into chatmember values(#{memberId}, #{chatroomId})
@@ -22,6 +22,6 @@
 		select chatmember from chatmember where roomId=#{roomId}
 	</select>
 	<delete id="outRoom">
-		delete table chatmember where roomId=#{chatroomId} and chatmember=#{chatMember}
+		delete from chatmember where roomId=#{chatroomId} and chatmember=#{memberId}
 	</delete>
 </mapper>
