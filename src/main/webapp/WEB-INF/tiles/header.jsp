@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 <head>
@@ -12,6 +11,7 @@
             padding: 0;
             background-color: #f2f2f2;
         }
+<<<<<<< HEAD
 =======
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <<<<<<< HEAD
@@ -20,10 +20,13 @@
 =======
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 >>>>>>> main
+=======
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> --%>
+<%-- <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> --%>
+>>>>>>> SA
 
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+/* <c:set var="contextPath" value="${pageContext.request.contextPath}"/> */
 
-<<<<<<< HEAD
         .topnav a {
             float: left;
             display: block;
@@ -69,15 +72,6 @@
         </ul>
       </c:if>
     </div>
-</nav>
-</body>
-</html>
-=======
-<nav>
-  <div>
-    <div>
-      <a href="${contextPath}/">GOP.GG</a>
-    </div>
     
     <div id="myNavbar">
       <ul>
@@ -92,14 +86,19 @@
       </c:if>
       <c:if test="${sessionScope.Loginstate != null && sessionScope.Loginstate}">
         <ul>
+<<<<<<< HEAD
               <li><a href="${contextPath}/member/mypage">마이페이지</a></li>
               <li><a href="${contextPath}/member/imageform">사진등록</a></li>
+=======
+              <li><a href="${contextPath}/member/mypage">회원정보수정</a></li>
+              <li><a href="${contextPath}/member/Imageform">사진등록</a></li>
+>>>>>>> SA
               <li><a href="${contextPath}/member/logout">로그아웃</a></li>    
                <!-- 시큐리티가 설정한 member/logout url설정 옮기면안됨  -->
               <li><img src="${contextPath}/resources/images/이미지넣을예정" style="width: 50px; height: 50px"/> ${sessionScope.username} 소환사님 환영합니다 .</li>
         </ul>
       </c:if>
     </div>
-  </div>
 </nav>
->>>>>>> 239a3c587345cfbe9e035541bb076e985d2f9dd7
+</body>
+</html>

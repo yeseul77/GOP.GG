@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.gg.gop.dao.MemberDao;
 import com.gg.gop.dto.MemberDto;
 
+
+
 @Service
 public class MemberService {
 
@@ -47,6 +49,11 @@ public class MemberService {
 			System.out.println("아이디오류");
 			return null;
 		}
+	  
+	//회원탈퇴
+	public Boolean withdraw(String m_id, String m_pw) {
+	    memberDao.deleteMember(m_id);
+	    return true;
 	}
 
 //아이디 중복체크

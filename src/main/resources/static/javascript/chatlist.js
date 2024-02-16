@@ -1,11 +1,11 @@
 let username
-let socket = new WebSocket("ws://192.168.0.153:80/ws/chat");
+let socket = new WebSocket("ws://"+location.host+":80/ws/chat");
 
 $(document).ready(function(){
 	username=document.getElementById('username').value
 })
 function enterRoom(socket) {
-	var enterMsg = { "type": "ENTER", /*"roomId": JSON.stringify(chatroomId),*/ "sender": JSON.stringify(username), "msg": "" };
+	var enterMsg = { "type": "ENTER", "roomId": 0, "sender": JSON.stringify(username), "msg": "" };
 	socket.send(JSON.stringify(enterMsg));
 }
 
@@ -44,16 +44,35 @@ function quit() {
 	socket.close();
 	location.href = "/duo_matching/chatList";
 }
+$(document).ready(function(){
+	console.log("ajax start");
+	$.ajax({
+		method:'get',
+		url:'/chatroom/list',
+	}).done(function(result){
+		const temp=document.createElement("div")
+		$.each(result, function(index, chatlist){
+			console.log(chatlist)
+			const html=document.createElement("div")
+			html.innerHTML=`<div id="rlist">
+							<a href="/chat/chatroom?chatroomId=${chatlist.chatroomId}" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</a>
+							</br>
+							<a>${chatlist.userId}</a>
+							</div>
+							</br>
+							`
+			temp.append(html)
+		})
+		$('#clist').replaceWith(temp)
+		
+	})
+})
 $(document).on('click','#update',(function(){
 	console.log("ajax start");
 	$.ajax({
 		method:'get',
 		url:'/chatroom/list',
 	}).done(function(result){
-//		console.log(result)
-//		let clist=
-//		$('#clist').val(result);
-//		console.log(result)
 		const temp=document.createElement("div")
 		$.each(result, function(index, chatlist){
 			console.log(chatlist)
@@ -77,10 +96,6 @@ list=setInterval(function(){
 		method:'get',
 		url:'/chatroom/list',
 	}).done(function(result){
-//		console.log(result)
-//		let clist=
-//		$('#clist').val(result);
-//		console.log(result)
 		const temp=document.createElement("div")
 		$.each(result, function(index, chatlist){
 			console.log(chatlist)

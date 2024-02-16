@@ -18,7 +18,9 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gg.gop.dto.ChatDto;
 import com.gg.gop.dto.ChatMessage;
+import com.gg.gop.service.ChatService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,28 +30,45 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class WebHandler extends TextWebSocketHandler{
 	private final ObjectMapper objectMapper;
-	private final List<WebSocketSession> sessions=new ArrayList<WebSocketSession>(); //= ConcurrentHashMap.newKeySet();
-
+	private final List<WebSocketSession> sessions=new ArrayList<>();
+	private final ChatService cSer;
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		
+		sessions.add(session);		
 	}
-	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		log.info("========{}",session.getPrincipal().getName());
+		List<WebSocketSession> roomSession=new ArrayList<>();
 		String payload=message.getPayload();
 		log.info(message.getClass().getName());
 		ChatMessage chatMessage=objectMapper.readValue(payload, ChatMessage.class);
-		log.info("handler");
+		int roomId=chatMessage.getRoomId();
+		List<String> chatMember=cSer.findRoomMember(roomId);
+		for(int i=0;i<chatMember.size();i++){
+			for(int j=0;j<sessions.size();j++) {
+				if(sessions.get(j).getPrincipal().getName().equals(chatMember.get(i))) {
+					roomSession.add(sessions.get(j));
+				};
+			}
+		}
+		log.info("handler set complet");
 		if(chatMessage.getType().equals(ChatMessage.MessageType.ENTER)) {
-			sessions.add(session);
 			chatMessage.setMessage(session.getPrincipal().getName()+"입장");
-			sendToEachSocket(sessions, new TextMessage(objectMapper.writeValueAsString(chatMessage)));
+			sendToEachSocket(roomSession, new TextMessage(objectMapper.writeValueAsString(chatMessage)));
 		}else if(chatMessage.getType().equals(ChatMessage.MessageType.QUIT)){
 			sessions.remove(session);
 			chatMessage.setMessage(chatMessage.getSender()+"퇴장");
-			sendToEachSocket(sessions,new TextMessage(objectMapper.writeValueAsString(chatMessage)));
+			sendToEachSocket(roomSession,new TextMessage(objectMapper.writeValueAsString(chatMessage)));
+		}else if(chatMessage.getType().equals(ChatMessage.MessageType.submit)) {
+			List<WebSocketSession> hostSession=new ArrayList<>();
+			ChatDto roomData=cSer.roomData(roomId);
+			for(int i=0;i<sessions.size();i++) {
+				if(sessions.get(i).getPrincipal().getName().equals(roomData.getUserId())) {
+					hostSession.add(sessions.get(i));
+					break;
+				}
+			sendToEachSocket(hostSession,message);
+			}
 		}else {
 			log.info("pay: {}", message);
 			log.info("{}",payload);
@@ -67,11 +86,8 @@ public class WebHandler extends TextWebSocketHandler{
 			}
 		});
 	}
-	
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		sessions.remove(session);
 	}
-
-
 }

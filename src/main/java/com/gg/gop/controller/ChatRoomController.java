@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.gg.gop.dto.ChatDto;
 import com.gg.gop.service.ChatService;
 
 import jakarta.servlet.http.HttpSession;
@@ -25,24 +24,10 @@ import lombok.extern.slf4j.Slf4j;
 public class ChatRoomController {
 	private final ChatService chatService;
 
-	//	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated()")
 //	@Secured("ROLE_ADMIN")
 	@GetMapping("/chat/chatList")
-	public String chatList(Model model, HttpSession session, Principal test) {
-		log.info("name={}",test.getName());
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
-		UserDetails userDetails = (UserDetails)principal;
-		log.info("{}",userDetails.getUsername());
-		
-//		String username=session.getAttribute("member2").toString();
-//		List<ChatRoom> roomList=chatService.findAllRoom();
-		List<ChatDto> roomList=new ArrayList<ChatDto>();
-		roomList=chatService.roomlist();
-		log.info("{}",session.getAttribute(userDetails.getUsername()));
-//		log.info(""+roomList.size());
-//		log.info(roomList.get(roomList.size()-1).getTitle());
-		model.addAttribute("roomList",roomList);
-//		model.addAttribute("username",username);
+	public String chatList(Model model) {
 		return"chat/chatList";
 	}
 	
@@ -56,14 +41,19 @@ public class ChatRoomController {
 		Object title=chatService.createRoom(name, username);
 		model.addAttribute("room",title);
 		model.addAttribute("username",username);
-		return "chat/chatroom";
+		return "chat/chatList";
 	}
 	
 	@GetMapping("/chat/chatroom")
 	public String chatRoom(Model model,@RequestParam(name="chatroomId") Object chatroomId, HttpSession session) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
 		UserDetails userDetails = (UserDetails)principal;
-		Object username= userDetails.getUsername();
+		String username= userDetails.getUsername().toString();
+		Boolean result=chatService.findAllRoom(Integer.parseInt((String) chatroomId),username);
+		if(!result) {
+			model.addAttribute("alert","진입실패");
+			return "redirect:/chat/chatList";
+		}
 		log.info("test");
 		log.info(""+chatroomId);
 		model.addAttribute("username", username);
@@ -71,4 +61,13 @@ public class ChatRoomController {
 		return "chat/chatroom";
 	}
 	
+	@GetMapping("/chat/out")
+	public String Chatout(Model model,@RequestParam(name="chatroomId") Object chatroomId) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		UserDetails userDetails = (UserDetails)principal;
+		String username= userDetails.getUsername().toString();
+		int roomId=Integer.parseInt((String)chatroomId);
+		chatService.outRoom(roomId, username);
+		return "chat/chatList";
+	}
 }
