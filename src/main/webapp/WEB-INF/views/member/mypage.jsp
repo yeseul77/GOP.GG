@@ -8,7 +8,7 @@
  <%@include file="/WEB-INF/tiles/header.jsp" %>
  <!--헤더 위치 -->
 <head>
-<title>Bootstrap Example</title>
+<title>프로필수정페이지</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -50,7 +50,9 @@
 			<div class="panel-body">
 				<form name="frm" action="${contextPath}/mypage" method="post">
 					<input type="hidden" id="email" name="email"
-						value="${memberDto.email}" /> <input type="hidden" id="password"
+						value="${memberDto.email}" /> 
+						
+						<input type="hidden" id="password"
 						name="password" value="" />
 					<table class="table table-bordered"
 						style="text-align: center; border: 1px solid #dddddd;">

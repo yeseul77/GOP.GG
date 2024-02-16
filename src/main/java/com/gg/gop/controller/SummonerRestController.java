@@ -26,7 +26,7 @@
 //		List<Map> gameInfoList = summonerService.gameInfoList(matchIdList);
 //
 //		// 중복 여부 확인
-//		boolean hasDuplicate = gameInfoList.stream()
+////		boolean hasDuplicate = gameInfoList.stream()
 //				.anyMatch(gameInfo -> gameName.getGameName().equals(gameInfo.get("riotIdGameName"))
 //						&& tagLine.getTagLine().equals(gameInfo.get("riotIdTagline")));
 //

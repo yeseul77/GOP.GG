@@ -90,17 +90,17 @@ public class MemberController {
 
 	
 	//이거는 수정해야될부분
-	@GetMapping("/member/mypage")
+	@GetMapping("/member/memberinfo")
 	public String infoupdateform() {
-		return "member/mypage";
+		return "member/memberinfo";
 	}
 	
-	@PostMapping("/member/mypage")
+	@PostMapping("/member/memberinfo")
 	public String infoupdate(HttpSession session,Model model,MemberDto memberDto) {
 		
 		
 		
-		return"member/mypage";
+		return"member/memberinfo";
 	}
 	
 	

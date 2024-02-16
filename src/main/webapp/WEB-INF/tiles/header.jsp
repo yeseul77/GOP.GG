@@ -22,11 +22,11 @@
       </c:if>
       <c:if test="${sessionScope.Loginstate != null && sessionScope.Loginstate}">
         <ul>
-              <li><a href="${contextPath}/member/mypage">마이페이지</a></li>
+              <li><a href="${contextPath}/member/memberinfo">마이페이지</a></li>
               <li><a href="${contextPath}/member/imageform">사진등록</a></li>
               <li><a href="${contextPath}/member/logout">로그아웃</a></li>    
                <!-- 시큐리티가 설정한 member/logout url설정 옮기면안됨  -->
-              <li><img src="${contextPath}/resources/images/이미지넣을예정" style="width: 50px; height: 50px"/> ${sessionScope.username} 소환사님 환영합니다 .</li>
+              <li><img src="/resources/images/profile" style="width: 50px; height: 50px"/> ${sessionScope.username} 소환사님 환영합니다 .</li>
         </ul>
       </c:if>
     </div>
