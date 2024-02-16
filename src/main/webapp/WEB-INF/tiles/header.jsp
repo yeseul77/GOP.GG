@@ -83,5 +83,6 @@
         </ul>
       </c:if>
     </div>
-  </div>
 </nav>
+</body>
+</html>
