@@ -5,37 +5,22 @@ import com.gg.gop.dto.MemberDto;
 
 @Mapper
 public interface MemberDao {
-	
 
 	// 회원가입
-	void insertMember(MemberDto memberDto);
-	MemberDto findById(String m_id);
-	
-	//로그인
-	 MemberDto findByLogin(String m_id, String m_pw);
-	
-	
-	
-	// 회원정보조회
-	MemberDto getMemberById(String m_id);
+	boolean insertMember(MemberDto memberDto);
 
-	void updatemyInfo(MemberDto memberDto);
+	// 암호화된  비밀번호
+	String getSecurityPw(String string);
 
-	// 내정보 수정
-	void updateMember(MemberDto memberDto);
+	MemberDto getMemberInfo(String string);
+
+	// 회원아이디중복조회
+	boolean idCheck(String email);
 
 	// 회원탈퇴
-	void deleteMember(String m_id);
-	
-	//회원아이디중복조회
-	boolean idcheck(String m_id);
+	void deleteMember(String email);
 
-	
-
-
-	
-
-
-	
+	//회원정보수정
+	int updateMemberInfo(MemberDto memberDto);
 
 }

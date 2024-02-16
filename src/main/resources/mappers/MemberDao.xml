@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gg.gop.dao.MemberDao">
+<<<<<<< HEAD
 	<insert id="insertMember"
 		parameterType="com.gg.gop.dto.MemberDto">
 		INSERT INTO member_tb ("m_id", "m_pw","m_name")
@@ -25,25 +26,47 @@
 		SELECT m_id
 		FROM member_tb
 		WHERE m_id
+=======
+	<!-- 회원가입 -->
+	<insert id="insertMember"
+		parameterType="MemberDto">
+		INSERT INTO member_tb
+		(email,username,password,role)
+		VALUES
+		(#{email},#{username},#{password},#{role})
+	</insert>
+	<!-- 로그인 -->
+	<select id="login" parameterType="HashMap" resultType="boolean">
+		select
+		count(*) from member_tb where email=#{username} and m_pw=#{password}
+>>>>>>> origin/SA
 	</select>
 
+	<select id="getSecurityPw" parameterType="String"
+		resultType="String">
+		select password from member_tb
+		where email=#{username}
+	</select>
 
+	<select id="getMemberInfo" resultType="MemberDto">
+		select email,password
+		from member_tb
+		where email=#{username};
+	</select>
 	<!-- 회원정보수정 U -->
-	<update id="updateMember"
-		parameterType="com.gg.gop.dto.MemberDto">
+	<update id="updateMemberInfo" parameterType="MemberDto">
 		UPDATE member_tb
-		SET m_pw = #{m_pw}, m_name = #{m_name}
-		<if test="m_pw != null and m_pw != ''">
-			, m_pw = #{m_pw}
-		</if>
-		WHERE m_id = #{m_id}
+		SET m_pw=#{password}, username = #{username}
+		WHERE email = #{email}
 	</update>
 
 	<!-- 탈퇴 D 가입된회원은 0 , 탈퇴면 1로 변경 -->
 	<delete id="deleteMember">
 		UPDATE member_tb
-		SET delete_Yn=1
-		WHERE m_id=#{m_id}
+		SET status=1
+		WHERE email=#{email}
 	</delete>
-
+	
+	
 </mapper>
+
