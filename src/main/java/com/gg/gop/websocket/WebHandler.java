@@ -18,7 +18,6 @@ import com.gg.gop.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RequiredArgsConstructor
 @Component
 public class WebHandler extends TextWebSocketHandler{
@@ -33,7 +32,7 @@ public class WebHandler extends TextWebSocketHandler{
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		List<WebSocketSession> roomSession=new ArrayList<>();
 		String payload=message.getPayload();
-		log.info(message.getClass().getName());
+
 		ChatMessage chatMessage=objectMapper.readValue(payload, ChatMessage.class);
 		int roomId=chatMessage.getRoomId();
 		List<String> chatMember=cSer.findRoomMember(roomId);
@@ -44,7 +43,7 @@ public class WebHandler extends TextWebSocketHandler{
 				};
 			}
 		}
-		log.info("handler set complet");
+
 		if(chatMessage.getType().equals(ChatMessage.MessageType.ENTER)) {
 			chatMessage.setMessage(session.getPrincipal().getName()+"입장");
 			sendToEachSocket(roomSession, new TextMessage(objectMapper.writeValueAsString(chatMessage)));
@@ -63,8 +62,7 @@ public class WebHandler extends TextWebSocketHandler{
 			sendToEachSocket(hostSession,message);
 			}
 		}else {
-			log.info("pay: {}", message);
-			log.info("{}",payload);
+
 			sendToEachSocket(roomSession, message);
 		}
 	}

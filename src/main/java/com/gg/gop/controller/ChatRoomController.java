@@ -33,8 +33,7 @@ public class ChatRoomController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
 		UserDetails userDetails = (UserDetails)principal;
 		Object username= userDetails.getUsername();
-		log.info(userDetails.getUsername());
-		log.info("{}",username);
+
 		Object title=chatService.createRoom(name, username);
 		model.addAttribute("room",title);
 		model.addAttribute("username",username);
@@ -51,8 +50,7 @@ public class ChatRoomController {
 			model.addAttribute("alert","진입실패");
 			return "redirect:/chat/chatList";
 		}
-		log.info("test");
-		log.info(""+chatroomId);
+
 		model.addAttribute("username", username);
 		model.addAttribute("chatroomId",chatroomId);
 		return "chat/chatroom";

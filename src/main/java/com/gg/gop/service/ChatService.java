@@ -40,12 +40,12 @@ public class ChatService {
 //								  .roomId(randomId)
 //								  .build();
 //		chatRooms.put(randomId, chatRoom);
-		log.info("{}",username);
+
 		Boolean result=cDao.createRoom(title, username);
 		if(result) {
-			log.info("create complet");
+
 		}else {
-			log.info("create fail");
+
 		}
 		return title;
 	}

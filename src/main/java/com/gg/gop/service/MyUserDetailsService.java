@@ -22,7 +22,7 @@ public class MyUserDetailsService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		MemberDto user=mDao.getMemberInfo(username);
-		log.info("========user{}",username);
+
 		if(user==null) {
 			throw new UsernameNotFoundException(username+"사용자를 찾을 수 없습니다");
 		}
