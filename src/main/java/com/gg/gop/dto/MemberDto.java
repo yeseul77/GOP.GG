@@ -79,9 +79,7 @@ public class MemberDto implements UserDetails{
 
 		public void setProfile(String profile) {
 			this.profile = profile;
-		}
-<<<<<<< HEAD
-		
+		}		
 		
 		public String getUsername1() {
 			return user.getUsername();
@@ -116,8 +114,5 @@ public class MemberDto implements UserDetails{
 			// TODO Auto-generated method stub
 			return true;
 		}
-=======
->>>>>>> 239a3c587345cfbe9e035541bb076e985d2f9dd7
-
 	
 }
