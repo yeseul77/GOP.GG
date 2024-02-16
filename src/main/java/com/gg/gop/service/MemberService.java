@@ -56,7 +56,7 @@ public class MemberService {
 	}
 
 	public Boolean withdraw(String email, String password) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

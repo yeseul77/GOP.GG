@@ -108,7 +108,7 @@ public class MemberController {
 
 	// 회원 프로필 사진등록
 	@RequestMapping("/member/imageform")
-	public String UserImageForm() {
+	public String ImageForm() {
 		return "member/imageform";
 	}
 
