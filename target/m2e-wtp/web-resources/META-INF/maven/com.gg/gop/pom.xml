@@ -110,7 +110,7 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-<<<<<<< HEAD
+<<<<<<< HEAD:target/m2e-wtp/web-resources/META-INF/maven/com.gop.gg/GOP/pom.xml
 
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -118,7 +118,7 @@
 			<scope>test</scope>
 		</dependency>
 =======
->>>>>>> middle
+>>>>>>> middle:target/m2e-wtp/web-resources/META-INF/maven/com.gg/gop/pom.xml
 	</dependencies>
 
 	<build>
