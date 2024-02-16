@@ -5,17 +5,10 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-<<<<<<< HEAD
 
 import com.gg.gop.dao.MemberDao;
 import com.gg.gop.dto.MemberDto;
 
-//import oracle.jdbc.proxy.annotation.Post;
-=======
-import com.gg.gop.dao.MemberDao;
-import com.gg.gop.dto.MemberDto;
-
->>>>>>> 239a3c587345cfbe9e035541bb076e985d2f9dd7
 
 
 @Service
@@ -58,32 +51,6 @@ public class MemberService {
 				return null;
 			}
 		}
-		  
-	
-	  
-
-
-
-
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
 	  
 	//회원탈퇴
 	public Boolean withdraw(String m_id, String m_pw) {
