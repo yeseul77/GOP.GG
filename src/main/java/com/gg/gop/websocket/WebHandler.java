@@ -1,9 +1,16 @@
 package com.gg.gop.websocket;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -62,11 +69,19 @@ public class WebHandler extends TextWebSocketHandler{
 			sendToEachSocket(hostSession,message);
 			}
 		}else {
+<<<<<<< HEAD
 
 			sendToEachSocket(roomSession, message);
+=======
+			log.info("pay: {}", message);
+			log.info("{}",payload);
+			sendToEachSocket(sessions, message);
+>>>>>>> 3238594cc1b8e83b4f8b7ca19cccc7b5ab9b7e82
 		}
 	}
 	private void sendToEachSocket(List<WebSocketSession> sessions, TextMessage message) throws Exception{
+		String payload=message.getPayload();
+		ChatMessage chatMessage=objectMapper.readValue(payload, ChatMessage.class);
 		sessions.parallelStream().forEach(roomSession->{
 			try {
 				roomSession.sendMessage(message);
