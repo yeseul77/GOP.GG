@@ -53,37 +53,42 @@ public class MemberController {
 		
 	}
 
-//	@PostMapping("/login")
-//	public String login(@RequestParam String email, 
-//	                    @RequestParam String password,
-//	                    RedirectAttributes rttr, HttpSession session) {
-//	    // HashMap을 사용하여 사용자 정보를 저장
-//	    HashMap<String, String> member = new HashMap<>();
-//	    member.put("email", email);
-//	    member.put("password", password);
-//
-//	    // 사용자가 존재하는지 확인
-//	    MemberDto memberDto = memberService.login(member);
-//	    if (memberDto.getEmail()==null ||
-//	    		memberDto.getPassword() .equals("")){
-//	    rttr.addFlashAttribute("msgType", "실패메세지");
-//	    rttr.addFlashAttribute("message", "모든  항목을 입력해 주세요");
-//	return "redirect:/register";
-//	    }
-//	    rttr.addFlashAttribute("msgType", "성공^^");
-//		rttr.addFlashAttribute("message", "로그인에 성공@");
-//		session.setAttribute("email", memberDto.getEmail()); // 사용자 이메일을 세션에 저장
-//		session.setAttribute("Loginstate", true); // 로그인 상태를 세션에 저장 
-//		System.out.println("email: " + session.getAttribute("email"));
-//		System.out.println("Loginstate:" + session.getAttribute("Loginstate")); 
-//		return "redirect:/";
-//	})
+	@PostMapping("/login")
+	public String login(@RequestParam String email, 
+	                    @RequestParam String password,
+	                    RedirectAttributes rttr, HttpSession session) {
+	    // HashMap을 사용하여 사용자 정보를 저장
+	    HashMap<String, String> member = new HashMap<>();
+	    member.put("email", email);
+	    member.put("password", password);
+
+	    // 사용자가 존재하는지 확인
+	    MemberDto memberDto = memberService.login(member);
+	    if (memberDto.getEmail()==null ||
+	    		memberDto.getPassword() .equals("")){
+	    rttr.addFlashAttribute("msgType", "실패메세지");
+	    rttr.addFlashAttribute("message", "모든  항목을 입력해 주세요");
+	return "redirect:/register";
+	    }
+	    rttr.addFlashAttribute("msgType", "성공^^");
+		rttr.addFlashAttribute("message", "로그인에 성공@");
+		session.setAttribute("email", memberDto.getEmail()); // 사용자 이메일을 세션에 저장
+		session.setAttribute("Loginstate", true); // 로그인 상태를 세션에 저장 
+		System.out.println("email: " + session.getAttribute("email"));
+		System.out.println("Loginstate:" + session.getAttribute("Loginstate")); 
+		return "redirect:/";
+	}
+
 
 
 	// 로그아웃===========================================
 	@PostMapping("/logout")
 	public String logout(HttpSession session, RedirectAttributes rttr) {
+<<<<<<< HEAD
 		session.invalidate(); //세션무효화처리 
+=======
+		session.invalidate(); //세션message무효화처리 
+>>>>>>> e597708 (이동커밋1)
 		rttr.addFlashAttribute("", "로그아웃되었습니다.");
 		return "redirect:/";
 
