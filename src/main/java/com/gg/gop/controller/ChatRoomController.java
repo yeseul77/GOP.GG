@@ -1,12 +1,9 @@
 package com.gg.gop.controller;
 
-<<<<<<< HEAD
-=======
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
->>>>>>> 4b95e4a (세션 가져오기 성공)
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
