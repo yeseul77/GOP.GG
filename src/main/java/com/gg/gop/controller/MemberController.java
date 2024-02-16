@@ -53,7 +53,6 @@ public class MemberController {
 		
 	}
 
-<<<<<<< HEAD
 //	@PostMapping("/login")
 //	public String login(@RequestParam String email, 
 //	                    @RequestParam String password,
@@ -79,7 +78,6 @@ public class MemberController {
 //		System.out.println("Loginstate:" + session.getAttribute("Loginstate")); 
 //		return "redirect:/";
 //	}
-=======
 	@PostMapping("/login")
 	public String login(@RequestParam String email, 
 	                    @RequestParam String password,
@@ -105,7 +103,6 @@ public class MemberController {
 	        return "redirect:/login";
 	    }
 	}
->>>>>>> 239a3c5 (0213오전까지한거커밋)
 
 
 	// 로그아웃===========================================
