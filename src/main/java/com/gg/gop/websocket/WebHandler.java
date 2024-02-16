@@ -78,10 +78,6 @@ public class WebHandler extends TextWebSocketHandler{
 	private void sendToEachSocket(List<WebSocketSession> sessions, TextMessage message) throws Exception{
 		String payload=message.getPayload();
 		ChatMessage chatMessage=objectMapper.readValue(payload, ChatMessage.class);
-//		String chatId=chatMessage.getRoomId();
-//		ModelAndView modelAndView = new ModelAndView();
-//		ModelAndView chatroomId=modelAndView.addObject("chatroomId");
-//		log.info(chatroomId.toString());
 		sessions.parallelStream().forEach(roomSession->{
 			try {
 				roomSession.sendMessage(message);
