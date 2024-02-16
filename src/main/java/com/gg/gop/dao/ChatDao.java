@@ -15,4 +15,5 @@ public interface ChatDao {
 	ChatDto intoRoom(int roomId);
 	Boolean deleteRoom(int chatroomId);
 	Boolean plusroom(int chatroomId, String memberId);
+	Boolean outRoom(int chatroomId, String memberId);
 }

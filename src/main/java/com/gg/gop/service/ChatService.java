@@ -63,4 +63,7 @@ public class ChatService {
 		List<ChatDto> clist=cDao.getRoomList();
 		return clist;
 	}
+	public Boolean outRoom(int roomId, String memberId) {
+		return cDao.outRoom(roomId, memberId);
+	}
 }
