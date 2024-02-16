@@ -49,6 +49,7 @@ public class MemberService {
 			System.out.println("아이디오류");
 			return null;
 		}
+	}
 	  
 	//회원탈퇴
 	public Boolean withdraw(String m_id, String m_pw) {
@@ -64,10 +65,6 @@ public class MemberService {
 		return "fail";
 	}
 
-	public Boolean withdraw(String email, String password) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	
 	//회원 정보 수정 ,삭제 ,탈퇴
