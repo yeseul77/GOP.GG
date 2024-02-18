@@ -21,9 +21,10 @@
                     <td>
                         <div class="tdcell">
                             <p class="contxt_username nickname">
+                          <p class="contxt_username nickname">
                             <label>닉네임</label>
-                                <input type="text" name="username" id="username"  onclick="clickcr(this,'prf.nick','','event');">
-                                <!-- Enter 키를 누르면 submit 되는 것을 방지하기 위한 JavaScript 처리 필요  네이버꺼 참조함...-->
+                                <!-- 로그인한 세션의 username 값으로 초기화 -->
+                                <input type="text" name="username" id="username" value="${sessionScope.username}">
                                 <input type="text" style="display: none;">
                             </p>
                         </div>
@@ -36,6 +37,7 @@
         </div>
     </form>
     <%@include file="/WEB-INF/tiles/footer.jsp"%> 
+
     
     <script>
     document.addEventListener('DOMContentLoaded', function () {
