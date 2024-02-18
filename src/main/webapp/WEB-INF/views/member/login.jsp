@@ -1,16 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>login-page</title>
-</head>
-<body>
-
+<html lang="en">
 <!-- 헤더 위치 -->
  <%@include file="/WEB-INF/tiles/header.jsp" %>
- <!-- 헤더 위치 -->
+ <!--헤더 위치 -->
+<head>
+<title>Bootstrap Example</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <h3 style="text-align:center;">소환사님 
 <span style="font-size:30px;">&#128378;</span> 
     <span style="color: blue">
@@ -24,7 +30,7 @@
         <div id="LoginForm" style="font-size:medium; font-weight: bold; text-align: center;">
             <div style="height: 40px">
                 <label>ID &nbsp; : </label>
-                <input type="text" name="username" placeholder="아이디를 입력해 주세요.">
+                <input type="text" name="email" placeholder="아이디를 입력해 주세요.">
             </div>
             <div>
                 <label>PW : </label>

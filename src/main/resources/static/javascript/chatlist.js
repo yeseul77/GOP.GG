@@ -9,7 +9,6 @@ function enterRoom(socket) {
 	socket.send(JSON.stringify(enterMsg));
 }
 
-
 socket.onopen = function(e) {
 	console.log('open server')
 	enterRoom(socket);
@@ -26,10 +25,45 @@ socket.onerror = function(e) {
 
 socket.onmessage = function(e) {
 	console.log("e.data", e.data);
+	var msg=JSON.parse(e.data);
+	if(msg.type=="submit"){
+		console.log("submit")
+		let sender=msg.sender;
+		console.log(sender)
+		let submitArea=document.querySelector ('.submitArea');
+		let submitMsg=document.querySelector('div');
+		submitMsg.innerHTML=`${msg.sender}님이 입장신청을 하였습니다</br>
+							<button onclick="accept( ${msg.roomId}, ${username}, ${sender} )">승낙</button>
+							<button onclick="denine()">거절</buttton>`
+	}
+	else if(msg.type=="accept"){
+		location.href=`/chat/chatroom?chatroomId=${msg.roomId}`;
+	}
+	else if(msg.type=="denied"){
+		alert("신청이 거부되었습니다");
+	}
 	let msgArea = document.querySelector('.msgArea');
 	let newMsg = document.createElement('div');
 	newMsg.innerText = e.data;
 	/*msgArea.append(newMsg);*/
+}
+
+function submit(roomId){
+	var subMsg={"type":"submit", "roomId":JSON.stringify(roomId), "sender":JSON.stringify(username),"msg":"submit"};
+	console.log(roomId);
+	socket.send(JSON.stringify(subMsg))
+}
+
+function accept(roomId, master, sender){
+//	let content=document.querySelector('.accept').value;	
+	var accMsg={"type":"accept", "roomId":JSON.stringify(roomId), "sender":JSON.stringify(master),"msg":JSON.stringify(sender)};
+	socket.send(JSON.stringify(accMsg));
+	location.href=`/chat/chatroom?chatroomId=${roomId}`;
+}
+
+function denied(){
+	var deniedMsg={"type":"denied", "roomId":JSON.stringify(-1), "sender":JSON.stringify(master),"msg":"denied"};
+	socket.send(JSON.stringify(deniedMsg));	
 }
 
 function sendMsg() {
@@ -42,7 +76,7 @@ function quit() {
 	var quitMsg = { "type": "QUIT", "roomId": JSON.stringify(chatroomId), "sender": JSON.stringify(username), "msg": "" }
 	socket.send(JSON.stringify(quitMsg));
 	socket.close();
-	location.href = "/duo_matching/chatList";
+	location.href = "/chat/out";
 }
 $(document).ready(function(){
 	console.log("ajax start");
@@ -55,9 +89,10 @@ $(document).ready(function(){
 			console.log(chatlist)
 			const html=document.createElement("div")
 			html.innerHTML=`<div id="rlist">
-							<a href="/chat/chatroom?chatroomId=${chatlist.chatroomId}" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</a>
+							<a href="/chat/chatroom?chatroomId=${chatlist.chatroomId}" class="chatroomId" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</a>
 							</br>
-							<a>${chatlist.userId}</a>
+							<a>${chatlist.userId}</a></br>
+							<button type="button" class="chatroomId" value="${chatlist.chatroomId}" onclick="submit(${chatlist.chatroomId})">참가신청</button>
 							</div>
 							</br>
 							`
@@ -78,9 +113,10 @@ $(document).on('click','#update',(function(){
 			console.log(chatlist)
 			const html=document.createElement("div")
 			html.innerHTML=`<div id="rlist">
-							<a href="/chat/chatroom?chatroomId=${chatlist.chatroomId}" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</a>
+							<a href="/chat/chatroom?chatroomId=${chatlist.chatroomId}" class="chatroomId" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</a>
 							</br>
-							<a>${chatlist.userId}</a>
+							<a>${chatlist.userId}</a></br>
+							<button type="button" class="chatroomId" value="${chatlist.chatroomId}" onclick="submit(${chatlist.chatroomId})">참가신청</button>
 							</div>
 							</br>
 							`
@@ -101,9 +137,10 @@ list=setInterval(function(){
 			console.log(chatlist)
 			const html=document.createElement("div")
 			html.innerHTML=`<div id="rlist">
-							<a href="/chat/chatroom?chatroomId=${chatlist.chatroomId}" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</a>
+							<a href="/chat/chatroom?chatroomId=${chatlist.chatroomId}" name="chatroomId" class="chatroomId" value="${chatlist.chatroomId}" onclick="submit()">${chatlist.title}</a>
 							</br>
-							<a>${chatlist.userId}</a>
+							<a>${chatlist.userId}</a></br>
+							<button type="button" class="chatroomId" value="${chatlist.chatroomId}" onclick="submit(${chatlist.chatroomId})">참가신청</button>
 							</div>
 							</br>
 							`

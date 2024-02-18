@@ -13,7 +13,7 @@ $('document').ready(function(){
 
 function enterRoom(socket) {
 	var enterMsg = { "type": "ENTER", "roomId": chatroomId, "sender": username, "msg": "" };
-	socket.send(JSON.stringify(enterMsg));
+//	socket.send(JSON.stringify(enterMsg));
 }
 
 
