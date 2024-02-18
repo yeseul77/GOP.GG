@@ -1,5 +1,6 @@
 package com.gg.gop.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,7 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.gg.gop.common.FileService;
 import com.gg.gop.dto.MemberDto;
 import com.gg.gop.service.MemberService;
 import jakarta.servlet.http.HttpSession;
@@ -23,7 +27,34 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	 @Autowired
+	    private FileService fileService;
+	 
+	 @PostMapping("/updateProfileImage")
+	 public String updateProfileImage(@RequestParam("profileImage") MultipartFile file,
+	                                  HttpSession session,
+	                                  RedirectAttributes rttr) {
+	     String memberEmail = (String) session.getAttribute("email"); // 세션에서 사용자 이메일 가져오기
 
+	     try {
+	         String fileName = fileService.uploadFile(file, memberEmail); // 파일 업로드 및 회원 프로필 이미지 정보 업데이트
+	         if (fileName == null) {
+	             rttr.addFlashAttribute("message", "파일 업로드에 실패했습니다.");
+	             return "redirect:/member/profile";
+	         }
+	         
+	         rttr.addFlashAttribute("message", "프로필 이미지가 성공적으로 업데이트되었습니다.");
+	     } catch (IOException e) {
+	         e.printStackTrace();
+	         rttr.addFlashAttribute("message", "파일 업로드 중 오류가 발생했습니다.");
+	         return "redirect:/member/profile";
+	     }
+
+	     return "redirect:/";
+	 }
+	 
+	 
+	
 	// 회원가입==============================================
 	@GetMapping("/register")
 	public String registreForm(HttpSession session) {
@@ -102,6 +133,12 @@ public class MemberController {
 		
 		return"member/memberinfo";
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 	// =================================================================

@@ -14,7 +14,7 @@ import lombok.Setter;
 @Builder
 public class ChatMessage {
 	public enum MessageType{
-		ENTER,TALK,QUIT,submit
+		ENTER,TALK,QUIT,submit,accept,denied
 	}
 	private MessageType type;
 	private int roomId;

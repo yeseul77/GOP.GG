@@ -19,23 +19,6 @@
 
 <h2 style="text-align:center;">GOP.GG 회원가입</h2>
 <form action="/register" method="post">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-<table class="registertable" style="text-align:center; border: 1px">
-<tr>
-    <td><input type="text" name="email" id="email" placeholder="아이디"><br></td>
-    <td><button type="button"> <!--  onclick="registercheck()"-->중복확인</button></td>
-</tr>
-<tr>
-    <td><input type="password" name="password" id="password" placeholder="비밀번호"><!-- onkeyup="pwcheck()" --> <br></td>
-    <td><input type="password" name="password2" id="password2"  placeholder="비밀번호확인"><!-- onkeyup="pwcheck()" --><br></td>
-</tr>
-<tr>
-    <td><input type="text" name="username" id="username" placeholder="닉네임"><br></td>
-</tr>
-</table>
-<button type="submit">회원가입</button>
-</form>
-
     <table class="table" style="width:50%; margin:auto;">
         <tr>
             <td><input type="text" name="email" id="email" class="form-control" placeholder="아이디 (이메일)"></td>
@@ -55,32 +38,10 @@
         </tr>
     </table>
 </form>
-    <table class="table" style="width:50%; margin:auto;">
-        <tr>
-            <td><input type="text" name="email" id="email" class="form-control" placeholder="아이디 (이메일)"></td>
-            <td><button type="button" class="btn btn-primary" onclick="registerCheck()">중복확인</button></td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="password" name="password" id="password" class="form-control" placeholder="비밀번호"></td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="password" name="password2" id="password2" class="form-control" placeholder="비밀번호 확인"></td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="text" name="username" id="username" class="form-control" placeholder="닉네임"></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="text-align:center;"><button type="submit" class="btn btn-success">회원가입</button></td>
-        </tr>
-    </table>
-</form>
-<<<<<<< HEAD
-=======
 		<p>
 			이미 계정이 있으신가요? <a href="/login">로그인</a>
 		</p>
 
->>>>>>> YS
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">

@@ -16,8 +16,6 @@ public interface MemberDao {
 
 	// 회원아이디중복조회
 	boolean idCheck(String email);
-
-	void deleteMember(String m_id);
 	
 	// 회원정보 수정,삭제 ,탈퇴
 	

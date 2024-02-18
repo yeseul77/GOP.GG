@@ -1,15 +1,11 @@
 package com.gg.gop.service;
 
 import java.util.HashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.gg.gop.dao.MemberDao;
 import com.gg.gop.dto.MemberDto;
-
-
 
 @Service
 public class MemberService {
@@ -50,12 +46,6 @@ public class MemberService {
 			return null;
 		}
 	}
-	  
-	//회원탈퇴
-	public Boolean withdraw(String m_id, String m_pw) {
-	    memberDao.deleteMember(m_id);
-	    return true;
-	}
 
 //아이디 중복체크
 	public String checkid(String email) {
@@ -65,13 +55,10 @@ public class MemberService {
 		return "fail";
 	}
 
-<<<<<<< HEAD
-=======
 	public Boolean withdraw(String email, String password) {
 		
 		return null;
 	}
->>>>>>> YS
 
 	
 	//회원 정보 수정 ,삭제 ,탈퇴
