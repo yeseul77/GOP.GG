@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gg.gop.dao.MemberDao">
-<<<<<<< HEAD
 	<insert id="insertMember"
 		parameterType="com.gg.gop.dto.MemberDto">
 		INSERT INTO member_tb ("m_id", "m_pw","m_name")
@@ -26,7 +25,7 @@
 		SELECT m_id
 		FROM member_tb
 		WHERE m_id
-=======
+	</select>
 	<!-- 회원가입 -->
 	<insert id="insertMember"
 		parameterType="MemberDto">
@@ -39,7 +38,6 @@
 	<select id="login" parameterType="HashMap" resultType="boolean">
 		select
 		count(*) from member_tb where email=#{username} and m_pw=#{password}
->>>>>>> origin/SA
 	</select>
 
 	<select id="getSecurityPw" parameterType="String"

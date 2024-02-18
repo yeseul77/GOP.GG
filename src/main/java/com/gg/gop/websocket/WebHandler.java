@@ -26,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
+@Slf4j
 @Component
 public class WebHandler extends TextWebSocketHandler{
 	private final ObjectMapper objectMapper;
@@ -69,14 +70,11 @@ public class WebHandler extends TextWebSocketHandler{
 			sendToEachSocket(hostSession,message);
 			}
 		}else {
-<<<<<<< HEAD
 
 			sendToEachSocket(roomSession, message);
-=======
 			log.info("pay: {}", message);
 			log.info("{}",payload);
 			sendToEachSocket(sessions, message);
->>>>>>> 3238594cc1b8e83b4f8b7ca19cccc7b5ab9b7e82
 		}
 	}
 	private void sendToEachSocket(List<WebSocketSession> sessions, TextMessage message) throws Exception{
