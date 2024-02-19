@@ -7,7 +7,7 @@
 		INSERT INTO member_tb
 		(email,username,password,role,deleteYn)
 		VALUES
-		(#{email},#{username},#{password},#{role},false)
+		(#{email},#{username},#{password},#{role},default)
 	</insert>
 	<!-- 로그인 -->
 	<select id="login" parameterType="HashMap" resultType="boolean">
