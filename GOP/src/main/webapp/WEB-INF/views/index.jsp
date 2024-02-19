@@ -46,19 +46,32 @@
 	        	var dataList = {};
 	        	var teamdata = [];
 	            var infodata = [];
-            	for (var k = 0; k < data[i].info.teams.length; k++) {
-            		var tt = {
-            			matchId: data[i].metadata.matchId,
-            			teamchampionkills: data[i].info.teams[k].objectives.champion.kills,
-                    	teamwin: data[i].info.teams[k].win
-            		}
-            		teamdata.push(tt);
-            		dataList.teams = teamdata
-            	};
+	            for (var k = 0; k < data[i].info.teams.length; k++) {
+	                var tt = {
+	                    matchId: data[i].metadata.matchId,
+	                    teamchampionkills: data[i].info.teams[k].objectives.champion.kills,
+	                    teamwin: data[i].info.teams[k].win,
+	                    bans: []  // Initialize bans array
+	                };
+
+	                // Populate bans array
+	                for (var z = 0; z < data[i].info.teams[k].bans.length; z++) {
+	                    var bb = {
+	                    	matchId: data[i].metadata.matchId,
+	                        championId: data[i].info.teams[k].bans[z].championId,
+	                        pickTurn: data[i].info.teams[k].bans[z].pickTurn
+	                    };
+	                    tt.bans.push(bb);
+	                }
+
+	                teamdata.push(tt);
+	                dataList.teams = teamdata;
+	            }
                 for (var j = 0; j < data[i].info.participants.length; j++) {
                     var gg = {
                         matchId: data[i].metadata.matchId,
                         gameDuration: data[i].info.gameDuration,
+                        gameStartTimestamp: data[i].info.gameStartTimestamp,
                         queueId: data[i].info.queueId,
                         riotIdGameName: data[i].info.participants[j].riotIdGameName,
                         riotIdTagline: data[i].info.participants[j].riotIdTagline,
@@ -123,11 +136,25 @@
        	        // gameInfo.info 배열에서 해당 플레이어의 정보를 찾음
        	        	for (var j = 0; j < gameInfo.info.length; j++) {
        	            	var playerInfo = gameInfo.info[j];
-       	            
+       	            	var matchingTeam = gameInfo.teams.find(function(team) {
+       	            	    return team.teamwin === playerInfo.win;
+       	            	});
        	            // 플레이어의 게임 이름과 태그 라인이 일치할 경우에만 표시
        	            	if (playerInfo.riotIdGameName === gameName && playerInfo.riotIdTagline === tagLine) {
+       	            		var kdaDisplay;
+       	            		if (playerInfo.kda === 0) {
+       	            		    kdaDisplay = "perfect";
+       	            		} else {
+       	            		    kdaDisplay = playerInfo.kda + "점";
+       	            		}
+       	            		var gameDisplay;
+       	            		if (playerInfo.gameDuration < 240){
+       	            			gameDisplay = "다시하기";
+       	            		} else{
+       	            			gameDisplay = playerInfo.gameMode;
+       	            		}
        	                	var gameRow = "<tr>" +
-       	                    	"<th rowspan='2'>" + playerInfo.gameMode + "</th>" +
+       	                    	"<th rowspan='2'>" + gameDisplay + "</th>" +
        	                    	"<th rowspan='3' colspan='2'>" + playerInfo.championName + "</th>" +
        	                    	"<th rowspan='2'>" + playerInfo.kills + " / " + playerInfo.deaths + " / " + playerInfo.assists + "</th>" +
        	                    	"<th>킬관여율</th>" +
@@ -135,11 +162,11 @@
        	                    	"<td rowspan='3' class='showMore'><button class='btn_toggle' data-index='" + index + "'>더보기</button></td>" +
        	                    	"</tr>" +
        	                    	"<tr>" +
-       	                    	"<th>"+ parseFloat(((playerInfo.kills + playerInfo.assists) / gameInfo.teams[0].teamchampionkills)* 100).toFixed(0) +"%</th>" +
+       	                    	"<th>"+ parseFloat(((playerInfo.kills + playerInfo.assists) / matchingTeam.teamchampionkills)* 100).toFixed(0) +"%</th>" +
        	                    	"</tr>" +
        	                    	"<tr>" +
        	                    	"<th>" + (playerInfo.win ? "승리" : "패배") + "</th>" +
-	       	                    "<th>" + playerInfo.kda + "점 </th>" +
+	       	                    "<th>" + kdaDisplay + "</th>" +
     	   	                    "<th>골드</th>" +
        	                    	"</tr>";
        	                	$("#gameInfoTable tbody").append(gameRow);
@@ -214,6 +241,10 @@
 </script>
 </head>
 <body>
+	<div>
+        <a href="/championSearchForm">챔피언 분석</a> <!-- 챔피언 정보 페이지로 이동하는 링크 추가 -->
+    </div>
+	
 	<h1>Summoner Search</h1>
 	<form id="searchForm">
 		<label for="gameName">gameName:</label> <input type="text"
