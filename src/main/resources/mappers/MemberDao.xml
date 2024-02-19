@@ -41,8 +41,19 @@
 		SET delete_Yn=1
 		WHERE email=#{email}
 	</delete>
-		<!-- 프로필사진변경 -->
-	
+		<!--회원정보 변경-->
+<update id="updateMemberProfile" parameterType="com.gg.gop.dto.MemberDto">
+    UPDATE member
+    <set>
+        <if test="username != null">
+            username = #{username},
+        </if>
+        <if test="profile != null">
+            profile = #{profile},
+        </if>
+    </set>
+    WHERE email = #{email}
+</update>	
    
     
 	

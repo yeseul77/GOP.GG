@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -93,43 +92,40 @@ public class MemberController {
 		return "member/memberinfo";
 	}
 
-	@PostMapping("/memberinfo")
-	public String updateMemberInfo(@RequestParam("profileImage") MultipartFile profileImage,
-	                               @RequestParam("username") String username,
-	                               HttpSession session,
-	                               RedirectAttributes redirectAttributes) {
-	    String email = (String) session.getAttribute("email"); // 세션에서 이메일 정보 가져오기
+	@PostMapping("/member/memberinfo")
+	public String updateProfile(@RequestParam("profileImage") MultipartFile file, 
+													@RequestParam("username") String username, 
+													HttpSession session, RedirectAttributes rttr) {
+		String email = (String) session.getAttribute("email"); // 세션에서 이메일 가져오기
 
 	    try {
-	        boolean isUpdated = memberService.updateMemberInfo(email, username, profileImage);
-	        if (isUpdated) {
-	            redirectAttributes.addFlashAttribute("message", "프로필 정보가 업데이트 되었습니다.");
+	        // 프로필 이미지와 사용자 이름 업데이트
+	        boolean result = memberService.updateMemberInfo(email, username, file, session);
+	        if(result) {
+	            rttr.addFlashAttribute("message", "프로필 업데이트 성공!");
+	            session.setAttribute("username", username); // 세션 업데이트
 	        } else {
-	            redirectAttributes.addFlashAttribute("message", "프로필 정보 업데이트에 실패했습니다.");
+	            rttr.addFlashAttribute("message", "프로필 업데이트 실패.");
 	        }
 	    } catch (Exception e) {
-	        redirectAttributes.addFlashAttribute("message", "서버 오류로 인해 프로필 정보 업데이트에 실패했습니다.");
-	        e.printStackTrace();
+	        rttr.addFlashAttribute("message", "업데이트 중 오류 발생.");
 	    }
-	    return "redirect:/memberinfo";
+	    return "redirect:/memberinfo"; // 프로필 페이지로 리다이렉트
 	}
-	
 	// =================================================================
 
-	// 회원 탈퇴 확인 페이지 요청
+	// 회원 탈퇴  페이지 
 	@GetMapping("/member/mypage/withdraw")
 	public String withdrawCheck(Model model, HttpSession session) {
-		// 회원 탈퇴 확인 페이지를 보여줍니다.
 		return "member/withdraw";
 	}
 
-	// 회원 탈퇴 처리 요청
+	// 회원 탈퇴 post처리 
 	@PostMapping("/member/mypage/withdraw")
 	public String withdraw(@RequestParam String email, @RequestParam String password, HttpSession session,
 			RedirectAttributes rttr) {
-		// 회원 탈퇴 처리를 수행합니다.
+		
 		Boolean result = memberService.withdraw(email, password);
-
 		if (result) {
 			// 탈퇴 처리 성공
 			session.invalidate(); // 세션 무효화

@@ -6,8 +6,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gg.gop.common.FileService;
 import com.gg.gop.dao.MemberDao;
 import com.gg.gop.dto.MemberDto;
+
+import jakarta.servlet.http.HttpSession;
 
 @Service
 public class MemberService {
@@ -15,7 +18,9 @@ public class MemberService {
 	@Autowired
 	private MemberDao memberDao;
 	private final String DEFAULT_PROFILE_IMAGE_PATH = "/images/defaultprofile.png";
-
+    @Autowired
+    private FileService fileService;
+    
 	// 회원가입
     public boolean register(MemberDto memberDto) {
         // 비밀번호 암호화
@@ -74,19 +79,31 @@ public class MemberService {
 	}
 
 
-	public boolean updateMemberInfo(String email, String username, MultipartFile profileImage) {
-		
-		return false;
-	}
+	public boolean updateMemberInfo(String email, String username, MultipartFile profileImage, HttpSession session) {
+        try {
+            // 프로필 이미지 업로드 및 파일명 반환
+            String fileName = fileService.uploadProfileImage(profileImage, session);
 
-
-
-	//회원의 프로필사진변경 메소드
-
-
-	
-
-	
-
+            if (fileName != null) {
+                // 파일명이 반환되었다면, 사용자 정보 업데이트 로직 실행
+                MemberDto memberDto = new MemberDto();
+                memberDto.setEmail(email);
+                memberDto.setUsername(username);
+                memberDto.setProfile(fileName); // 업로드된 파일명을 DTO에 설정
+                memberDao.updateMemberProfile(memberDto); // DB 업데이트
+            } else {
+                // 이미지가 업로드되지 않았다면, 닉네임만 업데이트
+                MemberDto memberDto = new MemberDto();
+                memberDto.setEmail(email);
+                memberDto.setUsername(username);
+                // 프로필 이미지 경로 변경 없이 기존 값을 유지하거나, 기본 이미지로 설정할 수 있음
+                memberDao.updateMemberProfile(memberDto); // DB 업데이트
+            }
+            return true;
+        } catch (Exception e) {
+            // 예외 처리 로직
+            return false;
+        }
+    }
 	
 }

@@ -8,7 +8,7 @@
     <script src="/js/profile.js"></script>
 </head>
 <body>
-  <form action="${contextPath}/memberinfo" method="post" enctype="multipart/form-data">
+  <form action="${contextPath}memberinfo" method="post" enctype="multipart/form-data">
         <div style="width: 300px; margin: 0 auto; text-align: center;">
             <h2>프로필 설정</h2>
              <label>프로필사진</label>
@@ -42,7 +42,5 @@
     <a href="${contextPath}/member/mypage/withdraw" class="btn" style="text-decoration: none; color: white; background-color: #f44336; padding: 10px 20px; border-radius: 5px;">회원 탈퇴</a>
 </div>
     <%@include file="/WEB-INF/tiles/footer.jsp"%> 
-
- 
 </body>
 </html>
