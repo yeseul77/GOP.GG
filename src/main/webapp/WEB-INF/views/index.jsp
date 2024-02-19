@@ -10,7 +10,6 @@
     <title>Summoner Search</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
-    <script>
  // 메시지 변수 설정
  const message = '${message}';  // 컨트롤러에서 addFlashAttribute로 추가한 메시지를 받음
  const isLoggedIn = ${sessionScope.isLoggedIn != null && sessionScope.isLoggedIn}; // 로그인 상태

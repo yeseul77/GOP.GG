@@ -30,7 +30,7 @@
         <div id="LoginForm" style="font-size:medium; font-weight: bold; text-align: center;">
             <div style="height: 40px">
                 <label>ID &nbsp; : </label>
-                <input type="text" name="email" placeholder="아이디를 입력해 주세요.">
+                <input type="text" name="username" placeholder="아이디를 입력해 주세요.">
             </div>
             <div>
                 <label>PW : </label>
