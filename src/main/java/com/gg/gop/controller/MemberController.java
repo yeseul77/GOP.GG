@@ -116,19 +116,6 @@ public class MemberController {
 	
 	// =================================================================
 
-	// 회원 프로필 사진등록
-	@RequestMapping("/member/imageform")
-	public String ImageForm() {
-		return "member/imageform";
-	}
-
-	// 회원 사진 업로드(DB저장+업로드)
-	@RequestMapping("/member/imageupdate")
-	public String memberUpdate() {
-		// 파일 업로드 API
-		return "";
-	}
-
 	// 회원 탈퇴 확인 페이지 요청
 	@GetMapping("/member/mypage/withdraw")
 	public String withdrawCheck(Model model, HttpSession session) {

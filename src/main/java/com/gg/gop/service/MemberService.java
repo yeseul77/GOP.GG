@@ -79,6 +79,8 @@ public class MemberService {
 		return false;
 	}
 
+
+
 	//회원의 프로필사진변경 메소드
 
 
