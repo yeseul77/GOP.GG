@@ -208,9 +208,6 @@
     </table>
 </div>
 
-
-
-
 <!-- 푸터 위치 -->
  <%@include file="/WEB-INF/tiles/footer.jsp" %>
  <!-- 푸터 위치 -->

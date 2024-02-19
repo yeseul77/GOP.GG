@@ -4,6 +4,8 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.gg.gop.dao.MemberDao;
 import com.gg.gop.dto.MemberDto;
 
@@ -57,7 +59,7 @@ public class MemberService {
 		}
 	}
 
-//아이디 중복체크
+	//아이디 중복체크
 	public String checkid(String email) {
 		if (memberDao.idCheck(email) == false) {
 			return "ok"; //
@@ -65,13 +67,23 @@ public class MemberService {
 		return "fail";
 	}
 
+	//회원탈퇴
 	public Boolean withdraw(String email, String password) {
 		
 		return null;
 	}
 
+
+	public boolean updateMemberInfo(String email, String username, MultipartFile profileImage) {
+		
+		return false;
+	}
+
+	//회원의 프로필사진변경 메소드
+
+
 	
-	//회원 정보 수정 ,삭제 ,탈퇴
+
 	
 
 	

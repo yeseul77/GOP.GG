@@ -5,6 +5,7 @@
 <head>
     <%@include file="/WEB-INF/tiles/header.jsp"%> 
     <title>프로필 설정 페이지</title>
+    <script src="/js/profile.js"></script>
 </head>
 <body>
   <form action="${contextPath}/memberinfo" method="post" enctype="multipart/form-data">
@@ -25,39 +26,22 @@
                           <p class="contxt_username nickname">
                             <label>닉네임</label>
                                 <!-- 로그인한 세션의 username 값으로 초기화 -->
-                                <input type="text" name="username" id="username" value="${sessionScope.username}">
-                                <input type="text" style="display: none;">
+                                <input type="text" name="username" id="username" value="${sessionScope.username}" >
+									<!--   한 글자 이상 입력된 상태에서만 적용버튼이 활성화되도록 -->
                             </p>
                         </div>
                     </td>
                 </tr>
             </table>
             <br><br>
-            <input type="submit" value="적용">
+          <input type="submit" value="적용"> <!-- <input> 영역의 입력 상황에 따라 <button>을 활성화 또는 비활성화  -->
             <input type="reset" value="취소">
         </div>
     </form>
     <%@include file="/WEB-INF/tiles/footer.jsp"%> 
 
-    
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-    	//DOMContentLoaded가 onload보다 먼저 실행된다.
-        // 폼 내의 모든 입력 요소에 대해 이벤트 리스너 ㄱㄱ
-        var inputs = document.querySelectorAll('input, select');
-        inputs.forEach(function(input) {
-            input.addEventListener('keypress', function(e) {
-                // Enter 키가 눌렸을 때
-                if (e.which === 13) {
-                    // 기본 동작 방지
-                    e.preventDefault();
-                }
-            });
-        });
-    });
-    
-
-    </script>
+  
+   
     <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
         // 삭제버튼
