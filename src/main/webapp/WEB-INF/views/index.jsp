@@ -6,10 +6,9 @@
 <head>
 <!-- 헤더 위치 -->
  <%@include file="/WEB-INF/tiles/header.jsp" %>
- <!--헤더 위치 -->
-    <title>Summoner Search</title>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
+ <!--헤더 위치 -->  
+ <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+ <script>
  // 메시지 변수 설정
  const message = '${message}';  // 컨트롤러에서 addFlashAttribute로 추가한 메시지를 받음
  const isLoggedIn = ${sessionScope.isLoggedIn != null && sessionScope.isLoggedIn}; // 로그인 상태
@@ -172,40 +171,147 @@
     });
 
 </script>
+<link rel="stylesheet" href="/css/index.css">
+<script defer src="/js/index.js"></script>
 </head>
+
 <body>
 
-<h1>Summoner Search</h1>
-<form id="searchForm">
+<!-- BACKGROUND IMAGE -->
+
+  <div class="back"></div>
+
+  <div id="wrap">
+  
+  	<!-- SECTION LOGO -->
+  <section class="main-logo">
+    <div class="inner">
+      <div class="logo">
+        <img src="/images/main-logo.png" alt="mainlogo" />
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION SEARCH -->
+
+  <section class="search">
+    <div class="inner">
+      <div class="search-bar">
+        <div class="input">
+          <input type="text" placeholder="소환사 이름 + #KR1">
+        </div>
+        <div class="search-icon">
+          <div class="material-symbols-outlined">
+            search
+          </div>
+        </div>
+        <div class="search-bar-record">
+          <div class="record-bar">
+            최근에 본 소환사가 없습니다.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DUO -->
+
+  <section class="duo">
+
+    <div class="inner">
+
+      <div class="duo-list">
+
+        <div class="duo-more">
+          <a href="javascript:void(0)" target="_blank">듀오찾기</a>
+        </div>
+
+        <div class="swiper">
+
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <a href="javascript:void(0)" target="_blank">1</a>
+            </div>
+            <div class="swiper-slide">
+              <a href="javascript:void(0)" target="_blank">2</a>
+            </div>
+            <div class="swiper-slide">
+              <a href="javascript:void(0)" target="_blank">3</a>
+            </div>
+            <div class="swiper-slide">
+              <a href="javascript:void(0)" target="_blank">4</a>
+            </div>
+            <div class="swiper-slide">
+              <a href="javascript:void(0)" target="_blank">5</a>
+            </div>
+            <div class="swiper-slide">
+              <a href="javascript:void(0)" target="_blank">6</a>
+            </div>
+            <div class="swiper-slide">
+              <a href="javascript:void(0)" target="_blank">7</a>
+            </div>
+            <div class="swiper-slide">
+              <a href="javascript:void(0)" target="_blank">8</a>
+            </div>
+            <div class="swiper-slide">
+              <a href="javascript:void(0)" target="_blank">9</a>
+            </div>
+            <div class="swiper-slide">
+              <a href="javascript:void(0)" target="_blank">10</a>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="swiper-button-prev">
+          <div class="material-symbols-outlined">
+            arrow_back
+          </div>
+        </div>
+        <div class="swiper-button-next">
+          <div class="material-symbols-outlined">
+            arrow_forward
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- BEST PLAYER -->
+
+  <section class="best">
+
+    <div class="inner">
+
+      <div class="bestplayer-title">
+        <span class="best-title">[ Today's Best 소환사 ]</span>
+      </div>
+
+      <div class="bestplayer-box">
+        <div class="best-winner">승률</div>
+        <div class="best-kda">KDA</div>
+        <div class="best-time">플레잉 타임</div>
+      </div>
+
+    </div>
+
+  </section>
+  
+  </div>
+  
+<div>
+ <form id="searchForm">
     <label for="gameName">gameName:</label>
     <input type="text" id="gameName" name="gameName" required>
     <label for="tagLine">Tag Line:</label>
     <input type="text" id="tagLine" name="tagLine"> <!-- 태그라인 입력 필드 추가 -->
     <input type="submit" value="summonerSearch">
-</form>
-
-<h2>Game Information</h2>
-<div >
-    <table id="gameInfoTable" align="center" border="1" width = "600">
-       <tr>
-        <th rowspan="2">게임 모드</th>
-        <th rowspan="3" colspan="2"> 챔피언 사진</th>
-        <th rowspan="2">킬/데스/어시</th>
-        <th>킬관여율</th>
-       <th rowspan="3">게임시간</th>
-       <td rowspan="3" id ="showMore"><button>더보기</button></td>
-
-    </tr>
-    <tr>
-        <th>777</th> 
-    </tr>
-    <tr>
-        <th>승패</th>
-        <th>평균KDa</th>
-        <th>골드</th>
-    </tr>
-    </table>
+ </form>
 </div>
+
 
 
 
@@ -214,5 +320,6 @@
  <%@include file="/WEB-INF/tiles/footer.jsp" %>
  <!-- 푸터 위치 -->
 </body>
+
 
 </html>

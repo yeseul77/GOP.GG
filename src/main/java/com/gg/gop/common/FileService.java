@@ -31,7 +31,7 @@ public class FileService {
 		// 파일 업로드 후, 사용자의 프로필 이미지 정보를 업데이트합니다.
 		MemberDto memberDto = new MemberDto();
 		memberDto.setEmail(userEmail); // 사용자 이메일
-		memberDto.setProfile(fileName); // 업로드된 파일명
+//		memberDto.setProfile(fileName); // 업로드된 파일명
 		// memberDao.update("MemberMapper.updateMemberProfile", memberDto);
 		// dao가서 메서드만들기..
 		return fileName; // DB에 저장할 파일명 반환

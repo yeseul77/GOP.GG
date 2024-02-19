@@ -1,0 +1,262 @@
+body {
+  color: #333;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  font-family: "Roboto", "Noto Sans KR", sans-serif;
+}
+img {
+  display: block;
+}
+.inner {
+  width: 1130px;
+  margin: 0 auto;
+  position: relative;
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+/* BACKGROUND IMAGE */
+
+.back {
+  top: 51px;
+  width: 100%;
+  height: 150%;
+  background-image: url("../images/back2.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  position:absolute;
+  opacity: .6;
+  z-index: -2;
+}
+
+#wrap {
+  min-height: 1350px;
+}
+
+/* SECTION LOGO */
+
+.main-logo {
+  position: absolute;
+  top: 150px;
+  width:100%;
+}
+.main-logo .inner {
+
+}
+.main-logo .inner .logo {
+  width: 500px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+.main-logo .inner .logo img {
+  position: absolute;
+  transform: scale(.9);
+  top: 100px;
+}
+
+/* SECTION SEARCH */
+
+.search {
+
+}
+.search .inner {
+  top: 380px;
+  width: 800px;
+}
+.search .search-bar {
+  width: 600px;
+  height: 60px;
+  border: 1px solid #006C5F;
+  box-shadow: #006C5F 0px 0px 2px;
+  margin: 0 auto;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: #fff;
+
+}
+.search .search-bar .input {
+  margin-left: 20px;
+  
+}
+.search .search-bar .input input {
+  width: 500px;
+  height: 30px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+}
+.search .search-bar .search-icon {
+  position: absolute;
+  top: 12px;
+  right: 10px;
+}
+.search .search-bar .search-icon .material-symbols-outlined {
+  color: #006C5F;
+  font-size: 35px;
+  cursor: pointer;
+}
+.search .search-bar .search-bar-record {
+  position: absolute;
+  top: 68px;
+  left: 20px;
+  width: 400px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 10px;
+  border: 1px solid #006C5F;
+  box-shadow: #006C5F 0px 0px 6px;
+  visibility: hidden;
+}
+.search .search-bar .search-bar-record.show {
+  visibility: visible;
+}
+.search .search-bar .search-bar-record .record-bar {
+  padding: 30px 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* DUO */
+
+.duo {
+  
+}
+.duo .inner {
+  top: 520px;
+  
+}
+.duo .duo-list {
+  width: calc(360px*3+20px);
+  height: 300px;
+  position: relative;
+}
+.duo .duo-list .duo-more {
+  
+  margin-left: 5px;
+  margin-bottom: 15px;
+  
+}
+.duo .duo-list .duo-more a {
+  padding: 10px 15px;
+  font-weight: 700;
+  color: #ece3e3;
+  text-align: center;
+  background-color: #006C5F;
+  border-radius: 5px;
+}
+.duo .duo-list .duo-more a:hover {
+  background-color: #00B890;
+  color: #fff;
+}
+.duo .swiper {
+  
+}
+.duo .swiper .swiper-wrapper {
+
+}
+.duo .swiper .swiper-wrapper .swiper-slide {
+  width: 360px;
+  height: 240px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  border: 1px solid #006C5F;
+  box-shadow: #006C5F 0px 0px 2px;
+  background-color: #eaeceb;
+  font-size: 30px;
+  text-align: center;
+}
+.duo .swiper .swiper-wrapper .swiper-slide a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  line-height: 240px;
+}
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  display: none;
+}
+.duo-list .swiper-button-prev,
+.duo-list .swiper-button-next {
+  position: absolute;
+  border-radius: 50%;
+  background-color: #006C5F;
+  font-weight: 700;
+  color: #ece3e3;
+  width: 40px;
+  height: 40px;
+}
+.duo-list .swiper-button-prev:hover,
+.duo-list .swiper-button-next:hover {
+  background-color: #00B890;
+  color: #fff;
+
+}
+.duo-list .swiper-button-prev {
+  left: -55px;
+  
+}
+.duo-list .swiper-button-next {
+  right: -55px;
+}
+
+/* BEST PLAYER */
+
+.best {
+
+}
+.best .inner {
+  top: 540px;
+}
+.best .bestplayer-title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: 40px;
+  background-color: #006C5F;
+  box-shadow: #006C5F 0px 0px 2px;
+  border-radius: 5px;
+  padding: 10px 15px; 
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 100%;
+}
+.best .bestplayer-title .best-title {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 100%;
+  
+}
+.best .bestplayer-box {
+  position: absolute;
+  width: 100%;
+  top: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+.best .bestplayer-box .best-winner,
+.best .bestplayer-box .best-kda,
+.best .bestplayer-box .best-time { 
+  border: 1px solid #006C5F;
+  width: 369px;
+  height: 300px;
+  background-color: orange;
+  border-radius: 5px;
+}
+.best .bestplayer-box .best-winner {
+  
+}
+.best .bestplayer-box .best-kda {
+  
+}
+.best .bestplayer-box .best-time {
+  
+}

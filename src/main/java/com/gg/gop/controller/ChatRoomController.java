@@ -25,6 +25,10 @@ public class ChatRoomController {
 //	@Secured("ROLE_ADMIN")
 	@GetMapping("/chat/chatList")
 	public String chatList(Model model) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		UserDetails userDetails = (UserDetails)principal;
+		Object username= userDetails.getUsername();
+		model.addAttribute("username",username);
 		return"chat/chatList";
 	}
 	

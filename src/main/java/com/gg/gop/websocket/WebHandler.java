@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -71,9 +73,14 @@ public class WebHandler extends TextWebSocketHandler{
 			log.info("submit");
 			List<WebSocketSession> hostSession=new ArrayList<>();
 			ChatDto roomData=cSer.roomData(roomId);
+			String sender=chatMessage.getSender().replaceAll("\"", "");
+			log.info("Pay load: {}", chatMessage);
+			log.info("Message info: {}", chatMessage.getMessage());
 			for(int i=0;i<sessions.size();i++) {
-				if(sessions.get(i).getPrincipal().getName().equals(roomData.getUserId())||sessions.get(i).getPrincipal().getName().equals(chatMessage.getMessage())) {
-					log.info("{}",sessions.get(i).getPrincipal().getName());
+//				log.info("session userName={}", sender);
+//				log.info("session NickName={}", sessions.get(i).getPrincipal().getName());
+				if(sessions.get(i).getPrincipal().getName().equals(sender)||sessions.get(i).getPrincipal().getName().equals(chatMessage.getMessage())) {
+					log.info("HostInputSession{}",sessions.get(i).getPrincipal().getName());
 					hostSession.add(sessions.get(i));
 				}
 			}

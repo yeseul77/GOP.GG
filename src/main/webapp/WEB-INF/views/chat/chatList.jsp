@@ -27,9 +27,7 @@
 	</br>
 </c:forEach>
 </div>
-<div class=submitArea>
-
-</div>
+<div class=submitArea id=submitArea></div>
 <%@include file="/WEB-INF/tiles/footer.jsp" %>
 </body>
 </html>

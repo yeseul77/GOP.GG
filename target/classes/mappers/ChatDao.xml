@@ -12,9 +12,6 @@
 	<select id="intoRoom">
 		select * from chatroom where chatroomId= #{roomId}
 	</select>
-	<delete id="deleteRoom">
-		delete from chatroom where chatroomId=#{chatroomId}
-	</delete>
 	<insert id="plusroom">
 		insert into chatmember(chatmember, roomId) values(#{memberId}, #{chatroomId})
 	</insert>
@@ -23,5 +20,8 @@
 	</select>
 	<delete id="outRoom">
 		delete from chatmember where roomId=#{chatroomId} and chatmember=#{memberId}
+	</delete>
+	<delete id="deleteRoom">
+		delete from chatroom where chatroomId=#{chatroomId}
 	</delete>
 </mapper>

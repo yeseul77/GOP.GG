@@ -4,8 +4,12 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+
 import com.gg.gop.dao.MemberDao;
 import com.gg.gop.dto.MemberDto;
+
+//import oracle.jdbc.proxy.annotation.Post;
 
 @Service
 public class MemberService {
@@ -47,22 +51,25 @@ public class MemberService {
 		}
 	}
 
+	// 회원탈퇴
+	public Boolean withdraw(String m_id, String m_pw) {
+		memberDao.deleteMember(m_id);
+		return true;
+	}
+
 //아이디 중복체크
-	public String checkid(String email) {
-		if (memberDao.idCheck(email) == false) {
+	public String checkid(String m_id) {
+		if (memberDao.idCheck(m_id) == false) {
 			return "ok"; //
 		}
 		return "fail";
 	}
 
-	public Boolean withdraw(String email, String password) {
-		
-		return null;
+//회원정보수정
+	public boolean updateMemberInfo(MemberDto memberDto) {
+		int updateCount = memberDao.updateMemberInfo(memberDto);
+		return updateCount > 0; // 업데이트된 행의 수가 0보다 크면 성공으로 간주
+
 	}
 
-	
-	//회원 정보 수정 ,삭제 ,탈퇴
-	
-
-	
 }
