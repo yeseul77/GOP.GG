@@ -7,12 +7,13 @@
     <title>프로필 설정 페이지</title>
 </head>
 <body>
-    <form action="${contextPath}/memberinfo" method="post">
+  <form action="${contextPath}/memberinfo" method="post" enctype="multipart/form-data">
         <div style="width: 300px; margin: 0 auto; text-align: center;">
             <h2>프로필 설정</h2>
              <label>프로필사진</label>
              <!-- 최초가입이나,이미지초기화시에는 default profile 이미지로 고정 -->
-            <img src="위치!" alt="default profile" style="width: 100px; height: 100px;"><br>
+           <img src="${empty sessionScope.profileImagePath ?'/uploads/defaultprofile.png' : sessionScope.profileImagePath}" 
+           alt="default profile" style="width: 100px; height: 100px;">
             <input type="file" id="inputImage" class="btn2" name="profileImage">
             <input id="btnDelete" class="btn2_disable" onclick="clickcr(this,'prf.nick','','event')" type="button" value="삭제" />
             <table> 

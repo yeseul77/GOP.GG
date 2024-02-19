@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpSession;
 public class BoardController {
 	
     @Autowired
-    private BoardService boardService; // Make sure the variable name matches the bean name
+    private BoardService boardService;
     
     @GetMapping("/boardlist")
     public String boardList() {

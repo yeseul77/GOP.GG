@@ -12,15 +12,25 @@ public class MemberService {
 
 	@Autowired
 	private MemberDao memberDao;
+	private final String DEFAULT_PROFILE_IMAGE_PATH = "/images/defaultprofile.png";
 
 	// 회원가입
-	public boolean register(MemberDto memberDto) {
-		// Encoder(암호화)<------->Decoder(복호화)
-		BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
-		memberDto.setPassword(pwEncoder.encode(memberDto.getPassword()));
-		return memberDao.insertMember(memberDto);
-	}
+    public boolean register(MemberDto memberDto) {
+        // 비밀번호 암호화
+        BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
+        memberDto.setPassword(pwEncoder.encode(memberDto.getPassword()));
 
+        // 처음 회원가입시 ,프로필 이미지가 설정되지 않은 경우 defaultprofile로 
+        if (memberDto.getProfile() == null || memberDto.getProfile().isEmpty()) {
+            memberDto.setProfile(DEFAULT_PROFILE_IMAGE_PATH);
+        }
+
+        // 회원 정보 데이터베이스에 저장
+        return memberDao.insertMember(memberDto);
+    }
+	
+    
+    //아이디 중복체크
 	public String idCheck(String email) {
 		if (memberDao.idCheck(email) == false) {
 			return "ok"; // 사용가능한 아이디

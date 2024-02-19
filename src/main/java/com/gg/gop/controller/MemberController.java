@@ -1,17 +1,16 @@
 package com.gg.gop.controller;
 
-import java.io.IOException;
 import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.gg.gop.common.FileService;
 import com.gg.gop.dto.MemberDto;
 import com.gg.gop.service.MemberService;
@@ -27,52 +26,28 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
-	 @Autowired
-	    private FileService fileService;
-	 
-	 @PostMapping("/updateProfileImage")
-	 public String updateProfileImage(@RequestParam("profileImage") MultipartFile file,
-	                                  HttpSession session,
-	                                  RedirectAttributes rttr) {
-	     String memberEmail = (String) session.getAttribute("email"); // 세션에서 사용자 이메일 가져오기
-
-	     try {
-	         String fileName = fileService.uploadFile(file, memberEmail); // 파일 업로드 및 회원 프로필 이미지 정보 업데이트
-	         if (fileName == null) {
-	             rttr.addFlashAttribute("message", "파일 업로드에 실패했습니다.");
-	             return "redirect:/member/profile";
-	         }
-	         
-	         rttr.addFlashAttribute("message", "프로필 이미지가 성공적으로 업데이트되었습니다.");
-	     } catch (IOException e) {
-	         e.printStackTrace();
-	         rttr.addFlashAttribute("message", "파일 업로드 중 오류가 발생했습니다.");
-	         return "redirect:/member/profile";
-	     }
-
-	     return "redirect:/";
-	 }
-	 
-	 
 	
-	// 회원가입==============================================
-	@GetMapping("/register")
-	public String registreForm(HttpSession session) {
-		System.out.println("회원가입 폼");
-		return "member/register";
-	}
 
-	@PostMapping("/register")
-	public String register(MemberDto memberDto, RedirectAttributes rttr, Model model) {
-		boolean result = memberService.register(memberDto);
-		if (result) {
-			rttr.addFlashAttribute("message", "회원가입축하드립니다!");
-			return "redirect:/login"; // 회원가입 성공 시 로그인 페이지로
-		} else {
-			model.addAttribute("message", "회원가입에가입에 실패했습니다");
-			return "redirect:/register";
-		}
-	}
+	// ==============================================================================
+
+	// 회원가입==============================================
+	 @GetMapping("/register")
+	    public String registerForm() {
+	        System.out.println("회원가입 폼");
+	        return "member/register";
+	    }
+
+	    @PostMapping("/register")
+	    public String register(@ModelAttribute MemberDto memberDto, RedirectAttributes rttr) {
+	        boolean result = memberService.register(memberDto);
+	        if (result) {
+	            rttr.addFlashAttribute("message", "회원가입 축하드립니다!");
+	            return "redirect:/login"; // 회원가입 성공 시 로그인 페이지로 리다이렉트
+	        } else {
+	            rttr.addFlashAttribute("message", "회원가입에 실패했습니다.");
+	            return "redirect:/register"; // 회원가입 실패 시 회원가입 폼으로 리다이렉트
+	        }
+	    }
 
 	// 로그인====================================================
 	@GetMapping("/login")
@@ -98,7 +73,6 @@ public class MemberController {
 			session.setAttribute("Loginstate", true); // 로그인 상태를 세션에 저장
 			session.setAttribute("username", memberDto.getUsername());
 
-
 			return "redirect:/";
 		} catch (Exception e) {
 			// 로그인 실패
@@ -119,28 +93,18 @@ public class MemberController {
 
 	// 내정보 =====================================
 
-	
-	//이거는 수정해야될부분
+	// 이거는 수정해야될부분
 	@GetMapping("/member/memberinfo")
 	public String infoupdateform() {
 		return "member/memberinfo";
 	}
-	
+
 	@PostMapping("/member/memberinfo")
-	public String infoupdate(HttpSession session,Model model,MemberDto memberDto) {
-		
-		
-		
-		return"member/memberinfo";
+	public String infoupdate(HttpSession session, Model model, MemberDto memberDto) {
+
+		return "member/memberinfo";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 	// =================================================================
 
 	// 회원 프로필 사진등록
@@ -156,9 +120,6 @@ public class MemberController {
 		return "";
 	}
 
-	
-
-	
 	// 회원 탈퇴 확인 페이지 요청
 	@GetMapping("/member/mypage/withdraw")
 	public String withdrawCheck(Model model, HttpSession session) {
@@ -166,22 +127,22 @@ public class MemberController {
 		return "member/withdraw";
 	}
 
-    
 	// 회원 탈퇴 처리 요청
-    @PostMapping("/member/mypage/withdraw")
-    public String withdraw(@RequestParam String email, @RequestParam String password, HttpSession session, RedirectAttributes rttr) {
-        // 회원 탈퇴 처리를 수행합니다.
-        Boolean result = memberService.withdraw(email, password);
+	@PostMapping("/member/mypage/withdraw")
+	public String withdraw(@RequestParam String email, @RequestParam String password, HttpSession session,
+			RedirectAttributes rttr) {
+		// 회원 탈퇴 처리를 수행합니다.
+		Boolean result = memberService.withdraw(email, password);
 
-        if (result) {
-            // 탈퇴 처리 성공
-            session.invalidate(); // 세션 무효화
-            rttr.addFlashAttribute("message", "회원 탈퇴가 성공적으로 이루어졌습니다.");
-            return "redirect:/"; // 홈페이지로 리다이렉트
-        } else {
-            // 탈퇴 처리 실패
-            rttr.addFlashAttribute("message", "회원 탈퇴에 실패했습니다. 아이디와 비밀번호를 다시 확인해주세요.");
-            return "redirect:/mypage"; // 마이페이지로 리다이렉트
-        }
-    }
+		if (result) {
+			// 탈퇴 처리 성공
+			session.invalidate(); // 세션 무효화
+			rttr.addFlashAttribute("message", "회원 탈퇴가 성공적으로 이루어졌습니다.");
+			return "redirect:/"; // 홈페이지로 리다이렉트
+		} else {
+			// 탈퇴 처리 실패
+			rttr.addFlashAttribute("message", "회원 탈퇴에 실패했습니다. 아이디와 비밀번호를 다시 확인해주세요.");
+			return "redirect:/mypage"; // 마이페이지로 리다이렉트
+		}
+	}
 }

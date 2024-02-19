@@ -41,7 +41,10 @@
 		SET delete_Yn=1
 		WHERE email=#{email}
 	</delete>
+		<!-- 프로필사진변경 -->
 	
+   
+    
 	
 </mapper>
 
