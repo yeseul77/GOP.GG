@@ -47,8 +47,6 @@
     </table>
     <a href="${pageContext.request.contextPath}/boardWrite" class="btn btn-primary">글쓰기</a>
   </div>
-  	<!-- 푸터 위치 -->
-	 <%@include file="/WEB-INF/tiles/footer.jsp" %>
-	 <!-- 푸터 위치 -->
+
 </body>
 </html>
