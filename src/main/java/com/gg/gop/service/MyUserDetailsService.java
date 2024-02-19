@@ -18,21 +18,6 @@
 //public class MyUserDetailsService implements UserDetailsService{
 //	@Autowired
 //	BCryptPasswordEncoder passwordincoder;
-<<<<<<< HEAD
-	@Autowired
-	private MemberDao mDao;
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		MemberDto user=mDao.getMemberInfo(username);
-
-		if(user==null) {
-			throw new UsernameNotFoundException(username+"사용자를 찾을 수 없습니다");
-		}
-		return User.builder().username(username).password(user.getPassword())./*roles(user.getRole()).*/build();
-	}
-
-}
-=======
 //	@Autowired
 //	private MemberDao mDao;
 //	@Override
@@ -46,4 +31,3 @@
 //	}
 //
 //}
->>>>>>> 3238594cc1b8e83b4f8b7ca19cccc7b5ab9b7e82
