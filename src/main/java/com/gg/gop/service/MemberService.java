@@ -1,91 +1,149 @@
+<<<<<<< HEAD
 package com.gg.gop.service;
 
 import java.util.HashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.gg.gop.dao.MemberDao;
 import com.gg.gop.dto.MemberDto;
 
-import lombok.extern.slf4j.Slf4j;
-@Slf4j
 @Service
 public class MemberService {
 
 	@Autowired
 	private MemberDao memberDao;
-	
 
+	// 회원가입
+	public boolean register(MemberDto memberDto) {
+		// Encoder(암호화)<------->Decoder(복호화)
+		BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
+		memberDto.setPassword(pwEncoder.encode(memberDto.getPassword()));
+		return memberDao.insertMember(memberDto);
+	}
 
-	//회원가입
-	  public boolean register(MemberDto memberDto) {
-	        try {
-	            if (memberDao.findById(memberDto.getM_id()) == null) {
-	            	memberDao.insertMember(memberDto);
-	                return true; // 회원가입 성공
-	            } else {
-	                return false; // 이미 존재하는 회원 아이디
-	            }
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	            return false; // 회원가입 실패
-	        }
-	    }
-
-//로그인
-	  public MemberDto login(HashMap<String, String> loginInfo) {
-	        return memberDao.findByLogin(loginInfo.get("m_id"), loginInfo.get("m_pw"));
-	    
+	public String idCheck(String email) {
+		if (memberDao.idCheck(email) == false) {
+			return "ok"; // 사용가능한 아이디
 		}
-
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	//회원탈퇴
-	public Boolean withdraw(String m_id, String m_pw) {
-	    memberDao.deleteMember(m_id);
-	    return true;
+		return "fail";
 	}
 
-	//회원정보 조회
-	public MemberDto getMemberById(String m_id) {
-		 return memberDao.getMemberById(m_id);
-	}
-	
-	// 회원정보수정
-		
-	public void updatemyInfo(MemberDto memberDto) {
-		memberDao.updatemyInfo(memberDto);
-		
-	}
-	
-//아이디 중복체크
-	public String checkid(String m_id) {
-		 if(memberDao.idcheck(m_id)==false) {
-				return "ok"; //
+	public MemberDto login(HashMap<String, String> member) {
+
+		BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
+		String encoPwd = memberDao.getSecurityPw(member.get("email"));
+		if (encoPwd != null) {
+			System.out.println("아이디존재함");
+			if (pwEncoder.matches(member.get("password"), encoPwd)) {
+				System.out.println("로그인성공");
+				return memberDao.getMemberInfo(member.get("email"));
+			} else {
+				System.out.println("비밀번호오류");
+				return null;
 			}
-			return "fail";
+		} else {
+			System.out.println("아이디오류");
+			return null;
 		}
-
-
-
-
 	}
 
+//아이디 중복체크
+	public String checkid(String email) {
+		if (memberDao.idCheck(email) == false) {
+			return "ok"; //
+		}
+		return "fail";
+	}
+
+	public Boolean withdraw(String email, String password) {
 		
+		return null;
+	}
 
+	
+	//회원 정보 수정 ,삭제 ,탈퇴
+	
 
+	
+}
+=======
+package com.gg.gop.service;
+
+import java.util.HashMap;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import com.gg.gop.dao.MemberDao;
+import com.gg.gop.dto.MemberDto;
+
+@Service
+public class MemberService {
+
+	@Autowired
+	private MemberDao memberDao;
+	private final String DEFAULT_PROFILE_IMAGE_PATH = "/images/defaultprofile.png";
+
+	// 회원가입
+    public boolean register(MemberDto memberDto) {
+        // 비밀번호 암호화
+        BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
+        memberDto.setPassword(pwEncoder.encode(memberDto.getPassword()));
+
+        // 처음 회원가입시 ,프로필 이미지가 설정되지 않은 경우 defaultprofile로 
+        if (memberDto.getProfile() == null || memberDto.getProfile().isEmpty()) {
+            memberDto.setProfile(DEFAULT_PROFILE_IMAGE_PATH);
+        }
+
+        // 회원 정보 데이터베이스에 저장
+        return memberDao.insertMember(memberDto);
+    }
+	
+    
+    //아이디 중복체크
+	public String idCheck(String email) {
+		if (memberDao.idCheck(email) == false) {
+			return "ok"; // 사용가능한 아이디
+		}
+		return "fail";
+	}
+
+	public MemberDto login(HashMap<String, String> member) {
+
+		BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
+		String encoPwd = memberDao.getSecurityPw(member.get("email"));
+		if (encoPwd != null) {
+			System.out.println("아이디존재함");
+			if (pwEncoder.matches(member.get("password"), encoPwd)) {
+				System.out.println("로그인성공");
+				return memberDao.getMemberInfo(member.get("email"));
+			} else {
+				System.out.println("비밀번호오류");
+				return null;
+			}
+		} else {
+			System.out.println("아이디오류");
+			return null;
+		}
+	}
+
+//아이디 중복체크
+	public String checkid(String email) {
+		if (memberDao.idCheck(email) == false) {
+			return "ok"; //
+		}
+		return "fail";
+	}
+
+	public Boolean withdraw(String email, String password) {
+		
+		return null;
+	}
+
+	
+	//회원 정보 수정 ,삭제 ,탈퇴
+	
+
+	
+}
+>>>>>>> YS

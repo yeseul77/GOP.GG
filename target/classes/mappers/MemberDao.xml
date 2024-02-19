@@ -1,24 +1,23 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gg.gop.dao.MemberDao">
-<!-- 회원가입 -->
-<insert id="insertMember"
+	<insert id="insertMember"
 		parameterType="com.gg.gop.dto.MemberDto">
-		INSERT INTO member_tb (m_id, m_pw, m_name) 
-		VALUES (#{m_id}, #{m_pw},#{m_name})
+		INSERT INTO member_tb ("m_id", "m_pw","m_name")
+		VALUES
+		(#{m_id}, #{m_pw}, #{m_name})
 	</insert>
 
-	<select id="findById" parameterType="String"
-		resultType="com.gg.gop.dto.MemberDto">
-		SELECT * FROM member_tb 
-		WHERE m_id = #{m_id}
-	</select>
+
 
 	<!-- 로그인 -->
-    <select id="findByLogin" parameterType="map" resultType="com.gg.gop.dto.MemberDto">
-        SELECT * FROM member_tb
-        WHERE m_id = #{m_id} AND m_pw = #{m_pw}
-    </select>
+	<select id="login" parameterType="HashMap" resultType="boolean">
+		SELECT
+		count(*)
+		FROM member_tb
+		WHERE m_id=#{m_id}
+		AND m_pw=#{m_pw}
+	</select>
 
 	<!-- 회원정보조회 R -->
 	<select id="getMemberById" parameterType="string"
@@ -27,24 +26,50 @@
 		FROM member_tb
 		WHERE m_id
 	</select>
+	<!-- 회원가입 -->
+	<insert id="insertMember"
+		parameterType="com.gg.gop.dto.MemberDto">
+		INSERT INTO member_tb
+		(email,username,password,role,deleteYn)
+		VALUES
+		(#{email},#{username},#{password},#{role},false)
+	</insert>
+	<!-- 로그인 -->
+	<select id="login" parameterType="HashMap" resultType="boolean">
+		select
+		count(*) from member_tb where email=#{email} and password=#{password}
+	</select>
+
+	<select id="getSecurityPw" parameterType="String"
+		resultType="String">
+		select password from member_tb
+		where email=#{email}
+	</select>
+
+	<select id="getMemberInfo" resultType="MemberDto">
+		select email,password,username
+		from member_tb
+		where email=#{email};
+	</select>
 
 
 	<!-- 회원정보수정 U -->
-	<update id="updateMember"
-		parameterType="com.gg.gop.dto.MemberDto">
+	<update id="updateMemberInfo" parameterType="MemberDto">
 		UPDATE member_tb
-		SET m_pw = #{m_pw}, m_name = #{m_name}
-		<if test="m_pw != null and m_pw != ''">
-			, m_pw = #{m_pw}
-		</if>
-		WHERE m_id = #{m_id}
+		SETpassword=#{password}, username = #{username}
+		WHERE email = #{email}
 	</update>
 
 	<!-- 탈퇴 D 가입된회원은 0 , 탈퇴면 1로 변경 -->
 	<delete id="deleteMember">
 		UPDATE member_tb
 		SET delete_Yn=1
-		WHERE m_id=#{m_id}
+		WHERE email=#{email}
 	</delete>
-
+		<!-- 프로필사진변경 -->
+	
+   
+    
+	
 </mapper>
+

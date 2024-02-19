@@ -1,10 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
+<!-- 헤더 위치 -->
+ <%@include file="/WEB-INF/tiles/header.jsp" %>
+ <!--헤더 위치 -->
     <title>Summoner Search</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+    <script>
+ // 메시지 변수 설정
+ const message = '${message}';  // 컨트롤러에서 addFlashAttribute로 추가한 메시지를 받음
+ const isLoggedIn = ${sessionScope.isLoggedIn != null && sessionScope.isLoggedIn}; // 로그인 상태
+ const loggedInUser = '${sessionScope.email}'; // 로그인한 사용자의 이메일
+
+ console.log("Message:", message, "Is Logged In:", isLoggedIn, "Logged In User:", loggedInUser);
+
+ $(function() {
+     msgPrint();
+     loginStatus();
+     
+ });
+
+ // 메시지 출력 함수
+ function msgPrint() {
+     if (message !== '') {
+         alert(message);
+     }
+ }
+
+ // 로그인 상태에 따른 처리 함수
+ function loginStatus() {
+     if (isLoggedIn) {
+         console.log("User is logged in:", loggedInUser);
+         // 로그인 상태에 따른 추가 동작 구현
+     } else {
+         console.log("User is not logged in.");
+         // 비로그인 상태에 따른 추가 동작 구현
+     }
+ }
+ </script>
+    
     <script>
     $(document).ready(function () {
         var gameName;
@@ -137,7 +175,7 @@
 </script>
 </head>
 <body>
-<<<<<<< HEAD
+
 <h1>Summoner Search</h1>
 <form id="searchForm">
     <label for="gameName">gameName:</label>
@@ -170,20 +208,12 @@
     </table>
 </div>
 
-</body>
-=======
- <%@include file="/WEB-INF/tiles/header.jsp" %>
-
-
-<h1>INDEX.JSP</h1>
 
 
 
-
-
+<!-- 푸터 위치 -->
  <%@include file="/WEB-INF/tiles/footer.jsp" %>
-
+ <!-- 푸터 위치 -->
 </body>
-    
->>>>>>> 5bf9997d194ad8ecf7044b88bfa0659dec6a0a96
+
 </html>
