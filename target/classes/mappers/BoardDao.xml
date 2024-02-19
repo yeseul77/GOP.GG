@@ -13,6 +13,7 @@
         VALUES (#{b_title}, #{b_contents}, #{b_writer}, #{username}, #{b_views});
     </insert>
 
+<<<<<<< HEAD
 <!--     게시글 조회수 업데이트 -->
 <!--     <update id="updateBoardView" parameterType="int"> -->
 <!--         UPDATE board_tb SET b_views = b_views + 1 -->
@@ -37,4 +38,7 @@
 <!--         SET b_title = #{b_title}, b_contents = #{b_contents}, username = #{username} -->
 <!--         WHERE b_bno = #{b_bno}; -->
 <!--     </update> -->
+=======
+   
+>>>>>>> YS
 </mapper>

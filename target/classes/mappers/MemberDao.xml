@@ -28,43 +28,48 @@
 	</select>
 	<!-- 회원가입 -->
 	<insert id="insertMember"
-		parameterType="MemberDto">
+		parameterType="com.gg.gop.dto.MemberDto">
 		INSERT INTO member_tb
-		(email,username,password,role)
+		(email,username,password,role,deleteYn)
 		VALUES
-		(#{email},#{username},#{password},#{role})
+		(#{email},#{username},#{password},#{role},false)
 	</insert>
 	<!-- 로그인 -->
 	<select id="login" parameterType="HashMap" resultType="boolean">
 		select
-		count(*) from member_tb where email=#{username} and m_pw=#{password}
+		count(*) from member_tb where email=#{email} and password=#{password}
 	</select>
 
 	<select id="getSecurityPw" parameterType="String"
 		resultType="String">
 		select password from member_tb
-		where email=#{username}
+		where email=#{email}
 	</select>
 
 	<select id="getMemberInfo" resultType="MemberDto">
-		select email,password
+		select email,password,username
 		from member_tb
-		where email=#{username};
+		where email=#{email};
 	</select>
+
+
 	<!-- 회원정보수정 U -->
 	<update id="updateMemberInfo" parameterType="MemberDto">
 		UPDATE member_tb
-		SET m_pw=#{password}, username = #{username}
+		SETpassword=#{password}, username = #{username}
 		WHERE email = #{email}
 	</update>
 
 	<!-- 탈퇴 D 가입된회원은 0 , 탈퇴면 1로 변경 -->
 	<delete id="deleteMember">
 		UPDATE member_tb
-		SET status=1
+		SET delete_Yn=1
 		WHERE email=#{email}
 	</delete>
+		<!-- 프로필사진변경 -->
 	
+   
+    
 	
 </mapper>
 
