@@ -4,35 +4,27 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gg.gop.dao.MemberDao;
 import com.gg.gop.dto.MemberDto;
+
+//import oracle.jdbc.proxy.annotation.Post;
 
 @Service
 public class MemberService {
 
 	@Autowired
 	private MemberDao memberDao;
-	private final String DEFAULT_PROFILE_IMAGE_PATH = "/images/defaultprofile.png";
 
 	// 회원가입
-    public boolean register(MemberDto memberDto) {
-        // 비밀번호 암호화
-        BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
-        memberDto.setPassword(pwEncoder.encode(memberDto.getPassword()));
+	public boolean register(MemberDto memberDto) {
+		// Encoder(암호화)<------->Decoder(복호화)
+		BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
+		memberDto.setPassword(pwEncoder.encode(memberDto.getPassword()));
+		return memberDao.insertMember(memberDto);
+	}
 
-        // 처음 회원가입시 ,프로필 이미지가 설정되지 않은 경우 defaultprofile로 
-        if (memberDto.getProfile() == null || memberDto.getProfile().isEmpty()) {
-            memberDto.setProfile(DEFAULT_PROFILE_IMAGE_PATH);
-        }
-
-        // 회원 정보 데이터베이스에 저장
-        return memberDao.insertMember(memberDto);
-    }
-	
-    
-    //아이디 중복체크
 	public String idCheck(String email) {
 		if (memberDao.idCheck(email) == false) {
 			return "ok"; // 사용가능한 아이디
@@ -59,32 +51,25 @@ public class MemberService {
 		}
 	}
 
-	//아이디 중복체크
-	public String checkid(String email) {
-		if (memberDao.idCheck(email) == false) {
+	// 회원탈퇴
+	public Boolean withdraw(String m_id, String m_pw) {
+		memberDao.deleteMember(m_id);
+		return true;
+	}
+
+//아이디 중복체크
+	public String checkid(String m_id) {
+		if (memberDao.idCheck(m_id) == false) {
 			return "ok"; //
 		}
 		return "fail";
 	}
 
-	//회원탈퇴
-	public Boolean withdraw(String email, String password) {
-		
-		return null;
+//회원정보수정
+	public boolean updateMemberInfo(MemberDto memberDto) {
+		int updateCount = memberDao.updateMemberInfo(memberDto);
+		return updateCount > 0; // 업데이트된 행의 수가 0보다 크면 성공으로 간주
+
 	}
 
-
-	public boolean updateMemberInfo(String email, String username, MultipartFile profileImage) {
-		
-		return false;
-	}
-
-	//회원의 프로필사진변경 메소드
-
-
-	
-
-	
-
-	
 }

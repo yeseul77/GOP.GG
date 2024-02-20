@@ -261,7 +261,7 @@ a {
   visibility: visible;
 }
 
-.header .side-menu2 {
+header .side-menu2 {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -271,21 +271,21 @@ a {
   align-items: center;
   z-index: 3;
 }
-.header .side-menu2 .myPhoto {
+header .side-menu2 .myPhoto {
   margin-right: -7px;
 }
-.header .side-menu2 .myPhoto img {
+header .side-menu2 .myPhoto img {
   border-radius: 50%;
   scale: .8;
 }
-.header .side-menu2 .login {
+header .side-menu2 .login {
   display: flex;
   margin-right: 8px;
 }
-.header .side-menu2 .login .dropdown {
+header .side-menu2 .login .dropdown {
 
 }
-.header .side-menu2 .login .dropdown > a {
+header .side-menu2 .login .dropdown > a {
   background-color: transparent;
   border: none;
   font-size: 15px;
@@ -293,24 +293,24 @@ a {
   color: #00B890;
   padding: 11px 16px;
 }
-.header .side-menu2 .login .dropdown > a:hover {
+header .side-menu2 .login .dropdown > a:hover {
   text-decoration: underline;
   font-weight: 700;
   color:#fff;
 }
-.header .side-menu2 .login .dropdown .dropdown-menu {
+header .side-menu2 .login .dropdown .dropdown-menu {
 
 }
-.header .side-menu2 .login .dropdown .dropdown-menu .dropdown-item {
+header .side-menu2 .login .dropdown .dropdown-menu .dropdown-item {
   color: #333;
   font-size: 14px;
 }
-.header .side-menu2 .logout {
+header .side-menu2 .logout {
   display: flex;
   height: 40px;
   position: relative;
 }
-.header .side-menu2 .logout > a {
+header .side-menu2 .logout > a {
   display: flex;
   align-items: center;
   color: #006C5F;
@@ -319,7 +319,7 @@ a {
   padding: 11px 16px;
   border-radius: 5px; 
 }
-.header .side-menu2 .logout > a:hover {
+header .side-menu2 .logout > a:hover {
   color: #fff;
   background-color: #035140;
   font-weight: 700;

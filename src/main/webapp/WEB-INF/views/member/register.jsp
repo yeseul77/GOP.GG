@@ -5,7 +5,6 @@
 <head>
 <%@include file="/WEB-INF/tiles/header.jsp" %>
     <title>GOP.GG 회원가입</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <!-- jQuery -->
@@ -32,9 +31,6 @@
 
         <div class="headline">
           <p>회 원 가 입</p>
-          	<div id="closer-btn"class="material-symbols-outlined">
-          	  <a href="${contextPath}/">close</a>	
-          </div>         
         </div>
 
         <form action="/register" method="post">
@@ -44,12 +40,12 @@
            <div class="write-id">
              <div class="id-wrap">
              	<p>아이디</p>
-                <input type="text" id="email" name="email" class="signup-id" placeholder="이메일 입력" autocomplete="off">
+                <input type="text" id="userId" name="email" class="signup-id" placeholder="이메일 입력">
                 <button class="idBtn" onclick="registerCheck()">중복확인</button>
              </div>
              <div class="messageEmail">
                 <span id="errorEmail" class="error-message"></span>
-                <span id="successEmail" class="success-message">테스트 : 임시 성공</span>
+                <span id="successEmail" class="success-message"></span>
              </div>
                     
            </div>
@@ -74,7 +70,7 @@
 
           <div class="write-nickname">
             <p>닉네임</p>
-            <input type="text" id="userName" name="username" oninput="validdateUserNickname()" class="signup-nickname" maxlength="20" placeholder="한글, 영문, 숫자 4자이상 입력가능" autocomplete="off">
+            <input type="text" id="userName" name="username" oninput="validdateUserNickname()" class="signup-nickname" maxlength="20" placeholder="한글, 영문, 숫자 4자이상 입력가능">
           	<div class="messageNickname">
                <span id="errorNickname" class="error-message"></span>
                <span id="successNickname" class="success-message"></span>
@@ -108,7 +104,7 @@ function registerCheck() {
   var email = $("#email").val();
   if(email) {
     $.ajax({
-      url: "${contextPath}/checkId",
+      url: "${contextPath}/registerCheck",
       type: "post",
       data: {email: email},
       success: function(result) {
