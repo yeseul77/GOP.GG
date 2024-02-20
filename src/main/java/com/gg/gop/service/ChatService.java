@@ -23,7 +23,7 @@ public class ChatService {
 		log.info("{}",username);
 		Boolean result=cDao.createRoom(title, username, champ, position, memo);
 		ChatDto myroom=cDao.roomInfo((String)username, title);
-		cDao.plusroom(myroom.getChatroomId(), (String)username, title);
+		cDao.plusroom(myroom.getChatroomId(), title,(String)username );
 		if(result) {
 			log.info("create complet");
 		}else {

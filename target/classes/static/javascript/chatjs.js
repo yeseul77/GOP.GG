@@ -34,19 +34,25 @@ socket.onerror = function(e) {
 socket.onmessage = function(e) {
 	console.log("e.data", e.data);
 	let msg=JSON.parse(e.data);
-	console.log(msg.message);
-	let msgArea = document.querySelector('.msgArea');
-	let newMsg = document.createElement('div');
-	newMsg.innerText =msg.sender+": ";
-	newMsg.innerText += msg.message;
-	console.log(newMsg)
-	msgArea.append(newMsg);
+	if(msg.roomId==chatroomId){
+		console.log(msg.message);
+		let msgArea = document.querySelector('.msgArea');
+		let newMsg = document.createElement('div');
+		newMsg.innerText =msg.sender+": ";
+		newMsg.innerText += msg.message;
+		console.log(newMsg)
+		msgArea.append(newMsg);
+	}
 }
 
 function sendMsg() {
 	let content = document.querySelector('.content').value;
 	var talkMsg = {"type": "TALK", "roomId": chatroomId, "sender": username, "message": content};
 	socket.send(JSON.stringify(talkMsg))
+}
+
+function outing(){
+	window.close();
 }
 
 function quit() {
