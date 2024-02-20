@@ -4,12 +4,15 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="css/boardList.css">
+<script defer src="js/boardList.js"></script>
 <title>게시판 목록</title>
 <!-- 헤더 위치 -->
  <%@include file="/WEB-INF/tiles/header.jsp" %>
  <!--헤더 위치 -->
 </head>
 <body>
+
   <div class="container">
   <h2>게시판 목록</h2>
     <table class="board_list">

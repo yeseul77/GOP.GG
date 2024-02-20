@@ -1,13 +1,3 @@
-/* input box color */
-input:-webkit-autofill { 
-  -webkit-box-shadow: none; 
-  -webkit-text-fill-color: none;
- }
- input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active { 
-  transition: none;
- }
- 
- 
  
  body {
    color: #333;
@@ -27,6 +17,10 @@ input:-webkit-autofill {
  a {
    text-decoration: none;
    color: #333;
+ }
+ p {
+	margin-top: 0;
+	margin-bottom: 0; 
  }
  
  /* BACKGROUND IMAGE */
@@ -65,13 +59,45 @@ input:-webkit-autofill {
    height: 50px;
    background-color: #006C5F;
    text-align: center;
+   position: relative;
  }
  .sign .signup-box .headline p {
    font-weight: 700;
    color: #fff;
-   line-height: 50px;
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   right: 0;
+   left: 0;
+   height: 20px;
+   margin : auto;
    font-size: 18px;
+   line-height: 1;
+   
  }
+ .sign .signup-box .headline #closer-btn {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	right: 10px;
+	height: 24px;	
+	cursor: pointer;
+	margin-top : 9px;
+		
+ }
+ .sign .signup-box .headline #closer-btn a {
+	display: block;
+	padding: 2px;
+	border-radius: 2px;
+	color: #eee;
+		 
+ }
+ .sign .signup-box .headline #closer-btn a:hover {
+	background-color: #00B890;
+	text-decoration: none; 
+ }
+ 
  .sign .signup-box .text-write {
    margin-top: 36px;
    height: 299px;

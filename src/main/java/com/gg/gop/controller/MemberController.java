@@ -38,7 +38,7 @@ public class MemberController {
 	        boolean result = memberService.register(memberDto);
 	        if (result) {
 	            rttr.addFlashAttribute("message", "회원가입 축하드립니다!");
-	            return "redirect:/login"; // 회원가입 성공 시 로그인 페이지로 리다이렉트
+	            return "redirect:/"; // 회원가입 성공 시 로그인 페이지로 리다이렉트
 	        } else {
 	            rttr.addFlashAttribute("message", "회원가입에 실패했습니다.");
 	            return "redirect:/register"; // 회원가입 실패 시 회원가입 폼으로 리다이렉트
