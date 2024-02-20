@@ -14,6 +14,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gg.gop.dto.ChatDto;
+import com.gg.gop.dto.ChatMemberDto;
 import com.gg.gop.dto.ChatMessage;
 import com.gg.gop.service.ChatService;
 
@@ -39,11 +40,13 @@ public class WebHandler extends TextWebSocketHandler{
 		log.info(message.getClass().getName());
 		ChatMessage chatMessage=objectMapper.readValue(payload, ChatMessage.class);
 		int roomId=chatMessage.getRoomId();
-		List<String> chatMember=cSer.findRoomMember(roomId);
+		List<ChatMemberDto> chatMember=cSer.findRoomMember(roomId);
 		log.info("session size={}",sessions.size());
 		for(int i=0;i<chatMember.size();i++){
 			for(int j=0;j<sessions.size();j++) {
-				if(sessions.get(j).getPrincipal().getName().equals(chatMember.get(i))) {
+				log.info("chatmember={}", chatMember.get(i));
+				log.info("sessions name={}", sessions.get(i).getPrincipal().getName());
+				if(sessions.get(j).getPrincipal().getName().equals(chatMember.get(i).getChatMember())) {
 					log.info("session name={}", sessions.get(j).getPrincipal().getName());
 					roomSession.add(sessions.get(j));
 				};

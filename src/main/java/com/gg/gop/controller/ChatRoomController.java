@@ -47,7 +47,7 @@ public class ChatRoomController {
 		return "redirect:/chat/chatList";
 	}
 	
-	@GetMapping("/chat/chatroom")
+	@GetMapping("/chat/firstchatroom")
 	public String chatRoom(Model model,@RequestParam(name="chatroomId") Object chatroomId, HttpSession session) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
 		UserDetails userDetails = (UserDetails)principal;
@@ -57,6 +57,22 @@ public class ChatRoomController {
 			model.addAttribute("alert","진입실패");
 			return "redirect:/chat/chatList";
 		}
+		log.info("test");
+		log.info(""+chatroomId);
+		model.addAttribute("username", username);
+		model.addAttribute("chatroomId",chatroomId);
+		return "chat/chatroom";
+	}
+	@GetMapping("/chat/chatroom")
+	public String secondchatRoom(Model model,@RequestParam(name="chatroomId") Object chatroomId, HttpSession session) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		UserDetails userDetails = (UserDetails)principal;
+		String username= userDetails.getUsername().toString();
+//		Boolean result=chatService.findAllRoom(Integer.parseInt((String) chatroomId),username);
+//		if(!result) {
+//			model.addAttribute("alert","진입실패");
+//			return "redirect:/chat/chatList";
+//		}
 		log.info("test");
 		log.info(""+chatroomId);
 		model.addAttribute("username", username);

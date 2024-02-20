@@ -21,16 +21,9 @@
 	<button type="submit">방 만들기</button>	
 </form>
 <button id="update">업데이트</button>
-<div id="clist">
-<c:forEach var="room" items="${roomList}" >
-	<div>
-	<a href="/chat/chatroom?chatroomId=${room.chatroomId}" name="chatroomId" value="${room.chatroomId}"> ${room.title}</a></br>
-	<a>${room.userId}</a></br>
-	<button type="button" class="chatroomId" value="${room.chatroomId}">참가신청</button>
-	</div>
-	</br>
-</c:forEach>
-</div>
+<div id="mylist"></div>
+=============================
+<div id="clist"></div>
 <div class=submitArea id=submitArea></div>
 <%@include file="/WEB-INF/tiles/footer.jsp" %>
 </body>

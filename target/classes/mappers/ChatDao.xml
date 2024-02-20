@@ -15,14 +15,14 @@
 	<select id="roomData">
 		select * from chatroom where chatroomId= #{roomId}
 	</select>
-<!-- 	<delete id="deleteRoom"> -->
-<!-- 		delete from chatroom where chatroomId=#{chatroomId} -->
-<!-- 	</delete> -->
+	<select id="roomMemberData">
+		select * from chatmember where roomId=#{roomId}
+	</select>
 	<insert id="plusroom">
 		insert into chatmember(chatmember, title, roomId) values(#{memberId}, #{title}, #{chatroomId})
 	</insert>
 	<select id="getRoomMember">
-		select chatmember from chatmember where roomId=#{roomId}
+		select * from chatmember where roomId=#{roomId}
 	</select>
 	<delete id="outRoom">
 		delete from chatmember where roomId=#{chatroomId} and chatmember=#{memberId}
@@ -30,4 +30,10 @@
 	<delete id="deleteRoom">
 		delete from chatroom where display=0;
 	</delete>
+	<select id="getMyRoomList">
+		select * from chatmember where chatmember=#{chatmember}
+	</select>
+	<select id="roomInfo">
+		select * from chatroom where userId=#{userId} and title=#{title}
+	</select>
 </mapper>

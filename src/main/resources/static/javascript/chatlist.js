@@ -1,6 +1,6 @@
 let username
 let socket = new WebSocket("ws://"+location.host+":80/ws/chat");
-
+let popOption="width=650px, height=550px, top=300px, left=300px. scrollbars=yes";
 $(document).ready(function(){
 	username=document.getElementById('username').value
 	console.log(username)
@@ -43,7 +43,7 @@ socket.onmessage = function(e) {
 		let roomId = msg.roomId;
 		let popOption="width=650px, height=550px, top=300px, left=300px. scrollbars=yes";
 //		location.href=`/chat/chatroom?chatroomId=${msg.roomId}`;
-		window.open(`/chat/chatroom?chatroomId=${roomId}`,'pop', popOption);
+		window.open(`/chat/firstchatroom?chatroomId=${roomId}`,'pop', popOption);
 		location.href="/chat/chatList"
 	} else if(msg.type=="denied"){
 		alert("신청이 거부되었습니다");
@@ -61,7 +61,6 @@ function submit(roomId){
 }
 
 function accept(roomId, master, sender){
-	let popOption="width=650px, height=550px, top=300px, left=300px. scrollbars=yes";
 	console.log(sender);
 	var accMsg={"type":"accept", "roomId":JSON.stringify(roomId), "sender":JSON.stringify(sender),"msg":JSON.stringify(master)};
 	console.log(accMsg);
@@ -92,6 +91,26 @@ $(document).ready(function(){
 	console.log("ajax start");
 	$.ajax({
 		method:'get',
+		url:'/chatroom/mylist',
+	}).done(function(result){
+		const temp=document.createElement("div")
+		$.each(result, function(index, mylist){
+			console.log(mylist)
+			const html=document.createElement("div")
+			html.innerHTML=`<div id="rlist">
+							<a class="chatroomId" name="chatroomId">${mylist.title}</a>
+							</br>
+							<a>${mylist.chatMember}</a></br>
+							</div>
+							<button type="button" class="chatroomId" onclick="popup(${mylist.roomId})">들어가기</button>
+							</br>
+							`
+			temp.append(html)
+		})
+		$('#mylist').replaceWith(temp)
+		})
+	$.ajax({
+		method:'get',
 		url:'/chatroom/list',
 	}).done(function(result){
 		const temp=document.createElement("div")
@@ -119,7 +138,27 @@ $(document).on('click','#update',(function(){
 	console.log("ajax start");
 	$.ajax({
 		method:'get',
-		url:'/chatroom/list',
+		url:'/chatroom/mylist',
+	}).done(function(result){
+		const temp=document.createElement("div")
+		$.each(result, function(index, mylist){
+			console.log(mylist)
+			const html=document.createElement("div")
+			html.innerHTML=`<div id="rlist">
+							<a class="chatroomId" name="chatroomId">${mylist.title}</a>
+							</br>
+							<a>${mylist.chatMember}</a></br>
+							</div>
+							<button type="button" class="chatroomId" onclick="popup(${mylist.roomId})">들어가기</button>
+							</br>
+							`
+			temp.append(html)
+		})
+		$('#mylist').replaceWith(temp)
+		})
+	$.ajax({
+	method:'get',
+	url:'/chatroom/list',
 	}).done(function(result){
 		const temp=document.createElement("div")
 		$.each(result, function(index, chatlist){
@@ -146,10 +185,31 @@ list=setInterval(function(){
 	console.log("ajax start");
 	$.ajax({
 		method:'get',
+		url:'/chatroom/mylist',
+	}).done(function(result){
+		const temp=document.createElement("div")
+		$.each(result, function(mylist){
+			console.log(mylist.chatroomId)
+			console.log(mylist)
+			const html=document.createElement("div")
+			html.innerHTML=`<div id="rlist">
+							<a class="chatroomId" name="chatroomId">${mylist.title}</a>
+							</br>
+							<a>${mylist.chatMember}</a></br>
+							</div>
+							<button type="button" class="chatroomId" onclick="popup(${mylist.roomId})">들어가기</button>
+							</br>
+							`
+			temp.append(html)
+		})
+		$('#mylist').replaceWith(temp)
+		})
+	$.ajax({
+		method:'get',
 		url:'/chatroom/list',
 	}).done(function(result){
 		const temp=document.createElement("div")
-		$.each(result, function(index, chatlist){
+		$.each(result, function(chatlist){
 			console.log(chatlist)
 			const html=document.createElement("div")
 			html.innerHTML=`<div id="rlist">
@@ -168,3 +228,7 @@ list=setInterval(function(){
 		$('#clist').replaceWith(temp)
 	})
 }, 300000)
+function popup(roomId){
+	console.log(roomId);
+	window.open(`/chat/chatroom?chatroomId=${roomId}`,'pop', popOption);
+}

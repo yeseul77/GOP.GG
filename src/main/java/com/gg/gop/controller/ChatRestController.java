@@ -3,11 +3,14 @@ package com.gg.gop.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.gg.gop.dto.ChatDto;
+import com.gg.gop.dto.ChatMemberDto;
 import com.gg.gop.service.ChatService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +27,14 @@ public class ChatRestController {
 		List<ChatDto> clist=cSer.roomlist();
 		cSer.deleteRoom();
 		return clist;
+	}
+	@GetMapping("chatroom/mylist")
+	public List<ChatMemberDto> mylist(){
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		UserDetails userDetails = (UserDetails)principal;
+		Object username= userDetails.getUsername();
+		List<ChatMemberDto> mylist=cSer.mylist((String)username);
+		return mylist;
 	}
 	
 	@PostMapping("/chatroom/chat")

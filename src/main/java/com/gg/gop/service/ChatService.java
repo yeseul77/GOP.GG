@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.gg.gop.dao.ChatDao;
 import com.gg.gop.dto.ChatDto;
+import com.gg.gop.dto.ChatMemberDto;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,8 @@ public class ChatService {
 
 		log.info("{}",username);
 		Boolean result=cDao.createRoom(title, username, champ, position, memo);
+		ChatDto myroom=cDao.roomInfo((String)username, title);
+		cDao.plusroom(myroom.getChatroomId(), (String)username, title);
 		if(result) {
 			log.info("create complet");
 		}else {
@@ -35,7 +38,7 @@ public class ChatService {
 		return check;
 	}
 	
-	public List<String> findRoomMember(int roomId){
+	public List<ChatMemberDto> findRoomMember(int roomId){
 		return cDao.getRoomMember(roomId);
 	}
 	
@@ -49,7 +52,15 @@ public class ChatService {
 	public ChatDto roomData(int roomId) {
 		return cDao.roomData(roomId);
 	}
+	public ChatMemberDto roomMemberData(int roomId) {
+		return cDao.roomMemberData(roomId);
+	}
 	public void deleteRoom() {
 		cDao.deleteRoom();
+	}
+
+	public List<ChatMemberDto> mylist(String userId) {
+		List<ChatMemberDto> mylist=cDao.getMyRoomList(userId);
+		return mylist;
 	}
 }
