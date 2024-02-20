@@ -4,24 +4,30 @@
 <!-- 에러시 window-preferences-maven검색-Download Artifact javadoc 체크할것 -->
 <mapper namespace="com.gg.gop.dao.ChatDao">
 	<select id="getRoomList" resultType="ChatDto">
-		select * from chatroom order by chatroomId desc
+		select * from chatroom where display=1 order by chatroomId desc
 	</select>
 	<insert id="createRoom">
-		insert into chatroom (title, userId) values(#{title}, #{userId})
+		insert into chatroom (title, userId, position, champion) values(#{title}, #{userId},#{position}, #{champ})
 	</insert>
 	<select id="intoRoom">
+		select title from chatroom where chatroomId= #{roomId}
+	</select>
+	<select id="roomData">
 		select * from chatroom where chatroomId= #{roomId}
 	</select>
-	<delete id="deleteRoom">
-		delete from chatroom where chatroomId=#{chatroomId}
-	</delete>
+<!-- 	<delete id="deleteRoom"> -->
+<!-- 		delete from chatroom where chatroomId=#{chatroomId} -->
+<!-- 	</delete> -->
 	<insert id="plusroom">
-		insert into chatmember(chatmember, roomId) values(#{memberId}, #{chatroomId})
+		insert into chatmember(chatmember, title, roomId) values(#{memberId}, #{title}, #{chatroomId})
 	</insert>
 	<select id="getRoomMember">
 		select chatmember from chatmember where roomId=#{roomId}
 	</select>
 	<delete id="outRoom">
 		delete from chatmember where roomId=#{chatroomId} and chatmember=#{memberId}
+	</delete>
+	<delete id="deleteRoom">
+		delete from chatroom where display=0;
 	</delete>
 </mapper>

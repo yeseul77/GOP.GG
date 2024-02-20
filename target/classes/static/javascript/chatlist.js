@@ -6,8 +6,8 @@ $(document).ready(function(){
 	console.log(username)
 })
 function enterRoom(socket) {
-	var enterMsg = { "type": "ENTER", "roomId": 0, "sender": JSON.stringify(username), "msg": "" };
-	socket.send(JSON.stringify(enterMsg));
+//	var enterMsg = { "type": "ENTER", "roomId": 0, "sender": JSON.stringify(username), "msg": "" };
+//	socket.send(JSON.stringify(enterMsg));
 }
 
 socket.onopen = function(e) {
@@ -34,7 +34,7 @@ socket.onmessage = function(e) {
 		console.log("sender : ", sender)
 		console.log("username : ", username)
 		let submitArea=document.querySelector ('.submitArea');
-		let submitMsg=document.querySelector('div');
+		let submitMsg=document.createElement('div');
 		submitMsg.innerHTML=`${msg.sender}님이 입장신청을 하였습니다</br>
 							<button onclick="accept(${roomId}, '${username}', '${sender}')">승낙</button>
 							<button onclick="denine()">거절</buttton>`
@@ -51,7 +51,7 @@ socket.onmessage = function(e) {
 	/*msgArea.append(newMsg);*/
 }
 function submit(roomId){
-	var subMsg={"type":"submit", "roomId":JSON.stringify(roomId), "sender":JSON.stringify(username),"msg":"submit"};
+	var subMsg={"type":"submit", "roomId":JSON.stringify(roomId), "sender":JSON.stringify(username),"msg":"championname, position"};
 	console.log(roomId);
 	socket.send(JSON.stringify(subMsg))
 }
@@ -96,7 +96,9 @@ $(document).ready(function(){
 							<a href="/chat/chatroom?chatroomId=${chatlist.chatroomId}" class="chatroomId" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</a>
 							</br>
 							<a>${chatlist.userId}</a></br>
-							<button type="button" class="chatroomId" value="${chatlist.chatroomId}" onclick="submit(${chatlist.chatroomId})">참가신청</button>
+							<a>${chatlist.champion}</a></br>
+							<a>${chatlist.position}</a></br>
+							<button type="button" class="chatroomId" onclick="submit(${chatlist.chatroomId})">참가신청</button>
 							</div>
 							</br>
 							`
@@ -120,7 +122,7 @@ $(document).on('click','#update',(function(){
 							<a href="/chat/chatroom?chatroomId=${chatlist.chatroomId}" class="chatroomId" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</a>
 							</br>
 							<a>${chatlist.userId}</a></br>
-							<button type="button" class="chatroomId" value="${chatlist.chatroomId}" onclick="submit(${chatlist.chatroomId})">참가신청</button>
+							<button type="button" class="chatroomId" onclick="submit(${chatlist.chatroomId})">참가신청</button>
 							</div>
 							</br>
 							`
@@ -144,7 +146,7 @@ list=setInterval(function(){
 							<a href="/chat/chatroom?chatroomId=${chatlist.chatroomId}" name="chatroomId" class="chatroomId" value="${chatlist.chatroomId}" onclick="submit()">${chatlist.title}</a>
 							</br>
 							<a>${chatlist.userId}</a></br>
-							<button type="button" class="chatroomId" value="${chatlist.chatroomId}" onclick="submit(${chatlist.chatroomId})">참가신청</button>
+							<button type="button" class="chatroomId" onclick="submit(${chatlist.chatroomId})">참가신청</button>
 							</div>
 							</br>
 							`

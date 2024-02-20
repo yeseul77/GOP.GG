@@ -23,8 +23,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
-  <link rel="stylesheet" href="css/footer.css">
-  <script defer src="js/footer.js"></script>
+  <link rel="stylesheet" href="/css/footer.css">
+<!--   <script defer src="js/footer.js"></script> -->
 </head>
 
 <body>
@@ -37,7 +37,7 @@
           <li><strong>[ LOL 빅데이터를 활용한 웹 시각화 양성과정 ]</strong></li>
           <li>파이널 프로젝트 발표과제</li>
           <li>팀장: 박재범 / 팀원: 전지환, 전승아, 유예슬, 장용준, 임경진</li>
-          <li><img src="images/logoTest3.png" alt="footerlogo"></li>
+          <li><img src="/images/logoTest3.png" alt="footerlogo"></li>
         </ul>
      </div>
    </div>

@@ -33,13 +33,14 @@ public class ChatRoomController {
 	}
 	
 	@PostMapping("/chat/createRoom")
-	public String createRoom(Model model, @RequestParam(name="name") String name, HttpSession session) {
+	public String createRoom(@RequestParam(name="name") String name,@RequestParam(name="champion") String champ, @RequestParam(name="position") String position 
+							,Model model, HttpSession session) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
 		UserDetails userDetails = (UserDetails)principal;
 		Object username= userDetails.getUsername();
 		log.info(userDetails.getUsername());
 		log.info("{}",username);
-		Object title=chatService.createRoom(name, username);
+		Object title=chatService.createRoom(name, username, champ, position);
 		model.addAttribute("room",title);
 		model.addAttribute("username",username);
 		return "chat/chatList";
@@ -69,6 +70,6 @@ public class ChatRoomController {
 		String username= userDetails.getUsername().toString();
 		int roomId=Integer.parseInt((String)chatroomId);
 		chatService.outRoom(roomId, username);
-		return "chat/chatList";
+		return "redirect:/chat/chatList";
 	}
 }

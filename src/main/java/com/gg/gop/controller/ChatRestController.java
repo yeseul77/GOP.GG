@@ -22,6 +22,7 @@ public class ChatRestController {
 	@GetMapping("/chatroom/list")
 	public List<ChatDto> list(){
 		List<ChatDto> clist=cSer.roomlist();
+		cSer.deleteRoom();
 		return clist;
 	}
 	
@@ -42,9 +43,9 @@ public class ChatRestController {
 		return cr;
 	}
 	
-	@PostMapping("/chat/deleteroom")
-	public void deleteRoom(@RequestParam("t_id") int t_id) {
-		log.info("chatroomId : {}", t_id);
-		cSer.deleteRoom(t_id);
-	}
+//	@PostMapping("/chat/deleteroom")
+//	public void deleteRoom(@RequestParam("t_id") int t_id) {
+//		log.info("chatroomId : {}", t_id);
+//		cSer.deleteRoom(t_id);
+//	}
 }

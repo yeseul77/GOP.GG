@@ -1,19 +1,12 @@
 package com.gg.gop.service;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gg.gop.dao.ChatDao;
 import com.gg.gop.dto.ChatDto;
-import com.gg.gop.dto.ChatMemberDto;
 
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,26 +15,12 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class ChatService {
 	
-	private final ObjectMapper objectMapper;
-//	private Map<String, ChatRoom> chatRooms;
 	final ChatDao cDao;
-//	@PostConstruct
-//	private void init() {
-//		chatRooms=new LinkedHashMap<>();
-//	}
-//	
-//	public ChatRoom findRoomById(Object roomId) {
-//		return chatRooms.get(roomId);
-//	}
 	
-	public String createRoom(String title, Object username) {
-//		String randomId=UUID.randomUUID().toString();
-//		ChatRoom chatRoom=ChatRoom.builder()
-//								  .roomId(randomId)
-//								  .build();
-//		chatRooms.put(randomId, chatRoom);
+	public String createRoom(String title, Object username, String champ, String position) {
+
 		log.info("{}",username);
-		Boolean result=cDao.createRoom(title, username);
+		Boolean result=cDao.createRoom(title, username, champ, position);
 		if(result) {
 			log.info("create complet");
 		}else {
@@ -51,7 +30,8 @@ public class ChatService {
 	}
 
 	public Boolean findAllRoom(int chatroomId,String memberId) {
-		Boolean check=cDao.plusroom(chatroomId, memberId);
+		String title=cDao.intoRoom(chatroomId);
+		Boolean check=cDao.plusroom(chatroomId, title, memberId);
 		return check;
 	}
 	
@@ -67,6 +47,9 @@ public class ChatService {
 		return cDao.outRoom(roomId, memberId);
 	}
 	public ChatDto roomData(int roomId) {
-		return cDao.intoRoom(roomId);
+		return cDao.roomData(roomId);
+	}
+	public void deleteRoom() {
+		cDao.deleteRoom();
 	}
 }

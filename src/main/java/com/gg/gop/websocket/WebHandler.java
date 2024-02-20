@@ -63,12 +63,14 @@ public class WebHandler extends TextWebSocketHandler{
 			ChatDto roomData=cSer.roomData(roomId);
 			for(int i=0;i<sessions.size();i++) {
 				if(sessions.get(i).getPrincipal().getName().equals(roomData.getUserId())) {
-					log.info("{}",sessions.get(i).getPrincipal().getName());
+					log.info("sessions={}",sessions.get(i).getPrincipal().getName());
 					hostSession.add(sessions.get(i));
+					log.info("===={}",hostSession);
 				}
-//			log.info("===={}",hostSession);
-			sendToEachSocket(hostSession,message);
 			}
+			log.info("size={}",hostSession.size());
+			sendToEachSocket(hostSession,message);
+			
 		}else if(chatMessage.getType().equals(ChatMessage.MessageType.accept)) {
 			log.info("submit");
 			List<WebSocketSession> hostSession=new ArrayList<>();
@@ -95,7 +97,7 @@ public class WebHandler extends TextWebSocketHandler{
 	private void sendToEachSocket(List<WebSocketSession> sessions, TextMessage message) throws Exception{
 		String payload=message.getPayload();
 		ChatMessage chatMessage=objectMapper.readValue(payload, ChatMessage.class);
-		
+		log.info("messagesend{}",payload);
 		sessions.parallelStream().forEach(roomSession->{
 			try {
 				roomSession.sendMessage(message);

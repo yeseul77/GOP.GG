@@ -10,9 +10,10 @@ import com.gg.gop.dto.ChatDto;
 public interface ChatDao {
 	List<String> getRoomMember(int roomId);
 	List<ChatDto> getRoomList();
-	Boolean createRoom(String title, Object userId);
-	ChatDto intoRoom(int roomId);
-	Boolean plusroom(int chatroomId, String memberId);
+	Boolean createRoom(String title, Object userId, String champ, String position);
+	String intoRoom(int roomId);
+	Boolean plusroom(int chatroomId,String title, String memberId);
 	Boolean outRoom(int chatroomId, String memberId);
-	void deleteRoom(int chatroomId);
+	ChatDto roomData(int roomId);
+	void deleteRoom();
 }

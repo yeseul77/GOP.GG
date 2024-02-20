@@ -10,23 +10,17 @@
 <script src="/javascript/chatlist.js"></script>
 </head>
 <body>
-<%@include file="/WEB-INF/tiles/header.jsp" %>
-<input type="hidden" id="username" name="username" value="${username}" />
+<%@include file="/WEB-INF/tiles/header.jsp" %></br>
+<input type="hidden" id="username" name="username" value="${username}" /></br></br>
+<!-- 이거 모달이 이쁘지 않을깜 -->
 <form action="/chat/createRoom" method="post">
-	<input type="text" name="name" placeholder="채팅방 이름">
+	제목: <input type="text" name="name" placeholder="채팅방 이름"></br>
+	포지션: <input type="text" name="position" placeholder="선호위치"></br>
+	챔피언: <input type="text" name="champion" placeholder="자신의 챔피언"></br>
 	<button type="submit">방 만들기</button>	
 </form>
 <button id="update">업데이트</button>
-<div id="clist">
-<c:forEach var="room" items="${roomList}" >
-	<div>
-	<a href="/chat/chatroom?chatroomId=${room.chatroomId}" name="chatroomId" value="${room.chatroomId}"> ${room.title}</a></br>
-	<a>${room.userId}</a></br>
-	<button type="button" class="chatroomId" value="${room.chatroomId}">참가신청</button>
-	</div>
-	</br>
-</c:forEach>
-</div>
+<div id="clist"></div>
 <div class=submitArea id=submitArea></div>
 <%@include file="/WEB-INF/tiles/footer.jsp" %>
 </body>
