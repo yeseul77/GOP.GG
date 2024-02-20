@@ -36,14 +36,8 @@ public class MemberService {
         return memberDao.insertMember(memberDto);
     }
 	
-    
-    //아이디 중복체크
-	public String idCheck(String email) {
-		if (memberDao.idCheck(email) == false) {
-			return "ok"; // 사용가능한 아이디
-		}
-		return "fail";
-	}
+ 
+
 
 	public MemberDto login(HashMap<String, String> member) {
 
@@ -64,13 +58,7 @@ public class MemberService {
 		}
 	}
 
-	//아이디 중복체크
-	public String checkid(String email) {
-		if (memberDao.idCheck(email) == false) {
-			return "ok"; //
-		}
-		return "fail";
-	}
+
 
 	//회원탈퇴
 	public Boolean withdraw(String email, String password) {
@@ -83,6 +71,7 @@ public class MemberService {
         try {
             // 프로필 이미지 업로드 및 파일명 반환
             String fileName = fileService.uploadProfileImage(profileImage, session);
+          
 
             if (fileName != null) {
                 // 파일명이 반환되었다면, 사용자 정보 업데이트 로직 실행
@@ -105,5 +94,10 @@ public class MemberService {
             return false;
         }
     }
+
+
+
+
+
 	
 }

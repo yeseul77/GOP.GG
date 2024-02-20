@@ -25,9 +25,8 @@
                             <p class="contxt_username nickname">
                           <p class="contxt_username nickname">
                             <label>닉네임</label>
-                                <!-- 로그인한 세션의 username 값으로 초기화 -->
+                               	<!--   한 글자 이상 입력된 상태에서만 적용버튼이 활성화되도록 -->
                                 <input type="text" name="username" id="username" value="${sessionScope.username}" >
-									<!--   한 글자 이상 입력된 상태에서만 적용버튼이 활성화되도록 -->
                             </p>
                         </div>
                     </td>

@@ -5,10 +5,13 @@
 	<insert id="insertMember"
 		parameterType="com.gg.gop.dto.MemberDto">
 		INSERT INTO member_tb
-		(email,username,password,role,deleteYn)
+		(email,username,password,profile,role,deleteYn)
 		VALUES
-		(#{email},#{username},#{password},#{role},default)
+		(#{email},#{username},#{password},default,#{role},default)
 	</insert>
+	<!-- 중복확인 -->
+
+
 	<!-- 로그인 -->
 	<select id="login" parameterType="HashMap" resultType="boolean">
 		select
@@ -22,7 +25,8 @@
 	</select>
 
 	<select id="getMemberInfo" resultType="MemberDto">
-		select email,password,username
+		select
+		email,password,username
 		from member_tb
 		where email=#{email};
 	</select>
@@ -41,21 +45,22 @@
 		SET delete_Yn=1
 		WHERE email=#{email}
 	</delete>
-		<!--회원정보 변경-->
-<update id="updateMemberProfile" parameterType="com.gg.gop.dto.MemberDto">
-    UPDATE member
-    <set>
-        <if test="username != null">
-            username = #{username},
-        </if>
-        <if test="profile != null">
-            profile = #{profile},
-        </if>
-    </set>
-    WHERE email = #{email}
-</update>	
-   
-    
-	
+	<!--회원정보 변경 -->
+	<update id="updateMemberProfile"
+		parameterType="com.gg.gop.dto.MemberDto">
+		UPDATE member
+		<set>
+			<if test="username != null">
+				username = #{username},
+			</if>
+			<if test="profile != null">
+				profile = #{profile},
+			</if>
+		</set>
+		WHERE email = #{email}
+	</update>
+
+
+
 </mapper>
 
