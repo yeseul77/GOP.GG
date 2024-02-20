@@ -155,4 +155,5 @@ list=setInterval(function(){
 		$('#clist').replaceWith(temp)
 	})
 }, 300000)
-
+const modal = document.querySelector('.modal.fade')
+console.log(modal)
