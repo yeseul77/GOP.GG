@@ -17,10 +17,10 @@ public class ChatService {
 	
 	final ChatDao cDao;
 	
-	public String createRoom(String title, Object username, String champ, String position) {
+	public String createRoom(String title, Object username, String champ, String position, String memo) {
 
 		log.info("{}",username);
-		Boolean result=cDao.createRoom(title, username, champ, position);
+		Boolean result=cDao.createRoom(title, username, champ, position, memo);
 		if(result) {
 			log.info("create complet");
 		}else {

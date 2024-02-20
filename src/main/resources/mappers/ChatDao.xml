@@ -7,7 +7,7 @@
 		select * from chatroom where display=1 order by chatroomId desc
 	</select>
 	<insert id="createRoom">
-		insert into chatroom (title, userId, position, champion) values(#{title}, #{userId},#{position}, #{champ})
+		insert into chatroom (title, userId, position, champion, memo) values(#{title}, #{userId},#{position}, #{champ}, #{memo})
 	</insert>
 	<select id="intoRoom">
 		select title from chatroom where chatroomId= #{roomId}

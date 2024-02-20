@@ -17,10 +17,20 @@
 	제목: <input type="text" name="name" placeholder="채팅방 이름"></br>
 	포지션: <input type="text" name="position" placeholder="선호위치"></br>
 	챔피언: <input type="text" name="champion" placeholder="자신의 챔피언"></br>
+	메모: <input type="text" name="memo" placeholder="메모"></br>
 	<button type="submit">방 만들기</button>	
 </form>
 <button id="update">업데이트</button>
-<div id="clist"></div>
+<div id="clist">
+<c:forEach var="room" items="${roomList}" >
+	<div>
+	<a href="/chat/chatroom?chatroomId=${room.chatroomId}" name="chatroomId" value="${room.chatroomId}"> ${room.title}</a></br>
+	<a>${room.userId}</a></br>
+	<button type="button" class="chatroomId" value="${room.chatroomId}">참가신청</button>
+	</div>
+	</br>
+</c:forEach>
+</div>
 <div class=submitArea id=submitArea></div>
 <%@include file="/WEB-INF/tiles/footer.jsp" %>
 </body>

@@ -40,9 +40,11 @@ public class WebHandler extends TextWebSocketHandler{
 		ChatMessage chatMessage=objectMapper.readValue(payload, ChatMessage.class);
 		int roomId=chatMessage.getRoomId();
 		List<String> chatMember=cSer.findRoomMember(roomId);
+		log.info("session size={}",sessions.size());
 		for(int i=0;i<chatMember.size();i++){
 			for(int j=0;j<sessions.size();j++) {
 				if(sessions.get(j).getPrincipal().getName().equals(chatMember.get(i))) {
+					log.info("session name={}", sessions.get(j).getPrincipal().getName());
 					roomSession.add(sessions.get(j));
 				};
 			}
@@ -55,6 +57,7 @@ public class WebHandler extends TextWebSocketHandler{
 			sendToEachSocket(roomSession, new TextMessage(objectMapper.writeValueAsString(chatMessage)));
 		}else if(chatMessage.getType().equals(ChatMessage.MessageType.QUIT)){
 			sessions.remove(session);
+			cSer.outRoom(chatMessage.getRoomId(),chatMessage.getSender());
 			chatMessage.setMessage(chatMessage.getSender()+"퇴장");
 			sendToEachSocket(roomSession,new TextMessage(objectMapper.writeValueAsString(chatMessage)));
 		}else if(chatMessage.getType().equals(ChatMessage.MessageType.submit)) {
@@ -89,6 +92,7 @@ public class WebHandler extends TextWebSocketHandler{
 //			log.info("===={}",hostSession);
 			sendToEachSocket(hostSession,message);
 		}else {
+			log.info("session count={}",roomSession.size());
 			log.info("pay: {}", message);
 			log.info("{}",payload);
 			sendToEachSocket(roomSession, message);

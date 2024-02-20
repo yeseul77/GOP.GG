@@ -33,17 +33,18 @@ public class ChatRoomController {
 	}
 	
 	@PostMapping("/chat/createRoom")
-	public String createRoom(@RequestParam(name="name") String name,@RequestParam(name="champion") String champ, @RequestParam(name="position") String position 
+	public String createRoom(@RequestParam(name="name") String name,@RequestParam(name="champion") String champ
+							, @RequestParam(name="position") String position,@RequestParam(name="memo") String memo 
 							,Model model, HttpSession session) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
 		UserDetails userDetails = (UserDetails)principal;
 		Object username= userDetails.getUsername();
 		log.info(userDetails.getUsername());
 		log.info("{}",username);
-		Object title=chatService.createRoom(name, username, champ, position);
+		Object title=chatService.createRoom(name, username, champ, position, memo);
 		model.addAttribute("room",title);
 		model.addAttribute("username",username);
-		return "chat/chatList";
+		return "redirect:/chat/chatList";
 	}
 	
 	@GetMapping("/chat/chatroom")
@@ -63,13 +64,4 @@ public class ChatRoomController {
 		return "chat/chatroom";
 	}
 	
-	@GetMapping("/chat/out")
-	public String Chatout(Model model,@RequestParam(name="chatroomId") Object chatroomId) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
-		UserDetails userDetails = (UserDetails)principal;
-		String username= userDetails.getUsername().toString();
-		int roomId=Integer.parseInt((String)chatroomId);
-		chatService.outRoom(roomId, username);
-		return "redirect:/chat/chatList";
-	}
 }
