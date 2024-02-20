@@ -16,7 +16,7 @@
     rel="stylesheet">
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-  <link rel="icon" href="images/favicon.png">
+  <link rel="icon" href="img/favicon.png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
@@ -24,7 +24,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
   <link rel="stylesheet" href="/css/footer.css">
-<!--   <script defer src="js/footer.js"></script> -->
+  
 </head>
 
 <body>
@@ -36,7 +36,7 @@
         <ul class="member-text">
           <li><strong>[ LOL 빅데이터를 활용한 웹 시각화 양성과정 ]</strong></li>
           <li>파이널 프로젝트 발표과제</li>
-          <li>팀장: 박재범 / 팀원: 전지환, 전승아, 유예슬, 장용준, 임경진</li>
+          <li>박재범,&nbsp;&nbsp;유예슬,&nbsp;&nbsp;임경진,&nbsp;&nbsp;장용준,&nbsp;&nbsp;전승아,&nbsp;&nbsp;전지환</li>
           <li><img src="/images/logoTest3.png" alt="footerlogo"></li>
         </ul>
      </div>

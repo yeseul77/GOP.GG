@@ -49,10 +49,10 @@
             <a href="javascript:void(0)">칼바람 나락</a>
           </li>
           <li>
-            <a href="javascript:void(0)">듀 오</a>
+            <a href="${contextPath}/chat/chatList">듀 오</a>
           </li>
           <li>
-            <a href="${contextPath}/boardMain">커뮤니티</a>
+            <a href="${contextPath}/boardlist">커뮤니티</a>
           </li>
         </ul>
       </div>
@@ -110,7 +110,7 @@
     <div class="side-menu2">
 
       <div class="myPhoto">
-        <img src="img/1_dmbNkD5D-u45r44go_cf0g.png" alt="example">
+        <img src="/images/1_dmbNkD5D-u45r44go_cf0g.png" alt="example">
       </div>
 
       <div class="login">
@@ -119,7 +119,7 @@
             ${sessionScope.username}님 환영합니다!
           </a>       
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="${contextPath}/member/mypage">내 프로필</a></li>
+            <li><a class="dropdown-item" href="${contextPath}/member/memberinfo">내 프로필</a></li>
             <li><a class="dropdown-item" href="#">보안 설정</a></li>
             <li><a class="dropdown-item" href="#">이력 보기</a></li>
           </ul>

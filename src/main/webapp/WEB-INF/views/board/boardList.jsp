@@ -8,8 +8,13 @@
 <!-- 헤더 위치 -->
  <%@include file="/WEB-INF/tiles/header.jsp" %>
  <!--헤더 위치 -->
+ <link rel="stylesheet" href="/css/boardlist.css">
 </head>
+
 <body>
+
+<div id=wrap>
+
   <div class="container">
   <h2>게시판 목록</h2>
     <table class="board_list">
@@ -46,9 +51,15 @@
       </tbody>
     </table>
     <a href="${pageContext.request.contextPath}/boardWrite" class="btn btn-primary">글쓰기</a>
-  </div>
+  </div>	
+
+</div>
+
+  
   	<!-- 푸터 위치 -->
 	 <%@include file="/WEB-INF/tiles/footer.jsp" %>
 	 <!-- 푸터 위치 -->
+	 
 </body>
+
 </html>
