@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
 <<<<<<< HEAD
+<<<<<<< HEAD
                             
     
     
@@ -36,6 +37,9 @@
         
 =======
     <wb-module deploy-name="GOP-0.0.1-SNAPSHOT">
+=======
+    <wb-module deploy-name="gop-0.0.1-SNAPSHOT">
+>>>>>>> YS
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
@@ -44,6 +48,7 @@
                         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/target/generated-sources/annotations"/>
+<<<<<<< HEAD
 <<<<<<< HEAD
                                                         
         
@@ -69,6 +74,10 @@
 
 =======
         <property name="context-root" value="GOP"/>
+=======
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/target/generated-test-sources/test-annotations"/>
+        <property name="context-root" value="gop"/>
+>>>>>>> YS
         <property name="java-output-path" value="/GOP/target/classes"/>
     </wb-module>
 >>>>>>> YS

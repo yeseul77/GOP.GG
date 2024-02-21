@@ -94,7 +94,7 @@ import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
 @Data
-@Builder // 빌더후 @AllArgsConstructor을 이용해 객체 생성함.
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberDto {
@@ -107,11 +107,7 @@ public class MemberDto {
 	private Boolean deleteYn; // 탈퇴 여부 0이면가입 탈퇴면1
 	private String profile;//사진정보
 	
-	//내프로필에 첨부된 파일리스트
-	//private List<Memberprofile> mfList;  
-	
-	// private String m_tier; // 소환사 티어
-	// private LocalDateTime modifiedDate; // 최종 수정일시
+
 	
 	  public String getEmail() {
 	        return email;

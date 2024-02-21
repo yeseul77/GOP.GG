@@ -74,6 +74,10 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 
 //환경설정 클래스 정의하면 시큐리티 로그인창 안뜸
 public class SecurityConfig{
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 	//권한없을 때 예외처리 핸들러
 	@Autowired
 	private AccessDeniedHandler accessDeniedHandler;
@@ -103,11 +107,8 @@ public class SecurityConfig{
 //	접근 거부(권한이 없는 리소스에 접근하려고 할 때) 발생 시 사용할 AccessDeniedHandler를 구성합니다. 이 핸들러는 사용자 정의 예외 처리 로직을 수행할 수 있도록 해줍니다.
 //
 //	return http.build();:
-	//설정된 HttpSecurity 객체를 기반으로 SecurityFilterChain을 빌드하고 반환합
+	//설정된 HttpSecurity 객체를 기반으로 SecurityFilterChain을 빌드하고 반환
 	
-	@Bean
-	PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+	
 }
 >>>>>>> YS

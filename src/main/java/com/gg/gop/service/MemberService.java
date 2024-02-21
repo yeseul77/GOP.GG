@@ -71,43 +71,52 @@ public class MemberService {
 package com.gg.gop.service;
 
 import java.util.HashMap;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.gg.gop.common.FileService;
 import com.gg.gop.dao.MemberDao;
 import com.gg.gop.dto.MemberDto;
+
+import jakarta.servlet.http.HttpSession;
 
 @Service
 public class MemberService {
 
 	@Autowired
 	private MemberDao memberDao;
+	@Autowired
+	private FileService fileService;
+
 	private final String DEFAULT_PROFILE_IMAGE_PATH = "/images/defaultprofile.png";
 
 	// 회원가입
-    public boolean register(MemberDto memberDto) {
-        // 비밀번호 암호화
-        BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
-        memberDto.setPassword(pwEncoder.encode(memberDto.getPassword()));
+	public boolean register(MemberDto memberDto) {
+		// 비밀번호 암호화
+		BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
+		memberDto.setPassword(pwEncoder.encode(memberDto.getPassword()));
 
-        // 처음 회원가입시 ,프로필 이미지가 설정되지 않은 경우 defaultprofile로 
-        if (memberDto.getProfile() == null || memberDto.getProfile().isEmpty()) {
-            memberDto.setProfile(DEFAULT_PROFILE_IMAGE_PATH);
-        }
-
-        // 회원 정보 데이터베이스에 저장
-        return memberDao.insertMember(memberDto);
-    }
-	
-    
-    //아이디 중복체크
-	public String idCheck(String email) {
-		if (memberDao.idCheck(email) == false) {
-			return "ok"; // 사용가능한 아이디
+		// 처음 회원가입시 ,프로필 이미지가 설정되지 않은 경우 defaultprofile로
+		if (memberDto.getProfile() == null || memberDto.getProfile().isEmpty()) {
+			memberDto.setProfile(DEFAULT_PROFILE_IMAGE_PATH);
 		}
-		return "fail";
+
+		// 회원 정보 데이터베이스에 저장
+		return memberDao.insertMember(memberDto);
 	}
 
+	// 이메일중복
+	private Map<String, String> registeredEmails = new HashMap<>();
+
+	public boolean isEmailDuplicated(String email) {
+
+		return registeredEmails.containsKey(email);
+	}
+
+//로그인
 	public MemberDto login(HashMap<String, String> member) {
 
 		BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
@@ -127,23 +136,35 @@ public class MemberService {
 		}
 	}
 
-//아이디 중복체크
-	public String checkid(String email) {
-		if (memberDao.idCheck(email) == false) {
-			return "ok"; //
-		}
-		return "fail";
-	}
-
+	// 회원탈퇴
 	public Boolean withdraw(String email, String password) {
-		
+
 		return null;
 	}
 
-	
-	//회원 정보 수정 ,삭제 ,탈퇴
-	
+	//회원정보 +프로필변경
+	public boolean updateMemberInfo(String email, String username, MultipartFile profileImage, HttpSession session) {
+		try {
+			// 프로필 이미지 업로드 및 파일명 반환
+			String fileName = fileService.uploadProfileImage(profileImage, session);
 
-	
+			if (fileName != null) {
+				MemberDto memberDto = new MemberDto();
+				memberDto.setEmail(email);
+				memberDto.setUsername(username);
+				memberDao.updateMemberProfile(memberDto); 
+			} else {
+				MemberDto memberDto = new MemberDto();
+				memberDto.setEmail(email);
+				memberDto.setUsername(username);
+				memberDao.updateMemberProfile(memberDto); 
+			}
+			return true;
+		} catch (Exception e) {
+			// 예외 처리 로직
+			return false;
+		}
+	}
+
 }
 >>>>>>> YS

@@ -196,11 +196,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.gg.gop.common.FileService;
 import com.gg.gop.dto.MemberDto;
 import com.gg.gop.service.MemberService;
 import jakarta.servlet.http.HttpSession;
@@ -215,28 +213,28 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
-	
-
-	// ==============================================================================
+	@Autowired
+	//private FileService fileService;
 
 	// 회원가입==============================================
-	 @GetMapping("/register")
-	    public String registerForm() {
-	        System.out.println("회원가입 폼");
-	        return "member/register";
-	    }
+	@GetMapping("/register")
+	public String registerForm() {
+		System.out.println("회원가입 폼");
+		return "member/register";
+	}
 
-	    @PostMapping("/register")
-	    public String register(@ModelAttribute MemberDto memberDto, RedirectAttributes rttr) {
-	        boolean result = memberService.register(memberDto);
-	        if (result) {
-	            rttr.addFlashAttribute("message", "회원가입 축하드립니다!");
-	            return "redirect:/login"; // 회원가입 성공 시 로그인 페이지로 리다이렉트
-	        } else {
-	            rttr.addFlashAttribute("message", "회원가입에 실패했습니다.");
-	            return "redirect:/register"; // 회원가입 실패 시 회원가입 폼으로 리다이렉트
-	        }
-	    }
+	@PostMapping("/register")
+	public String register(@ModelAttribute MemberDto memberDto, RedirectAttributes rttr) {
+		boolean result = memberService.register(memberDto);
+		if (result) {
+			rttr.addFlashAttribute("message", "회원가입 축하드립니다!");
+			return "redirect:/login"; // 회원가입 성공 시 로그인 페이지로 리다이렉트
+		} else {
+			rttr.addFlashAttribute("message", "회원가입에 실패했습니다.");
+			return "redirect:/register"; // 회원가입 실패 시 회원가입 폼으로 리다이렉트
+		}
+	}
+	
 
 	// 로그인====================================================
 	@GetMapping("/login")
@@ -246,30 +244,35 @@ public class MemberController {
 
 	}
 
-	@PostMapping("/login")
-	public String login(@RequestParam String email, @RequestParam String password, RedirectAttributes rttr,
-			HttpSession session) {
-		// HashMap을 사용하여 사용자 정보를 저장
-		HashMap<String, String> member = new HashMap<>();
-		member.put("email", email);
-		member.put("password", password);
-
-		try {
-			MemberDto memberDto = memberService.login(member);
-			rttr.addFlashAttribute("msgType", "성공^^");
-			rttr.addFlashAttribute("message", "로그인에 성공@");
-			session.setAttribute("email", memberDto.getEmail()); // 사용자 이메일을 세션에 저장
-			session.setAttribute("Loginstate", true); // 로그인 상태를 세션에 저장
-			session.setAttribute("username", memberDto.getUsername());
-
-			return "redirect:/";
-		} catch (Exception e) {
-			// 로그인 실패
-			rttr.addFlashAttribute("msgType", "실패메세지");
-			rttr.addFlashAttribute("message", "다시 로그인 해주세요");
-			return "redirect:/login";
-		}
-	}
+	 @PostMapping("/login")
+	    public String login(@RequestParam("email") String email, @RequestParam("password") String password,
+	    		RedirectAttributes rttr, HttpSession session) {
+	       
+		 // HashMap을 사용하여 사용자 정보를 저장
+	        HashMap<String, String> memberData = new HashMap<>();
+	        memberData.put("email", email);
+	        memberData.put("password", password);
+	        
+	        System.out.println("email: " + email + ", password: " + password);
+	        
+	        try {
+	          
+	            MemberDto memberDto = memberService.login(memberData);
+	            rttr.addFlashAttribute("msgType", "성공");
+	            rttr.addFlashAttribute("message", "로그인에 성공하였습니다.");
+	            session.setAttribute("email", memberDto.getEmail());
+	            session.setAttribute("loginState", true);
+	            session.setAttribute("username", memberDto.getUsername());
+	            
+	            return "redirect:/";
+	        } catch (Exception e) {
+	            // 로그인 실패 처리
+	            rttr.addFlashAttribute("msgType", "실패");
+	            rttr.addFlashAttribute("message", "로그인에 실패하였습니다. 다시 시도해주세요.");
+	            return "redirect:/login";
+	        }
+	    }
+	
 
 	// 로그아웃===========================================
 	@PostMapping("/logout")
@@ -281,48 +284,46 @@ public class MemberController {
 	}
 
 	// 내정보 =====================================
-
-	// 이거는 수정해야될부분
 	@GetMapping("/member/memberinfo")
 	public String infoupdateform() {
 		return "member/memberinfo";
 	}
 
+	// 닉네임변경
 	@PostMapping("/member/memberinfo")
-	public String infoupdate(HttpSession session, Model model, MemberDto memberDto) {
+	public String updateProfile(@RequestParam("profileImage") MultipartFile file,
+			@RequestParam("username") String username, HttpSession session, RedirectAttributes rttr) {
+		String email = (String) session.getAttribute("email"); // 세션에서 이메일 가져오기
 
-		return "member/memberinfo";
+		try {
+			// 프로필 이미지와 사용자 이름 업데이트
+			boolean result = memberService.updateMemberInfo(email, username, file, session);
+			if (result) {
+				rttr.addFlashAttribute("message", "프로필 업데이트 성공!");
+				session.setAttribute("username", username);
+			} else {
+				rttr.addFlashAttribute("message", "프로필 업데이트 실패.");
+			}
+		} catch (Exception e) {
+			rttr.addFlashAttribute("message", "업데이트 중 오류 발생.");
+		}
+		return "redirect:/member/memberinfo";
 	}
 
 	// =================================================================
 
-	// 회원 프로필 사진등록
-	@RequestMapping("/member/imageform")
-	public String ImageForm() {
-		return "member/imageform";
-	}
-
-	// 회원 사진 업로드(DB저장+업로드)
-	@RequestMapping("/member/imageupdate")
-	public String memberUpdate() {
-		// 파일 업로드 API
-		return "";
-	}
-
-	// 회원 탈퇴 확인 페이지 요청
+	// 회원 탈퇴 페이지
 	@GetMapping("/member/mypage/withdraw")
 	public String withdrawCheck(Model model, HttpSession session) {
-		// 회원 탈퇴 확인 페이지를 보여줍니다.
 		return "member/withdraw";
 	}
 
-	// 회원 탈퇴 처리 요청
+	// 회원 탈퇴 post처리
 	@PostMapping("/member/mypage/withdraw")
 	public String withdraw(@RequestParam String email, @RequestParam String password, HttpSession session,
 			RedirectAttributes rttr) {
-		// 회원 탈퇴 처리를 수행합니다.
-		Boolean result = memberService.withdraw(email, password);
 
+		Boolean result = memberService.withdraw(email, password);
 		if (result) {
 			// 탈퇴 처리 성공
 			session.invalidate(); // 세션 무효화

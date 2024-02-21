@@ -43,18 +43,15 @@ package com.gg.gop.common;
 
 import java.io.File;
 import java.io.IOException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import com.gg.gop.dao.MemberDao;
 import com.gg.gop.dto.MemberDto;
 import jakarta.servlet.http.HttpSession;
 
 @Service
 public class FileService {
 
-    @Autowired
-    private MemberDao memberDao;
+
 
     private final String uploadDir = "/uploads/"; // 서버 내 업로드 될 디렉토리
 
@@ -89,7 +86,7 @@ public class FileService {
             MemberDto memberDto = new MemberDto();
             memberDto.setEmail(email);
             memberDto.setProfile(fileName); // 업로드된 파일명을 사용자 프로필 이미지로 설정
-            memberDao.updateMemberProfile(memberDto); // DB 업데이트
+           // memberDao.updateMemberProfile(memberDto); // DB 업데이트
         }
     }
 
@@ -102,7 +99,7 @@ public class FileService {
         MemberDto memberDto = new MemberDto();
         memberDto.setEmail(email);
         memberDto.setProfile("defaultprofile.png"); // 기본 이미지로 설정
-        memberDao.updateMemberProfile(memberDto); // DB 업데이트
+       // memberDao.updateMemberProfile(memberDto); // DB 업데이트
 
    
     }
