@@ -1,4 +1,3 @@
-<<<<<<< HEAD:src/main/webapp/WEB-INF/views/chat/chatList.jsp
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -33,7 +32,7 @@
 </div>
 <%@include file="/WEB-INF/tiles/footer.jsp" %>
 </body>
-=======
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -63,5 +62,5 @@
 </c:forEach>
 </div>
 </body>
->>>>>>> YS:GOP.GG-main/src/main/webapp/WEB-INF/views/chatting/chatList.jsp
+
 </html>
