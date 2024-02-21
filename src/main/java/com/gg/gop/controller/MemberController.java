@@ -13,10 +13,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.gg.gop.dto.MemberDto;
 import com.gg.gop.service.MemberService;
 import jakarta.servlet.http.HttpSession;
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@Slf4j
 public class MemberController {
 
 	// spring 3.2부터 RequestParam으로 값넘겨줘야함 생략 하면 값안넘어감!
@@ -71,7 +69,6 @@ public class MemberController {
 	        try {
 	          
 	            MemberDto memberDto = memberService.login(memberData);
-	            
 	            rttr.addFlashAttribute("msgType", "성공");
 	            rttr.addFlashAttribute("message", "로그인에 성공하였습니다.");
 	            session.setAttribute("email", memberDto.getEmail());
@@ -86,16 +83,6 @@ public class MemberController {
 	            return "redirect:/login";
 	        }
 	    }
-	
-	
-//    @GetMapping("/checkEmail")
-//    @ResponseBody
-//    public Map<String, Boolean> checkIdDuplication(@RequestParam String email) {
-//        boolean isDuplicated = memberService.isIdDuplicated(email);
-//        Map<String, Boolean> result = new HashMap<>();
-//        result.put("isDuplicated", isDuplicated);
-//        return result;
-//    }
 	
 
 	// 로그아웃===========================================

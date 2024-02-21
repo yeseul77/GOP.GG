@@ -10,14 +10,31 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-    var contextPath = '<%=request.getContextPath()%>';
-    
-    function checkEmailDuplication() {
-        var email = document.getElementById('email').value.trim();
-        // 예시로 작성된 코드입니다. 실제 AJAX 요청을 구현할 필요가 있습니다.
-        // AJAX 요청으로 서버에 이메일 중복 확인을 요청하는 로직을 추가하세요.
-        console.log("이메일 중복 확인 요청: ", email);
-        // AJAX 예시: $.ajax({...});
+function checkEmailDuplication() {
+    var email = $('#email').val().trim(); // jQuery로 이메일 값
+
+    if(email.length === 0) {
+        alert("이메일을 입력해주세요.");
+        return;
+    }
+
+    $.ajax({
+        url: contextPath + "/checkEmail", // 서버 측 이메일 중복 확인 처리 URL
+        type: "POST",
+        data: { email: email },
+        dataType: "json", 
+        success: function(response) {
+            if(response.isDuplicated) {
+                $('#emailError').text("이미 사용 중인 이메일입니다.");
+            } else {
+                $('#emailError').text("사용 가능한 이메일입니다.");
+            }
+        },
+        error: function(xhr, status, error) {
+            alert("에러가 발생했습니다.");
+        }
+    });
+}
     }
     
     function registerCheck() {

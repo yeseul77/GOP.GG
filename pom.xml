@@ -9,8 +9,8 @@
 		<version>3.2.2</version>
 		<relativePath /> 
 	</parent>
-	<groupId>com.gop.gg</groupId>
-	<artifactId>GOP</artifactId>
+	<groupId>com.gg</groupId>
+	<artifactId>gop</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>GOP</name>

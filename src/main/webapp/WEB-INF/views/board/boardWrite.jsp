@@ -22,7 +22,7 @@ $(document).ready(function(){
 			document.boardform.content.focus();
 			return false;
 		}
-		// 폼에 입력한 데이터 서버로 전송
+
 		document.boardform.submit();
 	});
 });
