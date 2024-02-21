@@ -6,13 +6,8 @@
 <%@include file="/WEB-INF/tiles/header.jsp" %>
     <title>GOP.GG 회원가입</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <!-- Popper.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <link rel="stylesheet" href="/css/register.css">
     <script defer src="/js/register.js"></script>
 </head>
@@ -100,8 +95,9 @@
       </div>
 
     </div>
-
+    
   </section>
+  
 
 <script type="text/javascript">
 function registerCheck() {

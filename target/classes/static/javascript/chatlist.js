@@ -122,15 +122,13 @@ $(document).ready(function(){
 			const html=document.createElement("div")
 			html.classList.add("listEl")
 			html.innerHTML=`<div id="rlist">
-							<a class="chatroomId" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</a>
-							</br>
-							<a>${chatlist.userId}</a></br>
-							<a>${chatlist.champion}</a></br>
-							<a>${chatlist.position}</a></br>
-							<a>${chatlist.memo}</a></br>
-							<button type="button" class="chatroomId" onclick="submit(${chatlist.chatroomId})">참가신청</button>
-							</div>
-							</br>
+							<h1 class="chatTitle" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</h1>						
+							<p>${chatlist.memo}</p>
+							<a>${chatlist.userId}</a>
+							<a>${chatlist.champion}</a>
+							<a>${chatlist.position}</a>
+							<button type="button" class="chatBtn" onclick="submit(${chatlist.chatroomId})">참가신청</button>
+							</div>				
 							`
 			temp.append(html)
 		})
@@ -173,15 +171,13 @@ $(document).on('click','#update',(function(){
 			const html=document.createElement("div")
 			html.classList.add("listEl")
 			html.innerHTML=`<div id="rlist">
-							<a class="chatroomId" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</a>
-							</br>
-							<a>${chatlist.userId}</a></br>
-							<a>${chatlist.champion}</a></br>
-							<a>${chatlist.position}</a></br>
-							<a>${chatlist.memo}</a></br>
-							<button type="button" class="chatroomId" onclick="submit(${chatlist.chatroomId})">참가신청</button>
-							</div>
-							</br>
+							<h1 class="chatTitle" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</h1>						
+							<p>${chatlist.memo}</p>
+							<a>${chatlist.userId}</a>
+							<a>${chatlist.champion}</a>
+							<a>${chatlist.position}</a>
+							<button type="button" class="chatBtn" onclick="submit(${chatlist.chatroomId})">참가신청</button>
+							</div>				
 							`
 			temp.append(html)
 		})
@@ -225,15 +221,13 @@ list=setInterval(function(){
 			const html=document.createElement("div")
 			html.classList.add("listEl")
 			html.innerHTML=`<div id="rlist">
-							<a class="chatroomId" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</a>
-							</br>
-							<a>${chatlist.userId}</a></br>
-							<a>${chatlist.champion}</a></br>
-							<a>${chatlist.position}</a></br>
-							<a>${chatlist.memo}</a></br>
-							<button type="button" class="chatroomId" onclick="submit(${chatlist.chatroomId})">참가신청</button>
-							</div>
-							</br>
+							<h1 class="chatTitle" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</h1>						
+							<p>${chatlist.memo}</p>
+							<a>${chatlist.userId}</a>
+							<a>${chatlist.champion}</a>
+							<a>${chatlist.position}</a>
+							<button type="button" class="chatBtn" onclick="submit(${chatlist.chatroomId})">참가신청</button>
+							</div>				
 							`
 			temp.append(html)
 		})
