@@ -77,7 +77,7 @@
           <div class="loginfield">
             <div class="loginInput">
               <div class="loginInput-id">
-                <input id="loginId" name="email" type="text" placeholder="아이디">
+                <input id="loginId" name="email" type="text" placeholder="아이디" autocomplete="off">
               </div>
               <div class="loginInput-pw">
                 <input id="loginPw" type="password" name="password" placeholder="비밀번호">

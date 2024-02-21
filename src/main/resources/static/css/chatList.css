@@ -26,13 +26,14 @@ a {
   z-index: -2;
 }
 #wrap {
-  min-height: calc(100vh - 150px);
-  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 200px);
+  margin-bottom: 50px;
  }
 .chat-header {
   width: 100%;
   top: 100px;
-  position: absolute;
+  position: relative;
   /*background-color: orange;*/ 
 } 
 .chat-header .inner {
@@ -90,7 +91,7 @@ a {
 	font-size: 16px;
 }
 .chat-header .inner ul.header-menu li .btn.btn-primary {
-	background-color: rgb(255, 128, 0);
+	background-color: orange;
 	border: none;
 	height: 40px;
 	margin-left: 820px;
@@ -102,8 +103,7 @@ a {
 
 .chatroom-list {
 	width: 100%;
-	position: absolute;
-	top: 183px;
+	margin-top: 115px;
 	
 }
 .chatroom-list .inner {
@@ -116,13 +116,13 @@ a {
 }
 .chatroom-list .inner .listArray .listEl {
 	width: calc((1130px - 20px) / 3);
-	min-height: 240px;
+	height: 240px;
 	border: 1.5px solid #e1e1e1;
 	border-radius: 10px;
 	background-color: white; 
 }
 .chatroom-list .inner .listArray .listEl:hover {
-	box-shadow: #e1e1e1 0px 0px 4px;
+	box-shadow: #e1e1e1 0px 0px 8px;
 }
 
 #chat-modal {
@@ -146,4 +146,12 @@ a {
 }
 #chat-offcanvas .offcanvas.offcanvas-start.show {
 	top: 61px;
+}
+.chatroom-list .inner .list-array #clist svg {
+	width: 24px;
+	height: 24px;
+}
+svg {
+	width: 24px;
+	height: 24px;
 }
