@@ -9,9 +9,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Service
 public class FileService {
-
-
-
+	 
     private final String uploadDir = "/uploads/"; // 서버 내 업로드 될 디렉토리
 
     public String uploadProfileImage(MultipartFile file, HttpSession session) throws IOException {
@@ -45,9 +43,11 @@ public class FileService {
             MemberDto memberDto = new MemberDto();
             memberDto.setEmail(email);
             memberDto.setProfile(fileName); // 업로드된 파일명을 사용자 프로필 이미지로 설정
-           // memberDao.updateMemberProfile(memberDto); // DB 업데이트
+            //memberDao.updateMemberProfile(memberDto); // DB 업데이트
         }
     }
+    
+
 
     public void deleteProfileImage(HttpSession session) {
         String email = (String) session.getAttribute("email");
