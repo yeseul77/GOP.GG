@@ -102,7 +102,7 @@ $(document).ready(function(){
 							</br>
 							<a>${mylist.chatMember}</a></br>
 							</div>
-							<button type="button" class="chatroomId" onclick="popup(${mylist.roomId})">들어가기</button>
+							<button type="button" onclick="popup(${mylist.roomId})">들어가기</button>
 							</br>
 							`
 			temp.append(html)
@@ -118,8 +118,7 @@ $(document).ready(function(){
 			console.log(chatlist)
 			const html=document.createElement("div")
 			html.innerHTML=`<div id="rlist">
-							<a class="chatroomId" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</a>
-							</br>
+							<h3 class="chatroomId">${chatlist.title}</h3>
 							<a>${chatlist.userId}</a></br>
 							<a>${chatlist.champion}</a></br>
 							<a>${chatlist.position}</a></br>

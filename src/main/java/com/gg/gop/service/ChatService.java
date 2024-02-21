@@ -38,7 +38,7 @@ public class ChatService {
 		return check;
 	}
 	
-	public List<ChatMemberDto> findRoomMember(int roomId){
+	public List<String> findRoomMember(int roomId){
 		return cDao.getRoomMember(roomId);
 	}
 	
@@ -47,6 +47,10 @@ public class ChatService {
 		return clist;
 	}
 	public Boolean outRoom(int roomId, String memberId) {
+		ChatDto roomData=cDao.roomData(roomId);
+		if(memberId.equals(roomData.getUserId())) {
+			cDao.deleteRoomData(roomId);
+		}
 		return cDao.outRoom(roomId, memberId);
 	}
 	public ChatDto roomData(int roomId) {

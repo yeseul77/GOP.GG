@@ -22,7 +22,7 @@
 		insert into chatmember(chatmember, title, roomId) values(#{memberId}, #{title}, #{chatroomId})
 	</insert>
 	<select id="getRoomMember">
-		select * from chatmember where roomId=#{roomId}
+		select distinct chatmember from chatmember where roomId=#{roomId}
 	</select>
 	<delete id="outRoom">
 		delete from chatmember where roomId=#{chatroomId} and chatmember=#{memberId}
@@ -36,4 +36,7 @@
 	<select id="roomInfo">
 		select * from chatroom where userId=#{userId} and title=#{title}
 	</select>
+	<delete id="deleteRoomData">
+		delete from chatroom where chatroomId=#{roomId}
+	</delete>
 </mapper>

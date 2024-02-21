@@ -9,7 +9,7 @@ import com.gg.gop.dto.ChatMemberDto;
 
 @Mapper
 public interface ChatDao {
-	List<ChatMemberDto> getRoomMember(int roomId);
+	List<String> getRoomMember(int roomId);
 	List<ChatDto> getRoomList();
 	Boolean createRoom(String title, Object userId, String champ, String position, String memo);
 	String intoRoom(int roomId);
@@ -18,6 +18,7 @@ public interface ChatDao {
 	ChatDto roomData(int roomId);
 	ChatMemberDto roomMemberData(int roomId);
 	void deleteRoom();
+	void deleteRoomData(int roomId);
 	List<ChatMemberDto> getMyRoomList(String userId);
 	ChatDto roomInfo(String userId, String title);
 }
