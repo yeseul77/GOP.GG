@@ -30,8 +30,8 @@ public class SummonerRestController {
 	@Autowired
 	SummonerDao sDao;
 
-	@PostMapping("/summonerSearch")
-	public List<Map<String, Object>> summonerSearch(SummonerDto gameName, SummonerDto tagLine) {
+	@PostMapping("/summonerSearch2")
+	public List<Map<String, Object>> summonerSearch2(SummonerDto gameName, SummonerDto tagLine) {
 		List<Map<String, Object>> combinedGameData = summonerService.getCombinedGameData(gameName.getGameName(),
 				tagLine.getTagLine());
 		List<Map<String, Object>> filteredGameData = new ArrayList<>();

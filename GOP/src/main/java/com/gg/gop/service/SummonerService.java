@@ -67,7 +67,7 @@ public class SummonerService {
 		}
 
 		if (hasDuplicateKey) {
-			// 중복된 데이터가 있을 경우, 에러 처리 또는 적절한 조치를 취할 수 있음
+			
 		}
 
 		return savedDataList;
@@ -126,7 +126,7 @@ public class SummonerService {
 			return sDao.saveteamsdata(teams);
 		} else {
 			log.error("matchId is null. Cannot insert data.");
-			return 0; // 또는 적절한 오류 코드를 반환하십시오.
+			return 0; 
 		}
 	}
 
@@ -136,7 +136,7 @@ public class SummonerService {
 			return sDao.savebansdata(bans);
 		} else {
 			log.error("matchId is null. Cannot insert data.");
-			return 0; // 또는 적절한 오류 코드를 반환하십시오.
+			return 0; 
 		}
 	}
 
