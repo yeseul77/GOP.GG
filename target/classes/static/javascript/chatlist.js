@@ -65,28 +65,17 @@ function accept(roomId, master, sender){
 	var accMsg={"type":"accept", "roomId":JSON.stringify(roomId), "sender":JSON.stringify(sender),"msg":JSON.stringify(master)};
 	console.log(accMsg);
 	socket.send(JSON.stringify(accMsg));
-//	location.href=`/chat/chatroom?chatroomId=${roomId}`;
+	location.href=`/chat/chatList`;
 	window.open(`/chat/chatroom?chatroomId=${roomId}`,'pop', popOption);
 }
 
-function denine(){
-	var deniedMsg={"type":"denied", "roomId":JSON.stringify(-1), "sender":JSON.stringify(username),"msg":"denied"};
+function denine(roomId){
+	var deniedMsg={"type":"denied", "roomId":JSON.stringify(roomId), "sender":JSON.stringify(username),"msg":"denied"};
 	socket.send(JSON.stringify(deniedMsg));	
 	location.href="/chat/chatList"
 }
 
-function sendMsg() {
-	let content = document.querySelector('.content').value;
-	var talkMsg = {"type": "TALK", "roomId": JSON.stringify(chatroomId), "sender": JSON.stringify(username), "msg": content};
-	socket.send(JSON.stringify(talkMsg))
-}
 
-function quit() {
-	var quitMsg = { "type": "QUIT", "roomId": JSON.stringify(chatroomId), "sender": JSON.stringify(username), "msg": "" }
-	socket.send(JSON.stringify(quitMsg));
-	socket.close();
-	location.href = "/chat/out";
-}
 $(document).ready(function(){
 	console.log("ajax start");
 	$.ajax({
@@ -94,15 +83,17 @@ $(document).ready(function(){
 		url:'/chatroom/mylist',
 	}).done(function(result){
 		const temp=document.createElement("div")
+		temp.classList.add("listArray")
 		$.each(result, function(index, mylist){
 			console.log(mylist)
 			const html=document.createElement("div")
+			html.classList.add("listEl")
 			html.innerHTML=`<div id="rlist">
 							<a class="chatroomId" name="chatroomId">${mylist.title}</a>
 							</br>
 							<a>${mylist.chatMember}</a></br>
 							</div>
-							<button type="button" onclick="popup(${mylist.roomId})">들어가기</button>
+							<button type="button" class="chatroomId" onclick="popup(${mylist.roomId})">들어가기</button>
 							</br>
 							`
 			temp.append(html)
@@ -114,18 +105,19 @@ $(document).ready(function(){
 		url:'/chatroom/list',
 	}).done(function(result){
 		const temp=document.createElement("div")
+		temp.classList.add("listArray")
 		$.each(result, function(index, chatlist){
 			console.log(chatlist)
 			const html=document.createElement("div")
+			html.classList.add("listEl")
 			html.innerHTML=`<div id="rlist">
-							<h3 class="chatroomId">${chatlist.title}</h3>
-							<a>${chatlist.userId}</a></br>
-							<a>${chatlist.champion}</a></br>
-							<a>${chatlist.position}</a></br>
-							<a>${chatlist.memo}</a></br>
-							<button type="button" class="chatroomId" onclick="submit(${chatlist.chatroomId})">참가신청</button>
-							</div>
-							</br>
+							<h1 class="chatTitle" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</h1>						
+							<p>${chatlist.memo}</p>
+							<a>${chatlist.userId}</a>
+							<a>${chatlist.champion}</a>
+							<a>${chatlist.position}</a>
+							<button type="button" class="chatBtn" onclick="submit(${chatlist.chatroomId})">참가신청</button>
+							</div>				
 							`
 			temp.append(html)
 		})
@@ -140,9 +132,11 @@ $(document).on('click','#update',(function(){
 		url:'/chatroom/mylist',
 	}).done(function(result){
 		const temp=document.createElement("div")
+		temp.classList.add("listArray")
 		$.each(result, function(index, mylist){
 			console.log(mylist)
 			const html=document.createElement("div")
+			html.classList.add("listEl")
 			html.innerHTML=`<div id="rlist">
 							<a class="chatroomId" name="chatroomId">${mylist.title}</a>
 							</br>
@@ -160,19 +154,19 @@ $(document).on('click','#update',(function(){
 	url:'/chatroom/list',
 	}).done(function(result){
 		const temp=document.createElement("div")
+		temp.classList.add("listArray")
 		$.each(result, function(index, chatlist){
 			console.log(chatlist)
 			const html=document.createElement("div")
+			html.classList.add("listEl")
 			html.innerHTML=`<div id="rlist">
-							<a class="chatroomId" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</a>
-							</br>
-							<a>${chatlist.userId}</a></br>
-							<a>${chatlist.champion}</a></br>
-							<a>${chatlist.position}</a></br>
-							<a>${chatlist.memo}</a></br>
-							<button type="button" class="chatroomId" onclick="submit(${chatlist.chatroomId})">참가신청</button>
-							</div>
-							</br>
+							<h1 class="chatTitle" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</h1>						
+							<p>${chatlist.memo}</p>
+							<a>${chatlist.userId}</a>
+							<a>${chatlist.champion}</a>
+							<a>${chatlist.position}</a>
+							<button type="button" class="chatBtn" onclick="submit(${chatlist.chatroomId})">참가신청</button>
+							</div>				
 							`
 			temp.append(html)
 		})
@@ -187,10 +181,12 @@ list=setInterval(function(){
 		url:'/chatroom/mylist',
 	}).done(function(result){
 		const temp=document.createElement("div")
+		temp.classList.add("listArray")
 		$.each(result, function(mylist){
 			console.log(mylist.chatroomId)
 			console.log(mylist)
 			const html=document.createElement("div")
+			html.classList.add("listEl")
 			html.innerHTML=`<div id="rlist">
 							<a class="chatroomId" name="chatroomId">${mylist.title}</a>
 							</br>
@@ -208,19 +204,19 @@ list=setInterval(function(){
 		url:'/chatroom/list',
 	}).done(function(result){
 		const temp=document.createElement("div")
+		temp.classList.add("listArray")
 		$.each(result, function(chatlist){
 			console.log(chatlist)
 			const html=document.createElement("div")
+			html.classList.add("listEl")
 			html.innerHTML=`<div id="rlist">
-							<a class="chatroomId" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</a>
-							</br>
-							<a>${chatlist.userId}</a></br>
-							<a>${chatlist.champion}</a></br>
-							<a>${chatlist.position}</a></br>
-							<a>${chatlist.memo}</a></br>
-							<button type="button" class="chatroomId" onclick="submit(${chatlist.chatroomId})">참가신청</button>
-							</div>
-							</br>
+							<h1 class="chatTitle" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</h1>						
+							<p>${chatlist.memo}</p>
+							<a>${chatlist.userId}</a>
+							<a>${chatlist.champion}</a>
+							<a>${chatlist.position}</a>
+							<button type="button" class="chatBtn" onclick="submit(${chatlist.chatroomId})">참가신청</button>
+							</div>				
 							`
 			temp.append(html)
 		})
@@ -229,5 +225,5 @@ list=setInterval(function(){
 }, 300000)
 function popup(roomId){
 	console.log(roomId);
-	window.open(`/chat/chatroom?chatroomId=${roomId}`,'pop', popOption);
+	window.open(`/chat/chatroom?chatroomId=${roomId}`,'pop'+roomId, popOption);
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.gg.gop.dto.ChatDto;
 import com.gg.gop.dto.ChatMemberDto;
+import com.gg.gop.dto.ChatMessage;
 import com.gg.gop.service.ChatService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -52,6 +53,13 @@ public class ChatRestController {
 		cr.setUserId(owner);
 		
 		return cr;
+	}
+	@GetMapping("/chatroom/chatlist")
+	public List<ChatMessage> beforemsg(int chatroomId){
+		log.info("{}",chatroomId);
+		List<ChatMessage> message=cSer.beforeMsg(chatroomId);
+		log.info("msg{}",message);
+		return message;
 	}
 	
 //	@PostMapping("/chat/deleteroom")

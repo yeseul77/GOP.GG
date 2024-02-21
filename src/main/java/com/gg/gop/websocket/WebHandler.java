@@ -90,6 +90,7 @@ public class WebHandler extends TextWebSocketHandler{
 			log.info("session count={}",roomSession.size());
 			log.info("pay: {}", message);
 			log.info("{}",payload);
+			cSer.chatlog(chatMessage.getRoomId(),chatMessage.getSender(),chatMessage.getMessage());
 			sendToEachSocket(roomSession, message);
 		}
 	}

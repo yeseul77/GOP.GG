@@ -62,3 +62,24 @@ function quit() {
 	socket.close();
 	window.close();
 }
+$(document).ready(function(){
+	$.ajax({
+		method:'GET',
+		url:'/chatroom/chatlist',
+		data:{"chatroomId" : chatroomId},
+	}).done(function(result){
+		console.log(result)
+		const temp=document.createElement("div")
+		temp.classList.add("listArray")
+		$.each(result, function(index, msg){
+			console.log(msg.sender,":",msg.message)
+			const html=document.createElement("div")
+			html.classList.add("listEl")
+			html.innerHTML=`${msg.sender}:${msg.message}`
+			console.log(html)
+			temp.append(html)
+		})
+		console.log(temp)
+		$('.msgArea').append(temp)
+		})
+})

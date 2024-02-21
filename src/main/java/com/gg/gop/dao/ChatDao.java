@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.gg.gop.dto.ChatDto;
 import com.gg.gop.dto.ChatMemberDto;
+import com.gg.gop.dto.ChatMessage;
 
 @Mapper
 public interface ChatDao {
@@ -21,4 +22,6 @@ public interface ChatDao {
 	void deleteRoomData(int roomId);
 	List<ChatMemberDto> getMyRoomList(String userId);
 	ChatDto roomInfo(String userId, String title);
+	void messageLog(int roomId, String chatmember, String message);
+	List<ChatMessage> getRoomMessage(int roomId);
 }

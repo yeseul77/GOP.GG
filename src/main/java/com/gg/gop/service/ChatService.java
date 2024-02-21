@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.gg.gop.dao.ChatDao;
 import com.gg.gop.dto.ChatDto;
 import com.gg.gop.dto.ChatMemberDto;
+import com.gg.gop.dto.ChatMessage;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -66,5 +67,15 @@ public class ChatService {
 	public List<ChatMemberDto> mylist(String userId) {
 		List<ChatMemberDto> mylist=cDao.getMyRoomList(userId);
 		return mylist;
+	}
+	public void chatlog(int roomId, String userId, String message) {
+		cDao.messageLog(roomId, userId, message);
+	}
+
+	public List<ChatMessage> beforeMsg(int roomId) {
+		log.info("{}",roomId);
+		List<ChatMessage> messages=cDao.getRoomMessage(roomId);
+		log.info("{}",messages);
+		return messages;
 	}
 }

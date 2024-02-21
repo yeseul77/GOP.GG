@@ -39,4 +39,10 @@
 	<delete id="deleteRoomData">
 		delete from chatroom where chatroomId=#{roomId}
 	</delete>
+	<insert id="messageLog">
+		insert into chatmsg value(#{roomId}, #{chatmember}, #{message})
+	</insert>
+	<select id="getRoomMessage">
+		select * from chatmsg where roomId=#{roomId}
+	</select>
 </mapper>
