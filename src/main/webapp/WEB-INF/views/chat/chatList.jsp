@@ -42,14 +42,14 @@
     	<div class="list-array">
     	
     	  <div id="clist"></div>
-          <div class=submitArea id=submitArea></div>
+          
     	
     	</div> 
     </div>
    
   </div>
   
-  
+  <div class=submitArea id=submitArea></div>
   
 
 </div>

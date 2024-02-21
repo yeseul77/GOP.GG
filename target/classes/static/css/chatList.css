@@ -91,16 +91,21 @@ a {
 	
 }
 .chatroom-list .inner {
+	
+}
+.chatroom-list .inner .listArray {
 	display: flex;
 	flex-wrap: wrap;
+	gap: 10px;
 }
-.chatroom-list .inner .list-array {
+.chatroom-list .inner .listArray .listEl {
 	width: calc((1130px - 20px) / 3);
 	min-height: 240px;
 	border: 1.5px solid #e1e1e1;
-	border-radius: 10px; 
+	border-radius: 10px;
+	background-color: white; 
 }
-.chatroom-list .inner .list-array:hover {
+.chatroom-list .inner .listArray .listEl:hover {
 	box-shadow: #e1e1e1 0px 0px 4px;
 }
 
