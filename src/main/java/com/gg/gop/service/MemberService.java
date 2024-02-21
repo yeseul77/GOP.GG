@@ -36,7 +36,21 @@ public class MemberService {
         return memberDao.insertMember(memberDto);
     }
 	
+//    //이메일 중복확인
+//    public boolean isIdDuplicated(String email) {
+//        return memberDao.countemail(email) > 0;
+//    }
+ //이메일중복
+	public String checkId(String email) {
+		 if(memberDao.idCheck(email)==false) {
+				return "ok"; // 사용가능한 아이디
+			}
+			return "fail";
+		}
  
+    
+
+   
 
 
 	public MemberDto login(HashMap<String, String> member) {
@@ -94,6 +108,8 @@ public class MemberService {
             return false;
         }
     }
+
+
 
 
 

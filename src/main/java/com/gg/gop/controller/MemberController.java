@@ -1,8 +1,6 @@
 package com.gg.gop.controller;
 
 import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,16 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.gg.gop.common.FileService;
 import com.gg.gop.dto.MemberDto;
 import com.gg.gop.service.MemberService;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class MemberController {
 
 	// spring 3.2부터 RequestParam으로 값넘겨줘야함 생략 하면 값안넘어감!
@@ -30,7 +27,7 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	@Autowired
-	private FileService fileService;
+	//private FileService fileService;
 
 	// 회원가입==============================================
 	@GetMapping("/register")
@@ -60,30 +57,46 @@ public class MemberController {
 
 	}
 
-	@PostMapping("/login")
-	public String login(@RequestParam String email, @RequestParam String password, RedirectAttributes rttr,
-			HttpSession session) {
-		// HashMap을 사용하여 사용자 정보를 저장
-		HashMap<String, String> member = new HashMap<>();
-		member.put("email", email);
-		member.put("password", password);
-
-		try {
-			MemberDto memberDto = memberService.login(member);
-			rttr.addFlashAttribute("msgType", "성공^^");
-			rttr.addFlashAttribute("message", "로그인에 성공@");
-			session.setAttribute("email", memberDto.getEmail()); // 사용자 이메일을 세션에 저장
-			session.setAttribute("Loginstate", true); // 로그인 상태를 세션에 저장
-			session.setAttribute("username", memberDto.getUsername());
-
-			return "redirect:/";
-		} catch (Exception e) {
-			// 로그인 실패
-			rttr.addFlashAttribute("msgType", "실패메세지");
-			rttr.addFlashAttribute("message", "다시 로그인 해주세요");
-			return "redirect:/login";
-		}
-	}
+	 @PostMapping("/login")
+	    public String login(@RequestParam("email") String email, @RequestParam("password") String password,
+	    		RedirectAttributes rttr, HttpSession session) {
+	       
+		 // HashMap을 사용하여 사용자 정보를 저장
+	        HashMap<String, String> memberData = new HashMap<>();
+	        memberData.put("email", email);
+	        memberData.put("password", password);
+	        
+	        System.out.println("email: " + email + ", password: " + password);
+	        
+	        try {
+	          
+	            MemberDto memberDto = memberService.login(memberData);
+	            
+	            rttr.addFlashAttribute("msgType", "성공");
+	            rttr.addFlashAttribute("message", "로그인에 성공하였습니다.");
+	            session.setAttribute("email", memberDto.getEmail());
+	            session.setAttribute("loginState", true);
+	            session.setAttribute("username", memberDto.getUsername());
+	            
+	            return "redirect:/";
+	        } catch (Exception e) {
+	            // 로그인 실패 처리
+	            rttr.addFlashAttribute("msgType", "실패");
+	            rttr.addFlashAttribute("message", "로그인에 실패하였습니다. 다시 시도해주세요.");
+	            return "redirect:/login";
+	        }
+	    }
+	
+	
+//    @GetMapping("/checkEmail")
+//    @ResponseBody
+//    public Map<String, Boolean> checkIdDuplication(@RequestParam String email) {
+//        boolean isDuplicated = memberService.isIdDuplicated(email);
+//        Map<String, Boolean> result = new HashMap<>();
+//        result.put("isDuplicated", isDuplicated);
+//        return result;
+//    }
+	
 
 	// 로그아웃===========================================
 	@PostMapping("/logout")
