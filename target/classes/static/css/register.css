@@ -43,7 +43,6 @@ p {
 
 .sign .inner {
   top: 170px;
-  height: 700px;
   display:flex;
   justify-content: center;
 }
