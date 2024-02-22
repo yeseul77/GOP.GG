@@ -119,10 +119,79 @@ a {
 	height: 240px;
 	border: 1.5px solid #e1e1e1;
 	border-radius: 10px;
-	background-color: white; 
+	background-color: white;
+	overflow: hidden; 
 }
 .chatroom-list .inner .listArray .listEl:hover {
 	box-shadow: #e1e1e1 0px 0px 8px;
+}
+.chatroom-list .inner .listArray .listEl #rlist {
+	display: flex;
+	flex-direction: column;
+	padding: 18px;
+	height: 240px;
+}
+.chatroom-list .inner .listArray .listEl #rlist .chat-head {
+	display: flex;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #e1e1e1;
+	height: 36px;
+}
+.chatroom-list .inner .listArray .listEl #rlist .chat-head .chat-po {
+	width: 50px;
+	line-height: 30px;
+}
+.chatroom-list .inner .listArray .listEl #rlist .chat-head .chat-po a {
+	
+}
+.chatroom-list .inner .listArray .listEl #rlist .chat-head h1.chatTitle {
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 30px;
+}
+.chatroom-list .inner .listArray .listEl #rlist .hostMemo {
+	margin-bottom: 20px;
+	max-height: unset;
+}
+.chatroom-list .inner .listArray .listEl #rlist p {
+	word-break: break-all;
+	color: #adb6bd;
+	
+}
+.chatroom-list .inner .listArray .listEl #rlist .chat-footer {
+	display: flex;
+	margin-top: auto;
+	margin-bottom: -1px;
+	position: relative;
+	height: 40px;
+}
+.chatroom-list .inner .listArray .listEl #rlist .chat-footer .hostInfo {
+	width: 100px;
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	flex-grow: 1;	
+	color: #6c757e;
+}
+.chatroom-list .inner .listArray .listEl #rlist .chat-footer .hostInfo a {
+	display: block;
+	font-size: 14px;
+		
+}
+.chatroom-list .inner .listArray .listEl #rlist .chat-footer button.chatBtn {
+	border: none;
+	background-color: #adb6bd;
+	border-radius: 4px;
+	padding: 10px 12px;
+	color: white;
+	font-size: 14px;
+	right: 0;
+	position: absolute;
+	display: block;
+}
+.chatroom-list .inner .listArray .listEl #rlist .chat-footer button.chatBtn:hover {
+	background-color: #6c757e;
+	font-weight: 700;
 }
 
 #chat-modal {
@@ -135,8 +204,15 @@ a {
   
 }
 #chat-modal .modal.fade.show {
-	margin-right: 22px;
+	/*margin-right: 22px;*/
 }
+#chat-modal .modal.fade.show .modal-dialog.modal-dialog-centered {
+	width: 445px;
+}
+
+
+
+
 #chat-offcanvas .offcanvas {
 	
 }
@@ -146,12 +222,4 @@ a {
 }
 #chat-offcanvas .offcanvas.offcanvas-start.show {
 	top: 61px;
-}
-.chatroom-list .inner .list-array #clist svg {
-	width: 24px;
-	height: 24px;
-}
-svg {
-	width: 24px;
-	height: 24px;
 }
