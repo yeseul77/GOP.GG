@@ -133,7 +133,7 @@ $(document).on('click','#update',(function(){
 	}).done(function(result){
 		const temp=document.createElement("div")
 		temp.classList.add("listArray")
-		$.each(result, function(index, mylist){
+		$.each(result, function(mylist){
 			console.log(mylist)
 			const html=document.createElement("div")
 			html.classList.add("listEl")
@@ -155,7 +155,7 @@ $(document).on('click','#update',(function(){
 	}).done(function(result){
 		const temp=document.createElement("div")
 		temp.classList.add("listArray")
-		$.each(result, function(index, chatlist){
+		$.each(result, function(chatlist){
 			console.log(chatlist)
 			const html=document.createElement("div")
 			html.classList.add("listEl")

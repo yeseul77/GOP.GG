@@ -9,7 +9,6 @@
 <%@include file="/WEB-INF/tiles/header.jsp" %>
 <link rel="icon" href="/images/favicon.ico">
 
-
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="/css/chatList.css">
 <script defer src="/javascript/chatlist.js"></script>
@@ -27,6 +26,8 @@
    <div class="inner">
  
     <ul class="header-menu">
+    
+     <li><button class="btn chatBtn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><span class="material-symbols-outlined">more_vert</span>&nbsp;채팅 관리</button></li>
    
      <li><button id="update"><span class="material-symbols-outlined">refresh</span>&nbsp;업데이트</button></li>
      
@@ -50,13 +51,11 @@
    
   </div>
 
-  
-
 </div>
 
  <!-- Button trigger modal -->
 
-<div class="chat-modal">
+<div id="chat-modal">
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -72,7 +71,7 @@
 	      제목: <input type="text" name="name" placeholder="채팅방 이름"></br>
 	     포지션: <input type="text" name="position" placeholder="선호위치"></br>
 	     챔피언: <input type="text" name="champion" placeholder="자신의 챔피언"></br>
-	      메모: <input type="text" name="memo" placeholder="메모"></br>
+	      메모: <input type="	text" name="memo" placeholder="메모"></br>
        </div>
        <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -81,30 +80,35 @@
      </form>     
     </div>
   </div>
+</div> 
+
+</div>
+
+
+<div id="chat-offcanvas">
+
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+  <div class="offcanvas-header">   
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class=submitArea id=submitArea></div>
+    <div id="mylist"></div>
+  </div>
 </div>
 
 </div>
-<div class=submitArea id=submitArea></div>
-<div id="mylist"></div>
 
 
 
 
-<!-- <div id="chat-offcanvas"> -->
 
-<!-- <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel"> -->
-<!--   <div class="offcanvas-header"> -->
-<!--     <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop with scrolling</h5> -->
-<!--     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button> -->
-<!--   </div> -->
-<!--   <div class="offcanvas-body"> -->
-<!--     <p>Try scrolling the rest of the page to see this option in action.</p> -->
-<!--   </div> -->
-<!-- </div> -->
+  
 
-<!-- </div> -->
 
-<!-- <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Enable both scrolling & backdrop</button> -->
+
+
+
 <%@include file="/WEB-INF/tiles/footer.jsp" %>
 
 </body>
