@@ -41,7 +41,7 @@ public class ChatRoomController {
 		Object username= userDetails.getUsername();
 		log.info(userDetails.getUsername());
 		log.info("{}",username);
-		Object title=chatService.createRoom(name, username, champ, position, memo);
+		Object title=chatService.createRoom(name, username, champ, position, memo).getTitle();
 		model.addAttribute("room",title);
 		model.addAttribute("username",username);
 		return "redirect:/chat/chatList";

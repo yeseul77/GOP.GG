@@ -65,17 +65,28 @@ function accept(roomId, master, sender){
 	var accMsg={"type":"accept", "roomId":JSON.stringify(roomId), "sender":JSON.stringify(sender),"msg":JSON.stringify(master)};
 	console.log(accMsg);
 	socket.send(JSON.stringify(accMsg));
-	location.href=`/chat/chatList`;
+//	location.href=`/chat/chatroom?chatroomId=${roomId}`;
 	window.open(`/chat/chatroom?chatroomId=${roomId}`,'pop', popOption);
 }
 
-function denine(roomId){
-	var deniedMsg={"type":"denied", "roomId":JSON.stringify(roomId), "sender":JSON.stringify(username),"msg":"denied"};
+function denine(){
+	var deniedMsg={"type":"denied", "roomId":JSON.stringify(-1), "sender":JSON.stringify(username),"msg":"denied"};
 	socket.send(JSON.stringify(deniedMsg));	
 	location.href="/chat/chatList"
 }
 
+function sendMsg() {
+	let content = document.querySelector('.content').value;
+	var talkMsg = {"type": "TALK", "roomId": JSON.stringify(chatroomId), "sender": JSON.stringify(username), "msg": content};
+	socket.send(JSON.stringify(talkMsg))
+}
 
+function quit() {
+	var quitMsg = { "type": "QUIT", "roomId": JSON.stringify(chatroomId), "sender": JSON.stringify(username), "msg": "" }
+	socket.send(JSON.stringify(quitMsg));
+	socket.close();
+	location.href = "/chat/out";
+}
 $(document).ready(function(){
 	console.log("ajax start");
 	$.ajax({
@@ -111,12 +122,17 @@ $(document).ready(function(){
 			const html=document.createElement("div")
 			html.classList.add("listEl")
 			html.innerHTML=`<div id="rlist">
-							<h1 class="chatTitle" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</h1>						
-							<p>${chatlist.memo}</p>
-							<a>${chatlist.userId}</a>
-							<a>${chatlist.champion}</a>
-							<a>${chatlist.position}</a>
+							<div class="chat-head">
+							 <div class="chat-po"><a>${chatlist.position}</a></div>
+							 <h1 class="chatTitle" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</h1>
+							</div>
+							<div class="hostMemo"><p>${chatlist.memo}</p></div>																				
+							<div class="chat-footer">
+							<div class="hostInfo">
+							 <a>${chatlist.userId}</a>|<a>${chatlist.champion}</a>				 
+							</div>
 							<button type="button" class="chatBtn" onclick="submit(${chatlist.chatroomId})">참가신청</button>
+							<div>							
 							</div>				
 							`
 			temp.append(html)
@@ -133,7 +149,7 @@ $(document).on('click','#update',(function(){
 	}).done(function(result){
 		const temp=document.createElement("div")
 		temp.classList.add("listArray")
-		$.each(result, function(mylist){
+		$.each(result, function(index, mylist){
 			console.log(mylist)
 			const html=document.createElement("div")
 			html.classList.add("listEl")
@@ -155,17 +171,22 @@ $(document).on('click','#update',(function(){
 	}).done(function(result){
 		const temp=document.createElement("div")
 		temp.classList.add("listArray")
-		$.each(result, function(chatlist){
+		$.each(result, function(index, chatlist){
 			console.log(chatlist)
 			const html=document.createElement("div")
 			html.classList.add("listEl")
 			html.innerHTML=`<div id="rlist">
-							<h1 class="chatTitle" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</h1>						
-							<p>${chatlist.memo}</p>
-							<a>${chatlist.userId}</a>
-							<a>${chatlist.champion}</a>
-							<a>${chatlist.position}</a>
+							<div class="chat-head">
+							 <div class="chat-po"><a>${chatlist.position}</a></div>
+							 <h1 class="chatTitle" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</h1>
+							</div>
+							<div class="hostMemo"><p>${chatlist.memo}</p></div>																				
+							<div class="chat-footer">
+							<div class="hostInfo">
+							 <a>${chatlist.userId}</a>|<a>${chatlist.champion}</a>
+							</div>
 							<button type="button" class="chatBtn" onclick="submit(${chatlist.chatroomId})">참가신청</button>
+							<div>							
 							</div>				
 							`
 			temp.append(html)
@@ -210,12 +231,17 @@ list=setInterval(function(){
 			const html=document.createElement("div")
 			html.classList.add("listEl")
 			html.innerHTML=`<div id="rlist">
-							<h1 class="chatTitle" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</h1>						
-							<p>${chatlist.memo}</p>
-							<a>${chatlist.userId}</a>
-							<a>${chatlist.champion}</a>
-							<a>${chatlist.position}</a>
+							<div class="chat-head">
+							 <div class="chat-po"><a>${chatlist.position}</a></div>
+							 <h1 class="chatTitle" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</h1>
+							</div>
+							<div class="hostMemo"><p>${chatlist.memo}</p></div>																				
+							<div class="chat-footer">
+							<div class="hostInfo">
+							 <a>${chatlist.userId}</a>|<a>${chatlist.champion}</a>
+							</div>
 							<button type="button" class="chatBtn" onclick="submit(${chatlist.chatroomId})">참가신청</button>
+							<div>							
 							</div>				
 							`
 			temp.append(html)
@@ -225,5 +251,41 @@ list=setInterval(function(){
 }, 300000)
 function popup(roomId){
 	console.log(roomId);
-	window.open(`/chat/chatroom?chatroomId=${roomId}`,'pop'+roomId, popOption);
+	window.open(`/chat/chatroom?chatroomId=${roomId}`,'pop', popOption);
+}
+
+
+const checkboxes = document.querySelectorAll('.chatRoomInfo-line input[type="checkbox"]');
+
+// 모든 체크박스에 대한 변경 이벤트를 한 번만 처리
+document.querySelector('.chatRoomInfo-line').addEventListener('change', function(event) {
+    if (event.target.type === 'checkbox') { // 변경된 요소가 체크박스인지 확인
+        let checkedCount = 0;
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                checkedCount++;
+            }
+        });
+        
+        if (checkedCount > 2) {
+            event.target.checked = false; // 변경된 요소의 체크를 취소
+            alert("최대 2개까지 선택할 수 있습니다.");
+        }
+    }
+});
+const toastTrigger = document.getElementById('submitArea')
+const toastLiveExample = document.getElementById('liveToast')
+
+if (toastTrigger) {
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  const observer = new MutationObserver(function(mutationsList, observer) {
+  mutationsList.forEach(function(mutation) {
+    if (mutation.type === 'childList') {
+      // 자식 요소가 추가될 때마다 실행
+      toastBootstrap.show()
+    }
+  });
+});
+const config = { childList: true }; // 자식 요소의 추가와 삭제를 감지
+observer.observe(toastTrigger, config);   	
 }

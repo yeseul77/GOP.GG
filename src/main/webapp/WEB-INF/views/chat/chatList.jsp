@@ -4,11 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>chatList</title>
 <%@include file="/WEB-INF/tiles/header.jsp" %>
-<link rel="icon" href="/images/favicon.ico">
-
+<title>chatList</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="/css/chatList.css">
 <script defer src="/javascript/chatlist.js"></script>
@@ -44,7 +42,7 @@
     	<div class="list-array">
     	
     	  <div id="clist"></div>
-          
+    	     	       
     	
     	</div> 
     </div>
@@ -64,20 +62,39 @@
       <div class="modal-header">  
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      
       <form action="/chat/createRoom" method="post">
-        <div class="modal-body">
-        <input type="hidden" id="username" name="username" value="${username}" /></br></br>
         
-	      제목: <input type="text" name="name" placeholder="채팅방 이름"></br>
-	     포지션: <input type="text" name="position" placeholder="선호위치"></br>
-	     챔피언: <input type="text" name="champion" placeholder="자신의 챔피언"></br>
-	      메모: <input type="	text" name="memo" placeholder="메모"></br>
+        <div class="modal-body">
+         <input type="hidden" id="username" name="username" value="${username}" />
+         <input type="text" name="name" class="chatRoomInfo" placeholder="  제 목" autocomplete="off"/>
+         <textarea name="memo" class="chatRoom-memo" placeholder="  내 용" autocomplete="off" maxlength="80"></textarea>
+         
+         <div class="line-head">찾고 있는 포지션</div>
+         <div class="chatRoomInfo-line">        
+          <input type="checkbox" id="top" name="position" value="top" />
+          <label for="top">top</label>
+          <input type="checkbox" id="jungle" name="position" value="jungle" />
+          <label for="jungle">jungle</label>
+          <input type="checkbox" id="middle" name="position" value="middle" />
+          <label for="middle">middle</label> 
+          <input type="checkbox" id="bottom" name="position" value="bottom" />
+          <label for="bot">bottom</label> 
+          <input type="checkbox" id="supporter" name="position" value="supporter" />
+          <label for="supporter">supporter</label>        
+         </div>
+                
+	     <input type="text" name="champion" class="chatRoomInfo" placeholder="  내 챔피언" autocomplete="off"/>	     
+       
        </div>
+       
        <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">확인</button>
+        <button type="reset" class="btn btn-secondary">초기화</button>
+        <button type="submit" class="btn btn-primary">등록하기</button>
       </div>
-     </form>     
+     
+    </form>  
+       
     </div>
   </div>
 </div> 
@@ -92,7 +109,6 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
-    <div class=submitArea id=submitArea></div>
     <div id="mylist"></div>
   </div>
 </div>
@@ -100,14 +116,19 @@
 </div>
 
 
-
-
-
-  
-
-
-
-
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="..." class="rounded me-2" alt="...">
+      <strong class="me-auto">Bootstrap</strong>
+      <small>11 mins ago</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      <div class=submitArea id="submitArea"></div>
+    </div>
+  </div>
+</div>
 
 <%@include file="/WEB-INF/tiles/footer.jsp" %>
 

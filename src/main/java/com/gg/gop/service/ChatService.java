@@ -19,18 +19,15 @@ public class ChatService {
 	
 	final ChatDao cDao;
 	
-	public String createRoom(String title, Object username, String champ, String position, String memo) {
+	public ChatDto createRoom(String title, Object username, String champ, String position, String memo) {
 
 		log.info("{}",username);
-		Boolean result=cDao.createRoom(title, username, champ, position, memo);
-		ChatDto myroom=cDao.roomInfo((String)username, title);
+		cDao.createRoom(title, username, champ, position, memo);
+		log.info("{}",username);
+		ChatDto myroom=cDao.lastroomInfo((String)username, title);
+		log.info("{}",username);
 		cDao.plusroom(myroom.getChatroomId(), title,(String)username );
-		if(result) {
-			log.info("create complet");
-		}else {
-			log.info("create fail");
-		}
-		return title;
+		return myroom;
 	}
 
 	public Boolean findAllRoom(int chatroomId,String memberId) {

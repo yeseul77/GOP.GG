@@ -45,4 +45,7 @@
 	<select id="getRoomMessage">
 		select * from chatmsg where roomId=#{roomId}
 	</select>
+	<select id="lastroomInfo">
+		select* from chatroom where title=#{title} and userId=#{username} order by chatroomId desc limit 1
+	</select>
 </mapper>

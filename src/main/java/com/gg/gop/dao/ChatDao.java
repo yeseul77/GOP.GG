@@ -12,7 +12,7 @@ import com.gg.gop.dto.ChatMessage;
 public interface ChatDao {
 	List<String> getRoomMember(int roomId);
 	List<ChatDto> getRoomList();
-	Boolean createRoom(String title, Object userId, String champ, String position, String memo);
+	void createRoom(String title, Object userId, String champ, String position, String memo);
 	String intoRoom(int roomId);
 	Boolean plusroom(int chatroomId,String title, String memberId);
 	Boolean outRoom(int chatroomId, String memberId);
@@ -24,4 +24,5 @@ public interface ChatDao {
 	ChatDto roomInfo(String userId, String title);
 	void messageLog(int roomId, String chatmember, String message);
 	List<ChatMessage> getRoomMessage(int roomId);
+	ChatDto lastroomInfo(String username, String title);
 }
