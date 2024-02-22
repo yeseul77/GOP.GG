@@ -40,6 +40,7 @@ $(document).ready(function () {
     }
    	function displayGameInfo(gameInfoList) {
    		$("#gameInfoTable tbody").empty();
+   		$("#additionalTable tbody").empty();
 		
    		if (gameInfoList.length > 0) {
    		 	for (var index = 0; index < gameInfoList.length; index++) {
@@ -82,8 +83,11 @@ $(document).ready(function () {
 	   	                    "<th>골드</th>" +
    	                    	"</tr>";
    	                	$("#gameInfoTable tbody").append(gameRow);
+   	                    
+   	                  	// 챔피언이 이미 등록되어 있는지 확인하고, 등록되어 있지 않으면 초기값으로 설정
    		        	}
    		        }
+               	
 
    		        var showMore =  "<tr class='Toggle" + index + "' style='display:none'>" +
        		        "<th colspan='2'>" + gameInfo.info[0].gameMode + "</th>" +
@@ -131,6 +135,35 @@ $(document).ready(function () {
        		    }
    		        $("#gameInfoTable tbody").append(showMore);
    		    }
+   		 var championPlayCounts = {};
+         for (var index = 0; index < gameInfoList.length; index++) {
+             var gameInfo = gameInfoList[index];
+             for (var j = 0; j < gameInfo.info.length; j++) {
+                 var playerInfo = gameInfo.info[j];
+                 var champion = playerInfo.championName;
+                 // 플레이어의 게임 이름과 태그 라인이 일치할 경우에만 플레이 횟수를 누적
+                 if (playerInfo.riotIdGameName === gameName && playerInfo.riotIdTagline === tagLine) {
+                     if (!championPlayCounts[champion]) {
+                         championPlayCounts[champion] = 1;
+                     } else {
+                         championPlayCounts[champion]++;
+                     }
+                 }
+             }
+         }
+         
+         // 챔피언별 플레이 횟수를 테이블에 추가
+         var sortedChampionPlayCounts = Object.entries(championPlayCounts).sort((a, b) => b[1] - a[1]);
+         var playerRow = "";
+         for (var i = 0; i < sortedChampionPlayCounts.length; i++) {
+             var champion = sortedChampionPlayCounts[i][0];
+             var playCount = sortedChampionPlayCounts[i][1];
+             playerRow += "<tr>" + 
+                 "<td>" + champion + "</td>" +
+                 "<td>" + playCount + "게임</td>" +
+                 "</tr>";
+         }
+         $("#additionalTable tbody").append(playerRow);
        		
   		} else {
    			$("#gameInfoTable tbody").append("<tr><td colspan='3'>게임 정보가 없습니다.</td></tr>");
@@ -286,14 +319,38 @@ $(document).ready(function () {
 		<button type="button" id="updateButton">전적 갱신</button>
 	</form>
 	<div>
-		<table id="gameInfoTable" align="center" border="1" width="600">
-			<tr>
-			</tr>
-			<tr>
-			</tr>
-			<tr>
-			</tr>
-		</table>
+		<table align="center" border="1" width="800">
+        <tr>
+            <td>
+                <div>
+                    <table id="additionalTable" align="center" border="1" width="200">
+                        <tr>
+                            <!-- 추가 테이블 내용을 여기에 추가하세요 -->
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <!-- 필요한 만큼 행/열을 추가하세요 -->
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <table id="gameInfoTable" align="center" border="1" width="600">
+                        <tr>
+                            <!-- 게임 정보 테이블 내용을 여기에 추가하세요 -->
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <!-- 필요한 만큼 행/열을 추가하세요 -->
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
 	</div>
 </body>
 </html>

@@ -84,27 +84,50 @@ public class SummonerService {
 	public List<Map<String, Object>> getCombinedGameData(String gameName, String tagLine) {
 		List<Map<String, Object>> gameInfoList = sDao.getGameInfoFromDB(gameName, tagLine);
 		List<Map<String, Object>> gameTeamsList = sDao.getGameTeamsFromDB(gameName, tagLine);
-
+		List<String> setmatchidList=new ArrayList<>();
+		List<String> matchidList=new ArrayList<>();
 		Map<String, List<Map<String, Object>>> gameDataByMatchId = new HashMap<>();
 		Map<String, List<Map<String, Object>>> gameTeamsByMatchId = new HashMap<>();
 
+		int j=0;
 		for (Map<String, Object> gameInfo : gameInfoList) {
 			String matchId = (String) gameInfo.get("matchId");
+			setmatchidList.add(matchId);
+//			j++;
+//			log.info("========{}={}",j,matchId);//이상없
 			gameDataByMatchId.computeIfAbsent(matchId, k -> new ArrayList<>()).add(gameInfo);
 		}
+		for(int i=1;i<setmatchidList.size();i++) {
+			if(!(setmatchidList.get(i-1).equals(setmatchidList.get(i)))) {
+//				for(int k=0;k<10;k++)
+					matchidList.add(setmatchidList.get(i-1));
+			}
+		}
+		for(int i=0;i<matchidList.size();i++) {
+			log.info("===================={}",matchidList.get(i));
+		}
+//		int j=0;
 		for (Map<String, Object> gameTeams : gameTeamsList) {
 			String matchId = (String) gameTeams.get("matchId");
+			j++;
+//			log.info("========{}={}",i,matchId);//이상발생
 			gameTeamsByMatchId.computeIfAbsent(matchId, k -> new ArrayList<>()).add(gameTeams);
 		}
 		List<Map<String, Object>> combinedDataList = new ArrayList<>();
-
-		for (String matchId : gameDataByMatchId.keySet()) {
+//		for (String matchId : gameDataByMatchId.keySet()) {
+		log.info("{}",gameDataByMatchId.keySet());
+		for(int i=0;i<matchidList.size();i++) {
+			String matchId=matchidList.get(i);
 			Map<String, Object> combinedData = new HashMap<>();
 			List<Map<String, Object>> gameInfoData = gameDataByMatchId.get(matchId);
 			List<Map<String, Object>> gameTeamsData = gameTeamsByMatchId.getOrDefault(matchId, new ArrayList<>());
+			log.info("==============={}={}",i,matchId);
 			combinedData.put("info", gameInfoData);
 			combinedData.put("teams", gameTeamsData);
 			combinedDataList.add(combinedData);
+//			log.info("{}",matchId);
+//			log.info("{}",combinedDataList.get(i).get("info"));
+//			i++;
 		}
 
 		return combinedDataList;

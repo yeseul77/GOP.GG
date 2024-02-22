@@ -113,6 +113,7 @@ public class SummonerRestController {
 		String puuid = summonerService.puuid(gameName, tagLine);
 		List<String> matchIdList = summonerService.matchIdList(puuid);
 		List<Map<String, Object>> newGameDataList = summonerService.gameInfoList(matchIdList);
+//		List<Map<String, Object>> timeLineDataList = summonerService.timeLineList(matchIdList);
 		log.info("Updating game data...");
 
 		// 데이터베이스에 저장된 최신 게임 데이터 가져오기

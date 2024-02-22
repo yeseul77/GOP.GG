@@ -25,7 +25,7 @@ public class SummonerWebClientService {
 
 	public List<String> getMatchIdInfo(String puuid) {
 		System.out.println("service");
-		String url = RIOT_API_URL2 + puuid + "/ids?start=0&count=10&api_key=" + RIOT_API_KEY;
+		String url = RIOT_API_URL2 + puuid + "/ids?start=0&count=3&api_key=" + RIOT_API_KEY;
 		WebClient webClient = WebClient.builder().baseUrl(url).build();
 		List<String> matchIdList = webClient.get().uri(uriBuilder -> uriBuilder.build()).retrieve()
 				.bodyToMono(new ParameterizedTypeReference<List<String>>() {
@@ -36,6 +36,14 @@ public class SummonerWebClientService {
 
 	public Map getGameInfo(String matchId) { // 매치id를 통해서 데이터를 받음
 		String url = "https://asia.api.riotgames.com/lol/match/v5/matches/" + matchId + "?api_key=" + RIOT_API_KEY;
+		WebClient webClient = WebClient.builder().baseUrl(url).build();
+		Map response = webClient.get() // 맵으로 받으면 됨
+				.uri(uriBuilder -> uriBuilder.build()).retrieve().bodyToMono(Map.class).block();
+		return response;
+	}
+	
+	public Map getTimeLine(String matchId) {
+		String url = "https://asia.api.riotgames.com/lol/match/v5/matches/" + matchId + "/timeline?api_key=" + RIOT_API_KEY;
 		WebClient webClient = WebClient.builder().baseUrl(url).build();
 		Map response = webClient.get() // 맵으로 받으면 됨
 				.uri(uriBuilder -> uriBuilder.build()).retrieve().bodyToMono(Map.class).block();
