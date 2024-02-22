@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpSession;
 
 @Service
 public class FileService {
-	 
-    private final String uploadDir = "/uploads/"; // 서버 내 업로드 될 디렉토리
+	 //서버내 업로드될 디렉토리
+    private final String uploadDir =   "src/main/resources/static/uploads/";
 
     public String uploadProfileImage(MultipartFile file, HttpSession session) throws IOException {
         if (file.isEmpty()) {

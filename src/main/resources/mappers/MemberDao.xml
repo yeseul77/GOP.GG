@@ -4,22 +4,28 @@
 <mapper namespace="com.gg.gop.dao.MemberDao">
 	<!-- 회원가입 -->
 	<insert id="insertMember" parameterType="MemberDto">
-		INSERT INTO member_tb (email, password, username, profile)
-		VALUES (#{email}, #{password}, #{username}, 'default')
+		INSERT INTO member_tb
+		(email, password, username, profile)
+		VALUES (#{email}, #{password},
+		#{username}, 'default')
 	</insert>
-	
-	<!-- 이메일 중복 검사를 위한 카운트 조회 -->
-	<select id="countByEmail" resultType="int" parameterType="String">
-		SELECT COUNT(*) FROM member_tb WHERE email = #{email}
-	</select>
+
+<!-- 닉네임 중복검사 쿼리 -->
+<select id="selectusername" resultType="boolean">
+    SELECT COUNT(*) > 0
+    FROM member_tb
+    WHERE username = #{username}
+</select>
 
 	<!-- 로그인 -->
-	<select id="getSecurityPw" parameterType="String" resultType="String">
+	<select id="getSecurityPw" parameterType="String"
+		resultType="String">
 		select password from member_tb where email=#{email}
 	</select>
-<!-- 회원정보 -->
+	<!-- 회원정보 -->
 	<select id="getMemberInfo" resultType="MemberDto">
-		select email,password,username from member_tb where email=#{email};
+		select
+		email,password,username from member_tb where email=#{email};
 	</select>
 	<!-- 회원정보 변경 -->
 	<update id="updateMemberProfile" parameterType="MemberDto">

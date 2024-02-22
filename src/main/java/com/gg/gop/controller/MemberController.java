@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.gg.gop.dto.MemberDto;
@@ -45,6 +46,7 @@ public class MemberController {
 			return "redirect:/register"; // 회원가입 실패 시 회원가입 폼으로 리다이렉트
 		}
 	}
+	
 	
 
 	// 로그인====================================================

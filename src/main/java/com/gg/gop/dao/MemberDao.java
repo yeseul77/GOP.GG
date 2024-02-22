@@ -8,8 +8,8 @@ public interface MemberDao {
 
 	// 회원가입
 	boolean insertMember(MemberDto memberDto);
-	//아이디(이메일)중복  체크
-    int countByEmail(String email);
+	//닉네임 중복  체크
+	public boolean selectusername(String username);
 	// 암호화된 비밀번호
 	String getSecurityPw(String string);
 
