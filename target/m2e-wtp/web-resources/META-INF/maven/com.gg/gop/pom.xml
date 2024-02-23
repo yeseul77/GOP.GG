@@ -7,7 +7,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.2.2</version>
-		<relativePath /> 
+		<relativePath />
 	</parent>
 	<groupId>com.gg</groupId>
 	<artifactId>gop</artifactId>
@@ -117,6 +117,18 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		<!--https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>5.3.9</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -136,4 +148,5 @@
 			</plugin>
 		</plugins>
 	</build>
+
 </project>
