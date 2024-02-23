@@ -34,13 +34,15 @@ socket.onerror = function(e) {
 socket.onmessage = function(e) {
 	console.log("e.data", e.data);
 	let msg=JSON.parse(e.data);
-	console.log(msg.message);
-	let msgArea = document.querySelector('.msgArea');
-	let newMsg = document.createElement('div');
-	newMsg.innerText =msg.sender+": ";
-	newMsg.innerText += msg.message;
-	console.log(newMsg)
-	msgArea.append(newMsg);
+	if(msg.roomId==chatroomId){
+		console.log(msg.message);
+		let msgArea = document.querySelector('.msgArea');
+		let newMsg = document.createElement('div');
+		newMsg.innerText =msg.sender+": ";
+		newMsg.innerText += msg.message;
+		console.log(newMsg)
+		msgArea.append(newMsg);
+	}
 }
 
 function sendMsg() {
@@ -49,9 +51,35 @@ function sendMsg() {
 	socket.send(JSON.stringify(talkMsg))
 }
 
+function outing(){
+	window.close();
+}
+
 function quit() {
-	var quitMsg = { "type": "QUIT", "roomId": chatroomId, "sender": username, "message": "" }
+	location.href = "/chat/out?chatroomId="+chatroomId;
+ 	var quitMsg = { "type": "QUIT", "roomId": chatroomId, "sender": username, "message": "" }
 	socket.send(JSON.stringify(quitMsg));
 	socket.close();
-	location.href = "/chat/out?chatroomId="+chatroomId;
+	window.close();
 }
+$(document).ready(function(){
+	$.ajax({
+		method:'GET',
+		url:'/chatroom/chatlist',
+		data:{"chatroomId" : chatroomId},
+	}).done(function(result){
+		console.log(result)
+		const temp=document.createElement("div")
+		temp.classList.add("listArray")
+		$.each(result, function(index, msg){
+			console.log(msg.sender,":",msg.message)
+			const html=document.createElement("div")
+			html.classList.add("listEl")
+			html.innerHTML=`${msg.sender}:${msg.message}`
+			console.log(html)
+			temp.append(html)
+		})
+		console.log(temp)
+		$('.msgArea').append(temp)
+		})
+})

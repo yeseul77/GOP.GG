@@ -33,20 +33,21 @@ public class ChatRoomController {
 	}
 	
 	@PostMapping("/chat/createRoom")
-	public String createRoom(@RequestParam(name="name") String name,@RequestParam(name="champion") String champ, @RequestParam(name="position") String position 
+	public String createRoom(@RequestParam(name="name") String name,@RequestParam(name="champion") String champ
+							, @RequestParam(name="position") String position,@RequestParam(name="memo") String memo 
 							,Model model, HttpSession session) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
 		UserDetails userDetails = (UserDetails)principal;
 		Object username= userDetails.getUsername();
 		log.info(userDetails.getUsername());
 		log.info("{}",username);
-		Object title=chatService.createRoom(name, username, champ, position);
+		Object title=chatService.createRoom(name, username, champ, position, memo).getTitle();
 		model.addAttribute("room",title);
 		model.addAttribute("username",username);
-		return "chat/chatList";
+		return "redirect:/chat/chatList";
 	}
 	
-	@GetMapping("/chat/chatroom")
+	@GetMapping("/chat/firstchatroom")
 	public String chatRoom(Model model,@RequestParam(name="chatroomId") Object chatroomId, HttpSession session) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
 		UserDetails userDetails = (UserDetails)principal;
@@ -62,14 +63,21 @@ public class ChatRoomController {
 		model.addAttribute("chatroomId",chatroomId);
 		return "chat/chatroom";
 	}
-	
-	@GetMapping("/chat/out")
-	public String Chatout(Model model,@RequestParam(name="chatroomId") Object chatroomId) {
+	@GetMapping("/chat/chatroom")
+	public String secondchatRoom(Model model,@RequestParam(name="chatroomId") Object chatroomId, HttpSession session) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
 		UserDetails userDetails = (UserDetails)principal;
 		String username= userDetails.getUsername().toString();
-		int roomId=Integer.parseInt((String)chatroomId);
-		chatService.outRoom(roomId, username);
-		return "redirect:/chat/chatList";
+//		Boolean result=chatService.findAllRoom(Integer.parseInt((String) chatroomId),username);
+//		if(!result) {
+//			model.addAttribute("alert","진입실패");
+//			return "redirect:/chat/chatList";
+//		}
+		log.info("test");
+		log.info(""+chatroomId);
+		model.addAttribute("username", username);
+		model.addAttribute("chatroomId",chatroomId);
+		return "chat/chatroom";
 	}
+	
 }

@@ -37,12 +37,11 @@ socket.onmessage = function(e) {
 		let chatInvite=document.getElementById('chatInvite');
 		let submitMsg=document.createElement('div');
 		submitMsg.classList.add('invite');
-		submitMsg.innerHTML=`<p><strong>${msg.sender}님이<strong><br/>대화 신청을 하였습니다.</p>
+		submitMsg.innerHTML=`<p><strong>${msg.sender}님이</strong><br/>대화 신청을 하였습니다.</p>
 							<div class="okno">
 							 <button class="okChat" onclick="accept(${roomId}, '${username}', '${sender}')">승낙</button>
 							 <button class="noChat" onclick="denine()">거절</button>
-							</div>
-							`
+							</div>`
 		submitArea.append(submitMsg.cloneNode(true))
 		chatInvite.append(submitMsg.cloneNode(true))					
 		
@@ -224,7 +223,7 @@ list=setInterval(function(){
 	}).done(function(result){
 		const temp=document.createElement("div")
 		temp.classList.add("listArray")
-		$.each(result, function(chatlist){
+		$.each(result, function(index,chatlist){
 			console.log(chatlist)
 			const html=document.createElement("div")
 			html.classList.add("listEl")
@@ -269,26 +268,31 @@ if (toastTrigger) {
     }
   });
 });
+
 const config = { childList: true }; // 자식 요소의 추가와 삭제를 감지
 observer.observe(toastTrigger, config);   	
 }
 
 
 $('#roomsearch').keyup(function(){
-	let search=document.getElementById('roomsearch').value;
-	console.log(search)
+	let title=document.getElementById('roomsearch').value;
+	console.log(title);
+//	console.log("ajaxstart2");
+	const temp=document.createElement("div")
+	temp.classList.add("listArray")
 	$.ajax({
 		method:'GET',
-		url:"chatlist/search",
-		data:search
+		url:"/chatroom/search",
+		data:{"title":title}
 	}).done(function(result){
-		$.each(result, function(search){
+		$.each(result, function(index, search){
 			console.log(search)
+			let position=search.position.toLowerCase();
 			const html=document.createElement("div")
 			html.classList.add("listEl")
 			html.innerHTML=`<div id="rlist">
 							<div class="chat-head">
-							<div class="chat-po"><img src="/images/${search.position.toLowerCase()}.svg" alt="${search.position}"></div>
+							<div class="chat-po"><img src="/images/${position.toLowerCase()}.svg" alt="${search.position}"></div>
 							<h1 class="chatTitle" name="chatroomId" value="${search.chatroomId}">${search.title}</h1>
 							</div>
 							<div class="hostMemo"><p>${search.memo}</p></div>																				
@@ -302,10 +306,9 @@ $('#roomsearch').keyup(function(){
 							`
 			temp.append(html)		
 		})
+		$('#clist').empty().append(temp)
 	})
-})
-
-
+});
 
 
 

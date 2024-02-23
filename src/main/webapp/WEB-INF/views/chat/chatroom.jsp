@@ -15,6 +15,7 @@
 <input type="text" placeholder="메시지 입력" class="content">
 <button type="button" value="전송" class="sendBtn" onclick="sendMsg()">전송</button>
 <button type="button" value="나가기" class="quit" onclick="quit()">나가기</button>
+<button type="button" value="외출하기" class="outing" onclick="outing()">외출하기</button>
 <div>
 	<span>메세지</span>
 	<div class="msgArea"></div>

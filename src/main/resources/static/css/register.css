@@ -1,237 +1,212 @@
+/* input box color */
+input:-webkit-autofill { 
+  -webkit-box-shadow: none; 
+  -webkit-text-fill-color: none;
+ }
+ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active { 
+  transition: none;
+ }
+ 
+ 
  
  body {
-  color: #333;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.4;
-  font-family: "Roboto", "Noto Sans KR", sans-serif;
-}
-img {
-  display: block;
-}
-.inner {
-  width: 1130px;
-  margin: 0 auto;
-  position: relative;
-}
-a {
-  text-decoration: none;
-  color: #333;
-}
-p {
- margin-top: 0;
- margin-bottom: 0; 
-}
-
-/* BACKGROUND IMAGE */
-
-.back {
-  top: 51px;
-  width: 100%;
-  height: 95%;
-  background-image: url("/images/back2.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  position:absolute;
-  opacity: .6;
-  z-index: -2;
-}
-
-
-/* SIGN */
-
-.sign .inner {
-  top: 170px;
-  display:flex;
-  justify-content: center;
-}
-.sign .signup-box {
-  width: 500px;
-  height: 540px;
-  background-color: #fff;
-  border-radius: 8px;
-  border: 2px solid #006C5F;
-}
-.sign .signup-box .headline {
-  width: 100%;
-  height: 50px;
-  background-color: #006C5F;
-  text-align: center;
-  position: relative;
-}
-.sign .signup-box .headline p {
-  font-weight: 700;
-  color: #fff;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  height: 20px;
-  margin : auto;
-  font-size: 18px;
-  line-height: 1;
-  
-}
-.sign .signup-box .headline #closer-btn {
- position: absolute;
- top: 0;
- bottom: 0;
- margin: auto;
- right: 10px;
- height: 24px;	
- cursor: pointer;
- margin-top : 9px;
+   color: #333;
+   font-size: 16px;
+   font-weight: 400;
+   line-height: 1.4;
+   font-family: "Roboto", "Noto Sans KR", sans-serif;
+ }
+ img {
+   display: block;
+ }
+ .inner {
+   width: 1130px;
+   margin: 0 auto;
+   position: relative;
+ }
+ a {
+   text-decoration: none;
+   color: #333;
+ }
+ 
+ /* BACKGROUND IMAGE */
+ 
+ .back {
+   top: 51px;
+   width: 100%;
+   height: 95%;
+   background-image: url("../images/back2.jpg");
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+   background-size: cover;
+   position:absolute;
+   opacity: .6;
+   z-index: -2;
+ }
+ 
+ 
+ /* SIGN */
+ 
+ .sign .inner {
+   top: 170px;
+   height: 700px;
+   display:flex;
+   justify-content: center;
+ }
+ .sign .signup-box {
+   width: 500px;
+   height: 540px;
+   background-color: #fff;
+   border-radius: 8px;
+   border: 2px solid #006C5F;
+ }
+ .sign .signup-box .headline {
+   width: 100%;
+   height: 50px;
+   background-color: #006C5F;
+   text-align: center;
+ }
+ .sign .signup-box .headline p {
+   font-weight: 700;
+   color: #fff;
+   line-height: 50px;
+   font-size: 18px;
+ }
+ .sign .signup-box .text-write {
+   margin-top: 36px;
+   height: 299px;
+ }
+ .sign .signup-box .text-write .write-id {
+   width: 100%;
+   height: 75px;
+   padding: 0 15px;
+   box-sizing: border-box;	
+ }
+ .sign .signup-box .text-write .write-pw,
+ .sign .signup-box .text-write .write-pw-match,
+ .sign .signup-box .text-write .write-nickname {
+   width: 100%;
+   height: 80px;
+   padding: 0 15px;
+   box-sizing: border-box;
+   display: flex;
+   flex-wrap: wrap;
+   align-content: center;
+ }
+ .sign .signup-box .text-write .write-nickname {
+   margin-bottom: -18px;
+ }
+ .sign .signup-box .text-write .write-id .id-wrap {
+   display:flex;
+ }
+ .sign .signup-box .text-write .write-id .id-wrap p {
+   top: 0;
+   bottom: 0;
+   margin: auto;
+   width: 93px;	
+ }
+ .sign .signup-box .text-write .write-pw p,
+ .sign .signup-box .text-write .write-pw-match p,
+ .sign .signup-box .text-write .write-nickname p {
+   top: 0;
+   bottom: 0;
+   margin: auto;
+   width: 93px;
+ }
+ .sign .signup-box .text-write .write-id .id-wrap .signup-id {
+   display: block;
+   width: 209px;
+   height: 40px;
+   outline: none;
+   padding: 0 10px;
+   box-sizing: border-box;
+   margin-right: 15px;		
+ }
+ .sign .signup-box .text-write .write-pw .signup-pw,
+ .sign .signup-box .text-write .write-pw-match .signup-match,
+ .sign .signup-box .text-write .write-nickname .signup-nickname {
+   display: block;
+   width: 300px;
+   height: 40px;
+   outline: none;
+   padding: 0 10px;
+   box-sizing: border-box;
+   margin-right: 25px;
+ }
+ .sign .signup-box .text-write .write-id .id-wrap .idBtn {
+   display: block;
+   width: 77px;
+   height: 40px;
+   border: 1px solid #333;
+   border-radius: 4px;
+   color: #333;	
+   font-size: 14px;
+   margin-right: 25px;	
+ }
+ .sign .signup-box .text-write .write-id .messageEmail,
+ .sign .signup-box .text-write .write-pw .messagePw,
+ .sign .signup-box .text-write .write-pw-match .messageMatch,
+ .sign .signup-box .text-write .write-nickname .messageNickname {
+   width: 250px;
+   height: 20px;
+   font-size: 14px;
+   margin-top: 7px;
+   margin-left: 160px;
+   line-height: 20px;
+ }
+ .sign .signup-box .error-message {
+   color: red;
+ }
+ .sign .signup-box .success-message {
+   color: green;
+ }
+ .sign .signup-box .write-complete {
+   margin-top: 36px;
+   margin-bottom: 34px;
+ }
+ .sign .signup-box .write-complete .btnSignUp {
+   display: block;
+   width: 100px;
+   height: 35px;
+   font-size: 16px;
+   margin: 0 auto;
+   text-decoration: none;
+   margin-top: 10px;
    
-}
-.sign .signup-box .headline #closer-btn a {
- display: block;
- padding: 2px;
- border-radius: 2px;
- color: #eee;
-    
-}
-.sign .signup-box .headline #closer-btn a:hover {
- background-color: #00B890;
- text-decoration: none; 
-}
-
-.sign .signup-box .text-write {
-  margin-top: 36px;
-  height: 299px;
-}
-.sign .signup-box .text-write .write-id {
-  width: 100%;
-  height: 75px;
-  padding: 0 15px;
-  box-sizing: border-box;	
-}
-.sign .signup-box .text-write .write-pw,
-.sign .signup-box .text-write .write-pw-match,
-.sign .signup-box .text-write .write-nickname {
-  width: 100%;
-  height: 80px;
-  padding: 0 15px;
-  box-sizing: border-box;
-  display: flex;
-  flex-wrap: wrap;
-  align-content: center;
-}
-.sign .signup-box .text-write .write-nickname {
-  margin-bottom: -18px;
-}
-.sign .signup-box .text-write .write-id .id-wrap {
-  display:flex;
-}
-.sign .signup-box .text-write .write-id .id-wrap p {
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  width: 93px;	
-}
-.sign .signup-box .text-write .write-pw p,
-.sign .signup-box .text-write .write-pw-match p,
-.sign .signup-box .text-write .write-nickname p {
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  width: 93px;
-}
-.sign .signup-box .text-write .write-id .id-wrap .signup-id {
-  display: block;
-  width: 209px;
-  height: 40px;
-  outline: none;
-  padding: 0 10px;
-  box-sizing: border-box;
-  margin-right: 15px;		
-}
-.sign .signup-box .text-write .write-pw .signup-pw,
-.sign .signup-box .text-write .write-pw-match .signup-match,
-.sign .signup-box .text-write .write-nickname .signup-nickname {
-  display: block;
-  width: 300px;
-  height: 40px;
-  outline: none;
-  padding: 0 10px;
-  box-sizing: border-box;
-  margin-right: 25px;
-}
-.sign .signup-box .text-write .write-id .id-wrap .idBtn {
-  display: block;
-  width: 77px;
-  height: 40px;
-  border: 1px solid #333;
-  border-radius: 4px;
-  color: #333;	
-  font-size: 14px;
-  margin-right: 25px;	
-}
-.sign .signup-box .text-write .write-id .messageEmail,
-.sign .signup-box .text-write .write-pw .messagePw,
-.sign .signup-box .text-write .write-pw-match .messageMatch,
-.sign .signup-box .text-write .write-nickname .messageNickname {
-  width: 250px;
-  height: 20px;
-  font-size: 14px;
-  margin-top: 7px;
-  margin-left: 160px;
-  line-height: 20px;
-}
-.sign .signup-box .error-message {
-  color: red;
-}
-.sign .signup-box .success-message {
-  color: green;
-}
-.sign .signup-box .write-complete {
-  margin-top: 36px;
-  margin-bottom: 34px;
-}
-.sign .signup-box .write-complete .btnSignUp {
-  display: block;
-  width: 100px;
-  height: 35px;
-  font-size: 16px;
-  margin: 0 auto;
-  text-decoration: none;
-  margin-top: 10px;
-  
-}
-.sign .signup-box .write-information {
-  width: 100%;
-}
-.sign .signup-box .write-information ul {
-  display: flex;
-  margin: 0 auto;
-  position: relative;
-  width: 400px;
-  justify-content: center;
-  border-top: 1px solid #ececec;
-  padding: 10px 0px;
-}
-.sign .signup-box .write-information ul li {
-  
-}
-.sign .signup-box .write-information ul li::before {
-  content: '';
-  width: 1px;
-  height: 14px;
-  background-color: #ececec;
-  position: absolute;
-  top : 0;
-  bottom: 0;
-  margin: auto;
-}
-.sign .signup-box .write-information li:first-child::before {
-  display: none;
-}
-.sign .signup-box .write-information ul li a {
-  padding: 11px 16px;
-  color: #333;
-  font-size: 12px;
-}
-.sign .signup-box .write-information ul li a:hover {
-  color: #333;
-}
+ }
+ .sign .signup-box .write-information {
+   width: 100%;
+ }
+ .sign .signup-box .write-information ul {
+   display: flex;
+   margin: 0 auto;
+   position: relative;
+   width: 400px;
+   justify-content: center;
+   border-top: 1px solid #ececec;
+   padding: 10px 0px;
+ }
+ .sign .signup-box .write-information ul li {
+   
+ }
+ .sign .signup-box .write-information ul li::before {
+   content: '';
+   width: 1px;
+   height: 14px;
+   background-color: #ececec;
+   position: absolute;
+   top : 0;
+   bottom: 0;
+   margin: auto;
+ }
+ .sign .signup-box .write-information li:first-child::before {
+   display: none;
+ }
+ .sign .signup-box .write-information ul li a {
+   padding: 11px 16px;
+   color: #333;
+   font-size: 12px;
+ }
+ .sign .signup-box .write-information ul li a:hover {
+   color: #333;
+ }
