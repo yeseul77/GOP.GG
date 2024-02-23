@@ -61,7 +61,13 @@ public class ChatRestController {
 		log.info("msg{}",message);
 		return message;
 	}
-	
+	@GetMapping("/chatroom/search")
+	public List<ChatDto> search(String title){
+//		log.info("reststert");
+		log.info("============{}",title);
+		List<ChatDto> search=cSer.roomSearch(title);
+		return search;
+	}
 //	@PostMapping("/chat/deleteroom")
 //	public void deleteRoom(@RequestParam("t_id") int t_id) {
 //		log.info("chatroomId : {}", t_id);

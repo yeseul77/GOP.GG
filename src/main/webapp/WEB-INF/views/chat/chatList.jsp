@@ -25,10 +25,14 @@
  
     <ul class="header-menu">
     
-     <li><button class="btn chatBtn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><span class="material-symbols-outlined">more_vert</span>&nbsp;채팅 관리</button></li>
+     <li><button class="btn chatBtn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><span class="material-symbols-outlined">chat</span>&nbsp;채팅 관리</button></li>
+   
+     <li><button class="btn chatBtn two" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions1" aria-controls="offcanvasWithBothOptions1"><span class="material-symbols-outlined">mail</span>&nbsp;메세지 관리</button></li>
    
      <li><button id="update"><span class="material-symbols-outlined">refresh</span>&nbsp;업데이트</button></li>
      
+     <li><input type="text" id="roomsearch" name="search" placeholder="검색하기"></li>    
+    
      <li><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">방 만들기</button></li>
     
     </ul>
@@ -71,17 +75,19 @@
          <textarea name="memo" class="chatRoom-memo" placeholder="  내 용" autocomplete="off" maxlength="80"></textarea>
          
          <div class="line-head">찾고 있는 포지션</div>
-         <div class="chatRoomInfo-line">        
-          <input type="checkbox" id="top" name="position" value="top" />
-          <label for="top">top</label>
-          <input type="checkbox" id="jungle" name="position" value="jungle" />
-          <label for="jungle">jungle</label>
-          <input type="checkbox" id="middle" name="position" value="middle" />
-          <label for="middle">middle</label> 
-          <input type="checkbox" id="bottom" name="position" value="bottom" />
-          <label for="bot">bottom</label> 
-          <input type="checkbox" id="supporter" name="position" value="supporter" />
-          <label for="supporter">supporter</label>        
+         <div class="chatRoomInfo-line">
+          <input type="radio" id="All" name="position" value="all" />
+          <label for="All">All</label>       
+          <input type="radio" id="Top" name="position" value="Top" />
+          <label for="Top">Top</label>
+          <input type="radio" id="Jungle" name="position" value="jungle" />
+          <label for="Jungle">Jungle</label>
+          <input type="radio" id="Middle" name="position" value="middle" />
+          <label for="Middle">Middle</label> 
+          <input type="radio" id="Bottom" name="position" value="bottom" />
+          <label for="Bottom">Bottom</label> 
+          <input type="radio" id="Supporter" name="position" value="supporter" />
+          <label for="Supporter">Supporter</label>        
          </div>
                 
 	     <input type="text" name="champion" class="chatRoomInfo" placeholder="  내 챔피언" autocomplete="off"/>	     
@@ -102,33 +108,63 @@
 </div>
 
 
-<div id="chat-offcanvas">
+<div id="chat-offcanvas1">
 
 <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-  <div class="offcanvas-header">   
+  <div class="offcanvas-header">
+    <p>채팅방 목록</p>   
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
+    
     <div id="mylist"></div>
+    
+ </div>
+
+</div>
+
+</div>
+
+
+<div id="chat-message">
+
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <span class="material-symbols-outlined">mail</span>
+        <p class="me-auto">&nbsp;&nbsp;메세지 도착</p>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+     </div>
+     <div class="toast-body">
+      <div class=submitArea id="submitArea">
+        
+      </div>
+     </div>
+   </div>
+  </div>
+
+</div>
+
+
+<div id="chat-offcanvas">
+
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions1" aria-labelledby="offcanvasWithBothOptions1Label">
+  <div class="offcanvas-header">
+    <p>메세지 목록</p>   
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    
+    <div id="chatInvite" class="chatInvite">        
+                    
+    </div>
+    
   </div>
 </div>
 
 </div>
 
 
-<div class="toast-container position-fixed bottom-0 end-0 p-3">
-  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-      <img src="..." class="rounded me-2" alt="...">
-      <strong class="me-auto">Bootstrap</strong>
-      <small>11 mins ago</small>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-    <div class="toast-body">
-      <div class=submitArea id="submitArea"></div>
-    </div>
-  </div>
-</div>
 
 <%@include file="/WEB-INF/tiles/footer.jsp" %>
 

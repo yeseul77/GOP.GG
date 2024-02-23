@@ -75,4 +75,9 @@ public class ChatService {
 		log.info("{}",messages);
 		return messages;
 	}
+
+	public List<ChatDto> roomSearch(String title) {
+		log.info("search_target={}",title);
+		return cDao.searchRoom(title);
+	}
 }

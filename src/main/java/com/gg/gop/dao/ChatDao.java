@@ -25,4 +25,5 @@ public interface ChatDao {
 	void messageLog(int roomId, String chatmember, String message);
 	List<ChatMessage> getRoomMessage(int roomId);
 	ChatDto lastroomInfo(String username, String title);
+	List<ChatDto> searchRoom(String title);
 }
