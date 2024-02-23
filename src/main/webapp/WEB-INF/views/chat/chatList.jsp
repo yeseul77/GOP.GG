@@ -31,6 +31,8 @@
    
      <li><button id="update"><span class="material-symbols-outlined">refresh</span>&nbsp;업데이트</button></li>
      
+     <li><input type="text" id="roomsearch" placeholder="검색하기"></li>    
+    
      <li><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">방 만들기</button></li>
     
     </ul>
@@ -73,17 +75,19 @@
          <textarea name="memo" class="chatRoom-memo" placeholder="  내 용" autocomplete="off" maxlength="80"></textarea>
          
          <div class="line-head">찾고 있는 포지션</div>
-         <div class="chatRoomInfo-line">        
-          <input type="checkbox" id="top" name="position" value="top" />
-          <label for="top">top</label>
-          <input type="checkbox" id="jungle" name="position" value="jungle" />
-          <label for="jungle">jungle</label>
-          <input type="checkbox" id="middle" name="position" value="middle" />
-          <label for="middle">middle</label> 
-          <input type="checkbox" id="bottom" name="position" value="bottom" />
-          <label for="bot">bottom</label> 
-          <input type="checkbox" id="supporter" name="position" value="supporter" />
-          <label for="supporter">supporter</label>        
+         <div class="chatRoomInfo-line">
+          <input type="radio" id="All" name="position" value="all" />
+          <label for="All">All</label>       
+          <input type="radio" id="Top" name="position" value="Top" />
+          <label for="Top">Top</label>
+          <input type="radio" id="Jungle" name="position" value="jungle" />
+          <label for="Jungle">Jungle</label>
+          <input type="radio" id="Middle" name="position" value="middle" />
+          <label for="Middle">Middle</label> 
+          <input type="radio" id="Bottom" name="position" value="bottom" />
+          <label for="Bottom">Bottom</label> 
+          <input type="radio" id="Supporter" name="position" value="supporter" />
+          <label for="Supporter">Supporter</label>        
          </div>
                 
 	     <input type="text" name="champion" class="chatRoomInfo" placeholder="  내 챔피언" autocomplete="off"/>	     

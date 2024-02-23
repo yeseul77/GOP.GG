@@ -15,8 +15,11 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/css/login.css">
+<script defer src="/js/login.js"></script>
+</head>	
+
+
 <h3 style="text-align:center;">소환사님 
 <span style="font-size:30px;">&#128378;</span> 
     <span style="color: blue">
@@ -63,8 +66,10 @@
   </div>
 </div>
 </form>
-	<!-- 푸터 위치 -->
-	 <%@include file="/WEB-INF/tiles/footer.jsp" %>
-	 <!-- 푸터 위치 -->
+
+
+<!-- 푸터 위치 -->
+<%@include file="/WEB-INF/tiles/footer.jsp" %>
+<!-- 푸터 위치 -->
 </body>
 </html>

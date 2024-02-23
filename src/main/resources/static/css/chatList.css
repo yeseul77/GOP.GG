@@ -112,12 +112,15 @@ a {
 .chatroom-list .inner {
 	
 }
-.chatroom-list .inner .listArray {
+.chatroom-list .inner .list-array {
+	
+}
+.chatroom-list .inner .list-array #clist .listArray {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 10px;
 }
-.chatroom-list .inner .listArray .listEl {
+.chatroom-list .inner .list-array #clist .listArray .listEl {
 	width: calc((1130px - 20px) / 3);
 	height: 240px;
 	border: 1.5px solid #e1e1e1;
@@ -125,50 +128,58 @@ a {
 	background-color: white;
 	overflow: hidden; 
 }
-.chatroom-list .inner .listArray .listEl:hover {
+.chatroom-list .inner .list-array #clist .listArray .listEl:hover {
 	box-shadow: #e1e1e1 0px 0px 8px;
 }
-.chatroom-list .inner .listArray .listEl #rlist {
+.chatroom-list .inner .list-array #clist .listArray .listEl #rlist {
 	display: flex;
 	flex-direction: column;
 	padding: 18px;
 	height: 240px;
 }
-.chatroom-list .inner .listArray .listEl #rlist .chat-head {
+.chatroom-list .inner .list-array #clist .listArray .listEl #rlist .chat-head {
 	display: flex;
 	margin-bottom: 10px;
 	border-bottom: 1px solid #e1e1e1;
 	height: 36px;
 }
-.chatroom-list .inner .listArray .listEl #rlist .chat-head .chat-po {
-	width: 50px;
-	line-height: 30px;
+.chatroom-list .inner .list-array #clist .listArray .listEl #rlist .chat-head .chat-po {
+	position: relative;
+	width: 40px;
+	margin-right: 5px;
+	margin-left: -5px;
 }
-.chatroom-list .inner .listArray .listEl #rlist .chat-head .chat-po a {
-	
+.chatroom-list .inner .list-array #clist .listArray .listEl #rlist .chat-head .chat-po img {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	scale: 1.4;
 }
-.chatroom-list .inner .listArray .listEl #rlist .chat-head h1.chatTitle {
+.chatroom-list .inner .list-array #clist .listArray .listEl #rlist .chat-head h1.chatTitle {
 	font-size: 18px;
 	font-weight: 700;
-	line-height: 30px;
+	line-height: 36px;
 }
-.chatroom-list .inner .listArray .listEl #rlist .hostMemo {
+.chatroom-list .inner .list-array #clist .listArray .listEl #rlist .hostMemo {
 	margin-bottom: 20px;
 	max-height: unset;
 }
-.chatroom-list .inner .listArray .listEl #rlist p {
+.chatroom-list .inner .list-array #clist .listArray .listEl #rlist p {
 	word-break: break-all;
 	color: #adb6bd;
 	
 }
-.chatroom-list .inner .listArray .listEl #rlist .chat-footer {
+.chatroom-list .inner .list-array #clist .listArray .listEl #rlist .chat-footer {
 	display: flex;
 	margin-top: auto;
 	margin-bottom: -1px;
 	position: relative;
 	height: 40px;
 }
-.chatroom-list .inner .listArray .listEl #rlist .chat-footer .hostInfo {
+.chatroom-list .inner .list-array #clist .listArray .listEl #rlist .chat-footer .hostInfo {
 	width: 100px;
 	display: flex;
 	gap: 8px;
@@ -176,12 +187,12 @@ a {
 	flex-grow: 1;	
 	color: #6c757e;
 }
-.chatroom-list .inner .listArray .listEl #rlist .chat-footer .hostInfo a {
+.chatroom-list .inner .list-array #clist .listArray .listEl #rlist .chat-footer .hostInfo a {
 	display: block;
 	font-size: 14px;
 		
 }
-.chatroom-list .inner .listArray .listEl #rlist .chat-footer button.chatBtn {
+.chatroom-list .inner .list-array #clist .listArray .listEl #rlist .chat-footer button.chatBtn {
 	border: none;
 	background-color: #adb6bd;
 	border-radius: 4px;
@@ -192,7 +203,7 @@ a {
 	position: absolute;
 	display: block;
 }
-.chatroom-list .inner .listArray .listEl #rlist .chat-footer button.chatBtn:hover {
+.chatroom-list .inner .list-array #clist .listArray .listEl #rlist .chat-footer button.chatBtn:hover {
 	background-color: #6c757e;
 	font-weight: 700;
 }
@@ -298,18 +309,18 @@ a {
 	overflow: auto;
 	gap:10px;
 }
-#chat-offcanvas1 .offcanvas.offcanvas-start .offcanvas-body .listArray .listEl {
+#chat-offcanvas1 .offcanvas.offcanvas-start .offcanvas-body #mylist .listArray .listEl {
 	border-radius: 4px;
 	background-color: #e1e1e1;
 	padding: 13px;
 	height: 114.39px;
 }
-#chat-offcanvas1 .offcanvas.offcanvas-start .offcanvas-body .listArray .listEl #rlist {
+#chat-offcanvas1 .offcanvas.offcanvas-start .offcanvas-body #mylist .listArray .listEl #rlist {
 	display: flex;
 	flex-direction: column;
 	gap: 4px;
 }
-#chat-offcanvas1 .offcanvas.offcanvas-start .offcanvas-body .listArray .listEl #rlist a.chatroomId {
+#chat-offcanvas1 .offcanvas.offcanvas-start .offcanvas-body #mylist .listArray .listEl #rlist a.chatroomId {
 	display: block;
 	font-size: 14px;
 	color: #6c757e;
@@ -318,7 +329,7 @@ a {
 	max-height: unset;
 	
 }
-#chat-offcanvas1 .offcanvas.offcanvas-start .offcanvas-body .listArray .listEl #rlist a {
+#chat-offcanvas1 .offcanvas.offcanvas-start .offcanvas-body #mylist .listArray .listEl #rlist a {
 	display: block;
 	font-size: 16px;
 	font-weight: 700;
@@ -326,7 +337,7 @@ a {
 	
 	
 }
-#chat-offcanvas1 .offcanvas.offcanvas-start .offcanvas-body .listArray .listEl #rlist button.chatroomId {
+#chat-offcanvas1 .offcanvas.offcanvas-start .offcanvas-body #mylist .listArray .listEl #rlist button.chatroomId {
 	display: block;
 	margin-top: auto;
 	height: 28.4px;
@@ -443,13 +454,24 @@ a {
 	
 }
 #chat-message .toast .toast-body #submitArea .invite {
-	
+	margin-top: 10px;
 }
 #chat-message .toast .toast-body #submitArea .invite p {
 	color: #6c757e;
 	margin-bottom: 10px;
+	
 }
-#chat-message .toast .toast-body #submitArea .invite .okChat {
+#chat-message .toast .toast-body #submitArea .invite p strong {
+	font-weight: bolder;
+	color: #333;
+}
+#chat-message .toast .toast-body #submitArea .invite .okno {
+	display: flex;
+	gap: 10px;
+	height: 28.4px;
+	margin-top: auto;
+}
+#chat-message .toast .toast-body #submitArea .invite .okno .okChat {
     font-size: 14px;
 	border-radius: 4px;
 	border: 1.5px solid #6c757e;
@@ -457,7 +479,7 @@ a {
 	margin-left: 210px;
 	margin-bottom: -2px;
 }
-#chat-message .toast .toast-body #submitArea .invite .noChat {
+#chat-message .toast .toast-body #submitArea .invite .okno .noChat {
     font-size: 14px;
 	border-radius: 4px;
 	border: 1.5px solid #6c757e;
@@ -467,6 +489,5 @@ a {
 #chat-message .toast .toast-body #submitArea .invite .test {
 	position:absolute;
 }
-
 
 

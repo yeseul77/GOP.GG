@@ -37,9 +37,12 @@ socket.onmessage = function(e) {
 		let chatInvite=document.getElementById('chatInvite');
 		let submitMsg=document.createElement('div');
 		submitMsg.classList.add('invite');
-		submitMsg.innerHTML=`$<p>{msg.sender}님이 대화 신청을 하였습니다.</p>
-							<button class="okChat" onclick="accept(${roomId}, '${username}', '${sender}')">승낙</button>
-							<button class="noChat" onclick="denine()">거절</button>`
+		submitMsg.innerHTML=`<p><strong>${msg.sender}님이<strong><br/>대화 신청을 하였습니다.</p>
+							<div class="okno">
+							 <button class="okChat" onclick="accept(${roomId}, '${username}', '${sender}')">승낙</button>
+							 <button class="noChat" onclick="denine()">거절</button>
+							</div>
+							`
 		submitArea.append(submitMsg.cloneNode(true))
 		chatInvite.append(submitMsg.cloneNode(true))					
 		
@@ -110,7 +113,7 @@ $(document).ready(function(){
 							`
 			temp.append(html)
 		})
-		$('#mylist').replaceWith(temp)
+		$('#mylist').empty().append(temp)
 		})
 	$.ajax({
 		method:'get',
@@ -124,7 +127,7 @@ $(document).ready(function(){
 			html.classList.add("listEl")
 			html.innerHTML=`<div id="rlist">
 							<div class="chat-head">
-							 <div class="chat-po"><a>${chatlist.position}</a></div>
+							 <div class="chat-po"><img src="/images/${chatlist.position.toLowerCase()}.svg" alt="${chatlist.position}"></div>
 							 <h1 class="chatTitle" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</h1>
 							</div>
 							<div class="hostMemo"><p>${chatlist.memo}</p></div>																				
@@ -138,7 +141,7 @@ $(document).ready(function(){
 							`
 			temp.append(html)
 		})
-		$('#clist').replaceWith(temp)
+		$('#clist').empty().append(temp)
 		
 	})
 })
@@ -161,7 +164,7 @@ $(document).on('click','#update',(function(){
 							`
 			temp.append(html)
 		})
-		$('#mylist').replaceWith(temp)
+		$('#mylist').empty().append(temp)
 		})
 	$.ajax({
 	method:'get',
@@ -175,7 +178,7 @@ $(document).on('click','#update',(function(){
 			html.classList.add("listEl")
 			html.innerHTML=`<div id="rlist">
 							<div class="chat-head">
-							 <div class="chat-po"><a>${chatlist.position}</a></div>
+							 <div class="chat-po"><img src="/images/${chatlist.position.toLowerCase()}.svg" alt="${chatlist.position}"></div>
 							 <h1 class="chatTitle" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</h1>
 							</div>
 							<div class="hostMemo"><p>${chatlist.memo}</p></div>																				
@@ -189,7 +192,7 @@ $(document).on('click','#update',(function(){
 							`
 			temp.append(html)
 		})
-		$('#clist').replaceWith(temp)
+		$('#clist').empty().append(temp)
 		
 	})
 }))
@@ -213,7 +216,7 @@ list=setInterval(function(){
 							`
 			temp.append(html)
 		})
-		$('#mylist').replaceWith(temp)
+		$('#mylist').empty().append(temp)
 		})
 	$.ajax({
 		method:'get',
@@ -227,7 +230,7 @@ list=setInterval(function(){
 			html.classList.add("listEl")
 			html.innerHTML=`<div id="rlist">
 							<div class="chat-head">
-							 <div class="chat-po"><a>${chatlist.position}</a></div>
+							<div class="chat-po"><img src="/images/${chatlist.position.toLowerCase()}.svg" alt="${chatlist.position}"></div>
 							 <h1 class="chatTitle" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</h1>
 							</div>
 							<div class="hostMemo"><p>${chatlist.memo}</p></div>																				
@@ -241,7 +244,7 @@ list=setInterval(function(){
 							`
 			temp.append(html)
 		})
-		$('#clist').replaceWith(temp)
+		$('#clist').empty().append(temp)
 	})
 }, 300000)
 function popup(roomId){
@@ -251,23 +254,6 @@ function popup(roomId){
 
 
 const checkboxes = document.querySelectorAll('.chatRoomInfo-line input[type="checkbox"]');
-
-// 모든 체크박스에 대한 변경 이벤트를 한 번만 처리
-document.querySelector('.chatRoomInfo-line').addEventListener('change', function(event) {
-    if (event.target.type === 'checkbox') { // 변경된 요소가 체크박스인지 확인
-        let checkedCount = 0;
-        checkboxes.forEach(checkbox => {
-            if (checkbox.checked) {
-                checkedCount++;
-            }
-        });
-        
-        if (checkedCount > 2) {
-            event.target.checked = false; // 변경된 요소의 체크를 취소
-            alert("최대 2개까지 선택할 수 있습니다.");
-        }
-    }
-});
 
 
 const toastTrigger = document.getElementById('submitArea')
@@ -288,8 +274,40 @@ observer.observe(toastTrigger, config);
 }
 
 
+$('#roomsearch').keyup(function(){
+	let search=document.getElementById('roomsearch').value;
+	console.log(search)
+	$.ajax({
+		method:'GET',
+		url:"chatlist/search",
+		data:search
+	}).done(function(result){
+		$.each(result, function(search){
+			console.log(search)
+			const html=document.createElement("div")
+			html.classList.add("listEl")
+			html.innerHTML=`<div id="rlist">
+							<div class="chat-head">
+							<div class="chat-po"><img src="/images/${search.position.toLowerCase()}.svg" alt="${search.position}"></div>
+							<h1 class="chatTitle" name="chatroomId" value="${search.chatroomId}">${search.title}</h1>
+							</div>
+							<div class="hostMemo"><p>${search.memo}</p></div>																				
+							<div class="chat-footer">
+							<div class="hostInfo">
+							 <a>${search.userId}</a>|<a>${search.champion}</a>
+							</div>
+							<button type="button" class="chatBtn" onclick="submit(${search.chatroomId})">참가신청</button>
+							<div>							
+							</div>				
+							`
+			temp.append(html)		
+		})
+	})
+})
+
+
+
 
 
 
   
-
