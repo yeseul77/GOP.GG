@@ -233,15 +233,19 @@ a {
 	box-sizing: border-box;
 }
 #chat-modal .modal.fade.show .modal-dialog.modal-dialog-centered .modal-content .modal-header {
-    border-bottom: none;		
+    border-bottom: none;
+    background-color: #00c29f;	
+    
 }
 #chat-modal .modal.fade.show .modal-dialog.modal-dialog-centered .modal-content .modal-header p {
 	margin-left: 8px;
 	font-size: 18px;
+    color: white;
 }
 #chat-modal .modal.fade.show .modal-dialog.modal-dialog-centered .modal-content .modal-header .btn-close {
 	font-size: 12px;
 	padding: 4px;
+	opacity: .3;
 }
 #chat-modal .modal.fade.show .modal-dialog.modal-dialog-centered .modal-content .modal-header .btn-close:hover {
 	background-color:#e1e1e1;
@@ -298,8 +302,21 @@ a {
 #chat-modal .modal.fade.show .modal-dialog.modal-dialog-centered .modal-content .modal-footer {
 	border-top : none;
 }
-#chat-modal .modal.fade.show .modal-dialog.modal-dialog-centered .modal-content .modal-footer button {
+#chat-modal .modal.fade.show .modal-dialog.modal-dialog-centered .modal-content .modal-footer button.btn-secondary {
 	font-size: 14px;
+	background-color:#adb6bd;
+	border: none;
+}
+#chat-modal .modal.fade.show .modal-dialog.modal-dialog-centered .modal-content .modal-footer button.btn-secondary:hover {
+	background-color:#6c757e;
+}
+#chat-modal .modal.fade.show .modal-dialog.modal-dialog-centered .modal-content .modal-footer button.btn-primary {
+	background-color: #00c29f;
+	font-size: 14px;
+	border: none;
+}
+#chat-modal .modal.fade.show .modal-dialog.modal-dialog-centered .modal-content .modal-footer button.btn-primary:hover {
+	background-color: #006C5F;
 }
 
 
