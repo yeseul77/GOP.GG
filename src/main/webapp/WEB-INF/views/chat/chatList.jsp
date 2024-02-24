@@ -31,7 +31,7 @@
    
      <li><button id="update"><span class="material-symbols-outlined">refresh</span>&nbsp;업데이트</button></li>
      
-     <li><input type="text" id="roomsearch" name="search" placeholder="검색하기"></li>    
+     <li><input type="text" id="roomsearch" name="search" placeholder="&nbsp;&nbsp;방 제목 검색"></li>    
     
      <li><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">방 만들기</button></li>
     
@@ -63,7 +63,8 @@
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">  
+      <div class="modal-header">
+        <p></p>  
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       
@@ -76,18 +77,32 @@
          
          <div class="line-head">찾고 있는 포지션</div>
          <div class="chatRoomInfo-line">
-          <input type="radio" id="All" name="position" value="all" />
-          <label for="All">All</label>       
-          <input type="radio" id="Top" name="position" value="Top" />
-          <label for="Top">Top</label>
-          <input type="radio" id="Jungle" name="position" value="jungle" />
-          <label for="Jungle">Jungle</label>
-          <input type="radio" id="Middle" name="position" value="middle" />
-          <label for="Middle">Middle</label> 
-          <input type="radio" id="Bottom" name="position" value="bottom" />
-          <label for="Bottom">Bottom</label> 
-          <input type="radio" id="Supporter" name="position" value="supporter" />
-          <label for="Supporter">Supporter</label>        
+         
+          <div class="poradio">
+            <input type="radio" id="All" name="position" value="all" />
+            <label for="All">All</label> 
+          </div>
+          <div class="poradio">
+            <input type="radio" id="Top" name="position" value="Top" />
+            <label for="Top">Top</label>
+          </div>
+          <div class="poradio">
+            <input type="radio" id="Jungle" name="position" value="jungle" />
+            <label for="Jungle">Jungle</label>
+          </div>
+          <div class="poradio">
+            <input type="radio" id="Middle" name="position" value="middle" />
+            <label for="Middle">Middle</label> 
+          </div>
+          <div class="poradio">
+            <input type="radio" id="Bottom" name="position" value="bottom" />
+            <label for="Bottom">Bottom</label> 
+          </div>
+          <div class="poradio">
+            <input type="radio" id="Supporter" name="position" value="supporter" />
+            <label for="Supporter">Supporter</label> 
+          </div>
+                        
          </div>
                 
 	     <input type="text" name="champion" class="chatRoomInfo" placeholder="  내 챔피언" autocomplete="off"/>	     

@@ -37,9 +37,11 @@ socket.onmessage = function(e) {
 		let chatInvite=document.getElementById('chatInvite');
 		let submitMsg=document.createElement('div');
 		submitMsg.classList.add('invite');
-		submitMsg.innerHTML=`<p>${msg.sender}님이 대화 신청을 하였습니다.</p>
-							<button class="okChat" onclick="accept(${roomId}, '${username}', '${sender}')">승낙</button>
-							<button class="noChat" onclick="denine()">거절</button>`
+		submitMsg.innerHTML=`<p><strong>${msg.sender}님이</strong><br/>대화 신청을 하였습니다.</p>
+							<div class="okno">
+							 <button class="okChat" onclick="accept(${roomId}, '${username}', '${sender}')">승낙</button>
+							 <button class="noChat" onclick="denine()">거절</button>
+							</div>`
 		submitArea.append(submitMsg.cloneNode(true))
 		chatInvite.append(submitMsg.cloneNode(true))					
 		
@@ -290,7 +292,7 @@ $('#roomsearch').keyup(function(){
 			html.classList.add("listEl")
 			html.innerHTML=`<div id="rlist">
 							<div class="chat-head">
-							<div class="chat-po"><img src="/images/${position}.svg" alt="${search.position}"></div>
+							<div class="chat-po"><img src="/images/${position.toLowerCase()}.svg" alt="${search.position}"></div>
 							<h1 class="chatTitle" name="chatroomId" value="${search.chatroomId}">${search.title}</h1>
 							</div>
 							<div class="hostMemo"><p>${search.memo}</p></div>																				
@@ -306,9 +308,7 @@ $('#roomsearch').keyup(function(){
 		})
 		$('#clist').empty().append(temp)
 	})
-})
-
-
+});
 
 
 
