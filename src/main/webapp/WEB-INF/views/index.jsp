@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>GOP.GG</title>
 <!-- 헤더 위치 -->
  <%@include file="/WEB-INF/tiles/header.jsp" %>
  <!--헤더 위치 -->  
@@ -223,7 +224,7 @@
       <div class="duo-list">
 
         <div class="duo-more">
-          <a href="javascript:void(0)" target="_blank">듀오찾기</a>
+          <a href="${contextPath}/chat/chatList" target="_blank">듀오찾기</a>
         </div>
 
         <div class="swiper">

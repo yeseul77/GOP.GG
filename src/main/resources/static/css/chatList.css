@@ -240,7 +240,8 @@ a {
 #chat-modal .modal.fade.show .modal-dialog.modal-dialog-centered .modal-content .modal-header p {
 	margin-left: 8px;
 	font-size: 18px;
-    color: white;
+    color: #f8f9fb;
+    font-weight: 700;
 }
 #chat-modal .modal.fade.show .modal-dialog.modal-dialog-centered .modal-content .modal-header .btn-close {
 	font-size: 12px;
