@@ -232,6 +232,9 @@ a {
 	width: 435px;
 	box-sizing: border-box;
 }
+#chat-modal .modal.fade.show .modal-dialog.modal-dialog-centered .modal-content {
+	border: none;
+}
 #chat-modal .modal.fade.show .modal-dialog.modal-dialog-centered .modal-content .modal-header {
     border-bottom: none;
     background-color: #00c29f;	
