@@ -26,33 +26,23 @@
 			<div id="usernameError" class="text-danger"></div>
 		</div>
 
-		<div class="form-group">
-			<label>이메일:</label>
-			<div class="input-group">
-				<input type="text" id="email" name="email" class="form-control"
-					required placeholder="이메일 입력">
-				<div class="input-group-append">
-					<span class="input-group-text">@</span>
-				</div>
-				<select id="email_address" name="email_domain" class="form-control"
-					onchange="emailDomainChange();">
-					<option value="naver.com">naver.com</option>
-					<option value="gmail.com">gmail.com</option>
-					<option value="daum.net">daum.net</option>
-					<option value="direct">직접입력</option>
-				</select> <input type="text" id="email_direct" name="email_direct"
-					class="form-control" placeholder="이메일 직접 입력" style="display: none;">
-				<div class="input-group-append">
-					<button type="button" class="btn btn-primary" id="mail-Check-Btn">전송</button>
-				</div>
-
-			</div>
-			<div class="form-group">
-				<input type="text" id="code" name="code" class="form-control"
-					placeholder="인증 코드 6자리를 입력해주세요.">
-			</div>
-			<div id="emailError" class="text-danger"></div>
-		</div>
+<!-- 이메일 입력필드 ㅠㅠㅠ개같앙ㅁ나암ㄴ암ㄴ랗  -->
+		 <!-- 이메일 입력 필드 -->
+        <div class="form-group">
+            <label>이메일:</label>
+            <div class="input-group">
+                <input type="text" id="email" name="email" class="form-control" required placeholder="이메일 입력">
+            </div>
+            <!-- 이메일 인증 버튼 -->
+            <div class="input-group-append" style="margin-top: 10px;">
+                <button type="button" class="btn btn-primary" id="mail-Check-Btn">인증번호 전송</button>
+            </div>
+        </div>
+        
+        <!-- 인증번호 입력 필드 -->
+        <div class="form-group">
+            <input type="text" id="code" name="code" class="form-control" placeholder="인증 코드 6자리를 입력해주세요.">
+        </div>
 
 		<div class="form-group">
 			<label for="password">비밀번호:</label> <input type="password"
