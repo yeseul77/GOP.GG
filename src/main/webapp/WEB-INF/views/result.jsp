@@ -320,40 +320,33 @@ $(document).ready(function () {
 <div id="wrap">
 
  <div class="search-bar">
-    <div class="inner">
-     <form id="searchForm2" action="/summonerSearch2" method="POST" class="searchBox-input">
-    
-      <div class="searchBox">
-        
+ 
+    <div class="inner">   
+     <form id="searchForm2" action="/summonerSearch2" method="POST" class="searchBox-input">    
+      <div class="searchBox">      
            <input type="text" id="fullgameName" name="fullgameName" class="nameInfo" placeholder="소환사 이름 + KRI" required />          
-           <button type="submit" class="searchBtn"><span class="material-symbols-outlined">search</span></button>
-               
-      </div>
-    
-     </form> 
-      
+           <button type="submit" class="searchBtn"><span class="material-symbols-outlined">search</span></button>              
+      </div>   
+     </form>       
     </div>
  </div>
-
-</div>
-
-
-
-  
-
-
- 	<p>Game Name: <span id="gameNameDisplay">${param.gameName}</span></p>
-	<p>Tag Line: <span id="tagLineDisplay">${param.tagLine}</span></p>
-	
-		
-		
-		
-		
-		
-		<button type="button" id="updateButton"><span class="material-symbols-outlined">refresh</span>&nbsp;전적 갱신</button>
-	
-	<div>
-		<table align="center" border="1" width="800">
+ 
+ <div class="summonerInfo">
+   <div class="inner">
+   
+     <p>Game Name: <span id="gameNameDisplay">${param.gameName}</span></p>
+     <p>Tag Line: <span id="tagLineDisplay">${param.tagLine}</span></p>
+     <button type="button" id="updateButton"><span class="material-symbols-outlined">refresh</span>&nbsp;전적 갱신</button>
+   
+   </div>
+ </div>
+ 
+ 
+ <div class="search-result">
+ 
+   <div class="inner">
+   
+      <table align="center" border="1" width="800">
         <tr>
             <td>
                 <div>
@@ -385,6 +378,14 @@ $(document).ready(function () {
             </td>
         </tr>
     </table>
-	</div>
+   
+   </div>
+		
+ </div>
+ 
+
+</div>
+	
+<%@include file="/WEB-INF/tiles/footer.jsp" %>	
 </body>
 </html>

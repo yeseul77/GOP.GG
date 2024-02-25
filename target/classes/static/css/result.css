@@ -84,3 +84,11 @@ a {
   margin: auto;
   display: block;
 }
+.summonerInfo {  	
+  margin-top: 150px;
+  height: 100px;	
+}
+
+.search-result {
+  margin-top: 100px; 
+}
