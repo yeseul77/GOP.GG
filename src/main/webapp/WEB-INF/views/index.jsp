@@ -7,6 +7,7 @@
  <%@include file="/WEB-INF/tiles/header.jsp" %>
  <!--헤더 위치 -->  
  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+ <script src="/js/chatindex.js"></script>
  <script>
  // 메시지 변수 설정
  const message = '${message}';  // 컨트롤러에서 addFlashAttribute로 추가한 메시지를 받음
@@ -90,9 +91,6 @@
 
 
  </script>
-    
-
-
 <link rel="stylesheet" href="/css/index.css">
 
 <script defer src="/js/index.js"></script>
@@ -177,36 +175,36 @@
         <div class="swiper">
 
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <a href="javascript:void(0)" target="_blank">1</a>
-            </div>	
-            <div class="swiper-slide">
-              <a href="javascript:void(0)" target="_blank">2</a>
-            </div>
-            <div class="swiper-slide">
-              <a href="javascript:void(0)" target="_blank">3</a>
-            </div>
-            <div class="swiper-slide">
-              <a href="javascript:void(0)" target="_blank">4</a>
-            </div>
-            <div class="swiper-slide">
-              <a href="javascript:void(0)" target="_blank">5</a>
-            </div>
-            <div class="swiper-slide">
-              <a href="javascript:void(0)" target="_blank">6</a>
-            </div>
-            <div class="swiper-slide">
-              <a href="javascript:void(0)" target="_blank">7</a>
-            </div>
-            <div class="swiper-slide">
-              <a href="javascript:void(0)" target="_blank">8</a>
-            </div>
-            <div class="swiper-slide">
-              <a href="javascript:void(0)" target="_blank">9</a>
-            </div>
-            <div class="swiper-slide">
-              <a href="javascript:void(0)" target="_blank">10</a>
-            </div>
+<!--             <div class="swiper-slide"> -->
+<!--               <a href="javascript:void(0)" target="_blank">1</a> -->
+<!--             </div>	 -->
+<!--             <div class="swiper-slide"> -->
+<!--               <a href="javascript:void(0)" target="_blank">2</a> -->
+<!--             </div> -->
+<!--             <div class="swiper-slide"> -->
+<!--               <a href="javascript:void(0)" target="_blank">3</a> -->
+<!--             </div> -->
+<!--             <div class="swiper-slide"> -->
+<!--               <a href="javascript:void(0)" target="_blank">4</a> -->
+<!--             </div> -->
+<!--             <div class="swiper-slide"> -->
+<!--               <a href="javascript:void(0)" target="_blank">5</a> -->
+<!--             </div> -->
+<!--             <div class="swiper-slide"> -->
+<!--               <a href="javascript:void(0)" target="_blank">6</a> -->
+<!--             </div> -->
+<!--             <div class="swiper-slide"> -->
+<!--               <a href="javascript:void(0)" target="_blank">7</a> -->
+<!--             </div> -->
+<!--             <div class="swiper-slide"> -->
+<!--               <a href="javascript:void(0)" target="_blank">8</a> -->
+<!--             </div> -->
+<!--             <div class="swiper-slide"> -->
+<!--               <a href="javascript:void(0)" target="_blank">9</a> -->
+<!--             </div> -->
+<!--             <div class="swiper-slide"> -->
+<!--               <a href="javascript:void(0)" target="_blank">10</a> -->
+<!--             </div> -->
           </div>
 
         </div>
