@@ -5,6 +5,7 @@
 <head>
 <!-- 헤더 위치 -->
  <%@include file="/WEB-INF/tiles/header.jsp" %>
+ <title>메인 GOP.GG</title>
  <!--헤더 위치 -->  
  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
  <script>

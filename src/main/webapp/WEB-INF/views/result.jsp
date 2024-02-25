@@ -7,8 +7,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@include file="/WEB-INF/tiles/header.jsp" %>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>${param.gameName} - 전적 검색</title>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
 $(document).ready(function () {
@@ -172,8 +173,11 @@ $(document).ready(function () {
 
     $("#searchForm2").submit(function (event) {
         event.preventDefault();
-        gameName = $("#gameName").val();
-        tagLine = $("#tagLine").val();
+        
+        const pattern = /^(.+?)\s*(KR\d*)$/;
+        var result = pattern.exec($("#fullgameName").val().trim());
+        var gameName = result[1];
+        var tagLine = result[2];
         updateURL(gameName, tagLine);
 
         if (gameName.trim() === "") {
@@ -306,18 +310,48 @@ $(document).ready(function () {
 });
 
 </script>
+<link rel="stylesheet" href="/css/result.css">
 </head>
+
 <body>
+
+<div class="back"></div>
+
+<div id="wrap">
+
+ <div class="search-bar">
+    <div class="inner">
+     <form id="searchForm2" action="/summonerSearch2" method="POST" class="searchBox-input">
+    
+      <div class="searchBox">
+        
+           <input type="text" id="fullgameName" name="fullgameName" class="nameInfo" placeholder="소환사 이름 + KRI" required />          
+           <button type="submit" class="searchBtn"><span class="material-symbols-outlined">search</span></button>
+               
+      </div>
+    
+     </form> 
+      
+    </div>
+ </div>
+
+</div>
+
+
+
+  
+
+
  	<p>Game Name: <span id="gameNameDisplay">${param.gameName}</span></p>
 	<p>Tag Line: <span id="tagLineDisplay">${param.tagLine}</span></p>
-	<form id="searchForm2">
-		<label for="gameName">gameName:</label> <input type="text"
-			id="gameName" name="gameName" required> <label for="tagLine">Tag
-			Line:</label> <input type="text" id="tagLine" name="tagLine">
-		<!-- 태그라인 입력 필드 추가 -->
-		<input type="submit" value="summonerSearch2">
-		<button type="button" id="updateButton">전적 갱신</button>
-	</form>
+	
+		
+		
+		
+		
+		
+		<button type="button" id="updateButton"><span class="material-symbols-outlined">refresh</span>&nbsp;전적 갱신</button>
+	
 	<div>
 		<table align="center" border="1" width="800">
         <tr>

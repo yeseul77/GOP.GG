@@ -5,7 +5,7 @@
 <html>
 <head>
 <%@include file="/WEB-INF/tiles/header.jsp" %>
-<title>chatList</title>
+<title>듀오 GOP.GG</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="/css/chatList.css">
