@@ -22,7 +22,11 @@ $(document).ready(function(){
 			document.boardform.content.focus();
 			return false;
 		}
+<<<<<<< HEAD
 
+=======
+		// 폼에 입력한 데이터 서버로 전송
+>>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
 		document.boardform.submit();
 	});
 });

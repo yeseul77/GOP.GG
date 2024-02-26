@@ -98,7 +98,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
+<<<<<<< HEAD
 			<version>2.7.14</version>
+=======
+<!--			<version>2.7.14</version>-->
+>>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
@@ -116,6 +120,7 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
+<<<<<<< HEAD
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
 		<dependency>
@@ -123,12 +128,26 @@
 			<artifactId>javax.mail-api</artifactId>
 			<version>1.4.7</version>
 		</dependency>
+=======
+		</dependency> 
+>>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
 		<!--https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
+<<<<<<< HEAD
 			<version>5.3.9</version>
 		</dependency>
+=======
+<!--			<version>5.3.9</version>-->
+
+		</dependency>
+<dependency>
+    <groupId>com.sun.mail</groupId>
+    <artifactId>jakarta.mail</artifactId>
+    <version>2.0.1</version> 
+</dependency>
+>>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
 	</dependencies>
 
 	<build>

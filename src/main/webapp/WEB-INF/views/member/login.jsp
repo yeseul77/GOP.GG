@@ -8,7 +8,11 @@
  <%@include file="/WEB-INF/tiles/header.jsp" %>
  <!--헤더 위치 -->
 <head>
+<<<<<<< HEAD
 <title>로그인page</title>
+=======
+<title>Bootstrap Example</title>
+>>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"

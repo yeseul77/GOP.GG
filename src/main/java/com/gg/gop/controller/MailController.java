@@ -1,5 +1,6 @@
 package com.gg.gop.controller;
 
+<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,3 +25,21 @@ public class MailController {
 	}
 
 }
+=======
+
+import org.springframework.web.bind.annotation.RestController;
+
+//이메일 인증번호 하는거 맹글어야함.. 
+@RestController     ///("/sendEmailVerification")
+public class MailController {
+	
+
+
+	          
+	
+	   
+
+	}
+
+
+>>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37

@@ -1,5 +1,6 @@
 package com.gg.gop.service;
 
+<<<<<<< HEAD
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
@@ -91,3 +92,8 @@ public class MailService {
 		return authCode; 
 	}
 }
+=======
+public class MailService {
+
+}
+>>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37

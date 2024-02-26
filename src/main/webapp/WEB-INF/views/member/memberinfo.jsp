@@ -5,18 +5,30 @@
 <head>
     <%@include file="/WEB-INF/tiles/header.jsp"%> 
     <title>프로필 설정 페이지</title>
+<<<<<<< HEAD
     <script src="/js/profile.js"></script>
 </head>
 <body>
   <form action="${contextPath}memberinfo" method="post" enctype="multipart/form-data">
+=======
+</head>
+<body>
+    <form action="${contextPath}/memberinfo" method="post">
+>>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
         <div style="width: 300px; margin: 0 auto; text-align: center;">
             <h2>프로필 설정</h2>
              <label>프로필사진</label>
              <!-- 최초가입이나,이미지초기화시에는 default profile 이미지로 고정 -->
+<<<<<<< HEAD
            <img src="${empty sessionScope.profileImagePath ?'/uploads/defaultprofile.png' : sessionScope.profileImagePath}" 
            alt="default profile" style="width: 100px; height: 100px;">
             <input type="file" id="inputImage" class="btn2" name="profileImage">
             <input id="btnDelete" class="btn2_disable"  type="button" value="삭제" />
+=======
+            <img src="위치!" alt="default profile" style="width: 100px; height: 100px;"><br>
+            <input type="file" id="inputImage" class="btn2" name="profileImage">
+            <input id="btnDelete" class="btn2_disable" onclick="clickcr(this,'prf.nick','','event')" type="button" value="삭제" />
+>>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
             <table> 
                 <tr> 
                     <th scope="row"></th>
@@ -25,14 +37,21 @@
                             <p class="contxt_username nickname">
                           <p class="contxt_username nickname">
                             <label>닉네임</label>
+<<<<<<< HEAD
                                	<!--   한 글자 이상 입력된 상태에서만 적용버튼이 활성화되도록 -->
                                 <input type="text" name="username" id="username" value="${sessionScope.username}" >
+=======
+                                <!-- 로그인한 세션의 username 값으로 초기화 -->
+                                <input type="text" name="username" id="username" value="${sessionScope.username}">
+                                <input type="text" style="display: none;">
+>>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
                             </p>
                         </div>
                     </td>
                 </tr>
             </table>
             <br><br>
+<<<<<<< HEAD
           <input type="submit" value="적용"> 
             <input type="reset" value="취소">
         </div>
@@ -41,5 +60,45 @@
     <a href="${contextPath}/member/mypage/withdraw" class="btn" style="text-decoration: none; color: white; background-color: #f44336; padding: 10px 20px; border-radius: 5px;">회원 탈퇴</a>
 </div>
     <%@include file="/WEB-INF/tiles/footer.jsp"%> 
+=======
+            <input type="submit" value="적용">
+            <input type="reset" value="취소">
+        </div>
+    </form>
+    <%@include file="/WEB-INF/tiles/footer.jsp"%> 
+
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    	//DOMContentLoaded가 onload보다 먼저 실행된다.
+        // 폼 내의 모든 입력 요소에 대해 이벤트 리스너 ㄱㄱ
+        var inputs = document.querySelectorAll('input, select');
+        inputs.forEach(function(input) {
+            input.addEventListener('keypress', function(e) {
+                // Enter 키가 눌렸을 때
+                if (e.which === 13) {
+                    // 기본 동작 방지
+                    e.preventDefault();
+                }
+            });
+        });
+    });
+    
+
+    </script>
+    <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        // 삭제버튼
+        var btnDelete = document.getElementById('btnDelete');
+        if (btnDelete) {
+            btnDelete.addEventListener('click', function() {    
+                alert('프로필 이미지가 삭제되었습니다.'); 
+            });
+        }
+    });
+    
+    </script>
+    
+>>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
 </body>
 </html>
