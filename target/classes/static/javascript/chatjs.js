@@ -1,5 +1,3 @@
-
-
 let socket = new WebSocket("ws://"+location.host+"/ws/chat");
 
 
@@ -49,6 +47,7 @@ function sendMsg() {
 	let content = document.querySelector('.content').value;
 	var talkMsg = {"type": "TALK", "roomId": chatroomId, "sender": username, "message": content};
 	socket.send(JSON.stringify(talkMsg))
+	$('.content').val('')
 }
 
 function outing(){
@@ -82,4 +81,12 @@ $(document).ready(function(){
 		console.log(temp)
 		$('.msgArea').append(temp)
 		})
+})
+$(document).keyup(function(event){
+	if(event.which===13){
+		sendMsg()
+	}
+	else if(event.which===27){
+		outing()
+	}
 })
