@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gg.gop.dao.MemberDao">
@@ -45,3 +46,44 @@
 	
 </mapper>
 
+=======
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gg.gop.dao.MemberDao">
+	<!-- 회원가입 -->
+	<insert id="insertMember" parameterType="MemberDto">
+		INSERT INTO member_tb
+		(email, password, username, profile)
+		VALUES (#{email}, #{password},
+		#{username}, 'default')
+	</insert>
+
+<!-- 닉네임 중복검사 쿼리 -->
+<select id="selectusername" resultType="boolean">
+    SELECT COUNT(*) > 0
+    FROM member_tb
+    WHERE username = #{username}
+</select>
+
+	<!-- 로그인 -->
+	<select id="getSecurityPw" parameterType="String"
+		resultType="String">
+		select password from member_tb where email=#{email}
+	</select>
+	<!-- 회원정보 -->
+	<select id="getMemberInfo" resultType="MemberDto">
+		select
+		email,password,username from member_tb where email=#{email};
+	</select>
+	<!-- 회원정보 변경 -->
+	<update id="updateMemberProfile" parameterType="MemberDto">
+		UPDATE member_tb
+		<set>
+			<if test="username != null">username = #{username},</if>
+			<if test="profile != null">profile = #{profile},</if>
+		</set>
+		WHERE email = #{email}
+	</update>
+</mapper>
+>>>>>>> 460304782af17c227702360b2e841954ad0105a1

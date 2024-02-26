@@ -46,6 +46,7 @@ public class MemberController {
 		}
 	}
 	
+	
 
 	// 로그인====================================================
 	@GetMapping("/login")
@@ -137,13 +138,13 @@ public class MemberController {
 		Boolean result = memberService.withdraw(email, password);
 		if (result) {
 			// 탈퇴 처리 성공
-			session.invalidate(); // 세션 무효화
+			session.invalidate(); 
 			rttr.addFlashAttribute("message", "회원 탈퇴가 성공적으로 이루어졌습니다.");
-			return "redirect:/"; // 홈페이지로 리다이렉트
+			return "redirect:/"; 
 		} else {
 			// 탈퇴 처리 실패
 			rttr.addFlashAttribute("message", "회원 탈퇴에 실패했습니다. 아이디와 비밀번호를 다시 확인해주세요.");
-			return "redirect:/mypage"; // 마이페이지로 리다이렉트
+			return "redirect:/mypage"; 
 		}
 	}
 }

@@ -1,7 +1,6 @@
 package com.gg.gop.service;
 
 import java.util.HashMap;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,13 +37,11 @@ public class MemberService {
 		return memberDao.insertMember(memberDto);
 	}
 
-	// 이메일중복
-	private Map<String, String> registeredEmails = new HashMap<>();
-
-	public boolean isEmailDuplicated(String email) {
-
-		return registeredEmails.containsKey(email);
+//닉네임중복
+	public boolean selectusername(String username) {
+		return memberDao.selectusername(username);
 	}
+
 
 //로그인
 	public MemberDto login(HashMap<String, String> member) {
