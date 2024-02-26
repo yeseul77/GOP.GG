@@ -35,7 +35,7 @@ input:-webkit-autofill {
    top: 51px;
    width: 100%;
    height: 95%;
-   background-image: url("../images/back2.jpg");
+   /*background-image: url("../images/back2.jpg");*/
    background-repeat: no-repeat;
    background-attachment: fixed;
    background-size: cover;
