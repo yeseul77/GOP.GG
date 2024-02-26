@@ -27,32 +27,30 @@
 		</div>
 
 		<div class="form-group">
-			<label>이메일:</label>
-			<div class="input-group">
-				<input type="text" id="email" name="email" class="form-control"
-					required placeholder="이메일 입력">
-				<div class="input-group-append">
-					<span class="input-group-text">@</span>
-				</div>
-				<select id="email_address" name="email_domain" class="form-control"
-					onchange="emailDomainChange();">
-					<option value="naver.com">naver.com</option>
-					<option value="gmail.com">gmail.com</option>
-					<option value="daum.net">daum.net</option>
-					<option value="direct">직접입력</option>
-				</select> <input type="text" id="email_direct" name="email_direct"
-					class="form-control" placeholder="이메일 직접 입력" style="display: none;">
-				<div class="input-group-append">
-					<button type="button" class="btn btn-primary" id="mail-Check-Btn">전송</button>
-				</div>
+  <label for="user_email"><small>이메일</small></label>
+    <input type="text" id="user_email" class = "align-left" required placeholder = "이메일 입력">
+    <div id = "confrimEmail">
+        <span id="middle">@</span>
+        <select id="email_address" name="email_address" title="이메일 선택" class="email_address">
+            <option value="naver.com">naver.com</option>
+            <option value="gmail.com">gmail.com</option>
+            <option value="daum.net">daum.net</option>
+            <option value="direct">직접입력</option>
+        </select>
+        <input type="text" id="email_direct" name="email_direct" class="form-control" placeholder="이메일 직접 입력" style="display: none;">
+        <div class="input-group-append">
+            <button type="button" class="btn btn-primary" id="mail-Check-Btn">전송</button>
+        </div>
+    </div>
+</div>
 
-			</div>
+			
 			<div class="form-group">
 				<input type="text" id="code" name="code" class="form-control"
 					placeholder="인증 코드 6자리를 입력해주세요.">
 			</div>
 			<div id="emailError" class="text-danger"></div>
-		</div>
+		
 
 		<div class="form-group">
 			<label for="password">비밀번호:</label> <input type="password"
