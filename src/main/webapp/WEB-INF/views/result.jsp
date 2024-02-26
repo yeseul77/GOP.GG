@@ -176,8 +176,8 @@ $(document).ready(function () {
         
         const pattern = /^(.+?)\s*(KR\d*)$/;
         var result = pattern.exec($("#fullgameName").val().trim());
-        var gameName = result[1];
-        var tagLine = result[2];
+        gameName = result[1];
+        tagLine = result[2];
         updateURL(gameName, tagLine);
 
         if (gameName.trim() === "") {
@@ -322,7 +322,7 @@ $(document).ready(function () {
  <div class="search-bar">
  
     <div class="inner">   
-     <form id="searchForm2" action="/summonerSearch2" method="POST" class="searchBox-input">    
+     <form id="searchForm2"class="searchBox-input">    
       <div class="searchBox">      
            <input type="text" id="fullgameName" name="fullgameName" class="nameInfo" placeholder="소환사 이름 + KRI" required />          
            <button type="submit" class="searchBtn"><span class="material-symbols-outlined">search</span></button>              
