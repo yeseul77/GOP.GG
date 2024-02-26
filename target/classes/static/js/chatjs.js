@@ -62,6 +62,7 @@ function quit() {
 	window.close();
 }
 $(document).ready(function(){
+	$('.content').focus();
 	$.ajax({
 		method:'GET',
 		url:'/chatroom/chatlist',
@@ -74,7 +75,7 @@ $(document).ready(function(){
 			console.log(msg.sender,":",msg.message)
 			const html=document.createElement("div")
 			html.classList.add("listEl")
-			html.innerHTML=`${msg.sender}:${msg.message}`
+			html.innerHTML=`${msg.sender}: ${msg.message}`
 			console.log(html)
 			temp.append(html)
 		})
@@ -88,5 +89,8 @@ $(document).keyup(function(event){
 	}
 	else if(event.which===27){
 		outing()
+	}
+	else{
+		$('.content').focus();
 	}
 })

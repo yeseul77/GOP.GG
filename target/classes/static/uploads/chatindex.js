@@ -100,6 +100,25 @@ $(document).ready(function(){
 	console.log("ajax start");
 	$.ajax({
 		method:'get',
+		url:'/chatroom/mylist',
+	}).done(function(result){
+		const temp=document.createElement("div")
+		temp.classList.add("listArray")
+		$.each(result, function(index, mylist){
+			console.log(mylist)
+			const html=document.createElement("div")
+			html.classList.add("listEl")
+			html.innerHTML=`<div id="rlist">
+							<a>${mylist.chatMember}</a>
+							<a class="chatroomId">${mylist.title}</a>
+							<button type="button" class="chatroomId" onclick="popup(${mylist.roomId})">들어가기</button>
+							`
+			temp.append(html)
+		})
+		$('#mylist').empty().append(temp)
+		})
+	$.ajax({
+		method:'get',
 		url:'/chatroom/list',
 	}).done(function(result){
 		

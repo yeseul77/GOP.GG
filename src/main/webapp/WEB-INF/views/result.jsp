@@ -7,8 +7,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@include file="/WEB-INF/tiles/header.jsp" %>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>${param.gameName} - 전적 검색</title>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
 $(document).ready(function () {
@@ -172,8 +173,11 @@ $(document).ready(function () {
 
     $("#searchForm2").submit(function (event) {
         event.preventDefault();
-        gameName = $("#gameName").val();
-        tagLine = $("#tagLine").val();
+        
+        const pattern = /^(.+?)\s*(KR\d*)$/;
+        var result = pattern.exec($("#fullgameName").val().trim());
+        gameName = result[1];
+        tagLine = result[2];
         updateURL(gameName, tagLine);
 
         if (gameName.trim() === "") {
@@ -306,20 +310,43 @@ $(document).ready(function () {
 });
 
 </script>
+<link rel="stylesheet" href="/css/result.css">
 </head>
+
 <body>
- 	<p>Game Name: <span id="gameNameDisplay">${param.gameName}</span></p>
-	<p>Tag Line: <span id="tagLineDisplay">${param.tagLine}</span></p>
-	<form id="searchForm2">
-		<label for="gameName">gameName:</label> <input type="text"
-			id="gameName" name="gameName" required> <label for="tagLine">Tag
-			Line:</label> <input type="text" id="tagLine" name="tagLine">
-		<!-- 태그라인 입력 필드 추가 -->
-		<input type="submit" value="summonerSearch2">
-		<button type="button" id="updateButton">전적 갱신</button>
-	</form>
-	<div>
-		<table align="center" border="1" width="800">
+
+<div class="back"></div>
+
+<div id="wrap">
+
+ <div class="search-bar">
+ 
+    <div class="inner">   
+     <form id="searchForm2"class="searchBox-input">    
+      <div class="searchBox">      
+           <input type="text" id="fullgameName" name="fullgameName" class="nameInfo" placeholder="소환사 이름 + KRI" required />          
+           <button type="submit" class="searchBtn"><span class="material-symbols-outlined">search</span></button>              
+      </div>   
+     </form>       
+    </div>
+ </div>
+ 
+ <div class="summonerInfo">
+   <div class="inner">
+   
+     <p>Game Name: <span id="gameNameDisplay">${param.gameName}</span></p>
+     <p>Tag Line: <span id="tagLineDisplay">${param.tagLine}</span></p>
+     <button type="button" id="updateButton"><span class="material-symbols-outlined">refresh</span>&nbsp;전적 갱신</button>
+   
+   </div>
+ </div>
+ 
+ 
+ <div class="search-result">
+ 
+   <div class="inner">
+   
+      <table align="center" border="1" width="800">
         <tr>
             <td>
                 <div>
@@ -351,6 +378,14 @@ $(document).ready(function () {
             </td>
         </tr>
     </table>
-	</div>
+   
+   </div>
+		
+ </div>
+ 
+
+</div>
+	
+<%@include file="/WEB-INF/tiles/footer.jsp" %>	
 </body>
 </html>

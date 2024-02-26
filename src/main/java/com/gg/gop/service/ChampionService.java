@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.gg.gop.dao.ChampionDao;
 import com.gg.gop.dto.ChampionDto;
+import com.gg.gop.dto.RecordDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,6 +21,26 @@ public class ChampionService {
 	public List<ChampionDto> allChampion() {
 		List<ChampionDto> championList = cDao.allChampion();
 		return championList;
+	}
+
+	public ChampionDto findChampion(String championName) {
+		ChampionDto champion = cDao.findChampion(championName);
+		return champion;
+	}
+
+	public List<ChampionDto> searchcList(String search) {
+		List<ChampionDto> cList = cDao.searchList(search);
+		return cList;
+	}
+
+	public List<RecordDto> lineChampionList(String line) {
+		List<RecordDto> lineList = cDao.lineChampionList(line);
+		return lineList;
+	}
+
+	public List<RecordDto> lineRecord() {
+		List<RecordDto> lineRList = cDao.lineRecode();
+		return lineRList;
 	}
 
 }

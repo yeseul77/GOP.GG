@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 에러시 window-preferences-maven검색-Download Artifact javadoc 체크할것 -->
+<mapper namespace="com.gg.gop.dao.ChampionDao">
+
+	<select id="allChampion">
+		select champion_name, champion_name_kr from
+		champion_names
+	</select>
+
+	<select id="findChampion">
+		select * from champion_names where champion_name =
+		#{championName}
+	</select>
+
+	<select id="searchList">
+		SELECT champion_name_kr, champion_name
+		FROM
+		champion_names
+		WHERE champion_name_kr like concat('%', #{search}, '%');
+	</select>
+
+	<select id="lineChampionList">
+		SELECT championName,
+		ROUND((COUNT(CASE WHEN
+		teamPosition = #{line} THEN gameId END) / COUNT(DISTINCT gameId) *
+		100), 1) AS pick_rate
+		FROM semi
+		GROUP BY championName
+		HAVING pick_rate >
+		10
+	</select>
+
+	<select id="lineRecode">
+		SELECT championName,
+		CONCAT(ROUND(((COUNT(CASE WHEN win = 'True' THEN 1 END) / COUNT(*)) * 100), 2), '%') AS winRate,
+		CONCAT(ROUND((COUNT(*) / (SELECT COUNT(*) FROM semi WHERE teamPosition != '')) * 100 * 10, 2), '%') AS pickRate,
+		0 AS benRate,
+		'Unranked' AS tier,
+		teamPosition AS position
+		FROM semi
+		WHERE teamPosition != ''
+		GROUP BY championName;
+	</select>
+</mapper>

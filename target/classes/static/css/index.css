@@ -1,3 +1,9 @@
+input:-webkit-autofill {
+   -webkit-box-shadow: 0 0 0 1000px white inset; 
+   -webkit-text-fill-color: #333;
+}
+
+
 body {
   color: #333;
   font-size: 16px;
@@ -24,7 +30,7 @@ a {
   top: 51px;
   width: 100%;
   height: 150%;
-  background-image: url("../images/back2.jpg");
+  /*background-image: url("/images/Volibear.jpg");*/
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -82,25 +88,37 @@ a {
 
 }
 .search .search-bar .input {
-  margin-left: 20px;
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 600px;
+  height: 60px;
+  padding: 0 20px;
 }
-.search .search-bar .input input {
-  width: 500px;
+.search .search-bar .input input.fullnameInfo {
+  display: block;
+  width: 400px;
   height: 30px;
-  font-size: 16px;
   border: none;
   outline: none;
 }
-.search .search-bar .search-icon {
-  position: absolute;
-  top: 12px;
-  right: 10px;
+.search .search-bar .input input.fullnameInfo::placeholder {
+  color:#adb6bd;	
 }
-.search .search-bar .search-icon .material-symbols-outlined {
+.search .search-bar .input button {
+  display: block;
+  border: none;
+  background-color: transparent;
+  height: 40px;
+}
+.search .search-bar .input button .material-symbols-outlined {
   color: #006C5F;
   font-size: 35px;
-  cursor: pointer;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
 }
 .search .search-bar .search-bar-record {
   position: absolute;
@@ -168,16 +186,92 @@ a {
   box-sizing: border-box;
   border: 1px solid #006C5F;
   box-shadow: #006C5F 0px 0px 2px;
-  background-color: #eaeceb;
+  background-color: white;
   font-size: 30px;
   text-align: center;
 }
-.duo .swiper .swiper-wrapper .swiper-slide a {
-  display: block;
-  width: 100%;
-  height: 100%;
-  line-height: 240px;
+.duo .swiper .swiper-wrapper .swiper-slide #rlist {
+  display: flex;
+  flex-direction: column;
+  padding: 18px;
+  height: 240px;
 }
+.duo .swiper .swiper-wrapper .swiper-slide #rlist .chat-head {
+	display: flex;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #e1e1e1;
+	height: 36px;
+}
+.duo .swiper .swiper-wrapper .swiper-slide #rlist .chat-head .chat-po {
+	position: relative;
+	width: 40px;
+	margin-right: 5px;
+	margin-left: -5px;
+}
+.duo .swiper .swiper-wrapper .swiper-slide #rlist .chat-head .chat-po img {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	scale: 1.4;
+}
+.duo .swiper .swiper-wrapper .swiper-slide #rlist .chat-head h1.chatTitle {
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 36px;
+}
+.duo .swiper .swiper-wrapper .swiper-slide #rlist .hostMemo {
+	margin-bottom: 20px;
+	max-height: unset;
+}
+.duo .swiper .swiper-wrapper .swiper-slide #rlist .hostMemo p {
+	font-size: 16px;
+	text-align: start;
+}
+.duo .swiper .swiper-wrapper .swiper-slide #rlist p {
+	word-break: break-all;
+	color: #adb6bd;
+	
+}
+.duo .swiper .swiper-wrapper .swiper-slide #rlist .chat-footer {
+	display: flex;
+	margin-top: auto;
+	margin-bottom: -1px;
+	position: relative;
+	height: 40px;
+}
+.duo .swiper .swiper-wrapper .swiper-slide #rlist .chat-footer .hostInfo {
+	width: 100px;
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	flex-grow: 1;	
+	color: #6c757e;
+	font-size: 14px;
+}
+.duo .swiper .swiper-wrapper .swiper-slide #rlist .chat-footer .hostInfo a {
+	display: block;
+		
+}
+.duo .swiper .swiper-wrapper .swiper-slide #rlist .chat-footer button.chatBtn {
+	border: none;
+	background-color: #adb6bd;
+	border-radius: 4px;
+	padding: 10px 12px;
+	color: white;
+	font-size: 14px;
+	right: 0;
+	position: absolute;
+	display: block;
+}
+.duo .swiper .swiper-wrapper .swiper-slide #rlist .chat-footer button.chatBtn:hover {
+	background-color: #6c757e;
+	font-weight: 700;
+}
+
+
 .swiper-button-prev::after,
 .swiper-button-next::after {
   display: none;

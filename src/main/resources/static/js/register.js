@@ -97,5 +97,7 @@ function validdateUserNickname() {
   	
 }
 
-
+const back = document.querySelector('.back');
+const randomNumber = Math.floor(Math.random()*5)+1;
+back.style.backgroundImage = `url("/images/back${randomNumber}.jpg")`;
 

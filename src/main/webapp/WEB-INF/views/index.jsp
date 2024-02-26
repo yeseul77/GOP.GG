@@ -5,9 +5,9 @@
 <head>
 <!-- 헤더 위치 -->
  <%@include file="/WEB-INF/tiles/header.jsp" %>
+ <title>메인 GOP.GG</title>
  <!--헤더 위치 -->  
  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
- <script src="/js/chatindex.js"></script>
  <script>
  // 메시지 변수 설정
  const message = '${message}';  // 컨트롤러에서 addFlashAttribute로 추가한 메시지를 받음
@@ -44,8 +44,10 @@
 	$(document).ready(function () {
 	    $("#searchForm").submit(function (event) {
 	        event.preventDefault();
-	        var gameName = $("#gameName").val();
-	        var tagLine = $("#tagLine").val();
+	        const pattern = /^(.+?)\s*(KR\d*)$/;
+	        var result = pattern.exec($("#fullgameName").val().trim());
+	        var gameName = result[1];
+	        var tagLine = result[2];
 
 	        if (gameName.trim() === "") {
 	            alert("gameName cannot be empty.");
@@ -91,9 +93,13 @@
 
 
  </script>
-<link rel="stylesheet" href="/css/index.css">
+    
 
+
+<link rel="stylesheet" href="/css/index.css">
+<script defer src="/javascript/chatindex.js"></script>
 <script defer src="/js/index.js"></script>
+
 </head>
 
 <body>
@@ -113,52 +119,20 @@
     </div>
   </section>
 
-  <!-- SECTION SEARCH -->
+<!-- SECTION SEARCH -->
 
-<!--  <section class="search"> -->
-<!--   <div class="inner"> -->
-<!--     <div class="search-bar"> -->
-<!--       <form id="searchForm"> -->
-<!--         <div class="input"> -->
-<!--           <input type="text" id="gameName" placeholder="소환사 이름 + #KR1" required> -->
-<!--           태그라인 입력 필드 추가 -->
-<!--           <input type="text" id="tagLine" placeholder="Tag Line"> -->
-<!--         </div> -->
-<!--         <div class="search-icon"> -->
-<!--           <button type="submit"> -->
-<!--             <div class="material-symbols-outlined"> -->
-<!--               search -->
-<!--             </div> -->
-<!--           </button> -->
-<!--         </div> -->
-<!--       </form> -->
-<!--       <div class="search-bar-record"> -->
-<!--         <div class="record-bar"> -->
-<!--           최근에 본 소환사가 없습니다. -->
-<!--         </div> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--   </div> -->
-<!-- </section> -->
-<section class="search">
-	<div class="inner">
-	<form id="searchForm" action="/summonerSearch" method="get">
-		<label for="gameName">gameName:</label> <input type="text"
-			id="gameName" name="gameName" required> <label for="tagLine">Tag
-			Line:</label> <input type="text" id="tagLine" name="tagLine">
-		<!-- 태그라인 입력 필드 추가 -->
-		<div class="search-icon">
-		<input type="submit" value="summonerSearch">
-		</div>
-	</form>
-	<div class="search-bar-record">
-        <div class="record-bar">
-          최근에 본 소환사가 없습니다.
-        </div>
+  <section class="search">
+    <div class="inner">
+      <div class="search-bar">
+        
+         <form id="searchForm" action="/summonerSearch" method="get" class="input">
+           <input type="text" id="fullgameName" name="fullgameName" class="fullnameInfo" placeholder="소환사 이름 + KRI" required>          
+           <button type="submit"><span class="material-symbols-outlined">search</span></button>
+        </form>
+   
       </div>
     </div>
-</section>
-
+  </section>
 
   <!-- DUO -->
 
@@ -169,44 +143,15 @@
       <div class="duo-list">
 
         <div class="duo-more">
-          <a href="javascript:void(0)" target="_blank">듀오찾기</a>
+          <a href="${contextPath}/chat/chatList" target="_blank">듀오찾기</a>
         </div>
 
         <div class="swiper">
-
-          <div class="swiper-wrapper">
-<!--             <div class="swiper-slide"> -->
-<!--               <a href="javascript:void(0)" target="_blank">1</a> -->
-<!--             </div>	 -->
-<!--             <div class="swiper-slide"> -->
-<!--               <a href="javascript:void(0)" target="_blank">2</a> -->
-<!--             </div> -->
-<!--             <div class="swiper-slide"> -->
-<!--               <a href="javascript:void(0)" target="_blank">3</a> -->
-<!--             </div> -->
-<!--             <div class="swiper-slide"> -->
-<!--               <a href="javascript:void(0)" target="_blank">4</a> -->
-<!--             </div> -->
-<!--             <div class="swiper-slide"> -->
-<!--               <a href="javascript:void(0)" target="_blank">5</a> -->
-<!--             </div> -->
-<!--             <div class="swiper-slide"> -->
-<!--               <a href="javascript:void(0)" target="_blank">6</a> -->
-<!--             </div> -->
-<!--             <div class="swiper-slide"> -->
-<!--               <a href="javascript:void(0)" target="_blank">7</a> -->
-<!--             </div> -->
-<!--             <div class="swiper-slide"> -->
-<!--               <a href="javascript:void(0)" target="_blank">8</a> -->
-<!--             </div> -->
-<!--             <div class="swiper-slide"> -->
-<!--               <a href="javascript:void(0)" target="_blank">9</a> -->
-<!--             </div> -->
-<!--             <div class="swiper-slide"> -->
-<!--               <a href="javascript:void(0)" target="_blank">10</a> -->
-<!--             </div> -->
+          
+          <div class="swiper-wrapper">                          	
+          
           </div>
-
+                                 
         </div>
 
         <div class="swiper-button-prev">
