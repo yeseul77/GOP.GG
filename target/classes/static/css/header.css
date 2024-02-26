@@ -1,0 +1,326 @@
+body {
+  color: #333;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  font-family: "Roboto", "Noto Sans KR", sans-serif;
+}
+img {
+  display: block;
+}
+.inner {
+  width: 1130px;
+  margin: 0 auto;
+  position: relative;
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+/* HEADER */
+.header {
+  width: 100%;
+  background-color: #006C5F;
+  /* border-bottom: 1px solid #368f85; */
+  box-shadow: #006C5F 0px 0px 6px;
+  top:0;
+  position: fixed;
+  z-index: 2000;
+}
+.header .logo {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 141px;
+  height: 51px;
+  display: block;
+}
+.header .logo a img {
+  transform: scale(.8);
+}  
+.header .inner {
+  display: flex;
+  background-color: #006C5F;
+  align-items: center;
+  height: 61px; 
+}
+.header .side-menu {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 20px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+.header .side-menu .signup {
+  display: flex;
+  margin-right: 8px;
+}
+.header .side-menu .signup a {
+  font-size: 15px;
+  font-weight: 700;
+  color: #00B890;
+  padding: 11px 16px;
+  border-radius: 5px; 
+}
+.header .side-menu .signup a:hover {
+  text-decoration: underline;
+  font-weight: 700;
+  color:#fff;
+}
+.header .side-menu .login {
+  display: flex;
+  height: 40px;
+  position: relative;
+}
+.header .side-menu .login > a {
+  display: flex;
+  align-items: center;
+  color: #006C5F;
+  background-color: #00B890;
+  font-weight: 700;
+  padding: 11px 16px;
+  border-radius: 5px;
+  cursor: pointer; 
+}
+.header .side-menu .login > a:hover {
+  color: #fff;
+  background-color: #035140;
+  font-weight: 700;
+}
+.header .side-menu .login .loginBox {
+  position: absolute;
+  top: calc(100% + 13px);
+  right: -13px;
+  width: 323px;
+  border: 1px solid #006C5F;
+  box-shadow: #006C5F 0px 0px 2px;
+  background-color: #fff;
+  border-radius: 10px;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: .4s;
+}
+.header .side-menu .login .loginBox.show {
+  opacity: 1;
+  visibility: visible;
+}
+.header .side-menu .login .loginBox .hiddenBox {
+  position: absolute;
+  width: 40px;
+  height: 15px;
+  overflow: hidden;
+  top: -15px;
+  right: 30px;
+}
+.header .side-menu .login .loginBox .hiddenBox::before {
+  content: '';
+  position: absolute;
+  width: 21px;
+  height: 21px;
+  transform: rotate(45deg);
+  transform-origin: 0 0;
+  border: 1px solid #006C5F;
+  box-shadow: #006C5F 0px 0px 2px;
+  top: 0;
+  left: 50%;
+  background-color: #fff;
+}
+.header .side-menu .login .loginBox .loginfield {
+  width: 350px;
+  height: 117px;
+  position: relative;
+}
+.header .side-menu .login .loginBox .loginfield .loginInput {
+  width: 203px;
+  height: 90px;
+  margin-left: calc((320px - 200px - 90px)/2);
+  margin-top: 14px;
+  border: 1px solid #333;
+  border-radius: 4px 0 0 4px;
+  background-color: orange;
+  float: left;
+}
+.header .side-menu .login .loginBox .loginfield .loginInput .loginInput-id {
+  width: 100%;
+  height: 45px;
+  border-bottom: 1px solid;
+  position: relative;
+}
+.header .side-menu .login .loginBox .loginfield .loginInput .loginInput-id #loginId {
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 10px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  font-size: 15px;
+  position: absolute;
+} 
+.header .side-menu .login .loginBox .loginfield .loginInput .loginInput-pw {
+  width: 100%;
+  height: 45px;
+  position: relative;
+}
+.header .side-menu .login .loginBox .loginfield .loginInput .loginInput-pw #loginPw {
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 10px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  font-size: 15px;
+  position: absolute;
+}
+.header .side-menu .login .loginBox .loginfield .loginBtn {
+  
+}
+.header .side-menu .login .loginBox .loginfield .loginBtn > input {
+  width: 90px;
+  height: 90px;
+  color: #fff;
+  display: block;
+  background-color: #006C5F;
+  border : none;
+  border-radius: 0 4px 4px 0;
+  border-top: 1px solid #333;
+  border-right: 1px solid #333;
+  border-bottom: 1px solid #333;
+  margin-top: 14px;
+  float: left;
+  text-align: center;
+  line-height: 90px;
+}
+.header .side-menu .login .loginBox .loginError {
+  margin-top: -9px;
+  width: 230px;
+  /* height: 25px; */
+  margin-left: 24px;
+}
+.header .side-menu .login .loginBox .loginError span {
+  font-size: 13px;
+  color: red;
+}
+.header .side-menu .login .loginBox .findIdPw {
+  margin-top: 6px;
+  margin-bottom: 10px;
+  width: 200px;
+  height: 20px;
+  color: #333;
+  font-size: 14px;
+  margin-left: 24px;
+}
+.header .side-menu .login .loginBox .findIdPw a {
+
+}
+.header .inner .header-menu{
+  width: 800px;
+}
+.header .inner .header-menu ul.menu {
+  display: flex;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: 40px;
+  justify-content: space-between;
+}
+.header .inner .header-menu ul.menu li {
+  display: flex; 
+}
+.header .inner .header-menu ul.menu li a {
+  display: block;
+  padding: 11px 16px; 
+  display: flex;
+  align-items : center;
+  border-radius: 5px;
+  color: #ece3e3;
+  
+}
+.header .inner .header-menu ul.menu li a:hover {
+  color: #fff;
+  background-color: #00B890;
+  font-weight: 700;
+}
+.header .shadow {
+  position: fixed;
+  opacity: 0;
+  visibility: hidden;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .6);
+  transition: .4s;
+}
+.header .shadow.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.header .side-menu2 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 20px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  z-index: 3;
+}
+.header .side-menu2 .myPhoto {
+  margin-right: -7px;
+}
+.header .side-menu2 .myPhoto img {
+  border-radius: 50%;
+  scale: .8;
+}
+.header .side-menu2 .login {
+  display: flex;
+  margin-right: 8px;
+}
+.header .side-menu2 .login .dropdown {
+
+}
+.header .side-menu2 .login .dropdown > a {
+  background-color: transparent;
+  border: none;
+  font-size: 15px;
+  font-weight: 700;
+  color: #00B890;
+  padding: 11px 16px;
+}
+.header .side-menu2 .login .dropdown > a:hover {
+  text-decoration: underline;
+  font-weight: 700;
+  color:#fff;
+}
+.header .side-menu2 .login .dropdown .dropdown-menu {
+
+}
+.header .side-menu2 .login .dropdown .dropdown-menu .dropdown-item {
+  color: #333;
+  font-size: 14px;
+}
+.header .side-menu2 .logout {
+  display: flex;
+  height: 40px;
+  position: relative;
+}
+.header .side-menu2 .logout > a {
+  display: flex;
+  align-items: center;
+  color: #006C5F;
+  background-color: #00B890;
+  font-weight: 700;
+  padding: 11px 16px;
+  border-radius: 5px; 
+}
+.header .side-menu2 .logout > a:hover {
+  color: #fff;
+  background-color: #035140;
+  font-weight: 700;
+}
