@@ -57,6 +57,7 @@
 		</set>
 		WHERE email = #{email}
 	</update>
+<<<<<<< HEAD
 </mapper>
 =======
 		select email,password,username
@@ -83,3 +84,7 @@
 </mapper>
 
 >>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
+=======
+	
+</mapper>
+>>>>>>> d1fdbc1a304ae4b6adabb88d3c35445a5a58b30f

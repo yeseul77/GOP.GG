@@ -23,6 +23,7 @@ public interface MemberDao {
     MemberDto getMemberInfo(String email);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//회원프로필이미지 db저장
 	void updateMemberProfile(MemberDto memberDto);
 =======
@@ -30,6 +31,11 @@ public interface MemberDao {
     @Update("UPDATE member SET deleteYn = true WHERE email = #{email} AND password = #{password}")
     int updateMemberToDeleteStatus(@Param("email") String email, @Param("password") String password);
 >>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
+=======
+    // 회원 탈퇴 상태 업데이트
+    @Update("UPDATE member SET deleteYn = true WHERE email = #{email} AND password = #{password}")
+    int updateMemberToDeleteStatus(@Param("email") String email, @Param("password") String password);
+>>>>>>> d1fdbc1a304ae4b6adabb88d3c35445a5a58b30f
 	
 
 	

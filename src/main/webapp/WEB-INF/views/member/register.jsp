@@ -42,6 +42,7 @@
 		</div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		<div class="form-group">
   <label for="user_email"><small>이메일</small></label>
     <input type="text" id="user_email" class = "align-left" required placeholder = "이메일 입력">
@@ -147,6 +148,25 @@
 			</div>
 			<div id="emailError" class="text-danger"></div>
 		
+=======
+<!-- 이메일 입력필드 ㅠㅠㅠ개같앙ㅁ나암ㄴ암ㄴ랗  -->
+		 <!-- 이메일 입력 필드 -->
+        <div class="form-group">
+            <label>이메일:</label>
+            <div class="input-group">
+                <input type="text" id="email" name="email" class="form-control" required placeholder="이메일 입력">
+            </div>
+            <!-- 이메일 인증 버튼 -->
+            <div class="input-group-append" style="margin-top: 10px;">
+                <button type="button" class="btn btn-primary" id="mail-Check-Btn">인증번호 전송</button>
+            </div>
+        </div>
+        
+        <!-- 인증번호 입력 필드 -->
+        <div class="form-group">
+            <input type="text" id="code" name="code" class="form-control" placeholder="인증 코드 6자리를 입력해주세요.">
+        </div>
+>>>>>>> d1fdbc1a304ae4b6adabb88d3c35445a5a58b30f
 
 		<div class="form-group">
 			<label for="password">비밀번호:</label> <input type="password"
