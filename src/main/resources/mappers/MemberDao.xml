@@ -1,47 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.gg.gop.dao.MemberDao">
 	<!-- 회원가입 -->
-	<insert id="insertMember"
-		parameterType="com.gg.gop.dto.MemberDto">
+	<insert id="insertMember" parameterType="MemberDto">
 		INSERT INTO member_tb
-		(email,username,password,role,deleteYn)
-		VALUES
-		(#{email},#{username},#{password},#{role},false)
+		(email, password, username, profile)
+		VALUES (#{email}, #{password},
+		#{username}, 'default')
 	</insert>
-	<!-- 로그인 -->
-	<select id="login" parameterType="HashMap" resultType="boolean">
-		select
-		count(*) from member_tb where email=#{email} and password=#{password}
-	</select>
 
+<!-- 닉네임 중복검사 쿼리 -->
+<select id="selectusername" resultType="boolean">
+    SELECT COUNT(*) > 0
+    FROM member_tb
+    WHERE username = #{username}
+</select>
+
+	<!-- 로그인 -->
 	<select id="getSecurityPw" parameterType="String"
 		resultType="String">
-		select password from member_tb
-		where email=#{email}
+		select password from member_tb where email=#{email}
 	</select>
-
+	<!-- 회원정보 -->
 	<select id="getMemberInfo" resultType="MemberDto">
-		select email,password,username
-		from member_tb
-		where email=#{email};
+		select
+		email,password,username from member_tb where email=#{email};
 	</select>
-
-
-	<!-- 회원정보수정 U -->
-	<update id="updateMemberInfo" parameterType="MemberDto">
+	<!-- 회원정보 변경 -->
+	<update id="updateMemberProfile" parameterType="MemberDto">
 		UPDATE member_tb
-		SETpassword=#{password}, username = #{username}
+		<set>
+			<if test="username != null">username = #{username},</if>
+			<if test="profile != null">profile = #{profile},</if>
+		</set>
 		WHERE email = #{email}
 	</update>
-
-	<!-- 탈퇴 D 가입된회원은 0 , 탈퇴면 1로 변경 -->
-	<delete id="deleteMember">
-		UPDATE member_tb
-		SET delete_Yn=1
-		WHERE email=#{email}
-	</delete>
-	
 	
 </mapper>
-

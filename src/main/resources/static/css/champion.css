@@ -11,14 +11,7 @@ img {
 	flex-wrap: wrap;
 	padding-left: 8px;
 	gap: 8px;
-}
-
-#championList {
-    margin-right: 8px;
-}
-
-a {
-	cursor: pointer;
+	flex-direction: row; /* 가로 방향으로 배치 */
 }
 
 .champion-item {
@@ -40,7 +33,7 @@ span {
 	height: 16px
 }
 
-a {
+.img-link {
 	cursor: pointer;
 	text-decoration: none;
 	color: var(--gray900);
@@ -49,4 +42,47 @@ a {
 .champion-img {
 	position: relative;
 	display: block;
+}
+
+.championList>aside {
+	margin-right: 8px;
+}
+
+.championList>aside {
+	flex-basis: 332px;
+	max-width: 332px;
+}
+
+aside {
+	display: block;
+}
+
+caption, .hidden {
+	clip: rect(0, 0, 0, 0);
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+}
+
+.hidden {
+	position: absolute;
+}
+
+label {
+	cursor: pointer;
+}
+
+.championList > main {
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    max-width: 740px;
+}
+
+main {
+    display: block;
+}
+
+div {
+    display: block;
 }
