@@ -1,5 +1,3 @@
-
-
 let socket = new WebSocket("ws://"+location.host+"/ws/chat");
 
 
@@ -49,6 +47,7 @@ function sendMsg() {
 	let content = document.querySelector('.content').value;
 	var talkMsg = {"type": "TALK", "roomId": chatroomId, "sender": username, "message": content};
 	socket.send(JSON.stringify(talkMsg))
+	$('.content').val('')
 }
 
 function outing(){
@@ -63,6 +62,7 @@ function quit() {
 	window.close();
 }
 $(document).ready(function(){
+	$('.content').focus();
 	$.ajax({
 		method:'GET',
 		url:'/chatroom/chatlist',
@@ -75,11 +75,22 @@ $(document).ready(function(){
 			console.log(msg.sender,":",msg.message)
 			const html=document.createElement("div")
 			html.classList.add("listEl")
-			html.innerHTML=`${msg.sender}:${msg.message}`
+			html.innerHTML=`${msg.sender}: ${msg.message}`
 			console.log(html)
 			temp.append(html)
 		})
 		console.log(temp)
 		$('.msgArea').append(temp)
 		})
+})
+$(document).keyup(function(event){
+	if(event.which===13){
+		sendMsg()
+	}
+	else if(event.which===27){
+		outing()
+	}
+	else{
+		$('.content').focus();
+	}
 })

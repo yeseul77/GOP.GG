@@ -1,9 +1,9 @@
-let username
+//let username
 let socket = new WebSocket("ws://"+location.host+":80/ws/chat");
 let popOption="width=650px, height=550px, top=300px, left=300px. scrollbars=yes";
 $(document).ready(function(){
-	username=document.getElementById('username').value
-	console.log(username)
+//	username=document.getElementById('username').value
+//	console.log(username)
 })
 function enterRoom(socket) {
 //	var enterMsg = { "type": "ENTER", "roomId": 0, "sender": JSON.stringify(username), "msg": "" };
@@ -100,50 +100,29 @@ $(document).ready(function(){
 	console.log("ajax start");
 	$.ajax({
 		method:'get',
-		url:'/chatroom/mylist',
-	}).done(function(result){
-		const temp=document.createElement("div")
-		temp.classList.add("listArray")
-		$.each(result, function(index, mylist){
-			console.log(mylist)
-			const html=document.createElement("div")
-			html.classList.add("listEl")
-			html.innerHTML=`<div id="rlist">
-							<a>${mylist.chatMember}</a>
-							<a class="chatroomId">${mylist.title}</a>
-							<button type="button" class="chatroomId" onclick="popup(${mylist.roomId})">들어가기</button>
-							`
-			temp.append(html)
-		})
-		$('#mylist').empty().append(temp)
-		})
-	$.ajax({
-		method:'get',
 		url:'/chatroom/list',
 	}).done(function(result){
-		const temp=document.createElement("div")
-		temp.classList.add("listArray")
+		
 		$.each(result, function(index, chatlist){
 			console.log(chatlist)
 			const html=document.createElement("div")
-			html.classList.add("listEl")
-			html.innerHTML=`<div id="rlist" class="swiper-silde">
-							<div class="chat-head">
-							 <div class="chat-po"><img src="/images/${chatlist.position.toLowerCase()}.svg" alt="${chatlist.position}"></div>
-							 <h1 class="chatTitle" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</h1>
-							</div>
-							<div class="hostMemo"><p>${chatlist.memo}</p></div>																				
-							<div class="chat-footer">
-							<div class="hostInfo">
-							 <a>${chatlist.userId}</a>|<a>${chatlist.champion}</a>				 
-							</div>
-							<button type="button" class="chatBtn" onclick="submit(${chatlist.chatroomId})">참가신청</button>
-							<div>							
+			html.classList.add("swiper-slide")
+			html.innerHTML=`<div id="rlist">
+							 <div class="chat-head">
+							  <div class="chat-po"><img src="/images/${chatlist.position.toLowerCase()}.svg" alt="${chatlist.position}"></div>
+							  <h1 class="chatTitle" name="chatroomId" value="${chatlist.chatroomId}">${chatlist.title}</h1>
+							 </div>
+							 <div class="hostMemo"><p>${chatlist.memo}</p></div>																				
+							 <div class="chat-footer">
+							  <div class="hostInfo">
+							   <a>${chatlist.userId}</a>|<a>${chatlist.champion}</a>				 
+							  </div>
+							  <button type="button" class="chatBtn" onclick="submit(${chatlist.chatroomId})">참가신청</button>
+							 </div>							
 							</div>				
 							`
-			temp.append(html)
+			$('.swiper-wrapper').append(html)
 		})
-		$('.swiper-wrapper').empty().append(temp)
-		
+			
 	})
 })

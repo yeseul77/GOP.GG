@@ -65,8 +65,15 @@ public class MemberService {
 
 	// 회원탈퇴
 	public Boolean withdraw(String email, String password) {
+		 MemberDto member = memberDao.getMemberInfo(email);
+	      
+	        if (member == null || !member.getPassword().equals(password)) {
+	            return false;
+	        }
 
-		return null;
+	        member.setDeleteYn(true);
+
+	        return true;
 	}
 
 	//회원정보 +프로필변경

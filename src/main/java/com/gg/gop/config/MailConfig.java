@@ -1,19 +1,15 @@
 package com.gg.gop.config;
 
 import java.util.Properties;
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-
 
 @Getter
 @Setter
@@ -50,6 +46,5 @@ public class MailConfig {
 	      properties.setProperty("mail.smtp.ssl.enable","true"); // ssl 사용
 	      return properties;
 	  }
-
-
+	
 }

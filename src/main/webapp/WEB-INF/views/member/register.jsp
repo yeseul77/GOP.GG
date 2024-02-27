@@ -29,23 +29,23 @@
 		<div class="form-group">
 			<label>이메일:</label>
 			<div class="input-group">
-				<input type="text" id="email" name="email" class="form-control"
+				<input type="hidden" id="sendemail" name="email" value="Test">
+				<input type="text" id="email" class="form-control"
 					required placeholder="이메일 입력">
 				<div class="input-group-append">
-					<span class="input-group-text">@</span>
+					<span id="middle" value="@" class="input-group-text">@</span>
 				</div>
-				<select id="email_address" name="email_domain" class="form-control"
+				<select id="email_address" class="form-control"
 					onchange="emailDomainChange();">
 					<option value="naver.com">naver.com</option>
 					<option value="gmail.com">gmail.com</option>
 					<option value="daum.net">daum.net</option>
 					<option value="direct">직접입력</option>
-				</select> <input type="text" id="email_direct" name="email_direct"
-					class="form-control" placeholder="이메일 직접 입력" style="display: none;">
+				</select> <input type="text" id="email_direct" 
+				class="form-control" placeholder="이메일 직접 입력" style="display: none;">
 				<div class="input-group-append">
 					<button type="button" class="btn btn-primary" id="mail-Check-Btn">전송</button>
 				</div>
-
 			</div>
 			<div class="form-group">
 				<input type="text" id="code" name="code" class="form-control"
@@ -72,5 +72,8 @@
 			<button type="submit" class="btn btn-success">회원가입</button>
 		</div>
 	</form>
+		<!-- 푸터 위치 -->
+ <%@include file="/WEB-INF/tiles/footer.jsp" %>
+ <!-- 푸터 위치 -->
 </body>
 </html>

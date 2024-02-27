@@ -19,7 +19,7 @@
         </ul>
     </div>
 
-    <form id="deactivateAccountForm" name="deactivateAccountForm" action="/withdraw" method="post" target="_self">
+    <form id="deactivateAccountForm" name="deactivateAccountForm" action="/mypage/withdraw" method="post" target="_self">
         <div class="deactivateArea">
              
                 <p class="input-group">

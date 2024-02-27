@@ -26,7 +26,7 @@ a {
   box-shadow: #006C5F 0px 0px 6px;
   top:0;
   position: fixed;
-  z-index: 2;
+  z-index: 2000;
 }
 .header .logo {
   position: absolute;

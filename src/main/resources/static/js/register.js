@@ -55,7 +55,16 @@ function registerCheck() {
         $('#emailError').text('유효한 이메일 주소를 입력해주세요.');
         return false;
     } else {
-        $('#emailError').text('');
+		const email2=document.createElement("box")
+		let emailp1=$("#email").val()
+		let emailp2="@"	
+		let emailp3=$("#email_address").val()
+       	let emailc=emailp1+emailp2+emailp3;
+       	console.log(emailc);
+       	var setemail=document.getElementById("sendemail");
+       	setemail.setAttribute('value',emailc)
+//      email2.innerHTML=`<input type='hidden' name='email' value=${emailc}/>`
+//		email2.before("#emailError")
     }
 
     if (password.length < 4) {

@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="/css/chatList.css">
-<script defer src="/javascript/chatlist.js"></script>
+<script defer src="/js/chatlist.js"></script>
 </head>
 
 <body>
