@@ -3,16 +3,12 @@
 
 <!DOCTYPE html>
 <html lang="ko">
-<<<<<<< HEAD
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-=======
->>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GOP.GG</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
-<<<<<<< HEAD
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -29,12 +25,6 @@
 
   <link rel="stylesheet" href="css/footer.css">
   <script defer src="js/footer.js"></script>
-=======
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-  <link rel="stylesheet" href="/css/footer.css">
-  
->>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
 </head>
 
 <body>
@@ -46,13 +36,8 @@
         <ul class="member-text">
           <li><strong>[ LOL 빅데이터를 활용한 웹 시각화 양성과정 ]</strong></li>
           <li>파이널 프로젝트 발표과제</li>
-<<<<<<< HEAD
           <li> 박재범,전지환, 전승아, 유예슬, 장용준, 임경진</li>
           <li><img src="images/logoTest3.png" alt="footerlogo"></li>
-=======
-          <li>박재범,&nbsp;&nbsp;유예슬,&nbsp;&nbsp;임경진,&nbsp;&nbsp;장용준,&nbsp;&nbsp;전승아,&nbsp;&nbsp;전지환</li>
-          <li><img src="/images/logoTest3.png" alt="footerlogo"></li>
->>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
         </ul>
      </div>
    </div>

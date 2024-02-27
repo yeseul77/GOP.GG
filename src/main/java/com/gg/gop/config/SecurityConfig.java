@@ -14,16 +14,13 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 @EnableWebSecurity // 시큐리티6 활성화 및 웹보안설정 부트3.0이상에서 생략가능
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true, securedEnabled = true)
+
 //환경설정 클래스 정의하면 시큐리티 로그인창 안뜸
-<<<<<<< HEAD
 public class SecurityConfig{
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-=======
-public class SecurityConfig {
->>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
 	//권한없을 때 예외처리 핸들러
 	@Autowired
 	private AccessDeniedHandler accessDeniedHandler;
@@ -32,24 +29,15 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 	     
 		http.csrf(csrf -> csrf.disable());//csrf를 비활성화
-<<<<<<< HEAD
 		http.formLogin(form -> form.loginPage("/member/login").loginProcessingUrl("/member/login")
 				.defaultSuccessUrl("/").failureUrl("/member/login/error")
 			
 		);
 		http.logout(logout -> logout.logoutUrl("/member/logout").logoutSuccessUrl("/"));
-=======
-		http.formLogin(form -> form.loginPage("/login")
-				.loginProcessingUrl("/login")
-				.defaultSuccessUrl("/")
-//				.failureUrl("/member/login/error")
-				.usernameParameter("email")
-		);
-		http.logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/"));
->>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
 		http.exceptionHandling(handler -> handler.accessDeniedHandler(accessDeniedHandler));
 		return http.build();		
 	}
+	
 	
 	
 //	폼 기반 로그인을 활성화하고, 사용자 정의 로그인 페이지의 경로를 /member/login으로 설정합니다.
@@ -64,12 +52,5 @@ public class SecurityConfig {
 //	return http.build();:
 	//설정된 HttpSecurity 객체를 기반으로 SecurityFilterChain을 빌드하고 반환
 	
-<<<<<<< HEAD
 	
-=======
-	@Bean
-	PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
->>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
 }

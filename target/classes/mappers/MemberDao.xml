@@ -36,5 +36,4 @@
 		</set>
 		WHERE email = #{email}
 	</update>
-	
 </mapper>

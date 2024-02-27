@@ -14,7 +14,4 @@ public class ChatDto {
 	private String title;
 	private String userId;
 	private int chatroomId;
-	private String champion;
-	private String position;
-	private String memo;
 }

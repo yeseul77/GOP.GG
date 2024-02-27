@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
 <!DOCTYPE html>
 <html lang="ko">
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -20,35 +15,22 @@
     rel="stylesheet">
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-<<<<<<< HEAD
   <link rel="icon" href="images/favicon.ico">
-=======
-  <link rel="icon" href="/images/favicon.ico">
->>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
-<<<<<<< HEAD
   <link rel="stylesheet" href="css/header.css">
   <script defer src="js/header.js"></script>
-=======
-  <link rel="stylesheet" href="/css/header.css">
-  <script defer src="/js/header.js"></script>
->>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
 </head>
 
 <body>
  <div class="header">
 
   <div class="logo">
-<<<<<<< HEAD
    <a href="${contextPath}/"><img src="../images/logoTest1.png" alt="logo"></a>
-=======
-   <a href="${contextPath}/"><img src="/images/logoTest1.png" alt="logo"></a>
->>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
   </div>
     
     <div class="inner">
@@ -65,28 +47,17 @@
             <a href="javascript:void(0)">칼바람 나락</a>
           </li>
           <li>
-<<<<<<< HEAD
             <a href="javascript:void(0)">듀 오</a>
           </li>
           <li>
             <a href="${contextPath}/boardMain">커뮤니티</a>
-=======
-            <a href="${contextPath}/chat/chatList">듀 오</a>
-          </li>
-          <li>
-            <a href="${contextPath}/boardlist">커뮤니티</a>
->>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
           </li>
         </ul>
       </div>
 
     </div>
     
-<<<<<<< HEAD
     <c:if test="${sessionScope.loginState == null or !sessionScope.loginState}">
-=======
-    <c:if test="${sessionScope.Loginstate == null or !sessionScope.Loginstate}">
->>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
     
     <div class="side-menu">
 
@@ -104,11 +75,7 @@
           <div class="loginfield">
             <div class="loginInput">
               <div class="loginInput-id">
-<<<<<<< HEAD
                 <input id="loginId" name="email" type="text" placeholder="아이디">
-=======
-                <input id="loginId" name="email" type="text" placeholder="아이디" autocomplete="off">
->>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
               </div>
               <div class="loginInput-pw">
                 <input id="loginPw" type="password" name="password" placeholder="비밀번호">
@@ -136,20 +103,12 @@
     
     </c:if>
     
-<<<<<<< HEAD
     <c:if test="${sessionScope.loginState != null && sessionScope.loginState}">
-=======
-    <c:if test="${sessionScope.Loginstate != null && sessionScope.Loginstate}">
->>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
     
     <div class="side-menu2">
 
       <div class="myPhoto">
-<<<<<<< HEAD
         <img src="images/1_dmbNkD5D-u45r44go_cf0g.png" alt="example">
-=======
-        <img src="/images/1_dmbNkD5D-u45r44go_cf0g.png" alt="example">
->>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
       </div>
 
       <div class="login">
@@ -158,11 +117,7 @@
             ${sessionScope.username}님 환영합니다!
           </a>       
           <ul class="dropdown-menu">
-<<<<<<< HEAD
             <li><a class="dropdown-item" href="${contextPath}/member/mypage">내 프로필</a></li>
-=======
-            <li><a class="dropdown-item" href="${contextPath}/member/memberinfo">내 프로필</a></li>
->>>>>>> 4650059d4c15d21ba8f31478a2cfb7c856c43d37
             <li><a class="dropdown-item" href="#">보안 설정</a></li>
             <li><a class="dropdown-item" href="#">이력 보기</a></li>
           </ul>

@@ -11,6 +11,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ChatMemberDto {
 	String chatMember;
-	String title;
 	int roomId;
 }

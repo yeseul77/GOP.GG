@@ -32,7 +32,7 @@
 				<input type="text" id="email" name="email" class="form-control"
 					required placeholder="이메일 입력">
 				<div class="input-group-append">
-					<span id=middle class="input-group-text">@</span>
+					<span class="input-group-text">@</span>
 				</div>
 				<select id="email_address" name="email_domain" class="form-control"
 					onchange="emailDomainChange();">
@@ -72,8 +72,5 @@
 			<button type="submit" class="btn btn-success">회원가입</button>
 		</div>
 	</form>
-		<!-- 푸터 위치 -->
- <%@include file="/WEB-INF/tiles/footer.jsp" %>
- <!-- 푸터 위치 -->
 </body>
 </html>

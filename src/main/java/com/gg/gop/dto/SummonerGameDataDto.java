@@ -14,27 +14,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class SummonerGameDataDto {
 	private String matchId;
-    private int gameDuration;
-    private long gameStartTimestamp;
-    private int queueId;
-    private String riotIdGameName;
-    private String riotIdTagline;
-    private int summonerLevel;
-    private String gameMode;
-    private int teamId;
-    private boolean win;
-    private int teamchampionkills;
-    private boolean teamwin;
-    private int championId;
-    private int pickTurn;
-    private String championName;
-    private int kills;
-    private int deaths;
-    private int assists;
-    private double kda;
-    private String lane;
-    private int totalDamageDealtToChampions;
-    private int totalDamageTaken;
-    private int totalMinionsKilled;
+	private int gameDuration;
+	private int queueId;
+	private String riotIdGameName;
 	private List<Map> gamedataList;
 }
