@@ -50,7 +50,7 @@
             <a href="javascript:void(0)">듀 오</a>
           </li>
           <li>
-            <a href="${contextPath}/boardMain">커뮤니티</a>
+            <a href="${contextPath}/boardlist">커뮤니티</a>
           </li>
         </ul>
       </div>

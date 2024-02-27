@@ -15,24 +15,21 @@ import jakarta.servlet.http.HttpSession;
 public class BoardController {
 	
     @Autowired
-    private BoardService boardService; // Make sure the variable name matches the bean name
+    private BoardService boardService; 
     
     @GetMapping("/boardlist")
     public String boardList() {
         return "board/boardList"; 
     }
     
-    @GetMapping("/boardWrite")
-    public String boardWriteForm(HttpSession session, Model model) {
-        if (session.getAttribute("Loginstate") == null) {
-            // 로그인하지 않은 사용자는 로그인 페이지로 리디렉션
-            return "redirect:/login";
-        }
+    @GetMapping("/boardlist/boardwrite")
+    public String boardWriteForm() {
+        System.out.println("글쓰기 폼");
         return "board/boardWrite";
     }
 
     // 게시글 작성 요청 처리
-    @PostMapping("/boardWrite")
+    @PostMapping("/boardlist/writer")
     public String boardWrite(HttpSession session, BoardDto boardDto) {
         if (session.getAttribute("Loginstate") == null) {
             // 로그인하지 않은 사용자는 로그인 페이지로 리디렉션

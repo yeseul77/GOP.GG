@@ -31,8 +31,8 @@ public class ChampionRestController {
 	public List<RecordDto> getlineChampionList(@RequestParam String line) {
 		List<RecordDto> lineList = cSer.lineChampionList(line);
 		
-		log.info("cList : {}", lineList);
-		log.info("line : {}", line);
+	//	log.info("cList : {}", lineList);
+	//	log.info("line : {}", line);
 		
 		return lineList;
 	}
