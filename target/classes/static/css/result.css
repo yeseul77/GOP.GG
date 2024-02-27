@@ -34,6 +34,9 @@ a {
   width: 100%;
   min-height: calc(100vh - 200px);
   margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
  }
 #wrap .search-bar {
   position: absolute;
@@ -84,11 +87,108 @@ a {
   margin: auto;
   display: block;
 }
-.summonerInfo {  	
-  margin-top: 150px;
-  height: 100px;	
+
+#wrap .summonerInfo-head .inner{	 
+  margin-top: 160px;  
+  display: flex;
+  gap: 8px;
+}
+#wrap .summonerInfo-head .summonerInfo {  	
+  max-width: 320px;
+  padding: 15px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1.5px solid #e1e1e1;
+  background-color: white;
+  height: 150px;
+  flex-grow: 1;	
+  display: flex;
+  gap: 15px;
+  
+}
+#wrap .summonerInfo-head .summonerInfo #summonerPicture {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  border-radius: 6px;
+  margin: auto 0; 
+}
+#wrap .summonerInfo-head .summonerInfo #summonerPicture .pictureImage { 
+  transform: scale(1.2);
+  display: block;
+  filter: brightness(110%);
+}
+#wrap .summonerInfo-head .summonerInfo .text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around; 
+}
+#wrap .summonerInfo-head .summonerInfo .text .text-nickname {
+	
+}
+#wrap .summonerInfo-head .summonerInfo .text .text-nickname #gameNameDisplay {
+  font-weight: 700;
+  font-size: 18px;
+  
+}
+#wrap .summonerInfo-head .summonerInfo .text .text-nickname #tagLineDisplay {
+  color:#8a8b9e;
+  font-size: 16px;
+  
+}
+#wrap .summonerInfo-head .summonerInfo .text #updateButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: #00c29f;
+  color: white;
+  border-radius: 4px;
+  font-size: 15px;
+  height: 35px;  	
+}
+#wrap .summonerInfo-head .summonerInfo .text #updateButton:hover {
+  background-color: #006c5f;
+  font-weight: 700;
+}
+#wrap .summonerInfo-head .summonerInfo .text #updateButton span {
+  font-size: 17px;	
+}
+#wrap .summonerInfo-head .summoner-chart {
+  height: 150px;
+  border-radius: 4px;
+  border: 1.5px solid #e1e1e1;
+  background-color: white;
+  flex-grow: 1;
+  font-size: 20px;
+  text-align: center;
+  line-height: 150px;	 
+}
+#wrap .search-result .inner{
+  display: flex;
+  gap: 8px;
+}
+#wrap .search-result .summonerCount {
+  max-width: 320px;
+  min-height: 400px;
+  padding: 15px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1.5px solid #e1e1e1;
+  background-color: white;
+  flex-grow: 1;	
+}
+#wrap .search-result .summonerMain {
+  min-height: 400px;
+  border-radius: 4px;
+  border: 1.5px solid #e1e1e1;
+  background-color: white;
+  flex-grow: 1;
 }
 
-.search-result {
-  margin-top: 100px; 
-}
+
+
+

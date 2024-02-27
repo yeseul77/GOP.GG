@@ -42,20 +42,22 @@ $(document).ready(function () {
    	function displayGameInfo(gameInfoList) {
    		$("#gameInfoTable tbody").empty();
    		$("#additionalTable tbody").empty();
+   		//최근 플레이챔피언 이미지 배열 초기화
+   		var pictures = [];
 		
    		if (gameInfoList.length > 0) {
    		 	for (var index = 0; index < gameInfoList.length; index++) {
    	        	var gameInfo = gameInfoList[index];
-   	        
+   	            
    	        // gameInfo.info 배열에서 해당 플레이어의 정보를 찾음
    	        	for (var j = 0; j < gameInfo.info.length; j++) {
-   	            	var playerInfo = gameInfo.info[j];
+   	            	var playerInfo = gameInfo.info[j];       	
    	            	var matchingTeam = gameInfo.teams.find(function(team) {
    	            	    return team.teamwin === playerInfo.win;
    	            	});
    	            // 플레이어의 게임 이름과 태그 라인이 일치할 경우에만 표시
    	            	if (playerInfo.riotIdGameName === gameName && playerInfo.riotIdTagline === tagLine) {
-   	            		var kdaDisplay;
+   	            		var kdaDisplay;  	            		
    	            		if (playerInfo.kda === 0) {
    	            		    kdaDisplay = "perfect";
    	            		} else {
@@ -66,7 +68,7 @@ $(document).ready(function () {
    	            			gameDisplay = "다시하기";
    	            		} else{
    	            			gameDisplay = playerInfo.gameMode;
-   	            		}
+   	            		}    			
    	                	var gameRow = "<tr>" +
    	                    	"<th rowspan='2'>" + gameDisplay + "</th>" +
    	                    	"<th rowspan='3' colspan='2'>" + playerInfo.championName + "</th>" +
@@ -82,14 +84,18 @@ $(document).ready(function () {
    	                    	"<th>" + (playerInfo.win ? "승리" : "패배") + "</th>" +
        	                    "<th>" + kdaDisplay + "</th>" +
 	   	                    "<th>골드</th>" +
-   	                    	"</tr>";
+   	                    	"</tr>";     
    	                	$("#gameInfoTable tbody").append(gameRow);
-   	                    
-   	                  	// 챔피언이 이미 등록되어 있는지 확인하고, 등록되어 있지 않으면 초기값으로 설정
+   	                	pictures.push(playerInfo.championName);
+   	                	
+   	                	
+                	/* var picture = "<img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/"+ playerInfo.championName +".png' alt='"+ playerInfo.championName +"'>";
+   	                	var kill = "<div>"+playerInfo.kills+"</div>";
+   	    	        	$("#summonerPicture").empty().append(picture, kill); */
    		        	}
    		        }
-               	
-
+   	        	
+   	        	
    		        var showMore =  "<tr class='Toggle" + index + "' style='display:none'>" +
        		        "<th colspan='2'>" + gameInfo.info[0].gameMode + "</th>" +
    		            "<th>승리(팀컬러)</th>" +
@@ -165,10 +171,14 @@ $(document).ready(function () {
                  "</tr>";
          }
          $("#additionalTable tbody").append(playerRow);
+         
        		
   		} else {
    			$("#gameInfoTable tbody").append("<tr><td colspan='3'>게임 정보가 없습니다.</td></tr>");
    		}
+   		//최근 플레이챔피언 이미지 프로필로 가져오기 
+   		var picture = "<img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/" + pictures[0] + ".png' alt='" + pictures[0] + "' class='pictureImage'>";
+   		$("#summonerPicture").empty().append(picture);
 	};
 
     $("#searchForm2").submit(function (event) {
@@ -331,60 +341,63 @@ $(document).ready(function () {
     </div>
  </div>
  
- <div class="summonerInfo">
+ <div class="summonerInfo-head">
+ 
    <div class="inner">
    
-     <p>Game Name: <span id="gameNameDisplay">${param.gameName}</span></p>
-     <p>Tag Line: <span id="tagLineDisplay">${param.tagLine}</span></p>
-     <button type="button" id="updateButton"><span class="material-symbols-outlined">refresh</span>&nbsp;전적 갱신</button>
+     <div class="summonerInfo">
+       
+       <div id="summonerPicture"></div>
+       <div class="text">
+         <div class="text-nickname">
+           <span id="gameNameDisplay">${param.gameName}</span>&nbsp;<span id="tagLineDisplay">#${param.tagLine}</span>
+         </div>               
+         <button type="button" id="updateButton"><span class="material-symbols-outlined">refresh</span>&nbsp;전적 갱신</button>
+       </div>
+       
    
+     </div>
+     
+     <div class="summoner-chart">차트 삽입</div>
+     
    </div>
+    
  </div>
- 
- 
+   
  <div class="search-result">
  
    <div class="inner">
    
-      <table align="center" border="1" width="800">
-        <tr>
-            <td>
-                <div>
-                    <table id="additionalTable" align="center" border="1" width="200">
+     <div id="summonerCount" class="summonerCount">
+       <table id="additionalTable" align="center" border="1" width="200">
                         <tr>
                             <!-- 추가 테이블 내용을 여기에 추가하세요 -->
                             <td></td>
                         </tr>
-                        <tr>
-                            <!-- 필요한 만큼 행/열을 추가하세요 -->
-                            <td></td>
-                        </tr>
+                       
                     </table>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <table id="gameInfoTable" align="center" border="1" width="600">
+     </div>
+     
+     <div id="summonerMain" class="summonerMain">
+       <table id="gameInfoTable" align="center" border="1" width="600">
                         <tr>
                             <!-- 게임 정보 테이블 내용을 여기에 추가하세요 -->
                             <td></td>
                         </tr>
-                        <tr>
-                            <!-- 필요한 만큼 행/열을 추가하세요 -->
-                            <td></td>
-                        </tr>
+                        
                     </table>
-                </div>
-            </td>
-        </tr>
-    </table>
-   
+     </div>
+        
    </div>
 		
  </div>
  
-
 </div>
+ 
+ 
+ 
+ 
+
 	
 <%@include file="/WEB-INF/tiles/footer.jsp" %>	
 </body>
