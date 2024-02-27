@@ -13,8 +13,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.gg.gop.dto.MemberDto;
 import com.gg.gop.service.MemberService;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class MemberController {
 
 	// spring 3.2부터 RequestParam으로 값넘겨줘야함 생략 하면 값안넘어감!
@@ -36,6 +38,10 @@ public class MemberController {
 
 	@PostMapping("/register")
 	public String register(@ModelAttribute MemberDto memberDto, RedirectAttributes rttr) {
+		log.info("email={}",memberDto.getEmail());
+		log.info("username={}",memberDto.getUsername());
+		log.info("password={}",memberDto.getPassword());
+		
 		boolean result = memberService.register(memberDto);
 		if (result) {
 			rttr.addFlashAttribute("message", "회원가입 축하드립니다!");
