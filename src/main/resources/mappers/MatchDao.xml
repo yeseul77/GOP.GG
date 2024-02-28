@@ -19,7 +19,7 @@ WHERE
     AND teamPosition !=#{champteamPosition}
     AND teamPosition =#{myteamPosition}
 GROUP BY championName, teamPosition
-order by total_count desc
+order by total_count desc, win_ratio desc
 limit 10;
 
 	</select>
