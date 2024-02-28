@@ -8,6 +8,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GOP.GG</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,6 +44,9 @@
           </li>
           <li>
             <a href="javascript:void(0)">챔피언 분석</a>
+          </li>
+          <li>
+          	<a href="${contextPath}/match">시너지분석</a>
           </li>
           <li>
             <a href="javascript:void(0)">칼바람 나락</a>

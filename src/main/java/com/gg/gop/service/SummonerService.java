@@ -42,6 +42,7 @@ public class SummonerService {
 		return gameInfoList;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> saveAndRetrieveGameData(List<Map<String, Object>> gameDataList)
 			throws JsonProcessingException {
 		List<Map<String, Object>> savedDataList = new ArrayList<>();

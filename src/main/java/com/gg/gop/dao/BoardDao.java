@@ -12,7 +12,7 @@ public interface BoardDao {
 	//전체 게시글 정보 조회
 	  List<BoardDto> getAllBoards();
 	  //글저장insert 메서드
-	    void insertBoard(BoardDto boardDto);
+	  void insertBoard(BoardDto boardDto);
 	
 	
 }

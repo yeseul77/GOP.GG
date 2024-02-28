@@ -97,7 +97,7 @@
 
 
 <link rel="stylesheet" href="/css/index.css">
-<script defer src="/javascript/chatindex.js"></script>
+<script defer src="/js/chatindex.js"></script>
 <script defer src="/js/index.js"></script>
 
 </head>

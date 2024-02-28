@@ -4,34 +4,48 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.gg.gop.common.FileService;
 import com.gg.gop.dao.MemberDao;
 import com.gg.gop.dto.MemberDto;
 
-//import oracle.jdbc.proxy.annotation.Post;
+import jakarta.servlet.http.HttpSession;
 
 @Service
 public class MemberService {
 
 	@Autowired
 	private MemberDao memberDao;
+	@Autowired
+	private FileService fileService;
+
+	private final String DEFAULT_PROFILE_IMAGE_PATH = "/images/defaultprofile.png";
 
 	// 회원가입
 	public boolean register(MemberDto memberDto) {
-		// Encoder(암호화)<------->Decoder(복호화)
+		// 비밀번호 암호화
 		BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
 		memberDto.setPassword(pwEncoder.encode(memberDto.getPassword()));
+
+		// 처음 회원가입시 ,프로필 이미지가 설정되지 않은 경우 defaultprofile로
+		if (memberDto.getProfile() == null || memberDto.getProfile().isEmpty()) {
+			memberDto.setProfile(DEFAULT_PROFILE_IMAGE_PATH);
+		}
+
+		// 회원 정보 데이터베이스에 저장
 		return memberDao.insertMember(memberDto);
 	}
 
-	public String idCheck(String email) {
-		if (memberDao.idCheck(email) == false) {
-			return "ok"; // 사용가능한 아이디
-		}
-		return "fail";
+//닉네임중복
+	public boolean selectusername(String username) {
+		return memberDao.selectusername(username);
+	}
+	public MemberDto getuserData(String username) {
+		return memberDao.getMemberInfo(username);
 	}
 
+//로그인
 	public MemberDto login(HashMap<String, String> member) {
 
 		BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
@@ -52,24 +66,40 @@ public class MemberService {
 	}
 
 	// 회원탈퇴
-	public Boolean withdraw(String m_id, String m_pw) {
-		memberDao.deleteMember(m_id);
-		return true;
+	public Boolean withdraw(String email, String password) {
+		 MemberDto member = memberDao.getMemberInfo(email);
+	      
+	        if (member == null || !member.getPassword().equals(password)) {
+	            return false;
+	        }
+
+	        member.setDeleteYn(true);
+
+	        return true;
 	}
 
-//아이디 중복체크
-	public String checkid(String m_id) {
-		if (memberDao.idCheck(m_id) == false) {
-			return "ok"; //
+	//회원정보 +프로필변경
+	public boolean updateMemberInfo(String email, String username, MultipartFile profileImage, HttpSession session) {
+		try {
+			// 프로필 이미지 업로드 및 파일명 반환
+			String fileName = fileService.uploadProfileImage(profileImage, session);
+
+			if (fileName != null) {
+				MemberDto memberDto = new MemberDto();
+				memberDto.setEmail(email);
+				memberDto.setUsername(username);
+				memberDao.updateMemberProfile(memberDto); 
+			} else {
+				MemberDto memberDto = new MemberDto();
+				memberDto.setEmail(email);
+				memberDto.setUsername(username);
+				memberDao.updateMemberProfile(memberDto); 
+			}
+			return true;
+		} catch (Exception e) {
+			// 예외 처리 로직
+			return false;
 		}
-		return "fail";
-	}
-
-//회원정보수정
-	public boolean updateMemberInfo(MemberDto memberDto) {
-		int updateCount = memberDao.updateMemberInfo(memberDto);
-		return updateCount > 0; // 업데이트된 행의 수가 0보다 크면 성공으로 간주
-
 	}
 
 }
