@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gg.gop.dto.MatchDto;
@@ -20,9 +18,9 @@ public class MatchRestController {
 	MatchService mSer;
 	
 	@GetMapping("/getData")
-	public List<String> getData(MatchDto data){
+	public List<MatchDto> getData(MatchDto data){
 		log.info(data.toString());
-		List<String> result=mSer.getData(data.getChamptionName(),data.getTeamPosition(),data.getMyteamPosition());
+		List<MatchDto> result=mSer.getData(data.getChampionName(),data.getTeamPosition(),data.getMyteamPosition());
 		return result;
 	}
 }

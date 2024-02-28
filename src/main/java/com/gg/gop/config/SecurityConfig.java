@@ -26,7 +26,7 @@ public class SecurityConfig {
 		http.csrf(csrf -> csrf.disable());//csrf를 비활성화
 		http.formLogin(form -> form.loginPage("/login")
 				.loginProcessingUrl("/login")
-				.defaultSuccessUrl("/")
+				.defaultSuccessUrl("/loginresult")
 //				.failureUrl("/member/login/error")
 				.usernameParameter("email")
 		);

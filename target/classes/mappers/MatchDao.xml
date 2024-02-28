@@ -13,14 +13,13 @@ WHERE
     gameId IN (
         SELECT gameId
         FROM semi
-        WHERE championName = #{championName}
+        WHERE championName = #{championName} and teamPosition=#{champteamPosition}
     )
     AND championName != #{championName}
     AND teamPosition !=#{champteamPosition}
     AND teamPosition =#{myteamPosition}
 GROUP BY championName, teamPosition
-HAVING total_count>50
-order by win_ratio desc
+order by total_count desc
 limit 10;
 
 	</select>

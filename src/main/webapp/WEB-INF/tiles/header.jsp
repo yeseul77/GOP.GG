@@ -46,6 +46,9 @@
             <a href="javascript:void(0)">챔피언 분석</a>
           </li>
           <li>
+          	<a href="${contextPath}/match">시너지분석</a>
+          </li>
+          <li>
             <a href="javascript:void(0)">칼바람 나락</a>
           </li>
           <li>

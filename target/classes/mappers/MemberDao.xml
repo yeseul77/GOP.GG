@@ -10,17 +10,16 @@
 		#{username}, 'default')
 	</insert>
 
-<!-- 닉네임 중복검사 쿼리 -->
-<select id="selectusername" resultType="boolean">
-    SELECT COUNT(*) > 0
-    FROM member_tb
-    WHERE username = #{username}
-</select>
-
+	<!-- 닉네임 중복검사 쿼리 -->
+	<select id="selectusername" resultType="boolean">
+	    SELECT COUNT(*) > 0
+	    FROM member_tb
+	    WHERE username = #{username}
+	</select>
 	<!-- 로그인 -->
 	<select id="getSecurityPw" parameterType="String"
 		resultType="String">
-		select password from member_tb where email=#{email}
+		select * from member_tb where username=#{email}
 	</select>
 	<!-- 회원정보 -->
 	<select id="getMemberInfo" resultType="MemberDto">

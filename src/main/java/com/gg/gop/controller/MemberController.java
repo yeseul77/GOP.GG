@@ -2,6 +2,8 @@ package com.gg.gop.controller;
 
 import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,26 +64,30 @@ public class MemberController {
 
 	}
 
-	 @PostMapping("/login")
-	    public String login(@RequestParam("email") String email, @RequestParam("password") String password,
+	 @GetMapping("/loginresult")
+	    public String login(String email, String password,
 	    		RedirectAttributes rttr, HttpSession session) {
-	       
+		 	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+			UserDetails userDetails = (UserDetails)principal;
+			Object username= userDetails.getUsername();
+			log.info("{}",principal);
 		 // HashMap을 사용하여 사용자 정보를 저장
-	        HashMap<String, String> memberData = new HashMap<>();
-	        memberData.put("email", email);
-	        memberData.put("password", password);
-	        
-	        System.out.println("email: " + email + ", password: " + password);
+		 	log.info("insertlogin");
+//	        HashMap<String, String> memberData = new HashMap<>();
+//	        memberData.put("email", email);
+//	        memberData.put("password", password);
+	        MemberDto memberData=memberService.getuserData((String)username);
+	        log.info("email: " + memberData.getEmail()+ ", password: " + memberData.getUsername());
 	        
 	        try {
-	          
-	            MemberDto memberDto = memberService.login(memberData);
+//	          
+////	            MemberDto memberDto = memberService.login(memberData);
 	            rttr.addFlashAttribute("msgType", "성공");
 	            rttr.addFlashAttribute("message", "로그인에 성공하였습니다.");
-	            session.setAttribute("email", memberDto.getEmail());
+	            session.setAttribute("email", memberData.getEmail());
 	            session.setAttribute("loginState", true);
-	            session.setAttribute("username", memberDto.getUsername());
-	            
+	            session.setAttribute("username", memberData.getUsername());
+//	            
 	            return "redirect:/";
 	        } catch (Exception e) {
 	            // 로그인 실패 처리

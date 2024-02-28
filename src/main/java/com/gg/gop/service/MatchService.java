@@ -13,8 +13,8 @@ public class MatchService {
 	@Autowired
 	MatchDao mDao;
 	
-	public List<String> getData(String championName, String champPosition, String myPosition){
-		List<String> result=mDao.getMatchData(championName, champPosition, myPosition);
+	public List<MatchDto> getData(String championName, String champPosition, String myPosition){
+		List<MatchDto> result=mDao.getMatchData(championName, champPosition, myPosition);
 		return result;
 	}
 }

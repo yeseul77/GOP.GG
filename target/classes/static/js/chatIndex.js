@@ -2,8 +2,8 @@ let username
 let socket = new WebSocket("ws://"+location.host+":80/ws/chat");
 let popOption="width=650px, height=550px, top=300px, left=300px. scrollbars=yes";
 $(document).ready(function(){
-	username=document.getElementById('username').value
-	console.log(username)
+//	username=document.getElementById('username').value
+//	console.log(username)
 })
 function enterRoom(socket) {
 //	var enterMsg = { "type": "ENTER", "roomId": 0, "sender": JSON.stringify(username), "msg": "" };

@@ -41,7 +41,9 @@ public class MemberService {
 	public boolean selectusername(String username) {
 		return memberDao.selectusername(username);
 	}
-
+	public MemberDto getuserData(String username) {
+		return memberDao.getMemberInfo(username);
+	}
 
 //로그인
 	public MemberDto login(HashMap<String, String> member) {
