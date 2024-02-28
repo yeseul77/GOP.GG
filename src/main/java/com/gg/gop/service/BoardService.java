@@ -14,10 +14,11 @@ public class BoardService {
 	@Autowired
 	private BoardDao boardDao;
 	
+	//게시글 리스트 전체 가져오기 
 	 public List<BoardDto> getAllBoards() {
 	        return boardDao.getAllBoards();
 	    }
-
+	 //
 	    public void writeBoard(BoardDto boardDto) {
 	        boardDao.insertBoard(boardDto);
 	    }
