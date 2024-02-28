@@ -2,19 +2,23 @@ package com.gg.gop.controller;
 
 import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.gg.gop.dto.MemberDto;
 import com.gg.gop.service.MemberService;
 import jakarta.servlet.http.HttpSession;
-
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class MemberController {
 
 	// spring 3.2부터 RequestParam으로 값넘겨줘야함 생략 하면 값안넘어감!
@@ -24,170 +28,135 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
- 
+	@Autowired
+	//private FileService fileService;
+
 	// 회원가입==============================================
 	@GetMapping("/register")
-	public String registreForm(HttpSession session) {
+	public String registerForm() {
 		System.out.println("회원가입 폼");
 		return "member/register";
 	}
-	
+
 	@PostMapping("/register")
-	public String register(MemberDto memberDto, RedirectAttributes rttr,Model model) {
-	   boolean result = memberService.register(memberDto);
+	public String register(@ModelAttribute MemberDto memberDto, RedirectAttributes rttr) {
+		log.info("email={}",memberDto.getEmail());
+		log.info("username={}",memberDto.getUsername());
+		log.info("password={}",memberDto.getPassword());
+		
+		boolean result = memberService.register(memberDto);
 		if (result) {
-	    	rttr.addFlashAttribute("message", "회원가입축하드립니다!");
-	        return "redirect:/login"; // 회원가입 성공 시 로그인 페이지로
-	    } else {
-	    	model.addAttribute("message", "회원가입에가입에 실패했습니다");
-	        return "redirect:/register";
-	    }
+			rttr.addFlashAttribute("message", "회원가입 축하드립니다!");
+			return "redirect:/login"; // 회원가입 성공 시 로그인 페이지로 리다이렉트
+		} else {
+			rttr.addFlashAttribute("message", "회원가입에 실패했습니다.");
+			return "redirect:/register"; // 회원가입 실패 시 회원가입 폼으로 리다이렉트
+		}
 	}
 	
+	
+
 	// 로그인====================================================
 	@GetMapping("/login")
 	public String loginForm(HttpSession session) {
 		System.out.println("로그인FORM");
-		return "member/login"; 
+		return "member/login";
+
 	}
 
-//	@PostMapping("/login")
-//	public String login(@RequestParam String email, 
-//	                    @RequestParam String password,
-//	                    RedirectAttributes rttr, HttpSession session) {
-//	    // HashMap을 사용하여 사용자 정보를 저장
-//	    HashMap<String, String> member = new HashMap<>();
-//	    member.put("email", email);
-//	    member.put("password", password);
-//
-//	    // 사용자가 존재하는지 확인
-//	    MemberDto memberDto = memberService.login(member);
-//	    
-//	    System.out.println("t : " + memberDto);
-//	    
-//	    if (memberDto != null) {
-//	        // 로그인 성공
-//	    	
-//	        session.setAttribute("email", memberDto.getEmail()); // 사용자 이메일을 세션에 저장
-//	        session.setAttribute("Loginstate", true); // 로그인 상태를 세션에 저장
-////	        session.setAttribute("username", memberDto.getUsername());
-//	        System.out.println("email: " + session.getAttribute("email"));
-//	        System.out.println("Loginstate:" + session.getAttribute("Loginstate")); 
-//	        return "redirect:/";
-//	    } else {
-//	        // 로그인 실패
-//	        rttr.addFlashAttribute("message", "로그인 실패");
-//	        return "redirect:/login";
-//	    }
-//	}
-
+	 @GetMapping("/loginresult")
+	    public String login(String email, String password,
+	    		RedirectAttributes rttr, HttpSession session) {
+		 	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+			UserDetails userDetails = (UserDetails)principal;
+			Object username= userDetails.getUsername();
+			log.info("{}",principal);
+		 // HashMap을 사용하여 사용자 정보를 저장
+		 	log.info("insertlogin");
+//	        HashMap<String, String> memberData = new HashMap<>();
+//	        memberData.put("email", email);
+//	        memberData.put("password", password);
+	        MemberDto memberData=memberService.getuserData((String)username);
+	        log.info("email: " + memberData.getEmail()+ ", password: " + memberData.getUsername());
+	        
+	        try {
+//	          
+////	            MemberDto memberDto = memberService.login(memberData);
+	            rttr.addFlashAttribute("msgType", "성공");
+	            rttr.addFlashAttribute("message", "로그인에 성공하였습니다.");
+	            session.setAttribute("email", memberData.getEmail());
+	            session.setAttribute("loginState", true);
+	            session.setAttribute("username", memberData.getUsername());
+//	            
+	            return "redirect:/";
+	        } catch (Exception e) {
+	            // 로그인 실패 처리
+	            rttr.addFlashAttribute("msgType", "실패");
+	            rttr.addFlashAttribute("message", "로그인에 실패하였습니다. 다시 시도해주세요.");
+	            return "redirect:/login";
+	        }
+	    }
+	
 
 	// 로그아웃===========================================
 	@PostMapping("/logout")
 	public String logout(HttpSession session, RedirectAttributes rttr) {
-		session.invalidate();
-		rttr.addFlashAttribute("message", "로그아웃되었습니다.");
+		session.invalidate(); // 세션무효화처리
+		rttr.addFlashAttribute("", "로그아웃되었습니다.");
 		return "redirect:/";
 
 	}
-	
 
-	//=================================================================
-	@GetMapping("/mypage")
-	public String mypageFomr(HttpSession session) {
-		return "/member/mypage";
+	// 내정보 =====================================
+	@GetMapping("/member/memberinfo")
+	public String infoupdateform() {
+		return "member/memberinfo";
 	}
-	
-	
-	@PostMapping("/mypage")
-	public String updateMemberInfo(@ModelAttribute MemberDto memberDto,
-	                               HttpSession session,
-	                               RedirectAttributes rttr) {
-	    String email = (String) session.getAttribute("email");
-	    Boolean Loginstate = (Boolean) session.getAttribute("Loginstate");
 
-	    // 로그인 상태가 아니라면 로그인 페이지로 리다이렉트
-	    if (email == null || !Loginstate) {
-	        rttr.addFlashAttribute("message", "로그인이 필요한 서비스입니다.");
-	        return "redirect:/login";
-	    }
+	// 닉네임변경
+	@PostMapping("/member/memberinfo")
+	public String updateProfile(@RequestParam("profileImage") MultipartFile file,
+			@RequestParam("username") String username, HttpSession session, RedirectAttributes rttr) {
+		String email = (String) session.getAttribute("email"); // 세션에서 이메일 가져오기
 
-	    // 세션의 memberID와 수정 요청된 DTO의 email이 일치하는지 확인
-	    if (!memberDto.getEmail().equals(email)) {
-	        rttr.addFlashAttribute("message", "권한이 없습니다.");
-	        return "redirect:/mypage";
-	    }
-
-	    // 정보 수정 로직 수행
-	    boolean updateResult = memberService.updateMemberInfo(memberDto);
-	    if (updateResult) {
-	        rttr.addFlashAttribute("message", "정보 수정 완료.");
-	    } else {
-	        rttr.addFlashAttribute("message", "정보 수정 실패.");
-	    }
-	    return "redirect:/mypage";
-	}
-	
-	// 조회후 > 수정 MemberDto member = memberService.getMemberById(m_id);
-	// 회원 정보 조회=======================================
-//	@GetMapping("/mypage")
-//	public String serchProfile(Model model, HttpSession session) {
-//		String m_id = (String) session.getAttribute("m_id");
-//
-//		if (m_id != null) {
-//			MemberDto memberDto = memberService.getMemberById(m_id);
-//
-//			if (memberDto != null) {
-//				model.addAttribute("memberDto", memberDto);
-//				return "member/mypage";
-//			} else {
-//				// 회원 정보가 없을 경우 예외 처리
-//				model.addAttribute("error", "회원 정보를 찾을 수 없습니다.");
-//				return "redirect:/";
-//			}
-//		} else {
-//			// 로그인 되어 있지 않을 경우 로그인 페이지로 이동
-//			return "redirect:/login";
-//		}
-//	}
-//
-//	// 회원 정보 수정,탈퇴===============================================
-//
-//	@PostMapping("/mypage")
-//	public String changeProfile(MemberDto memberDto, HttpSession session, RedirectAttributes rttr, Model model) {
-//		try {
-//			memberService.updateMemberInfo(memberDto);
-//			rttr.addFlashAttribute("message", "회원 정보가 수정되었습니다.");
-//			return "redirect:/profile";
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			model.addAttribute("message", "회원 정보 수정에 실패했습니다. 다시 시도해주세요.");
-//			return "redirect:/editProfile";
-//		}
-//	}
-//
-
-	@GetMapping("/mypage/withdraw")
-	public String withrawCheck(Model model, HttpSession session) {
-		return "member/withdraw";
+		try {
+			// 프로필 이미지와 사용자 이름 업데이트
+			boolean result = memberService.updateMemberInfo(email, username, file, session);
+			if (result) {
+				rttr.addFlashAttribute("message", "프로필 업데이트 성공!");
+				session.setAttribute("username", username);
+			} else {
+				rttr.addFlashAttribute("message", "프로필 업데이트 실패.");
+			}
+		} catch (Exception e) {
+			rttr.addFlashAttribute("message", "업데이트 중 오류 발생.");
 		}
-	
-	
-	
-	@PostMapping("/mypage/withdraw") // 탈퇴
-	public String withdraw(@RequestParam String m_id, @RequestParam String m_pw, HttpSession session,
+		return "redirect:/member/memberinfo";
+	}
+
+	// =================================================================
+
+	// 회원 탈퇴 페이지
+	@GetMapping("/member/mypage/withdraw")
+	public String withdrawCheck(Model model, HttpSession session) {
+		return "member/withdraw";
+	}
+
+	// 회원 탈퇴 post처리
+	@PostMapping("/member/mypage/withdraw")
+	public String withdraw(@RequestParam String email, @RequestParam String password, HttpSession session,
 			RedirectAttributes rttr) {
 
-		Boolean result = memberService.withdraw(m_id, m_pw);
-
+		Boolean result = memberService.withdraw(email, password);
 		if (result) {
-			session.invalidate();
+			// 탈퇴 처리 성공
+			session.invalidate(); 
 			rttr.addFlashAttribute("message", "회원 탈퇴가 성공적으로 이루어졌습니다.");
-			return "redirect:/";
+			return "redirect:/"; 
 		} else {
+			// 탈퇴 처리 실패
 			rttr.addFlashAttribute("message", "회원 탈퇴에 실패했습니다. 아이디와 비밀번호를 다시 확인해주세요.");
-			return "redirect:/mypage";
+			return "redirect:/mypage"; 
 		}
 	}
-
 }

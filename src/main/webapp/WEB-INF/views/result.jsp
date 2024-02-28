@@ -165,12 +165,13 @@ $(document).ready(function () {
          for (var i = 0; i < sortedChampionPlayCounts.length; i++) {
              var champion = sortedChampionPlayCounts[i][0];
              var playCount = sortedChampionPlayCounts[i][1];
-             playerRow += "<tr>" + 
-                 "<td>" + champion + "</td>" +
-                 "<td>" + playCount + "게임</td>" +
-                 "</tr>";
+             playerRow += "<div class='championList'>"+
+                 "<div class='photo'><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/" + champion + ".png' alt='" + champion + "' class='photoImage'></div>"+
+                 "<div class='champion'>" + champion + "</div>"+
+                 "<div class='playCount'>" + playCount + "게임</div>"+
+                 "</div>";
          }
-         $("#additionalTable tbody").append(playerRow);
+         $("#additionalTable").append(playerRow);
          
        		
   		} else {
@@ -369,13 +370,8 @@ $(document).ready(function () {
    <div class="inner">
    
      <div id="summonerCount" class="summonerCount">
-       <table id="additionalTable" align="center" border="1" width="200">
-                        <tr>
-                            <!-- 추가 테이블 내용을 여기에 추가하세요 -->
-                            <td></td>
-                        </tr>
-                       
-                    </table>
+       <div class="summonerCount-title">챔피언 플레이 횟수</div>
+       <div id="additionalTable" class="additionalTable"></div>
      </div>
      
      <div id="summonerMain" class="summonerMain">
