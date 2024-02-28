@@ -43,9 +43,11 @@
 	$(document).ready(function () {
 	    $("#searchForm").submit(function (event) {
 	        event.preventDefault();
-	        var gameName = $("#gameName").val();
-	        var tagLine = $("#tagLine").val();
-
+	        const pattern = /^(.+?)\s*(K?R?\d*)$/;
+	        var result = pattern.exec($("#fullgameName").val().trim());
+	        var gameName = result[1];
+	        var tagLine = result[2];
+			
 	        if (gameName.trim() === "") {
 	            alert("gameName cannot be empty.");
 	            return;
@@ -143,23 +145,17 @@
 <!--   </div> -->
 <!-- </section> -->
 <section class="search">
-	<div class="inner">
-	<form id="searchForm" action="/summonerSearch" method="get">
-		<label for="gameName">gameName:</label> <input type="text"
-			id="gameName" name="gameName" required> <label for="tagLine">Tag
-			Line:</label> <input type="text" id="tagLine" name="tagLine">
-		<!-- 태그라인 입력 필드 추가 -->
-		<div class="search-icon">
-		<input type="submit" value="summonerSearch">
-		</div>
-	</form>
-	<div class="search-bar-record">
-        <div class="record-bar">
-          최근에 본 소환사가 없습니다.
-        </div>
+    <div class="inner">
+      <div class="search-bar">
+        
+         <form id="searchForm" action="/summonerSearch" method="get" class="input">
+           <input type="text" id="fullgameName" name="fullgameName" class="fullnameInfo" placeholder="소환사 이름 + KRI" required>          
+           <button type="submit"><span class="material-symbols-outlined">search</span></button>
+        </form>
+   
       </div>
     </div>
-</section>
+  </section>
 
 
   <!-- DUO -->

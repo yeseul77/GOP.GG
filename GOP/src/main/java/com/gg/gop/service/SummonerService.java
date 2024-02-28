@@ -1,6 +1,7 @@
 package com.gg.gop.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,16 @@ public class SummonerService {
 		return matchIdList;
 	}
 
+	public String SummonerId(String puuid) {
+		String summonerId = webClient.getSummonerId(puuid);
+		log.info(summonerId);
+		return summonerId;
+	}
+
+	public List<Map<String, Object>> SummonerLeagueInfo(String summonerId) {
+		return webClient.getSummonerLeagueInfo(summonerId);
+	}
+
 	public List<Map<String, Object>> gameInfoList(List<String> matchId) { // 최근전적 정보 가져오기
 		List<Map<String, Object>> gameInfoList = new ArrayList<>();
 		for (int i = 0; i < matchId.size(); i++) {
@@ -49,13 +60,14 @@ public class SummonerService {
 
 		for (Map<String, Object> gameData : gameDataList) {
 			try {
-				log.info("Processing game data: {}", gameData);
+//				log.info("Processing game data: {}", gameData);
 				if (!hasDuplicateKey(gameData)) {
 					// 게임 정보 저장
 					sDao.saveinfodata((Map<String, Object>) gameData.get("info"));
 					// 팀 정보 저장
 					sDao.saveteamsdata((Map<String, Object>) gameData.get("teams"));
-
+					// 리그 정보 저장
+					sDao.saveLeagueInfo((Map<String, Object>) gameData.get("SummonerLeagueInfo"));
 					// 저장된 데이터 조회하지 않고, 저장된 데이터를 그대로 사용
 					savedDataList.add(gameData);
 				} else {
@@ -67,9 +79,9 @@ public class SummonerService {
 		}
 
 		if (hasDuplicateKey) {
-			
-		}
 
+		}
+		log.info("savedDataList : {}", savedDataList);
 		return savedDataList;
 	}
 
@@ -77,57 +89,65 @@ public class SummonerService {
 		String matchId = (String) gameData.get("matchId");
 		String riotIdGameName = (String) gameData.get("riotIdGameName");
 		int count = sDao.checkDuplicateKey(matchId, riotIdGameName);
-		log.info("Duplicate count for matchId {} and riotIdGameName {}: {}", matchId, riotIdGameName, count);
+//		log.info("Duplicate count for matchId {} and riotIdGameName {}: {}", matchId, riotIdGameName, count);
 		return count > 0;
 	}
 
 	public List<Map<String, Object>> getCombinedGameData(String gameName, String tagLine) {
 		List<Map<String, Object>> gameInfoList = sDao.getGameInfoFromDB(gameName, tagLine);
 		List<Map<String, Object>> gameTeamsList = sDao.getGameTeamsFromDB(gameName, tagLine);
-		List<String> setmatchidList=new ArrayList<>();
-		List<String> matchidList=new ArrayList<>();
+		List<Map<String, Object>> leagueInfoList = sDao.getLeagueInfoFromDB(gameName, tagLine);
+		List<String> setmatchidList = new ArrayList<>();
+		List<String> matchidList = new ArrayList<>();
+		List<String> summonerIdList = new ArrayList<>();
 		Map<String, List<Map<String, Object>>> gameDataByMatchId = new HashMap<>();
 		Map<String, List<Map<String, Object>>> gameTeamsByMatchId = new HashMap<>();
-
-		int j=0;
+		Map<String, List<Map<String, Object>>> leagueInfoBySummonerId = new HashMap<>();
+		int j = 0;
 		for (Map<String, Object> gameInfo : gameInfoList) {
 			String matchId = (String) gameInfo.get("matchId");
 			setmatchidList.add(matchId);
-//			j++;
-//			log.info("========{}={}",j,matchId);//이상없
 			gameDataByMatchId.computeIfAbsent(matchId, k -> new ArrayList<>()).add(gameInfo);
 		}
-		for(int i=1;i<setmatchidList.size();i++) {
-			if(!(setmatchidList.get(i-1).equals(setmatchidList.get(i)))) {
-//				for(int k=0;k<10;k++)
-					matchidList.add(setmatchidList.get(i-1));
+		for (int i = 1; i < setmatchidList.size(); i++) {
+			if (!(setmatchidList.get(i - 1).equals(setmatchidList.get(i)))) {
+				matchidList.add(setmatchidList.get(i - 1));
 			}
 		}
-		for(int i=0;i<matchidList.size();i++) {
-			log.info("===================={}",matchidList.get(i));
-		}
-//		int j=0;
 		for (Map<String, Object> gameTeams : gameTeamsList) {
 			String matchId = (String) gameTeams.get("matchId");
 			j++;
-//			log.info("========{}={}",i,matchId);//이상발생
 			gameTeamsByMatchId.computeIfAbsent(matchId, k -> new ArrayList<>()).add(gameTeams);
 		}
+		for (Map<String, Object> leagueInfo : leagueInfoList) {
+			String summonerId = (String) leagueInfo.get("summonerId");
+			summonerIdList.add(summonerId);
+			leagueInfoBySummonerId.computeIfAbsent(summonerId, k -> new ArrayList<>()).add(leagueInfo);
+		}
 		List<Map<String, Object>> combinedDataList = new ArrayList<>();
-//		for (String matchId : gameDataByMatchId.keySet()) {
-		log.info("{}",gameDataByMatchId.keySet());
-		for(int i=0;i<matchidList.size();i++) {
-			String matchId=matchidList.get(i);
+//		log.info("{}", gameDataByMatchId.keySet());
+		for (int i = 0; i < matchidList.size(); i++) {
+			String matchId = matchidList.get(i);
+//			String summonerId = summonerIdList.get(i);
 			Map<String, Object> combinedData = new HashMap<>();
 			List<Map<String, Object>> gameInfoData = gameDataByMatchId.get(matchId);
 			List<Map<String, Object>> gameTeamsData = gameTeamsByMatchId.getOrDefault(matchId, new ArrayList<>());
-			log.info("==============={}={}",i,matchId);
+			List<Map<String, Object>> leagueInfoData = new ArrayList<>();
+			// 매치에 참여한 소환사들의 리그 정보를 가져옴
+			for (String summonerId : leagueInfoBySummonerId.keySet()) {
+				List<Map<String, Object>> summonerLeagueInfo = leagueInfoBySummonerId.get(summonerId);
+				for (Map<String, Object> leagueInfo : summonerLeagueInfo) {
+					if (summonerId.equals(leagueInfo.get("summonerId"))) {
+						leagueInfoData.add(leagueInfo);
+						break;
+					}
+				}
+			}
+
 			combinedData.put("info", gameInfoData);
 			combinedData.put("teams", gameTeamsData);
+			combinedData.put("leagueInfo", leagueInfoData);
 			combinedDataList.add(combinedData);
-//			log.info("{}",matchId);
-//			log.info("{}",combinedDataList.get(i).get("info"));
-//			i++;
 		}
 
 		return combinedDataList;
@@ -149,17 +169,27 @@ public class SummonerService {
 			return sDao.saveteamsdata(teams);
 		} else {
 			log.error("matchId is null. Cannot insert data.");
-			return 0; 
+			return 0;
 		}
 	}
 
-	public int savebansdata(Map<String, Object> bans) {
-		String matchId = (String) bans.get("matchId");
-		if (matchId != null) {
-			return sDao.savebansdata(bans);
+//	public int savebansdata(Map<String, Object> bans) {
+//		String matchId = (String) bans.get("matchId");
+//		if (matchId != null) {
+//			return sDao.savebansdata(bans);
+//		} else {
+//			log.error("matchId is null. Cannot insert data.");
+//			return 0;
+//		}
+//	}
+
+	public int saveLeagueInfo(Map<String, Object> leagueInfo) {
+		String summonerId = (String) leagueInfo.get("summonerId");
+		if (summonerId != null) {
+			return sDao.saveLeagueInfo(leagueInfo);
 		} else {
-			log.error("matchId is null. Cannot insert data.");
-			return 0; 
+			log.error("summonerId is null. Cannot insert data.");
+			return 0;
 		}
 	}
 

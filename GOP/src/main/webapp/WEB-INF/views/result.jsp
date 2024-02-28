@@ -41,9 +41,10 @@ $(document).ready(function () {
    	function displayGameInfo(gameInfoList) {
    		$("#gameInfoTable tbody").empty();
    		$("#additionalTable tbody").empty();
-		
+   		var gamesDisplayed = 0;
+   		var championStats = {};
    		if (gameInfoList.length > 0) {
-   		 	for (var index = 0; index < gameInfoList.length; index++) {
+   		 	for (var index = 0; index < gameInfoList.length && gamesDisplayed < 10; index++) {
    	        	var gameInfo = gameInfoList[index];
    	        
    	        // gameInfo.info 배열에서 해당 플레이어의 정보를 찾음
@@ -52,13 +53,28 @@ $(document).ready(function () {
    	            	var matchingTeam = gameInfo.teams.find(function(team) {
    	            	    return team.teamwin === playerInfo.win;
    	            	});
+   	            	
    	            // 플레이어의 게임 이름과 태그 라인이 일치할 경우에만 표시
    	            	if (playerInfo.riotIdGameName === gameName && playerInfo.riotIdTagline === tagLine) {
+   	            		var leagueInfoForSummoner = gameInfo.leagueInfo.find(function(info) {
+   	   	                    return info.summonerId === playerInfo.summonerId;
+   	   	                });
+
+   	   	                // 동일한 summonerId를 가진 정보가 있는 경우에만 표시
+   	   	                if (leagueInfoForSummoner) {
+   	   	                    var summonerLeagueInfo = "<div><strong>League Info:</strong><br>" +
+   	   	              			"<span>Tier: " + leagueInfoForSummoner.tier + "</span><br>" +
+   	   	              			"<span>ranked: " + leagueInfoForSummoner.ranked + "</span><br>" +
+   	   	              			"<span>" + leagueInfoForSummoner.leaguePoints + "LP</span><br>" +
+   	   	              			"<span>win: " + leagueInfoForSummoner.wins + "승</span><br>" +
+   	   	              			"<span>lose: " + leagueInfoForSummoner.losses + "패</span><br>" +
+   	   	              			"<span>승률: " + (leagueInfoForSummoner.wins/(leagueInfoForSummoner.wins+leagueInfoForSummoner.losses)*100).toFixed(0) + "%</span><br>";
+   	   	                }
    	            		var kdaDisplay;
    	            		if (playerInfo.kda === 0) {
    	            		    kdaDisplay = "perfect";
    	            		} else {
-   	            		    kdaDisplay = playerInfo.kda + "점";
+   	            		    kdaDisplay = playerInfo.kda + "평점";
    	            		}
    	            		var gameDisplay;
    	            		if (playerInfo.gameDuration < 240){
@@ -99,12 +115,18 @@ $(document).ready(function () {
    		            "</tr>";
    		        for (var k = 0; k < gameInfo.info.length; k++) {
    		       	    var winTeamPlayerInfo = gameInfo.info[k];
+   		       		var kdaDisplay;
+           			if (winTeamPlayerInfo.kda === 0) {
+           		    	kdaDisplay = "perfect";
+           			} else {
+           		    	kdaDisplay = winTeamPlayerInfo.kda.toFixed(2) + "평점";
+           			}
    		       	    if(winTeamPlayerInfo.win === true){
    		            showMore += "<tr class='Toggle" + index + "' style='display:none'>" +
        		            "<td> 챔피언 이미지 </td>" +
    		                "<td>" + winTeamPlayerInfo.riotIdGameName + "</td>" +
    		                "<td>" + winTeamPlayerInfo.championName + "</td>" +
-   		                "<td>" + winTeamPlayerInfo.kda + "점</td>" +
+   		                "<td>" + kdaDisplay + "</td>" +
    		                "<td>" + winTeamPlayerInfo.totalDamageDealtToChampions + "</td>" +
    		                "<td>" + winTeamPlayerInfo.totalDamageTaken + "</td>" +
    		                "<td>" + winTeamPlayerInfo.totalMinionsKilled + "개</td>" +
@@ -122,18 +144,25 @@ $(document).ready(function () {
 	            for (var k = 0; k < gameInfo.info.length; k++) {
        		       	var loseTeamPlayerInfo = gameInfo.info[k];
        		       	if(loseTeamPlayerInfo.win === false){
-       		        showMore += "<tr class='Toggle" + index + "' style='display:none'>" +
-	       		        "<td> 챔피언 이미지 </td>" +
-       		            "<td>" + loseTeamPlayerInfo.riotIdGameName + "</td>" +
-       		            "<td>" + loseTeamPlayerInfo.championName + "</td>" +
-       		            "<td>" + loseTeamPlayerInfo.kda + "점</td>" +
-       		            "<td>" + loseTeamPlayerInfo.totalDamageDealtToChampions + "</td>" +
-       		            "<td>" + loseTeamPlayerInfo.totalDamageTaken + "</td>" +
-       		            "<td>" + loseTeamPlayerInfo.totalMinionsKilled + "개</td>" +
-       		            "</tr>";
+       		     		var kdaDisplay;
+        				if (loseTeamPlayerInfo.kda === 0) {
+        		    		kdaDisplay = "perfect";
+        				} else {
+	        		    	kdaDisplay = loseTeamPlayerInfo.kda.toFixed(2) + "평점";
+        				}
+       		        	showMore += "<tr class='Toggle" + index + "' style='display:none'>" +
+		       		        "<td> 챔피언 이미지 </td>" +
+       		            	"<td>" + loseTeamPlayerInfo.riotIdGameName + "</td>" +
+       		            	"<td>" + loseTeamPlayerInfo.championName + "</td>" +
+       		            	"<td>" + kdaDisplay + "</td>" +
+       		            	"<td>" + loseTeamPlayerInfo.totalDamageDealtToChampions + "</td>" +
+       		            	"<td>" + loseTeamPlayerInfo.totalDamageTaken + "</td>" +
+       		            	"<td>" + loseTeamPlayerInfo.totalMinionsKilled + "개</td>" +
+       		            	"</tr>";
        		       	}
        		    }
    		        $("#gameInfoTable tbody").append(showMore);
+   		     	gamesDisplayed++;
    		    }
    		 var championPlayCounts = {};
          for (var index = 0; index < gameInfoList.length; index++) {
@@ -143,6 +172,22 @@ $(document).ready(function () {
                  var champion = playerInfo.championName;
                  // 플레이어의 게임 이름과 태그 라인이 일치할 경우에만 플레이 횟수를 누적
                  if (playerInfo.riotIdGameName === gameName && playerInfo.riotIdTagline === tagLine) {
+                	 if (!championStats[champion]) {
+                         championStats[champion] = {
+                             gamesPlayed: 0,
+                             totalKills: 0,
+                             totalDeaths: 0,
+                             totalAssists: 0,
+                             totalWins: 0
+                         };
+                     }
+                     championStats[champion].gamesPlayed++;
+                     championStats[champion].totalKills += playerInfo.kills;
+                     championStats[champion].totalDeaths += playerInfo.deaths;
+                     championStats[champion].totalAssists += playerInfo.assists;
+                     if (playerInfo.win) {
+                         championStats[champion].totalWins++;
+                     }
                      if (!championPlayCounts[champion]) {
                          championPlayCounts[champion] = 1;
                      } else {
@@ -151,18 +196,34 @@ $(document).ready(function () {
                  }
              }
          }
-         
          // 챔피언별 플레이 횟수를 테이블에 추가
          var sortedChampionPlayCounts = Object.entries(championPlayCounts).sort((a, b) => b[1] - a[1]);
          var playerRow = "";
          for (var i = 0; i < sortedChampionPlayCounts.length; i++) {
-             var champion = sortedChampionPlayCounts[i][0];
-             var playCount = sortedChampionPlayCounts[i][1];
-             playerRow += "<tr>" + 
-                 "<td>" + champion + "</td>" +
-                 "<td>" + playCount + "게임</td>" +
-                 "</tr>";
+        	    var champion = sortedChampionPlayCounts[i][0];
+        	    var playCount = sortedChampionPlayCounts[i][1];
+        	    playerRow += "<tr>" + 
+        	        "<td>" + champion + "</td>";
+
+        	    // 챔피언별 평균 KDA와 승률 추가
+        	    if (championStats[champion]) {
+        	    	var avgKills = parseFloat((championStats[champion].totalKills / championStats[champion].gamesPlayed).toFixed(1));
+        	    	var avgDeaths = parseFloat((championStats[champion].totalDeaths / championStats[champion].gamesPlayed).toFixed(1));
+        	    	var avgAssists = parseFloat((championStats[champion].totalAssists / championStats[champion].gamesPlayed).toFixed(1));
+        	        var avgKDA = ((avgKills + avgAssists) / avgDeaths).toFixed(2);
+        	        var avgWinRate = ((championStats[champion].totalWins / championStats[champion].gamesPlayed) * 100).toFixed(0) + "%";
+        	        playerRow += "<td>" + avgKills.toFixed(1) + "/" + avgDeaths.toFixed(1) + "/" + avgAssists.toFixed(1) + "</td>" +
+        	            "<td>" + avgKDA + "평점</td>" +
+        	            "<td>" + avgWinRate + "</td>";
+        	    } else {
+        	        // 챔피언별 평균 값이 없는 경우 처리
+        	        playerRow += "<td colspan='3'>평균 값 없음</td>";
+        	    }
+        	    playerRow += "<td>" + playCount + "게임</td>" +
+        	    "</tr>";
          }
+
+         $("#additionalTable tbody").append(summonerLeagueInfo);
          $("#additionalTable tbody").append(playerRow);
        		
   		} else {
@@ -172,10 +233,13 @@ $(document).ready(function () {
 
     $("#searchForm2").submit(function (event) {
         event.preventDefault();
-        gameName = $("#gameName").val();
-        tagLine = $("#tagLine").val();
+        const pattern = /^(.+?)\s*(K?R?\d*)$/;
+        var result = pattern.exec($("#fullgameName").val().trim());
+        var gameName = result[1];
+        var tagLine = result[2];
         updateURL(gameName, tagLine);
-
+        location.reload(true);
+        
         if (gameName.trim() === "") {
             alert("gameName cannot be empty.");
             return;
@@ -211,23 +275,43 @@ $(document).ready(function () {
         	var dataList = {};
         	var teamdata = [];
             var infodata = [];
+            var leagueInfodata = [];
+	        var LL = {
+	           	summonerId: data[i].leagueInfo[0].summonerId,
+	           	queueType: data[i].leagueInfo[0].queueType,
+	           	tier: data[i].leagueInfo[0].tier,
+	           	ranked: data[i].leagueInfo[0].rank,
+	           	leaguePoints: data[i].leagueInfo[0].leaguePoints,
+	           	wins: data[i].leagueInfo[0].wins,
+	           	losses: data[i].leagueInfo[0].losses
+	        };
+            leagueInfodata.push(LL);
+            dataList.leagueInfo = leagueInfodata;
+            
+            
             for (var k = 0; k < data[i].info.teams.length; k++) {
                 var tt = {
                     matchId: data[i].metadata.matchId,
                     teamchampionkills: data[i].info.teams[k].objectives.champion.kills,
+                    teambaronkills: data[i].info.teams[k].objectives.baron.kills,
+                    teamdragonkills: data[i].info.teams[k].objectives.dragon.kills,
+                    teamhordekills: data[i].info.teams[k].objectives.horde.kills,
+                    teaminhibitorkills: data[i].info.teams[k].objectives.inhibitor.kills,
+                    teamriftHeraldkills: data[i].info.teams[k].objectives.riftHerald.kills,
+                    teamtowerkills: data[i].info.teams[k].objectives.tower.kills,
                     teamwin: data[i].info.teams[k].win,
-                    bans: []  // Initialize bans array
+//                     bans: []  // Initialize bans array
                 };
 
                 // Populate bans array
-                for (var z = 0; z < data[i].info.teams[k].bans.length; z++) {
-                    var bb = {
-                    	matchId: data[i].metadata.matchId,
-                        championId: data[i].info.teams[k].bans[z].championId,
-                        pickTurn: data[i].info.teams[k].bans[z].pickTurn
-                    };
-                    tt.bans.push(bb);
-                }
+//                 for (var z = 0; z < data[i].info.teams[k].bans.length; z++) {
+//                     var bb = {
+//                     	matchId: data[i].metadata.matchId,
+//                         championId: data[i].info.teams[k].bans[z].championId,
+//                         pickTurn: data[i].info.teams[k].bans[z].pickTurn
+//                     };
+//                     tt.bans.push(bb);
+//                 }
 
                 teamdata.push(tt);
                 dataList.teams = teamdata;
@@ -236,10 +320,12 @@ $(document).ready(function () {
                 var gg = {
                     matchId: data[i].metadata.matchId,
                     gameDuration: data[i].info.gameDuration,
+                    gameVersion: data[i].info.gameVersion,
                     gameStartTimestamp: data[i].info.gameStartTimestamp,
                     queueId: data[i].info.queueId,
                     riotIdGameName: data[i].info.participants[j].riotIdGameName,
                     riotIdTagline: data[i].info.participants[j].riotIdTagline,
+                    summonerId: data[i].info.participants[j].summonerId,
                     summonerLevel: data[i].info.participants[j].summonerLevel,
                     gameMode: data[i].info.gameMode,
                     teamId: data[i].info.participants[j].teamId,
@@ -250,6 +336,17 @@ $(document).ready(function () {
                     assists: data[i].info.participants[j].assists,
                     kda: ((data[i].info.participants[j].kills + data[i].info.participants[j].assists)/data[i].info.participants[j].deaths).toFixed(2) ,
                     lane: data[i].info.participants[j].lane,
+                    summoner1Id: data[i].info.participants[j].summoner1Id,
+                    summoner2Id: data[i].info.participants[j].summoner2Id,
+                    item0: data[i].info.participants[j].item0,
+                    item1: data[i].info.participants[j].item1,
+                    item2: data[i].info.participants[j].item2,
+                    item3: data[i].info.participants[j].item3,
+                    item4: data[i].info.participants[j].item4,
+                    item5: data[i].info.participants[j].item5,
+                    item6: data[i].info.participants[j].item6,
+                    perks1: data[i].info.participants[j].perks.styles[0].selections[0].perk,
+                    perks2: data[i].info.participants[j].perks.styles[1].style,
                     totalDamageDealtToChampions: data[i].info.participants[j].totalDamageDealtToChampions,
                     totalDamageTaken: data[i].info.participants[j].totalDamageTaken,
                     totalMinionsKilled: data[i].info.participants[j].totalMinionsKilled
@@ -285,6 +382,7 @@ $(document).ready(function () {
                 console.log("Received updated data:", data);
                 saveGameDataToServer(data);
 //                 displayGameInfo(data);
+                
             },
             error: function (xhr, textStatus, errorThrown) {
                 handleAjaxError(xhr, textStatus, errorThrown);
@@ -308,18 +406,38 @@ $(document).ready(function () {
 </script>
 </head>
 <body>
- 	<p>Game Name: <span id="gameNameDisplay">${param.gameName}</span></p>
-	<p>Tag Line: <span id="tagLineDisplay">${param.tagLine}</span></p>
-	<form id="searchForm2">
-		<label for="gameName">gameName:</label> <input type="text"
-			id="gameName" name="gameName" required> <label for="tagLine">Tag
-			Line:</label> <input type="text" id="tagLine" name="tagLine">
-		<!-- 태그라인 입력 필드 추가 -->
-		<input type="submit" value="summonerSearch2">
-		<button type="button" id="updateButton">전적 갱신</button>
-	</form>
-	<div>
-		<table align="center" border="1" width="800">
+ 	<div class="back"></div>
+
+<div id="wrap">
+
+ <div class="search-bar">
+ 
+    <div class="inner">   
+     <form id="searchForm2"class="searchBox-input">    
+      <div class="searchBox">      
+           <input type="text" id="fullgameName" name="fullgameName" class="nameInfo" placeholder="소환사 이름 + KRI" required />          
+           <button type="submit" class="searchBtn"><span class="material-symbols-outlined">search</span></button>              
+      </div>   
+     </form>       
+    </div>
+ </div>
+ 
+ <div class="summonerInfo">
+   <div class="inner">
+   
+     <p>Game Name: <span id="gameNameDisplay">${param.gameName}</span></p>
+     <p>Tag Line: <span id="tagLineDisplay">${param.tagLine}</span></p>
+     <button type="button" id="updateButton"><span class="material-symbols-outlined">refresh</span>&nbsp;전적 갱신</button>
+   
+   </div>
+ </div>
+ 
+ 
+ <div class="search-result">
+ 
+   <div class="inner">
+   
+      <table align="center" border="1" width="800">
         <tr>
             <td>
                 <div>
@@ -351,6 +469,14 @@ $(document).ready(function () {
             </td>
         </tr>
     </table>
-	</div>
+   
+   </div>
+		
+ </div>
+ 
+
+</div>
+	
+<%@include file="/WEB-INF/tiles/footer.jsp" %>
 </body>
 </html>
