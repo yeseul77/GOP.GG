@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gg.gop.dao.BoardDao">
-	<!-- 모든게시글조회 -->
-	<select id="getAllBoards" resultType="BoardDto">
-		SELECT b_bno, b_title, b_contents, b_writer, username, b_views, b_date
-		FROM board_tb;
-	</select>
+    <!-- 모든 게시글 조회 -->
+    <select id="getAllBoards" resultType="com.gg.gop.dto.BoardDto">
+        SELECT b_bno, b_title, b_contents, b_writer, username, b_views, b_date
+        FROM board_tb;
+    </select>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <!--     게시글 삽입 -->
 <!--     <insert id="insertBoard" parameterType="com.gg.gop.dto.BoardDto"> -->
@@ -23,4 +24,36 @@
 		#{b_views});
 	</insert>
 >>>>>>> 460304782af17c227702360b2e841954ad0105a1
+=======
+    <!-- 게시글 삽입 -->
+    <insert id="insertBoard" parameterType="com.gg.gop.dto.BoardDto">
+        INSERT INTO board_tb (b_title, b_contents, b_writer, username, b_views)
+        VALUES (#{b_title}, #{b_contents}, #{b_writer}, #{username}, #{b_views});
+    </insert>
+
+<!--     게시글 조회수 업데이트 -->
+<!--     <update id="updateBoardView" parameterType="int"> -->
+<!--         UPDATE board_tb SET b_views = b_views + 1 -->
+<!--         WHERE b_bno = #{b_bno}; -->
+<!--     </update> -->
+
+<!--     게시글 상세 조회 -->
+<!--     <select id="getBoard" parameterType="int" resultType="com.gg.gop.dto.BoardDto"> -->
+<!--         SELECT b_bno, b_title, b_contents, b_writer, username, b_views, b_date -->
+<!--         FROM board_tb -->
+<!--         WHERE b_bno = #{b_bno}; -->
+<!--     </select> -->
+
+<!--     게시글 삭제 -->
+<!--     <delete id="deleteBoard" parameterType="int"> -->
+<!--         DELETE FROM board_tb WHERE b_bno = #{b_bno}; -->
+<!--     </delete> -->
+
+<!--     게시글 수정 -->
+<!--     <update id="updateBoard" parameterType="com.gg.gop.dto.BoardDto"> -->
+<!--         UPDATE board_tb -->
+<!--         SET b_title = #{b_title}, b_contents = #{b_contents}, username = #{username} -->
+<!--         WHERE b_bno = #{b_bno}; -->
+<!--     </update> -->
+>>>>>>> YS
 </mapper>

@@ -5,11 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.gg.gop.common.FileService;
 import com.gg.gop.dao.MemberDao;
 import com.gg.gop.dto.MemberDto;
-
 import jakarta.servlet.http.HttpSession;
 
 @Service
@@ -37,13 +35,18 @@ public class MemberService {
 		return memberDao.insertMember(memberDto);
 	}
 
-//닉네임중복
+	// 닉네임중복
 	public boolean selectusername(String username) {
 		return memberDao.selectusername(username);
 	}
 
+	// 시큐리티 로그인 세션에등록~
+	public MemberDto getUserData(Object username) {
+		return memberDao.sequsername(username);
 
-//로그인
+	}
+
+	// 암호화 로그인
 	public MemberDto login(HashMap<String, String> member) {
 
 		BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
@@ -65,11 +68,18 @@ public class MemberService {
 
 	// 회원탈퇴
 	public Boolean withdraw(String email, String password) {
+		MemberDto member = memberDao.getMemberInfo(email);
 
-		return null;
+		if (member == null || !member.getPassword().equals(password)) {
+			return false;
+		}
+
+		member.setDeleteYn(true);
+
+		return true;
 	}
 
-	//회원정보 +프로필변경
+	// 회원정보 +프로필변경
 	public boolean updateMemberInfo(String email, String username, MultipartFile profileImage, HttpSession session) {
 		try {
 			// 프로필 이미지 업로드 및 파일명 반환
@@ -79,12 +89,12 @@ public class MemberService {
 				MemberDto memberDto = new MemberDto();
 				memberDto.setEmail(email);
 				memberDto.setUsername(username);
-				memberDao.updateMemberProfile(memberDto); 
+				memberDao.updateMemberProfile(memberDto);
 			} else {
 				MemberDto memberDto = new MemberDto();
 				memberDto.setEmail(email);
 				memberDto.setUsername(username);
-				memberDao.updateMemberProfile(memberDto); 
+				memberDao.updateMemberProfile(memberDto);
 			}
 			return true;
 		} catch (Exception e) {

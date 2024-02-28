@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.gg.gop.dto;
 
 import lombok.AllArgsConstructor;
@@ -13,3 +14,21 @@ public class ChatMemberDto {
 	String chatMember;
 	int roomId;
 }
+=======
+package com.gg.gop.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ChatMemberDto {
+	String chatMember;
+	String title;
+	int roomId;
+}
+>>>>>>> YS

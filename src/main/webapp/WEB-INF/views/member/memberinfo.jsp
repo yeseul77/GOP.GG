@@ -84,7 +84,7 @@
     <script src="/js/profile.js"></script>
 </head>
 <body>
-  <form action="${contextPath}memberinfo" method="post" enctype="multipart/form-data">
+<form action="${contextPath}/memberinfo" method="post" enctype="multipart/form-data">
         <div style="width: 300px; margin: 0 auto; text-align: center;">
             <h2>프로필 설정</h2>
              <label>프로필사진</label>
@@ -118,5 +118,9 @@
 </div>
     <%@include file="/WEB-INF/tiles/footer.jsp"%> 
 </body>
+<<<<<<< HEAD
+</html>
+>>>>>>> YS
+=======
 </html>
 >>>>>>> YS

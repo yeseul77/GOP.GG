@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                             
     
     
@@ -46,11 +47,13 @@
     <wb-module deploy-name="gop-0.0.1-SNAPSHOT">
                 
 >>>>>>> 460304782af17c227702360b2e841954ad0105a1
+=======
+    <wb-module deploy-name="gop-0.0.1-SNAPSHOT">
+>>>>>>> YS
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
-                
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-                
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> YS
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
@@ -89,11 +92,12 @@
 >>>>>>> YS
 =======
                 
+=======
+>>>>>>> YS
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-                
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/target/generated-sources/annotations"/>
-                
         <property name="context-root" value="gop"/>
+<<<<<<< HEAD
                 
 >>>>>>> 460304782af17c227702360b2e841954ad0105a1
         <property name="java-output-path" value="/GOP/target/classes"/>
@@ -104,4 +108,8 @@
 =======
     
 >>>>>>> 460304782af17c227702360b2e841954ad0105a1
+=======
+        <property name="java-output-path" value="/gop/target/classes"/>
+    </wb-module>
+>>>>>>> YS
 </project-modules>

@@ -60,6 +60,7 @@
 		SETpassword=#{password}, username = #{username}
 		WHERE email = #{email}
 	</update>
+<<<<<<< HEAD
 
 	<!-- 탈퇴 D 가입된회원은 0 , 탈퇴면 1로 변경 -->
 	<delete id="deleteMember">
@@ -71,3 +72,7 @@
 	
 </mapper>
 
+=======
+	
+</mapper>
+>>>>>>> YS

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
@@ -24,4 +25,42 @@
 	<delete id="outRoom">
 		delete from chatmember where roomId=#{chatroomId} and chatmember=#{memberId}
 	</delete>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gg.gop.dao.ChatDao">
+	<select id="getRoomList" resultType="ChatDto"> select * from chatroom
+		where display=1 order by chatroomId desc </select>
+	<insert id="createRoom"> insert into chatroom (title, userId, position,
+		champion, memo) values(#{title}, #{userId},#{position}, #{champ},
+		#{memo}) </insert>
+	<select id="intoRoom"> select title from chatroom where chatroomId=
+		#{roomId} </select>
+	<select id="roomData"> select * from chatroom where chatroomId= #{roomId}
+	</select>
+	<select id="roomMemberData"> select * from chatmember where roomId=#{roomId}
+	</select>
+	<insert id="plusroom"> insert into chatmember(chatmember, title, roomId)
+		values(#{memberId}, #{title}, #{chatroomId}) </insert>
+	<select id="getRoomMember"> select distinct chatmember from chatmember where
+		roomId=#{roomId} </select>
+	<delete id="outRoom"> delete from chatmember where roomId=#{chatroomId}
+		and chatmember=#{memberId} </delete>
+	<delete id="deleteRoom"> delete from chatroom where display=0; </delete>
+	<select id="getMyRoomList"> select * from chatmember where
+		chatmember=#{chatmember} </select>
+	<select id="roomInfo"> select * from chatroom where userId=#{userId} and
+		title=#{title} </select>
+	<delete id="deleteRoomData"> delete from chatroom where chatroomId=#{roomId}
+	</delete>
+	<insert id="messageLog"> insert into chatmsg value(#{roomId}, #{chatmember},
+		#{message}) </insert>
+	<select id="getRoomMessage"> select * from chatmsg where roomId=#{roomId}
+	</select>
+	<select id="lastroomInfo"> select* from chatroom where title=#{title} and
+		userId=#{username} order by chatroomId desc limit 1 </select>
+	<select id="searchRoom"> select *from chatroom where title like
+		concat('%',#{title},'%') </select>
+>>>>>>> YS
 </mapper>
