@@ -22,6 +22,10 @@ a {
   text-decoration: none;
   color: #333;
 }
+table {   
+    border-collapse: collapse;
+    border-spacing: 0;
+}
 
 /* BACKGROUND IMAGE */
 
@@ -136,10 +140,10 @@ a {
  }
  .synergy-head .inner .search .position #myteamPosition:first-child {
   border-left: 1.5px solid #e1e1e1;
-  border-radius: 4px 0 0 4px; 
+  
  } 
 .synergy-head .inner .search .position #myteamPosition:last-child {
-  border-radius: 0 4px 4px 0; 
+ 
  }
  
 
@@ -147,20 +151,20 @@ a {
  border-radius: 4px;
 }
 .synergy-result .inner {
- border-radius: 4px;
+ 
 } 
 .synergy-result .inner #synergy-table {
 	 width: 100%;	 	
 	 border: 1.5px solid #e1e1e1;
-	 border-radius: 4px;
 	 background-color: white;
+	 border-collapse: collapse;
+     border-radius: 6px;
  }
 .synergy-result .inner #synergy-table #result {
-	 
+	
  }
 .synergy-result .inner #synergy-table #result .result-head {	 
 	
-	 
  }
 .synergy-result .inner #synergy-table #result .result-head .head-menu {
 	text-align: center;
@@ -169,7 +173,9 @@ a {
 	font-weight: 700;
 	height: 60px;
 	line-height: 60px;
-	background-color: #edf9f2;  
+	background-color: #edf9f2; 
+
+	
  }
 .synergy-result .inner #synergy-table #result .result-head th.head-menu:first-of-type {
 	
@@ -180,6 +186,7 @@ a {
 }
 .synergy-result .inner #synergy-table tbody .result-body {
  	border-top : 1.5px solid #e1e1e1;
+ 	
 } 
 .synergy-result .inner #synergy-table tbody .result-body .body-text {
   height: 70px;
@@ -193,6 +200,9 @@ a {
 .synergy-result .inner #synergy-table tbody .result-body:nth-child(even) {
 	background-color: #edf9f2;
 }
+.synergy-result .inner #synergy-table tbody .result-body:last-child {
+	
+}
 .synergy-result .inner #synergy-table tbody .result-body .body-text .champ {	
   display: flex;
   gap: 15px;	
@@ -203,11 +213,11 @@ a {
   width: 50px;
   height: 50px;
   overflow: hidden;
-  border-radius: 6px;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: .4s;  
+  transition: .4s;
+  border-radius: 4px;  
 }
 .synergy-result .inner #synergy-table tbody .result-body .body-text .champ .champ-box:hover {
   transform: scale(1.2);
