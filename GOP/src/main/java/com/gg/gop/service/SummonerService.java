@@ -79,7 +79,7 @@ public class SummonerService {
 		}
 
 		if (hasDuplicateKey) {
-
+			
 		}
 		log.info("savedDataList : {}", savedDataList);
 		return savedDataList;
@@ -184,13 +184,19 @@ public class SummonerService {
 //	}
 
 	public int saveLeagueInfo(Map<String, Object> leagueInfo) {
-		String summonerId = (String) leagueInfo.get("summonerId");
-		if (summonerId != null) {
-			return sDao.saveLeagueInfo(leagueInfo);
-		} else {
-			log.error("summonerId is null. Cannot insert data.");
-			return 0;
-		}
+	    String summonerId = (String) leagueInfo.get("summonerId");
+	    if (summonerId != null) {
+	        int rowsAffected = sDao.saveLeagueInfo(leagueInfo); // 일단 삽입을 시도합니다.
+	        if (rowsAffected == 0) {
+	            // 삽입이 실패한 경우, 이미 존재하는 summonerId에 대한 데이터이므로 업데이트를 시도합니다.
+	            rowsAffected = sDao.updateLeagueInfo(leagueInfo);
+	        }
+	        return rowsAffected;
+	    } else {
+	        log.error("summonerId is null. Cannot insert or update data.");
+	        return 0;
+	    }
+	
 	}
 
 //	public List<ChampionRanking> getChampionRanking() {

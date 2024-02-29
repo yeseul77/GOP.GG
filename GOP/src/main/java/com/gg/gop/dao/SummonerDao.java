@@ -15,7 +15,7 @@ public interface SummonerDao { // 소환사 전적 검색
 	
 //	int savebansdata(Map<String, Object> bans);
 	
-	Map getGameDataFromDB(Map<String, Object> gameData);
+	List<Map<String, Object>> getGameDataFromDB();
 
 	List<Map<String, Object>> getGameInfoFromDB(String gameName, String tagLine);
 
@@ -28,6 +28,8 @@ public interface SummonerDao { // 소환사 전적 검색
 	List<Map> retrieveAllDataFromDB();
 
 	int saveLeagueInfo(Map<String, Object> leagueInfo);
+
+	int updateLeagueInfo(Map<String, Object> leagueInfo);
 
 
 //	List<ChampionRanking> getChampionRankingFromDB();
