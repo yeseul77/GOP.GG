@@ -2,6 +2,7 @@ package com.gg.gop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -18,13 +19,12 @@ public class BoardController {
     
     @GetMapping("/boardlist")
     public String boardList() {
-    	System.out.println("커뮤니티 리스트로");
         return "board/boardList"; 
     }
     
     @GetMapping("/boardlist/boardwrite")
     public String boardWriteForm() {
-        System.out.println("글쓰기창 열기!");
+        System.out.println("글쓰기 폼");
         return "board/boardWrite";
     }
 
@@ -32,6 +32,7 @@ public class BoardController {
     @PostMapping("/boardlist/writer")
     public String boardWrite(HttpSession session, BoardDto boardDto) {
         if (session.getAttribute("Loginstate") == null) {
+            // 로그인하지 않은 사용자는 로그인 페이지로 리디렉션
             return "redirect:/login";
         }
         boardService.writeBoard(boardDto);

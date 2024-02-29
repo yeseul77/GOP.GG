@@ -33,6 +33,7 @@ public class SecurityConfig {
 		http.logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/"));
 		http.exceptionHandling(handler -> handler.accessDeniedHandler(accessDeniedHandler));
 		return http.build();		
+		
 	}
 	
 	
@@ -43,7 +44,8 @@ public class SecurityConfig {
 //	로그아웃 처리 URL을 /member/logout으로 설정합니다. 로그아웃 성공 시 사용자를 루트 URL(/)로 리다이렉션합니다.
 //
 //	http.exceptionHandling(handler -> handler.accessDeniedHandler(accessDeniedHandler));:
-//	접근 거부(권한이 없는 리소스에 접근하려고 할 때) 발생 시 사용할 AccessDeniedHandler를 구성합니다. 이 핸들러는 사용자 정의 예외 처리 로직을 수행할 수 있도록 해줍니다.
+//	접근 거부(권한이 없는 리소스에 접근하려고 할 때) 발생 시 사용할 AccessDeniedHandler를 구성합니다.
+	//이 핸들러는 사용자 정의 예외 처리 로직을 수행할 수 있도록 해줍니다.
 //
 //	return http.build();:
 	//설정된 HttpSecurity 객체를 기반으로 SecurityFilterChain을 빌드하고 반환합

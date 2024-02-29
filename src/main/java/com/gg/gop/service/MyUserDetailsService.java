@@ -1,6 +1,8 @@
 package com.gg.gop.service;
 
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,7 +17,7 @@ import com.gg.gop.dao.MemberDao;
 import com.gg.gop.dto.MemberDto;
 
 import jakarta.servlet.http.HttpSession;
-
+import lombok.extern.slf4j.Slf4j;
 
 //MemberService 클래스에서 구핸해도 됨
 @Component

@@ -28,7 +28,7 @@ public interface MemberDao {
     int updateMemberToDeleteStatus(@Param("email") String email, @Param("password") String password);
 	
     
-  
+  //시큐리티세션로그인 유저이름찾기
     @Select("SELECT * FROM member_tb WHERE username = #{username}")
 	MemberDto sequsername(Object username);
 	

@@ -18,19 +18,20 @@
 <body>
 	<h2 style="text-align: center;">GOP.GG 회원가입</h2>
 	<form action="/register" method="post"
-		onsubmit="return registerCheck();" class="container" style="max-width: 500px;">
+		onsubmit="return registerCheck();" class="container"
+		style="max-width: 500px;">
 		<div class="form-group">
-			<label for="username">닉네임:</label>
-			 <input type="text" name="username" id="username" class="form-control" placeholder="닉네임" autofocus>
-				<label id="label1"></label>
+			<label for="username">닉네임:</label> <input type="text" name="username"
+				id="username" class="form-control" placeholder="닉네임" autofocus>
+			<label id="label1"></label>
 			<div id="usernameError" class="text-danger"></div>
 		</div>
 
 		<div class="form-group">
 			<label>이메일:</label>
 			<div class="input-group">
-				<input type="hidden" id="sendemail" name="email" value="Test">
-				<input type="text" id="email" class="form-control"
+				<input type="hidden" id="sendemail" name="email" value="email">
+				<input type="text" id="email" name="mail" class="form-control"
 					required placeholder="이메일 입력">
 				<div class="input-group-append">
 					<span id="middle" value="@" class="input-group-text">@</span>
@@ -41,16 +42,27 @@
 					<option value="gmail.com">gmail.com</option>
 					<option value="daum.net">daum.net</option>
 					<option value="direct">직접입력</option>
-				</select> <input type="text" id="email_direct" 
-				class="form-control" placeholder="이메일 직접 입력" style="display: none;">
+				</select> <input type="text" id="email_direct" class="form-control"
+					placeholder="이메일 직접 입력" style="display: none;">
+
 				<div class="input-group-append">
-					<button type="button" class="btn btn-primary" id="mail-Check-Btn">전송</button>
+					<button type="button" class="btn btn-primary" id="sendBtn"
+						name="sendBtn" onclick="sendNumber()">인증 번호</button>
 				</div>
 			</div>
+
 			<div class="form-group">
-				<input type="text" id="code" name="code" class="form-control"
-					placeholder="인증 코드 6자리를 입력해주세요.">
+				<div class="input-group">
+					<input type="text" id="code" name="code" class="form-control"
+						placeholder="인증 코드 6자리를 입력해주세요.">
+					<div class="input-group-append">
+						<button type="button" class="btn btn-primary" name="confirmBtn"
+							id="confirmBtn" onclick="confirmCode()">이메일 인증</button>
+					</div>
+				</div>
 			</div>
+			<br> <input type="text" id="Confirm" name="Confirm"
+				style="display: none" value="">
 			<div id="emailError" class="text-danger"></div>
 		</div>
 
@@ -71,9 +83,10 @@
 		<div class="form-group" style="text-align: center;">
 			<button type="submit" class="btn btn-success">회원가입</button>
 		</div>
+
 	</form>
-		<!-- 푸터 위치 -->
- <%@include file="/WEB-INF/tiles/footer.jsp" %>
- <!-- 푸터 위치 -->
+	<!-- 푸터 위치 -->
+	<%@include file="/WEB-INF/tiles/footer.jsp"%>
+	<!-- 푸터 위치 -->
 </body>
 </html>

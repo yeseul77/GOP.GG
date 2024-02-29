@@ -9,7 +9,7 @@ public class BoardDto {
     private String b_contents;
     private int viewcount; // 조회수
     private LocalDateTime b_date; // 작성 날짜와 시간
-    private boolean like; //좋아요
+    //좋아요는??어카지
 
 
 
