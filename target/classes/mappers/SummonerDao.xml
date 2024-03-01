@@ -10,6 +10,7 @@
 		#{matchId},
 		#{riotIdGameName},
 		#{riotIdTagline},
+		#{summonerId},
 		#{summonerLevel},
 		#{gameMode},
 		#{teamId},
@@ -20,23 +21,62 @@
 		#{assists},
 		#{kda},
 		#{lane},
+		#{summoner1Id},
+		#{summoner2Id},
+		#{item0},
+		#{item1},
+		#{item2},
+		#{item3},
+		#{item4},
+		#{item5},
+		#{item6},
+		#{perks1},
+		#{perks2},
 		#{totalDamageDealtToChampions},
 		#{totalDamageTaken},
 		#{totalMinionsKilled},
 		#{gameDuration},
 		#{queueId},
-		#{gameStartTimestamp}
+		#{gameStartTimestamp},
+		#{gameVersion}
 		);
 	</insert>
 	<insert id="saveteamsdata">
 		INSERT IGNORE INTO teams
 		VALUES
-		(#{matchId},#{teamchampionkills},#{teamwin});
+		(#{matchId},
+		#{teamchampionkills},
+		#{teambaronkills},
+		#{teamdragonkills},
+		#{teamhordekills},
+		#{teaminhibitorkills},
+		#{teamriftHeraldkills},
+		#{teamtowerkills},
+		#{teamwin});
 	</insert>
-	<insert id="savebansdata">
-		INSERT IGNORE INTO bans
+	<!-- <insert id="savebansdata"> -->
+	<!-- INSERT IGNORE INTO bans -->
+	<!-- VALUES -->
+	<!-- (#{matchId},#{championId}, #{pickTurn}); -->
+	<!-- </insert> -->
+
+	<insert id="saveLeagueInfo">
+		INSERT IGNORE INTO leagueInfo
 		VALUES
-		(#{matchId},#{championId}, #{pickTurn});
+		(#{summonerId},
+		#{queueType}, #{tier}, #{ranked}, #{leaguePoints}, #{wins},
+		#{losses});
+	</insert>
+	<insert id="updateLeagueInfo">
+		UPDATE leagueInfo
+		SET
+		queueType = #{queueType},
+		tier = #{tier},
+		ranked = #{ranked},
+		leaguePoints = #{leaguePoints},
+		wins = #{wins},
+		losses = #{losses}
+		WHERE summonerId = #{summonerId};
 	</insert>
 
 	<select id="getGameInfoFromDB" parameterType="String"
@@ -50,6 +90,11 @@
 		SELECT * FROM teams where matchId !='';
 		<!-- where matchId = #{matchId}; -->
 	</select>
+	<select id="getLeagueInfoFromDB" parameterType="String"
+		resultType="Map">
+		SELECT * FROM leagueInfo where summonerId !='';
+		<!-- where matchId = #{matchId}; -->
+	</select>
 
 	<select id="checkDuplicateKey" resultType="int">
 		SELECT COUNT(*) FROM
@@ -57,7 +102,6 @@
 		=
 		#{riotIdGameName};
 	</select>
-
 	<!-- <select id="retrieveAllDataFromDB" resultType="java.util.Map"> -->
 	<!-- select * from -->
 	<!-- GameInfo ORDER BY matchId DESC; -->

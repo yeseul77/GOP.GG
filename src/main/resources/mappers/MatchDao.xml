@@ -8,11 +8,11 @@ SELECT
     COUNT(*) AS total_count,
     round((COUNT(CASE WHEN win = 'true' THEN 1 END) / COUNT(*)*100),2) AS win_ratio	
 FROM
-    semi
+    lol_datas
 WHERE
     gameId IN (
         SELECT gameId
-        FROM semi
+        FROM lol_datas
         WHERE championName = #{championName} and teamPosition=#{champteamPosition}
     )
     AND championName != #{championName}

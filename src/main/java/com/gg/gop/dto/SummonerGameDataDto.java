@@ -19,11 +19,18 @@ public class SummonerGameDataDto {
     private int queueId;
     private String riotIdGameName;
     private String riotIdTagline;
+    private String summonerId;
     private int summonerLevel;
     private String gameMode;
     private int teamId;
     private boolean win;
     private int teamchampionkills;
+    private int teambaronkills;
+    private int teamdragonkills;
+    private int teamhordekills;
+    private int teaminhibitorkills;
+    private int teamriftHeraldkills;
+    private int teamtowerkills;
     private boolean teamwin;
     private int championId;
     private int pickTurn;
@@ -36,5 +43,17 @@ public class SummonerGameDataDto {
     private int totalDamageDealtToChampions;
     private int totalDamageTaken;
     private int totalMinionsKilled;
+    private String gameVersion;
+    private String summoner1Id;
+    private String summoner2Id;
+    private String item0;
+    private String item1;
+    private String item2;
+    private String item3;
+    private String item4;
+    private String item5;
+    private String item6;
+    private String perks1;
+    private String perks2;
 	private List<Map> gamedataList;
 }
