@@ -16,9 +16,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.gg.gop.dto.MemberDto;
 import com.gg.gop.service.MemberService;
 import jakarta.servlet.http.HttpSession;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+
 @Controller
 public class MemberController {
 
@@ -67,7 +66,7 @@ public class MemberController {
 		UserDetails userDetails = (UserDetails) principal;
 		Object username = userDetails.getUsername();
 		System.out.println("로그인성공 메인으로 ㄱㄱ!");
-		log.info("{}",username);
+		//log.info("{}",username);
 		MemberDto memberDto=memberService.getUserData(username);
 		session.setAttribute("email", memberDto.getEmail());
 		session.setAttribute("username", memberDto.getUsername());
@@ -92,7 +91,7 @@ public class MemberController {
 			MemberDto memberDto = memberService.login(memberData);
 			rttr.addFlashAttribute("msgType", "성공");
 			rttr.addFlashAttribute("message", "로그인에 성공하였습니다.");
-			log.info("email : {}", email);
+		//	log.info("email : {}", email);
 			session.setAttribute("email", memberDto.getEmail());
 			session.setAttribute("loginState", true);
 			session.setAttribute("username", memberDto.getUsername());
@@ -168,4 +167,3 @@ public class MemberController {
 		}
 	}
 }
-
