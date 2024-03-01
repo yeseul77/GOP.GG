@@ -62,57 +62,58 @@ public class MemberController {
 	// 시큐리티 합친 세션로그인
 	@GetMapping("/logincom")
 	public String loginSuccess(HttpSession session) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		UserDetails userDetails = (UserDetails) principal;
-		Object username = userDetails.getUsername();
-		System.out.println("로그인성공 메인으로 ㄱㄱ!");
-		//log.info("{}",username);
-		MemberDto memberDto=memberService.getUserData(username);
-		session.setAttribute("email", memberDto.getEmail());
-		session.setAttribute("username", memberDto.getUsername());
-	
-		return "index";
+	    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	    UserDetails userDetails = (UserDetails) principal;
+	    Object username = userDetails.getUsername();
+	    System.out.println("로그인성공 메인으로 ㄱㄱ!");
+	    MemberDto memberDto=memberService.getUserData(username);
+	    session.setAttribute("email", memberDto.getEmail());
+	    session.setAttribute("username", memberDto.getUsername());
+	    session.setAttribute("loginState", true); 
+
+	    return "index";
 	}
 
-	// 세션로그인
+	
 	@PostMapping("/loginresult")
 	public String login(@RequestParam("email") String email, @RequestParam("password") String password,
-			RedirectAttributes rttr, HttpSession session) {
+	        RedirectAttributes rttr, HttpSession session) {
 
-		// HashMap을 사용하여 사용자 정보를 저장
-		HashMap<String, String> memberData = new HashMap<>();
-		memberData.put("email", email);
-		memberData.put("password", password);
+	    // HashMap을 사용하여 사용자 정보를 저장
+	    HashMap<String, String> memberData = new HashMap<>();
+	    memberData.put("email", email);
+	    memberData.put("password", password);
 
-		System.out.println("email: " + email + ", password: " + password);
+	    System.out.println("email: " + email + ", password: " + password);
 
-		try {
+	    try {
 
-			MemberDto memberDto = memberService.login(memberData);
-			rttr.addFlashAttribute("msgType", "성공");
-			rttr.addFlashAttribute("message", "로그인에 성공하였습니다.");
-		//	log.info("email : {}", email);
-			session.setAttribute("email", memberDto.getEmail());
-			session.setAttribute("loginState", true);
-			session.setAttribute("username", memberDto.getUsername());
+	        MemberDto memberDto = memberService.login(memberData);
+	        rttr.addFlashAttribute("msgType", "성공");
+	        rttr.addFlashAttribute("message", "로그인에 성공하였습니다.");
+	        session.setAttribute("email", memberDto.getEmail());
+	        session.setAttribute("loginState", true);
 
-			return "redirect:/";
-		} catch (Exception e) {
-			// 로그인 실패 처리
-			rttr.addFlashAttribute("msgType", "실패");
-			rttr.addFlashAttribute("message", "로그인에 실패하였습니다. 다시 시도해주세요.");
-			return "redirect:/login";
-		}
+	        
+
+	        return "redirect:/";
+	    } catch (Exception e) {
+	        // 로그인 실패 처리
+	        rttr.addFlashAttribute("msgType", "실패");
+	        rttr.addFlashAttribute("message", "로그인에 실패하였습니다. 다시 시도해주세요.");
+	        return "redirect:/login";
+	    }
 	}
 
 	// 로그아웃===========================================
 	@PostMapping("/logout")
 	public String logout(HttpSession session, RedirectAttributes rttr) {
-		session.invalidate(); // 세션무효화처리
-		rttr.addFlashAttribute("", "로그아웃되었습니다.");
-		return "redirect:/";
-
+	    session.invalidate(); // 세션무효화처리
+	    rttr.addFlashAttribute("", "로그아웃되었습니다.");
+	    session.setAttribute("loginState", false); 
+	    return "redirect:/";
 	}
+	
 
 	// 내정보 =====================================
 	@GetMapping("/member/memberinfo")
