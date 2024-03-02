@@ -1,0 +1,109 @@
+/* 이미지 스타일 */
+img {
+  width: 50px;
+  height: auto;
+  margin-right: 1px; /* 이미지 간격을 1px로 설정 */
+  margin-bottom: 1px; /* 이미지 간격을 1px로 설정 */
+}
+
+#champion {
+ margin-top: 80px;
+}
+
+/* 챔피언 리스트 스타일 */
+.championList {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 8px;
+  gap: 8px;
+  flex-direction: row; /* 가로 방향으로 배치 */
+}
+
+/* 챔피언 아이템 스타일 */
+.champion-item {
+  position: relative;
+  display: block;
+  width: 46px;
+/*   margin-top : 5px; */
+}
+
+/* 챔피언 이름 스타일 */
+span {
+  display: block;
+  width: 46px;
+  line-height: 14px;
+  font-size: 12px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--gray500);
+  margin-top: 4px;
+/*   height: 16px; */
+}
+
+/* 이미지 링크 스타일 */
+.img-link {
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--gray900);
+}
+
+/* 챔피언 이미지 스타일 */
+.champion-img {
+  position: relative;
+  display: block;
+}
+
+/* 챔피언 리스트 옆에 있는 요소 스타일 */
+.championList>aside {
+  margin-right: 8px;
+  flex-basis: 332px;
+  max-width: 332px;
+}
+
+aside {
+  display: block;
+}
+
+/* 화면에서 숨겨진 요소 스타일 */
+caption,
+.hidden {
+  clip: rect(0, 0, 0, 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  position: absolute;
+}
+
+/* 라벨 스타일 */
+label {
+  cursor: pointer;
+}
+
+/* 메인 요소 스타일 */
+.championList > main {
+  flex-grow: 1;
+  max-width: 740px;
+}
+
+/* 검색창 스타일 */
+[data-theme="dark"] .search[type="text"] {
+  background-color: rgb(28, 28, 31);
+}
+
+.search[type="text"] {
+  padding: 8px 16px 8px 40px;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 14px;
+  background-repeat: no-repeat;
+  background-size: 24px;
+  background-position: left 8px center;
+  background-image: url(https://s-lol-web.op.gg/images/icon/icon-search.svg);
+}
+
+.championNav {
+	margin-top : 15px;
+}

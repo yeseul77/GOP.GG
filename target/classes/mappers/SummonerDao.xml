@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gg.gop.dao.SummonerDao">
+
+	<insert id="saveinfodata">
+		INSERT IGNORE INTO info VALUES (
+		#{matchId},
+		#{riotIdGameName},
+		#{riotIdTagline},
+		#{summonerId},
+		#{summonerLevel},
+		#{gameMode},
+		#{teamId},
+		#{win},
+		#{championName},
+		#{kills},
+		#{deaths},
+		#{assists},
+		#{kda},
+		#{lane},
+		#{summoner1Id},
+		#{summoner2Id},
+		#{item0},
+		#{item1},
+		#{item2},
+		#{item3},
+		#{item4},
+		#{item5},
+		#{item6},
+		#{perks1},
+		#{perks2},
+		#{totalDamageDealtToChampions},
+		#{totalDamageTaken},
+		#{totalMinionsKilled},
+		#{gameDuration},
+		#{queueId},
+		#{gameStartTimestamp},
+		#{gameVersion}
+		);
+	</insert>
+	<insert id="saveteamsdata">
+		INSERT IGNORE INTO teams
+		VALUES
+		(#{matchId},
+		#{teamchampionkills},
+		#{teambaronkills},
+		#{teamdragonkills},
+		#{teamhordekills},
+		#{teaminhibitorkills},
+		#{teamriftHeraldkills},
+		#{teamtowerkills},
+		#{teamwin});
+	</insert>
+	<!-- <insert id="savebansdata"> -->
+	<!-- INSERT IGNORE INTO bans -->
+	<!-- VALUES -->
+	<!-- (#{matchId},#{championId}, #{pickTurn}); -->
+	<!-- </insert> -->
+
+	<insert id="saveLeagueInfo">
+		INSERT IGNORE INTO leagueInfo
+		VALUES
+		(#{summonerId},
+		#{queueType}, #{tier}, #{ranked}, #{leaguePoints}, #{wins},
+		#{losses});
+	</insert>
+	<insert id="updateLeagueInfo">
+		UPDATE leagueInfo
+		SET
+		queueType = #{queueType},
+		tier = #{tier},
+		ranked = #{ranked},
+		leaguePoints = #{leaguePoints},
+		wins = #{wins},
+		losses = #{losses}
+		WHERE summonerId = #{summonerId};
+	</insert>
+
+	<select id="getGameInfoFromDB" parameterType="String"
+		resultType="Map">
+		SELECT * FROM info where matchId !='' ORDER BY
+		gameStartTimestamp DESC;
+		<!-- where matchId = #{matchId}; -->
+	</select>
+	<select id="getGameTeamsFromDB" parameterType="String"
+		resultType="Map">
+		SELECT * FROM teams where matchId !='';
+		<!-- where matchId = #{matchId}; -->
+	</select>
+	<select id="getLeagueInfoFromDB" parameterType="String"
+		resultType="Map">
+		SELECT * FROM leagueInfo where summonerId !='';
+		<!-- where matchId = #{matchId}; -->
+	</select>
+
+	<select id="checkDuplicateKey" resultType="int">
+		SELECT COUNT(*) FROM
+		GameInfo WHERE matchId = #{matchId} AND riotIdGameName
+		=
+		#{riotIdGameName};
+	</select>
+	<!-- <select id="retrieveAllDataFromDB" resultType="java.util.Map"> -->
+	<!-- select * from -->
+	<!-- GameInfo ORDER BY matchId DESC; -->
+	<!-- </select> -->
+	<select id="getGameDataFromDB" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		SELECT *
+		FROM GameInfo
+		WHERE matchId = #{matchId} AND
+		riotIdGameName = #{riotIdGameName} ORDER BY
+		gameStartTimestamp DESC;
+	</select>
+</mapper>

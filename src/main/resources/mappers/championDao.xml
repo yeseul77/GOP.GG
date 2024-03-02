@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 에러시 window-preferences-maven검색-Download Artifact javadoc 체크할것 -->
+<mapper namespace="com.gg.gop.dao.ChampionDao">
+
+	<select id="allChampion">
+		select championId, champion_name, champion_name_kr from
+		champion_names
+	</select>
+
+	<select id="findChampion">
+		select * from champion_names where champion_name =
+		#{championName}
+	</select>
+
+	
+	<!-- Rest -->
+	<select id="searchList">
+		SELECT champion_name_kr, champion_name
+		FROM
+		champion_names
+		WHERE champion_name_kr like concat('%', #{search}, '%');
+	</select>
+	
+	<select id="lineChampionList">
+		SELECT championName,
+		ROUND((COUNT(CASE WHEN
+		teamPosition = #{line} THEN gameId END) / COUNT(DISTINCT gameId) *
+		100), 1) AS pick_rate
+		FROM lol_datas
+		GROUP BY championName
+		HAVING pick_rate > 10
+	</select>
+
+	<select id="lineRecode">
+<!-- 	전체 출력 -->
+<!-- 		SELECT  -->
+<!-- 		    championName, -->
+<!-- 		    teamPosition AS position, -->
+<!-- 		    ROUND((COUNT(DISTINCT CASE WHEN win = 'true' THEN gameId END) / COUNT(DISTINCT gameId) * 100), 2) AS winRate, -->
+<!-- 		    ROUND((COUNT(CASE WHEN championName = ld.championName THEN gameId END) / (SELECT COUNT(*) / 10 FROM lol_datas)) * 100, 2) AS pickRate, -->
+<!-- 		    ROUND(( -->
+<!-- 		        (COUNT(DISTINCT gameid) / (SELECT COUNT(*) FROM lol_datas WHERE bans IN ( -->
+<!-- 		            SELECT DISTINCT bans -->
+<!-- 		            FROM lol_datas -->
+<!-- 		            WHERE bans != -1 -->
+<!-- 		        )) * -->
+<!-- 		        COUNT(DISTINCT CASE WHEN teamPosition = ld.teamPosition AND championName = ld.championName THEN gameId END)) / -->
+<!-- 		        (SELECT COUNT(*) FROM lol_datas WHERE championName = ld.championName) * 100 -->
+<!-- 		    ), 2) AS banRate -->
+<!-- 		FROM  -->
+<!-- 		    lol_datas ld -->
+<!-- 		WHERE  -->
+<!-- 		   teamPosition != '' -->
+<!-- 		GROUP BY  -->
+<!-- 		    championName, teamPosition -->
+<!-- 		HAVING  -->
+<!-- 		    pickRate >= 0.5 AND banRate >= 0.5; -->
+
+	select championName, position, winRate, pickRate, banRate from champdata
+	</select>
+	
+	<select id="lineInfo">
+<!-- 	라인 출력 -->
+	select championName, position, winRate, pickRate, banRate from champdata where position = #{line}
+	</select>
+</mapper>
