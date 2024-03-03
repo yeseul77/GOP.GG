@@ -12,7 +12,7 @@ $("document").ready(function(){
 		$.each(result, function(index, winlist){
 			console.log(winlist)
 			const html=document.createElement("div")
-			html.innerHTML=`<div id="winlist">${winlist.summonerName}(${winlist.championName}): ${winlist.rank}`
+			html.innerHTML=`<div id="winlist">${winlist.summonerName}(${winlist.championName}): ${winlist.ranklist}%`
 			temp.append(html)
 		})
 		$('#best-winner').append(temp)
@@ -26,11 +26,11 @@ $("document").ready(function(){
 		$.each(result, function(index, winlist){
 			console.log(winlist)
 			const html=document.createElement("div")
-			html.innerHTML=`<div id="winlist">${winlist.summonerName}(${winlist.championName}): ${winlist.rank}`
+			html.innerHTML=`<div id="winlist">${winlist.summonerName}(${winlist.championName}): ${winlist.ranklist}`
 			temp.append(html)
 		})
 		console.log(temp)
-		$('#best-time').after(temp)
+		$('#best-time').append(temp)
 	})
 	$.ajax({
 		method:'get',
@@ -41,7 +41,7 @@ $("document").ready(function(){
 		$.each(result, function(index, winlist){
 			console.log(winlist)
 			const html=document.createElement("div")
-			html.innerHTML=`<div id="winlist">${winlist.summonerName}(${winlist.championName}): ${winlist.rank}`
+			html.innerHTML=`<div id="winlist">${winlist.summonerName}(${winlist.championName}): ${winlist.ranklist}`
 			temp.append(html)
 		})
 		$('#best-kda').append(temp)
