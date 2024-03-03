@@ -92,12 +92,10 @@
 
 
  </script>
-    
-
-
 <link rel="stylesheet" href="/css/index.css">
-
+<script defer src="/js/indexchat.js"></script>
 <script defer src="/js/index.js"></script>
+<script defer src="/js/rank.js"></script>
 </head>
 
 <body>
@@ -173,36 +171,7 @@
         <div class="swiper">
 
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <a href="javascript:void(0)" target="_blank">1</a>
-            </div>
-            <div class="swiper-slide">
-              <a href="javascript:void(0)" target="_blank">2</a>
-            </div>
-            <div class="swiper-slide">
-              <a href="javascript:void(0)" target="_blank">3</a>
-            </div>
-            <div class="swiper-slide">
-              <a href="javascript:void(0)" target="_blank">4</a>
-            </div>
-            <div class="swiper-slide">
-              <a href="javascript:void(0)" target="_blank">5</a>
-            </div>
-            <div class="swiper-slide">
-              <a href="javascript:void(0)" target="_blank">6</a>
-            </div>
-            <div class="swiper-slide">
-              <a href="javascript:void(0)" target="_blank">7</a>
-            </div>
-            <div class="swiper-slide">
-              <a href="javascript:void(0)" target="_blank">8</a>
-            </div>
-            <div class="swiper-slide">
-              <a href="javascript:void(0)" target="_blank">9</a>
-            </div>
-            <div class="swiper-slide">
-              <a href="javascript:void(0)" target="_blank">10</a>
-            </div>
+
           </div>
 
         </div>
@@ -235,9 +204,9 @@
       </div>
 
       <div class="bestplayer-box">
-        <div class="best-winner">승률</div>
-        <div class="best-kda">KDA</div>
-        <div class="best-time">플레잉 타임</div>
+        <div id= "best-winner" class="best-winner">승률</div>
+        <div id="best-kda" class="best-kda">KDA</div>
+        <div id="best-time" class="best-time">플레잉 타임</div>
       </div>
 
     </div>

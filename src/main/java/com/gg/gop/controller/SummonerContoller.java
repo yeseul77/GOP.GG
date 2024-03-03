@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.gg.gop.dto.RankDto;
 import com.gg.gop.dto.SummonerDto;
+import com.gg.gop.service.RankService;
 import com.gg.gop.service.SummonerService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -21,9 +23,17 @@ import lombok.extern.slf4j.Slf4j;
 public class SummonerContoller {
 	@Autowired
 	private SummonerService summonerService;
-
+	@Autowired
+	private RankService rSer;
+	
 	@GetMapping("/")
-	public String summoner() {
+	public String summoner(Model model) {
+//		List<RankDto> winRank= rSer.getWinList();
+//		List<RankDto> gameRank=rSer.getGameList();
+//		List<RankDto> kdaRank=rSer.getKdaList();
+//		model.addAttribute("winRank", winRank);
+//		model.addAttribute("gameRank", gameRank);
+//		model.addAttribute("kdaRank", kdaRank);
 		return "index";
 	}
 
