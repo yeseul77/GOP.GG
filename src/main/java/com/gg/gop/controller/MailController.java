@@ -24,7 +24,7 @@ public class MailController {
     //인증번호
     @GetMapping("/email")
     public ResponseEntity<?> sendAuthCode(@RequestParam("mail") String mail, HttpSession session) {
-       log.info("email: {}", mail); 
+  //     log.info("email: {}", mail); 
 
         String authCode = mailService.sendAuthEmail(mail);
         if (authCode != null) {
