@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 에러시 window-preferences-maven검색-Download Artifact javadoc 체크할것 -->
+<mapper namespace="com.gg.gop.dao.RankDao">
+<select id="getWinRate">
+
+select trim(leading from summonerName) as summonerName, championName, round(count(case when win='true' then 1 end)/count(distinct gameId)*100,2) as ranklist, count(distinct gameid) as playgame
+ from lol_datas 
+ where not summonerName like '' 
+ group by summonerName, championName 
+ order by playgame desc, ranklist desc limit 10;
+ 
+</select>
+
+<select id="getGameRate">
+
+select summonerName, championName, sum(gameDuration) as ranklist 
+from lol_datas 
+where not summonerName like '' 
+group by summonerName, championName 
+order by ranklist desc limit 10;
+
+</select>
+
+<select id="getKdaRate">
+
+select summonerName, championName, round(max(kda) ,2)as ranklist
+from lol_datas 
+group by summonerName ,championName 
+order by ranklist desc limit 10;
+
+</select>
+
+</mapper>

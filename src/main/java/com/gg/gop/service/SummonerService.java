@@ -44,15 +44,18 @@ public class SummonerService {
 		return webClient.getSummonerLeagueInfo(summonerId);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> gameInfoList(List<String> matchId) { // 최근전적 정보 가져오기
 		List<Map<String, Object>> gameInfoList = new ArrayList<>();
-		for (int i = 0; i < matchId.size(); i++) {
+		for (int i = 0; i <= matchId.size(); i++) {
+			@SuppressWarnings("rawtypes")
 			Map gameInfo = webClient.getGameInfo(matchId.get(i));
 			gameInfoList.add(gameInfo);
 		}
 		return gameInfoList;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> saveAndRetrieveGameData(List<Map<String, Object>> gameDataList)
 			throws JsonProcessingException {
 		List<Map<String, Object>> savedDataList = new ArrayList<>();
