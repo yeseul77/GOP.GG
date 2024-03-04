@@ -38,13 +38,13 @@
 	<select id="lineRecode">
 		<!-- 전체 출력 -->
 		select distinct championName, position, winRate, pickRate, banRate from
-		champdata
+		champdata order by winRate desc
 	</select>
 
 	<select id="lineInfo">
 		<!-- 라인 출력 -->
 		select distinct championName, position, winRate, pickRate, banRate from
-		champdata where position = #{line}
+		champdata where position = #{line} order by winRate;
 	</select>
 
 	<select id="getChampionRune">
