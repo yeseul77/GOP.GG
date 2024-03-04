@@ -10,10 +10,20 @@ $("document").ready(function(){
 		const temp=document.createElement("div")
 		temp.classList.add("listArray")
 		let i=1;
+		
 		$.each(result, function(index, winlist){
 			console.log(winlist)
+			winlist.championName === 'FiddleSticks' ? 'Fiddlesticks' : winlist.championName;
 			const html=document.createElement("div")
-			html.innerHTML=`<div id="winlist">${i}${winlist.summonerName}(${winlist.championName}): ${winlist.ranklist}%`
+			const medal = `<span class="material-symbols-outlined">workspace_premium</span>`
+			const num = i>3 ? i : medal;  	 				
+			html.classList.add("rankBox")
+			html.innerHTML=`
+			<div class="rankNum">${num}</div>
+			<div class="rankPhoto"><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/${winlist.championName}.png' alt='${winlist.championName}'></div>
+			<div class="rankInfo"><div class="summonerName">${winlist.summonerName}</div><div class="championName">${winlist.championName}</div></div></div>
+			<div class="rankDate">${winlist.ranklist}&nbsp;%&nbsp;&nbsp;</div>
+			`
 			temp.append(html)
 			i++
 		})
@@ -28,8 +38,18 @@ $("document").ready(function(){
 		let i=1;
 		$.each(result, function(index, winlist){
 			console.log(winlist)
+			winlist.championName === 'FiddleSticks' ? 'Fiddlesticks' : winlist.championName;
+			const playTime = (winlist.ranklist / 3600).toFixed(1);
 			const html=document.createElement("div")
-			html.innerHTML=`<div id="winlist">${i}${winlist.summonerName}(${winlist.championName}): ${winlist.ranklist}`
+			const medal = `<span class="material-symbols-outlined">workspace_premium</span>`
+			const num = i>3 ? i : medal;  
+			html.classList.add("rankBox")
+			html.innerHTML=`
+			<div class="rankNum">${num}</div>
+			<div class="rankPhoto"><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/${winlist.championName}.png' alt='${winlist.championName}'></div>
+			<div class="rankInfo"><div class="summonerName">${winlist.summonerName}</div><div class="championName">${winlist.championName}</div></div></div>
+			<div class="rankDate">${playTime}&nbsp;시간&nbsp;&nbsp;</div>
+			`
 			temp.append(html)
 			i++
 		})
@@ -45,8 +65,17 @@ $("document").ready(function(){
 		let i=1
 		$.each(result, function(index, winlist){
 			console.log(winlist)
+			winlist.championName === 'FiddleSticks' ? 'Fiddlesticks' : winlist.championName;
 			const html=document.createElement("div")
-			html.innerHTML=`<div id="winlist">${i}${winlist.summonerName}(${winlist.championName}): ${winlist.ranklist}`
+			const medal = `<span class="material-symbols-outlined">workspace_premium</span>`
+			const num = i>3 ? i : medal;  
+			html.classList.add("rankBox")
+			html.innerHTML=`
+			<div class="rankNum">${num}</div>
+			<div class="rankPhoto"><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/${winlist.championName}.png' alt='${winlist.championName}'></div>
+			<div class="rankInfo"><div class="summonerName">${winlist.summonerName}</div><div class="championName">${winlist.championName}</div></div></div>
+			<div class="rankDate">${winlist.ranklist}&nbsp;점&nbsp;&nbsp;</div>
+			`
 			temp.append(html)
 			i++
 		})

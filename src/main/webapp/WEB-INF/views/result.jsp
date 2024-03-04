@@ -16,7 +16,8 @@
 $(document).ready(function () {
 	var gameName = "${param.gameName}";
     var tagLine = "${param.tagLine}";
-
+	var summonerid="${summonerId}";
+	console.log(summonerid);
     <%
         List<Map<String, Object>> gameInfoList = (List<Map<String, Object>>) request.getAttribute("gameInfoList");
 
@@ -35,8 +36,12 @@ $(document).ready(function () {
     var gameInfoList2 = <%= gameInfoListJson %>;
     console.log("gameInfoList2:", gameInfoList2);
     if (gameInfoList2.length > 0) {
+    	try{
         console.log("Received gameData in result page:", gameInfoList2);
         displayGameInfo(gameInfoList2);
+    	}catch{
+    		updateGameData();
+    	}
     } else {
         console.log("No gameInfoList parameter found.");
     }
@@ -241,8 +246,9 @@ $(document).ready(function () {
    		            showMore += 
    		                "<tr class='win'>" +
    		                "<td class='win-body summoner'>" +
-       		            "<div class='win-image'><a href=''><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/" + winTeamPlayerInfo.championName + ".png' alt='" + winTeamPlayerInfo.championName + "'></a></div>" +
-       		            "<div class='win-user'><div class='riotIdGameName'>" + winTeamPlayerInfo.riotIdGameName + "</div><div class='championName'>" + winTeamPlayerInfo.championName + "</div></div>" +
+       		            "<div class='win-image'><a href=''><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/" + winTeamPlayerInfo.championName + ".png' alt='" + winTeamPlayerInfo.championName + "'href='/champion/detail?championName="+winTeamPlayerInfo.championName+"'></a></div>" +
+       		            "<div class='win-user'><div class='riotIdGameName'><a href='/summonerSearch?gameName="+winTeamPlayerInfo.riotIdGameName+"&tagLine="+winTeamPlayerInfo.riotIdTagline+"'>" + winTeamPlayerInfo.riotIdGameName + "</a></div><div class='championName'>" + winTeamPlayerInfo.championName + "</div></div>" +
+       		            		
    		                "</td>" +
        		            "<td class='win-body'>" + kdaDisplay + "</td>" +
    		                "<td class='win-bodyChart1'><div class='chartMain'><span>" + giveDamage + "</span><div class='chart-mo'><div class='chart-ch' style='width:" + giveDamageChart + "%'></div></div></div></td>" +
@@ -291,7 +297,7 @@ $(document).ready(function () {
         		                "<tr class='lose'>" +
         		                "<td class='lose-body summoner'>" +
             		            "<div class='lose-image'><a href=''><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/" + loseTeamPlayerInfo.championName + ".png' alt='" + loseTeamPlayerInfo.championName + "'></a></div>" +
-            		            "<div class='lose-user'><div class='riotIdGameName'>" + loseTeamPlayerInfo.riotIdGameName + "</div><div class='championName'>" + loseTeamPlayerInfo.championName + "</div></div>" +
+            		            "<div class='lose-user'><div class='riotIdGameName'><a href='/summonerSearch?gameName="+loseTeamPlayerInfo.riotIdGameName+"&tagLine="+loseTeamPlayerInfo.riotIdTagline+"'> " + loseTeamPlayerInfo.riotIdGameName + "</div><div class='championName'>" + loseTeamPlayerInfo.championName + "</div></div>" +
             		            "</td>" +
             		            "<td class='lose-body'>" + kdaDisplay + "</td>" +
         		                "<td class='lose-bodyChart1'><div class='chartMain'><span>" + giveDamage + "</span><div class='chart-mo'><div class='chart-ch' style='width:" + giveDamageChart + "%'></div></div></div></td>" +
@@ -410,7 +416,7 @@ $(document).ready(function () {
             data: { gameName: gameName, tagLine: tagLine },
             success: function (data) {
                 console.log("Received data:", data);
-                displayGameInfo(data);
+                displayGameInfo(data,summonerid);
             },
             error: function (xhr, textStatus, errorThrown) {
                 handleAjaxError(xhr, textStatus, errorThrown);
@@ -419,16 +425,19 @@ $(document).ready(function () {
     });
     
     $("#updateButton").click(function () {
+    	console.log("update start");
         updateGameData();
     });
  
-    function saveGameDataToServer(data) {
+    function saveGameDataToServer(data,summonerid) {
+    	console.log(summonerid);
     	gamedata = [];
         for (var i = 0; i < data.length; i++) {
         	var dataList = {};
         	var teamdata = [];
             var infodata = [];
             var leagueInfodata = [];
+            try{
 	        var LL = {
 	           	summonerId: data[i].leagueInfo[0].summonerId,
 	           	queueType: data[i].leagueInfo[0].queueType,
@@ -438,6 +447,17 @@ $(document).ready(function () {
 	           	wins: data[i].leagueInfo[0].wins,
 	           	losses: data[i].leagueInfo[0].losses
 	        };
+            }catch{
+            	var LL={
+            		summmonerId: summonerid,
+            		queueType:"unrank",
+            		tier:"unrank",
+            		ranked:"unrank",
+            		leaguePoints:0,
+            		wins:"unrank",
+            		losses:"unrank"
+            	};
+            }
 	        console.log(LL)
             leagueInfodata.push(LL);
             dataList.leagueInfo = leagueInfodata;
@@ -519,7 +539,7 @@ $(document).ready(function () {
             data: { encodedData: encodeURIComponent(data2)},
             success: function (res) {
                 console.log(res);
-                
+                location.reload(true)
             },
             error: function (xhr, textStatus, errorThrown) {
                 handleAjaxError(xhr, textStatus, errorThrown);

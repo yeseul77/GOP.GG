@@ -5,7 +5,8 @@
 <mapper namespace="com.gg.gop.dao.ChampionDao">
 
 	<select id="allChampion">
-		select champion_name, champion_name_kr from
+		select championId, champion_name, champion_name_kr
+		from
 		champion_names
 	</select>
 
@@ -14,6 +15,8 @@
 		#{championName}
 	</select>
 
+
+	<!-- Rest -->
 	<select id="searchList">
 		SELECT champion_name_kr, champion_name
 		FROM
@@ -26,21 +29,54 @@
 		ROUND((COUNT(CASE WHEN
 		teamPosition = #{line} THEN gameId END) / COUNT(DISTINCT gameId) *
 		100), 1) AS pick_rate
-		FROM semi
+		FROM lol_datas
 		GROUP BY championName
-		HAVING pick_rate >
-		10
+		HAVING
+		pick_rate > 10
 	</select>
 
 	<select id="lineRecode">
-		SELECT championName,
-		CONCAT(ROUND(((COUNT(CASE WHEN win = 'True' THEN 1 END) / COUNT(*)) * 100), 2), '%') AS winRate,
-		CONCAT(ROUND((COUNT(*) / (SELECT COUNT(*) FROM semi WHERE teamPosition != '')) * 100 * 10, 2), '%') AS pickRate,
-		0 AS benRate,
-		'Unranked' AS tier,
-		teamPosition AS position
-		FROM semi
-		WHERE teamPosition != ''
-		GROUP BY championName;
+		<!-- 전체 출력 -->
+		select distinct championName, position, winRate, pickRate, banRate from
+		champdata
+	</select>
+
+	<select id="lineInfo">
+		<!-- 라인 출력 -->
+		select distinct championName, position, winRate, pickRate, banRate from
+		champdata where position = #{line}
+	</select>
+
+	<select id="getChampionRune">
+		SELECT * FROM gop_rune
+		WHERE championName = #{championName}
+		AND teamPosition = #{position}
+		AND main_name IN (
+		    SELECT main_name 
+		    FROM gop_rune
+		    WHERE championName = #{championName}
+		    GROUP BY main_name
+		    HAVING COUNT(*) / (SELECT COUNT(*) FROM gop_rune WHERE championName = #{championName}) * 100 >= 15)
+	</select>
+
+	<select id="getChampionPosition">
+		SELECT teamPosition FROM gop_rune
+		WHERE championName = #{championName}
+		GROUP BY teamPosition
+		HAVING COUNT(main_name) / (SELECT COUNT(*) FROM gop_rune WHERE championName = #{championName}) * 100 >= 15;
+	</select>
+	
+	<select id="getRates">
+		select winRate, pickRate, banRate from champdata 
+		where championName = #{championName} and position = #{firstLine};
+	</select>
+	
+	<select id="getSpells">
+		SELECT spell1Name, spell2Name, COUNT(*) AS combinationCount
+		FROM lol_datas
+		WHERE championName = #{championName} AND teamPosition = #{position}
+		GROUP BY spell1Name, spell2Name
+		ORDER BY combinationCount DESC
+		LIMIT 4;
 	</select>
 </mapper>

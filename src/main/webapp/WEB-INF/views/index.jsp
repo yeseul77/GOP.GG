@@ -74,28 +74,15 @@
 	    alert("Error occurred during AJAX request. See the console for details.");
 	}
 
-// 	            $.ajax({
-// 	                type: "POST",
-// 	                url: "summonerSearch",
-// 	                data: { gameName: gameName, tagLine: tagLine },
-// 	                success: function (data) {
-// 	                    console.log("Received data:", data);
-// 	                    displayGameInfo(data);
-// 	                },
-// 	                error: function (xhr, textStatus, errorThrown) {
-// 	                    handleAjaxError(xhr, textStatus, errorThrown);
-// 	                }
-// 	            });
-
-	       
-	        
-
-
  </script>
+    
+
+
 <link rel="stylesheet" href="/css/index.css">
-<script defer src="/js/indexchat.js"></script>
+<script defer src="/js/chatindex.js"></script>
 <script defer src="/js/index.js"></script>
 <script defer src="/js/rank.js"></script>
+
 </head>
 
 <body>
@@ -115,33 +102,7 @@
     </div>
   </section>
 
-  <!-- SECTION SEARCH -->
-
-<!--  <section class="search"> -->
-<!--   <div class="inner"> -->
-<!--     <div class="search-bar"> -->
-<!--       <form id="searchForm"> -->
-<!--         <div class="input"> -->
-<!--           <input type="text" id="gameName" placeholder="소환사 이름 + #KR1" required> -->
-<!--           태그라인 입력 필드 추가 -->
-<!--           <input type="text" id="tagLine" placeholder="Tag Line"> -->
-<!--         </div> -->
-<!--         <div class="search-icon"> -->
-<!--           <button type="submit"> -->
-<!--             <div class="material-symbols-outlined"> -->
-<!--               search -->
-<!--             </div> -->
-<!--           </button> -->
-<!--         </div> -->
-<!--       </form> -->
-<!--       <div class="search-bar-record"> -->
-<!--         <div class="record-bar"> -->
-<!--           최근에 본 소환사가 없습니다. -->
-<!--         </div> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--   </div> -->
-<!-- </section> -->
+  
 <section class="search">
     <div class="inner">
       <div class="search-bar">
@@ -169,11 +130,11 @@
         </div>
 
         <div class="swiper">
-
-          <div class="swiper-wrapper">
-
+          
+          <div class="swiper-wrapper">                          	
+          
           </div>
-
+                                 
         </div>
 
         <div class="swiper-button-prev">
@@ -204,9 +165,22 @@
       </div>
 
       <div class="bestplayer-box">
-        <div id= "best-winner" class="best-winner">승률</div>
-        <div id="best-kda" class="best-kda">KDA</div>
-        <div id="best-time" class="best-time">플레잉 타임</div>
+      
+        <div class="bestWinner">
+          <div class="bestHeader">승&nbsp;&nbsp;률</div>
+          <div id= "best-winner" class="best-winner"></div>
+        </div>
+        
+        <div class="bestKda">
+          <div class="bestHeader">KDA</div>
+          <div id="best-kda" class="best-kda"></div>
+        </div>
+        
+        <div class="bestTime">
+          <div class="bestHeader">플레잉&nbsp;타임</div>
+          <div id="best-time" class="best-time"></div>
+        </div>
+    
       </div>
 
     </div>

@@ -53,7 +53,9 @@ public class SummonerContoller {
 	public String summonerSearch(@RequestParam String gameName, @RequestParam String tagLine, Model model) {
 	    List<Map<String, Object>> combinedGameData = summonerService.getCombinedGameData(gameName, tagLine);
 	    List<Map<String, Object>> filteredGameData = new ArrayList<>();
-
+		String puuid = summonerService.puuid(gameName, tagLine);
+		String summonerid=summonerService.SummonerId(puuid);
+		model.addAttribute("summonerId",summonerid);
 	    // 최근 10게임만 추출하고, 검색한 소환사 이름과 태그 라인이 일치하는 게임 정보만 필터링
 	    int gameCount = 0;
 	    for (Map<String, Object> gameData : combinedGameData) {

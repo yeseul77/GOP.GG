@@ -43,7 +43,7 @@
             <a href="${contextPath}/">홈</a>
           </li>
           <li>
-            <a href="javascript:void(0)">챔피언 분석</a>
+            <a href="${contextPath}/champion/list">챔피언 분석</a>
           </li>
           <li>
           	<a href="${contextPath}/match">시너지분석</a>

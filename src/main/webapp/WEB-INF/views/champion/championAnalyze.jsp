@@ -11,13 +11,13 @@
 </head>
 <body>
 <input type="hidden" id="championNames" name="championNames" value='${championNames}' />
-
+<!-- 티어 상관없이 모든 티어 통틀어서 나오는 승률,픽률,벤률 op챔 나누기-->
 <div id="champion">	
 	<nav class="championList">
 		<aside>
 			<label class="hidden" for="filterChampionInput">챔피언 검색(가렌, ㄱㄹ, ...)</label>
 			<input id="searchChampion" type="text" name="searchChampion" 
-			placeholder="챔피언 검색 (가렌, ㄱㄹ, ...)" autocomplete="off" class="css-97nwo7 e12jtn8s0" value="">
+			placeholder="챔피언 검색 (가렌, ㄱㄹ, ...)" autocomplete="off" class="search" value="">
 			<div id="lineButton"></div>
 		</aside>
 		<main>

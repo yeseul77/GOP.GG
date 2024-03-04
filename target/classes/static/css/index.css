@@ -3,7 +3,6 @@ input:-webkit-autofill {
    -webkit-text-fill-color: #333;
 }
 
-
 body {
   color: #333;
   font-size: 16px;
@@ -29,7 +28,7 @@ a {
 .back {
   top: 51px;
   width: 100%;
-  height: 150%;
+  height: 180%;
   /*background-image: url("/images/Volibear.jpg");*/
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -40,7 +39,7 @@ a {
 }
 
 #wrap {
-  min-height: 1350px;
+  min-height: 1650px;
 }
 
 /* SECTION LOGO */
@@ -332,25 +331,123 @@ a {
 .best .bestplayer-box {
   position: absolute;
   width: 100%;
-  top: 50px;
+  top: 55px;
   display: flex;
   justify-content: space-between;
 }
-.best .bestplayer-box .best-winner,
-.best .bestplayer-box .best-kda,
-.best .bestplayer-box .best-time { 
-  border: 1px solid #006C5F;
+.best .bestplayer-box .bestWinner,
+.best .bestplayer-box .bestKda,
+.best .bestplayer-box .bestTime { 
   width: 369px;
   height: 300px;
-  background-color: orange;
-  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
-.best .bestplayer-box .best-winner {
+.best .bestplayer-box .bestWinner .bestHeader,
+.best .bestplayer-box .bestKda .bestHeader,
+.best .bestplayer-box .bestTime .bestHeader {
+  color: #fff;
+  font-size: 16px;
+  width: 100px;
+  border-radius: 6px;
+  font-weight: 700;
+  padding: 8px 10px;
+  background-color: #1aa179;
+  text-align: center;
+}
+.best .bestplayer-box .bestWinner .best-winner,
+.best .bestplayer-box .bestKda .best-kda,
+.best .bestplayer-box .bestTime .best-time {
+  
   
 }
-.best .bestplayer-box .best-kda {
-  
+
+
+.best .bestplayer-box .bestWinner .best-winner .listArray,
+.best .bestplayer-box .bestKda .best-kda .listArray,
+.best .bestplayer-box .bestTime .best-time .listArray {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
-.best .bestplayer-box .best-time {
-  
+.best .bestplayer-box .bestWinner .best-winner .listArray .rankBox,
+.best .bestplayer-box .bestKda .best-kda .listArray .rankBox,
+.best .bestplayer-box .bestTime .best-time .listArray .rankBox {
+  padding: 10px;
+  display: flex;
+  height: 50px;
+  background-color: white;	
+  border-radius: 6px;
+  align-items: center;	
+} 
+.best .bestplayer-box .bestWinner .best-winner .listArray .rankBox .rankNum,
+.best .bestplayer-box .bestKda .best-kda .listArray .rankBox .rankNum,
+.best .bestplayer-box .bestTime .best-time .listArray .rankBox .rankNum {
+  width: 30px;
+  text-align: center;
+  margin-right: 10px;
+  font-weight: 700;	
 }
+.best .bestplayer-box .bestWinner .best-winner .listArray .rankBox:nth-child(1) .rankNum,
+.best .bestplayer-box .bestKda .best-kda .listArray .rankBox:nth-child(1) .rankNum,
+.best .bestplayer-box .bestTime .best-time .listArray .rankBox:nth-child(1) .rankNum {
+ color: #bf9b30;;
+}
+.best .bestplayer-box .bestWinner .best-winner .listArray .rankBox:nth-child(2) .rankNum,
+.best .bestplayer-box .bestKda .best-kda .listArray .rankBox:nth-child(2) .rankNum,
+.best .bestplayer-box .bestTime .best-time .listArray .rankBox:nth-child(2) .rankNum {
+ color: #bebebe;;
+}
+.best .bestplayer-box .bestWinner .best-winner .listArray .rankBox:nth-child(3) .rankNum,
+.best .bestplayer-box .bestKda .best-kda .listArray .rankBox:nth-child(3) .rankNum,
+.best .bestplayer-box .bestTime .best-time .listArray .rankBox:nth-child(3) .rankNum {
+ color: #cd7f32;;
+}
+
+.best .bestplayer-box .bestWinner .best-winner .listArray .rankBox .rankPhoto,
+.best .bestplayer-box .bestKda .best-kda .listArray .rankBox .rankPhoto,
+.best .bestplayer-box .bestTime .best-time .listArray .rankBox .rankPhoto {
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  margin-right: 10px;
+} 
+.best .bestplayer-box .bestWinner .best-winner .listArray .rankBox .rankPhoto img,
+.best .bestplayer-box .bestKda .best-kda .listArray .rankBox .rankPhoto img,
+.best .bestplayer-box .bestTime .best-time .listArray .rankBox .rankPhoto img {
+  transform: scale(.4);	
+  filter: brightness(110%);
+}
+.best .bestplayer-box .bestWinner .best-winner .listArray .rankBox .rankInfo,
+.best .bestplayer-box .bestKda .best-kda .listArray .rankBox .rankInfo,
+.best .bestplayer-box .bestTime .best-time .listArray .rankBox .rankInfo {
+  font-size: 14px;
+  width: 130px;
+  margin-right: 20px;
+}
+.best .bestplayer-box .bestWinner .best-winner .listArray .rankBox .rankInfo .summonerName,
+.best .bestplayer-box .bestKda .best-kda .listArray .rankBox .rankInfo .summonerName,
+.best .bestplayer-box .bestTime .best-time .listArray .rankBox .rankInfo .summonerName {
+  font-weight: 700;	
+}
+.best .bestplayer-box .bestWinner .best-winner .listArray .rankBox .rankInfo .championName,
+.best .bestplayer-box .bestKda .best-kda .listArray .rankBox .rankInfo .championName,
+.best .bestplayer-box .bestTime .best-time .listArray .rankBox .rankInfo .championName {
+  color:#6c757e;	
+}  
+.best .bestplayer-box .bestWinner .best-winner .listArray .rankBox .rankDate,
+.best .bestplayer-box .bestKda .best-kda .listArray .rankBox .rankDate,
+.best .bestplayer-box .bestTime .best-time .listArray .rankBox .rankDate {
+  text-align: right;
+  flex-grow: 1;		
+} 
+
+
+
+
+  

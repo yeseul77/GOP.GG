@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.gg.gop.dao.SummonerDao;
@@ -71,6 +72,7 @@ public class SummonerService {
 					sDao.saveteamsdata((Map<String, Object>) gameData.get("teams"));
 					// 리그 정보 저장
 					sDao.saveLeagueInfo((Map<String, Object>) gameData.get("SummonerLeagueInfo"));
+					
 					// 저장된 데이터 조회하지 않고, 저장된 데이터를 그대로 사용
 					savedDataList.add(gameData);
 				} else {
@@ -124,6 +126,7 @@ public class SummonerService {
 		}
 		for (Map<String, Object> leagueInfo : leagueInfoList) {
 			String summonerId = (String) leagueInfo.get("summonerId");
+			log.info(summonerId);
 			summonerIdList.add(summonerId);
 			leagueInfoBySummonerId.computeIfAbsent(summonerId, k -> new ArrayList<>()).add(leagueInfo);
 		}
@@ -196,7 +199,9 @@ public class SummonerService {
 	        }
 	        return rowsAffected;
 	    } else {
-	        log.error("summonerId is null. Cannot insert or update data.");
+	    	Model model = null;
+	    	String nullsummonerId = (String)model.getAttribute("summonerId");
+	    	log.error("summonerId is null. Cannot insert or update data.");
 	        return 0;
 	    }
 	

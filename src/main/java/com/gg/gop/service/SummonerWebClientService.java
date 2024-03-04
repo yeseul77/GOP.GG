@@ -11,7 +11,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import com.gg.gop.dto.SummonerDto;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class SummonerWebClientService {
 	private static final String RIOT_API_KEY = "RGAPI-953215fc-9845-49e6-988f-07a6f4e122cb";
 	private static final String RIOT_API_URL = "https://asia.api.riotgames.com/riot/account/v1/accounts/by-riot-id/";
@@ -83,6 +86,7 @@ public class SummonerWebClientService {
 		checkRequestLimit();
 	    String url = "https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/" + summonerId + "?api_key=" + RIOT_API_KEY;
 	    WebClient webClient = WebClient.builder().baseUrl(url).build();
+	    log.info("{}",webClient);
 	    return webClient.get().uri(uriBuilder -> uriBuilder.build()).retrieve()
 	            .bodyToMono(new ParameterizedTypeReference<List<Map<String, Object>>>() {
 	            }).block();
