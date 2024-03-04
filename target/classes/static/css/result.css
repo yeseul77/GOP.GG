@@ -1,94 +1,729 @@
 input:-webkit-autofill {
-   -webkit-box-shadow: 0 0 0 1000px white inset; 
-   -webkit-text-fill-color: #333;
+  -webkit-box-shadow: 0 0 0 1000px white inset; 
+  -webkit-text-fill-color: #333;
 }
 
 body {
-  color: #333;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.4;
-  font-family: "Roboto", "Noto Sans KR", sans-serif;
+ color: #333;
+ font-size: 16px;
+ font-weight: 400;
+ line-height: 1.4;
+ font-family: "Roboto", "Noto Sans KR", sans-serif;
 }
 img {
-  display: block;
+ display: block;
 }
 .inner {
-  width: 1130px;
-  margin: 0 auto;
-  position: relative;
+ width: 1130px;
+ margin: 0 auto;
+ position: relative;
 }
 a {
-  text-decoration: none;
-  color: #333;
+ text-decoration: none;
+ color: #333;
 }
 .back {
-  top: 51px;
-  width: 100%;
-  height: 100vh;
-  background-color: #f0f0f0;
-  position:fixed;
-  z-index: -2;
+ top: 51px;
+ width: 100%;
+ height: 100vh;
+ background-color: #f0f0f0;
+ position:fixed;
+ z-index: -2;
 }
 #wrap {
-  width: 100%;
-  min-height: calc(100vh - 200px);
-  margin-bottom: 50px;
- }
+ width: 100%;
+ min-height: calc(100vh - 200px);
+ margin-bottom: 50px;
+ display: flex;
+ flex-direction: column;
+ gap: 8px;
+}
 #wrap .search-bar {
-  position: absolute;
-  top: 61px;
-  width: 100%;
-  background-color: orange;
+ position: absolute;
+ top: 61px;
+ width: 100%;
+ background-color: orange;
 } 
 #wrap .search-bar .inner {
-  height: 50px;		
+ height: 50px;		
 }
 #wrap .search-bar .inner .searchBox {
-  width: 100%;
-  height: 30px;
-  position: absolute;
-  top:0;
-  bottom: 0;
-  margin: auto;
-  border-radius: 4px;
-  background-color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-  font-size: 14px;  
+ width: 100%;
+ height: 30px;
+ position: absolute;
+ top:0;
+ bottom: 0;
+ margin: auto;
+ border-radius: 4px;
+ background-color: white;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 0 20px;
+ font-size: 14px;  
 }
 #wrap .search-bar  .inner .searchBox .nameInfo {
-  display: block;
-  width: 100%;
-  height: 30px;
-  border: none;
-  outline: none;
+ display: block;
+ width: 100%;
+ height: 30px;
+ border: none;
+ outline: none;
 }
 #wrap .search-bar  .inner .searchBox .nameInfo::placeholder {
-  color:#adb6bd;	
+ color:#adb6bd;	
 }
 #wrap .search-bar  .inner .searchBox button.searchBtn {
-  display: block;
-  border: none;
-  background-color: transparent;
-  height: 30px;
+ display: block;
+ border: none;
+ background-color: transparent;
+ height: 30px;
 }
 #wrap .search-bar  .inner .searchBox button.searchBtn span.material-symbols-outlined{
-  color:#adb6bd;
-  font-size: 25px;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  margin: auto;
-  display: block;
-}
-.summonerInfo {  	
-  margin-top: 150px;
-  height: 100px;	
+ color:#adb6bd;
+ font-size: 25px;
+ top: 0;
+ bottom: 0;
+ right: 0;
+ margin: auto;
+ display: block;
 }
 
-.search-result {
-  margin-top: 100px; 
+#wrap .summoner-result .inner{	 
+ margin-top: 160px;
+ display: flex;
+ gap: 8px;
 }
+#wrap .summoner-result .summonerSide {
+ display: flex;
+ width: 310px;
+ flex-direction: column;
+ gap: 8px;
+}
+#wrap .summoner-result .summonerSide .summonerInfo {  	
+ max-width: 310px;
+ max-height: 150px;
+ padding: 15px;
+ box-sizing: border-box;
+ border-radius: 4px;
+ border: 1.5px solid #e1e1e1;
+ background-color: white;
+ height: 150px;
+ flex-grow: 1;	
+ display: flex;
+ gap: 15px;
+}
+#wrap .summoner-result .summonerSide .summonerInfo #summonerPicture {
+ width: 100px;
+ height: 100px;
+ overflow: hidden;
+ display: flex;
+ justify-content: center;
+ text-align: center;
+ border-radius: 6px;
+ margin: auto 0; 
+}
+#wrap .summoner-result .summonerSide .summonerInfo #summonerPicture .pictureImage { 
+ transform: scale(1.2);
+ display: block;
+ filter: brightness(110%);
+}
+#wrap .summoner-result .summonerSide .summonerInfo .text {
+ display: flex;
+ flex-direction: column;
+ justify-content: space-around; 
+}
+#wrap .summoner-result .summonerSide .summonerInfo .text .text-nickname {
+ width: 158.62px;
+}
+#wrap .summoner-result .summonerSide .summonerInfo .text .text-nickname #gameNameDisplay {
+ font-weight: 700;
+ font-size: 18px;
+ 
+}
+#wrap .summoner-result .summonerSide .summonerInfo .text .text-nickname #tagLineDisplay {
+ color:#8a8b9e;
+ font-size: 16px;
+ 
+}
+#wrap .summoner-result .summonerSide .summonerInfo .text #updateButton {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ border: none;
+ background-color: #00c29f;
+ color: white;
+ border-radius: 4px;
+ font-size: 15px;
+ height: 35px;  	
+}
+#wrap .summoner-result .summonerSide .summonerInfo .text #updateButton:hover {
+ background-color: #006c5f;
+ font-weight: 700;
+}
+#wrap .summoner-result .summonerSide .summonerInfo .text #updateButton span {
+ font-size: 17px;	
+}
+#wrap .summoner-result .summonerSide #summonerLeagueInfo {
+ max-width: 310px;
+ border-radius: 4px;
+ border: 1.5px solid #e1e1e1;
+ background-color: white;
+ display: flex;
+ flex-direction: column;
+ padding: 10px 15px;
+ justify-content: space-around;	 
+}
+#wrap .summoner-result .summonerSide #summonerLeagueInfo .rank {
+ height: 90px;	
+ display: flex;
+ justify-content:space-around;
+ border-bottom: 1px solid #e1e1e1;
+}
+#wrap .summoner-result .summonerSide #summonerLeagueInfo .rank .rankImage {
+ width: 80px;
+ height: 80px;
+ border-radius: 50%;
+ background-color:#f0f0f0;
+}
+#wrap .summoner-result .summonerSide #summonerLeagueInfo .rank .rankImage img {
+ width: 100%;
+ transform: scale(.9);
+ margin-top: 5px;	
+}
+#wrap .summoner-result .summonerSide #summonerLeagueInfo .rank .rankTier {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ gap: 3px;	
+}
+#wrap .summoner-result .summonerSide #summonerLeagueInfo .rank .rankTier .tier {
+ font-size: 18px;
+ font-weight: 700;	
+}
+#wrap .summoner-result .summonerSide #summonerLeagueInfo .rank .rankTier .lp {
+ font-size: 15px;
+ color: #8a8b9e;	
+}
+#wrap .summoner-result .summonerSide #summonerLeagueInfo .chart-box {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ height: 90px;
+}
+#wrap .summoner-result .summonerSide #summonerLeagueInfo .chart-box .chart {
+ float:left;
+ box-sizing: border-box;
+ font-size: 14px;
+}
+#wrap .summoner-result .summonerSide #summonerLeagueInfo .chart-box .chart .chart-mo {
+ width: 150px;
+ height: 30px;
+ background-color: #e57474;
+ border-radius: 6px;
+ position: relative;
+ text-align: right;
+ color: white;
+ font-weight: 700;
+ line-height: 30px;
+ overflow: hidden;
+}
+#wrap .summoner-result .summonerSide #summonerLeagueInfo .chart-box .chart .chart-mo .chart-child {
+ position: absolute;
+ top: 0;
+ height: 30px;
+ background-color: #5d9ceb;
+ text-align: left;
+ color: white;
+ font-weight: 700;
+ line-height: 30px;	
+}
+#wrap .summoner-result .summonerSide #summonerLeagueInfo .chart-box .winRate {
+ display: flex;
+ flex-direction: column;
+ font-size: 15px;
+ color: #8a8b9e;
+ justify-content: center;
+ gap: 6px;
+ margin-top: 7px;
+ margin-left: 28px;
+}
+#wrap .summoner-result .summonerSide #summonerLeagueInfo .chart-box .winRate .winlose {
+ text-align: end;	
+}
+#wrap .summoner-result .summonerSide #summonerLeagueInfo .chart-box .winRate .rate {
+ text-align: end;
+ font-weight: 700;		
+}
+
+#wrap .summoner-result .summonerSide .summonerRecent {
+ max-width: 310px;
+ border-radius: 4px;
+ border: 1.5px solid #e1e1e1;
+ background-color: white;
+ padding: 15px;
+ 
+} 
+#wrap .summoner-result .summonerSide .summonerRecent #additionalTable {
+ display: flex;
+ flex-direction: column;
+ justify-content: space-around;
+ gap: 12px;		
+}
+#wrap .summoner-result .summonerSide .summonerRecent #additionalTable .champion-box {
+ display: table;
+ text-align: center;
+ table-layout: fixed;	
+}
+#wrap .summoner-result .summonerSide .summonerRecent #additionalTable .champion-box .face {
+ display: table-cell;
+ vertical-align: middle;
+ width: 50px;
+ height: 50px;
+ transition: .4s;
+}
+#wrap .summoner-result .summonerSide .summonerRecent #additionalTable .champion-box .face:hover {
+ transform: scale(1.2);	
+}
+#wrap .summoner-result .summonerSide .summonerRecent #additionalTable .champion-box .face a {
+ width: 50px;
+ height: 50px;
+ overflow: hidden;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ border-radius: 6px;	
+}
+#wrap .summoner-result .summonerSide .summonerRecent #additionalTable .champion-box .face a img {
+ transform: scale(.5);
+ display: block;
+ filter: brightness(110%);	
+}
+#wrap .summoner-result .summonerSide .summonerRecent #additionalTable .champion-box .info {
+ display: table-cell;
+ text-align: start;
+ vertical-align: middle;
+ width: 70px;
+ font-size: 14px;
+ font-weight: 700;
+ padding-left: 7px;
+ text-overflow: ellipsis;
+ overflow: hidden;
+ white-space: nowrap;
+}
+#wrap .summoner-result .summonerSide .summonerRecent #additionalTable .champion-box .kda {
+ display: table-cell;
+ vertical-align: middle;
+ color:#8a8b9e;
+ font-size: 13px;
+ text-align: center;
+}
+#wrap .summoner-result .summonerSide .summonerRecent #additionalTable .champion-box .kda .kdaRate {
+	
+}
+#wrap .summoner-result .summonerSide .summonerRecent #additionalTable .champion-box .kda .kdaPoint {
+ font-weight: 700;		
+}
+#wrap .summoner-result .summonerSide .summonerRecent #additionalTable .champion-box .game {
+ display: table-cell;
+ vertical-align: middle;
+ font-size: 14px;	
+}
+#wrap .summoner-result .summonerSide .summonerRecent #additionalTable .champion-box .game .winRate {
+ color:#d31a45;
+ text-align: end;	
+}
+#wrap .summoner-result .summonerSide .summonerRecent #additionalTable .champion-box .game .count {
+ text-align: end;
+ font-size: 13px;		
+}
+
+
+#wrap .summoner-result .summonerMain {
+ flex-grow: 1;
+}
+#wrap .summoner-result .summonerMain .search-result {
+	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; 
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable .summary {
+  display: flex;
+  height: 150px;
+  border-radius: 5px;
+  border: 1.5px solid #e1e1e1;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;  	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable .summary .gameInfomation {
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 13px;	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable .summary .gameInfomation .gameMode {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable .summary .gameInfomation .summonerName {
+  margin-bottom: 30px;
+  font-size: 16px;	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable .summary .gameInfomation .victoryLose {
+  font-weight: 700;
+  margin-bottom: 3px;	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable .summary .gameInfomation .time {
+	
+} 
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable .summary .summonerBox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 11px;
+  width: 112px;	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable .summary .summonerBox .summonerPhoto {
+  width: 80px;
+  height: 80px;
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable .summary .summonerBox .summonerPhoto a {
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;		
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable .summary .summonerBox .summonerPhoto a img {
+  transform: scale(.8);
+  display: block;
+  filter: brightness(110%);
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable .summary .summonerBox .summonerTier { 
+  font-size: 12px; 
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable .summary .kdaRecode {
+  font-size: 18px;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable .summary .kdaRecode .kda {
+  font-weight: 700;	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable .summary .kdaRecode .kdaRate {
+  font-size: 16px; 
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable .summary .killChat {
+  float: left;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 20px;
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable .summary .killChat .gauge {
+  width: 180px;
+  height: 135px;	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable .summary .killData {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: end;
+  margin-right: 100px;	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable .summary .killData span {
+  font-weight: 700;
+  font-size: 16px;		
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable .summary .killData .data {
+  font-size: 16px; 	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable .summary .showMore {
+  width: 50px;
+  
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable .summary .showMore .btn_toggle {
+  border : none;
+  outline: none;
+  background-color: transparent;
+  padding: 10px;
+  box-sizing: border-box;
+  margin-top: 86px;
+  margin-left: 22px;
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable .summary .showMore .btn_toggle span {
+  font-size: 35px;
+}
+
+ /*더보기 테이블*/
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table {
+  width: 100%;
+  border: 1.5px solid #e1e1e1;
+  display: block;
+  border-radius: 6px;
+  overflow: hidden; 
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table colgroup {
+  width: 812px;	
+}
+
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table .tableRow {
+  height: 40px;
+  background-color: white;	
+  line-height: 40px;
+  font-size: 14px;
+  border-bottom: 1.5px solid #e1e1e1;
+  font-weight: 700;
+  color: #8a8b9e; 
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table .tableRow .tableHead-first {
+  font-size: 16px; 
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table .tableRow .tableHead-first span.winSpan {
+  padding: 6px 10px;
+  background-color: #5d9ceb;
+  border-radius: 4px;
+  color: white;
+  font-weight: 700;
+  margin-left: 10px;
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table .tableRow .tableHead-first span.loseSpan {
+  padding: 6px 10px;
+  background-color: #e57474;
+  border-radius: 4px;
+  color: white;
+  font-weight: 700;
+  margin-left: 10px;
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table .tableRow .tableHead {
+  text-align: center;
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody {
+  color:#8a8b9e;
+  font-size: 14px;
+  text-align: center;
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .win {
+  border-top: 1px solid #e1e1e1;
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .lose {
+  border-top: 1px solid #e1e1e1;
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .win:first-child {
+  border-top: none;	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .lose:first-child {
+  border-top: none;	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .win .win-body {
+  height: 50px;
+  vertical-align: middle;
+  text-align: center;
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody.loseTeam .lose .lose-body {
+  height: 50px;
+  vertical-align: middle;
+  text-align: center;
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .win .win-body.summoner {
+  display: flex;
+  height: 50px; 	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody.loseTeam .lose .lose-body.summoner {
+  display: flex;
+  height: 50px; 
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .win .win-body.summoner .win-image {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  transition: .4s;	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody.loseTeam .lose .lose-body.summoner .lose-image {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  transition: .4s;	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .win .win-body.summoner .win-image:hover {
+  transform: scale(1.2);
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody.loseTeam .lose .lose-body.summoner .lose-image:hover {
+  transform: scale(1.2);
+}  
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .win .win-body.summoner .win-image a {
+  width: 40px;
+  height: 40px;	
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  overflow: hidden;
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody.loseTeam .lose .lose-body.summoner .lose-image a {
+  width: 40px;
+  height: 40px;	
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  overflow: hidden;
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .win .win-body.summoner .win-image a img {
+  transform: scale(.4);
+  filter: brightness(110%);	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody.loseTeam .lose .lose-body.summoner .lose-image a img {
+  transform: scale(.4);
+  filter: brightness(110%);	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .win .win-body.summoner .win-user {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: start;
+ margin-left: 10px;
+ text-overflow: ellipsis;
+ overflow: hidden;
+ white-space: nowrap;
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .lose .lose-body.summoner .lose-user {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: start;
+ margin-left: 10px;
+ text-overflow: ellipsis;
+ overflow: hidden;
+ white-space: nowrap;
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .win .win-body.summoner .win-user .riotIdGameName {
+ color:#333;	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .lose .lose-body.summoner .lose-user .riotIdGameName {
+ color:#333;	
+}
+
+
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .win .win-bodyChart1 {
+ font-size: 12px;
+ height: 50px;
+ vertical-align: middle; 	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .win .win-bodyChart2 {
+ font-size: 12px;
+ height: 50px;
+ vertical-align: middle; 	
+}
+
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .lose .lose-bodyChart1 {
+ font-size: 12px;
+ height: 50px;
+ vertical-align: middle; 	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .lose .lose-bodyChart2 {
+ font-size: 12px;
+ height: 50px;
+ vertical-align: middle; 	
+}
+
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .win .win-bodyChart1 .chartMain {
+ display: flex;
+ align-items: center;
+ flex-direction: column;
+ justify-content: center;	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .win .win-bodyChart2 .chartMain {
+ display: flex;
+ align-items: center;
+ flex-direction: column;
+ justify-content: center;	
+}
+
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .lose .lose-bodyChart1 .chartMain {
+ display: flex;
+ align-items: center;
+ flex-direction: column;
+ justify-content: center;	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .lose .lose-bodyChart2 .chartMain {
+ display: flex;
+ align-items: center;
+ flex-direction: column;
+ justify-content: center;	
+}
+
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .win .win-bodyChart1 .chartMain span {
+ display: block;	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .win .win-bodyChart2 .chartMain span {
+ display: block;	
+}
+
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .lose .lose-bodyChart1 .chartMain span {
+ display: block;	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .lose .lose-bodyChart2 .chartMain span {
+ display: block;	
+}
+
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .win .win-bodyChart1 .chartMain .chart-mo {
+ width: 100px;
+ height: 6px;
+ background-color:#adb6bd;	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .win .win-bodyChart2 .chartMain .chart-mo {
+ width: 100px;
+ height: 6px;
+ background-color: #adb6bd;		
+}
+
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .lose .lose-bodyChart1 .chartMain .chart-mo {
+ width: 100px;
+ height: 6px;
+ background-color:#adb6bd;	
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .lose .lose-bodyChart2 .chartMain .chart-mo {
+ width: 100px;
+ height: 6px;
+ background-color: #adb6bd;		
+}
+
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .win .win-bodyChart1 .chartMain .chart-mo .chart-ch {
+ width: 80px;
+ height: 6px;
+ background-color: #e57474;		
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .win .win-bodyChart2 .chartMain .chart-mo .chart-ch {
+ width: 80px;
+ height: 6px;
+ background-color: #5d9ceb;		
+}
+
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .lose .lose-bodyChart1 .chartMain .chart-mo .chart-ch {
+ width: 80px;
+ height: 6px;
+ background-color: #e57474;		
+}
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .lose .lose-bodyChart2 .chartMain .chart-mo .chart-ch {
+ width: 80px;
+ height: 6px;
+ background-color: #5d9ceb;		
+}
+
+
+
+

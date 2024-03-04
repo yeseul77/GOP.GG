@@ -35,11 +35,12 @@ public class SummonerRestController {
 		List<Map<String, Object>> combinedGameData = summonerService.getCombinedGameData(gameName.getGameName(),
 				tagLine.getTagLine());
 		List<Map<String, Object>> filteredGameData = new ArrayList<>();
+		
 
 		// 최근 10게임만 추출하고, 검색한 소환사 이름과 태그 라인이 일치하는 게임 정보만 필터링
 		int gameCount = 0;
 		for (Map<String, Object> gameData : combinedGameData) {
-			if (gameCount >= 10) {
+			if (gameCount >= 100) {
 				break; // 최대 10게임까지만 처리
 			}
 
@@ -48,7 +49,7 @@ public class SummonerRestController {
 			for (Map<String, Object> playerInfo : playerInfoList) {
 				String playerName = (String) playerInfo.get("riotIdGameName");
 				String playerTagLine = (String) playerInfo.get("riotIdTagline");
-
+				
 				// 검색한 소환사 이름과 태그 라인이 일치하는 플레이어 정보인 경우에만 추가
 				if (playerName.equals(gameName.getGameName()) && playerTagLine.equals(tagLine.getTagLine())) {
 					filteredGameData.add(gameData);
@@ -85,17 +86,26 @@ public class SummonerRestController {
 
 				List<Map<String, Object>> teamsList = (List<Map<String, Object>>) response.get("teams");
 				for (Map<String, Object> gameteams : teamsList) {
-				    if (summonerService.saveteamsdata(gameteams) > 0) { // saveteamsdata 메소드가 성공하면
-				        savedCount++; // 저장된 데이터 수 증가
-				    }
-				    
-				    // 팀에 대한 bans 정보 가져와서 처리
-				    List<Map<String, Object>> bansList = (List<Map<String, Object>>) gameteams.get("bans");
-				    for (Map<String, Object> bans : bansList) {
-				        if (summonerService.savebansdata(bans) > 0) { // savebansdata 메소드가 성공하면
-				            savedCount++; // 저장된 데이터 수 증가
-				        }
-				    }
+					if (summonerService.saveteamsdata(gameteams) > 0) { // saveteamsdata 메소드가 성공하면
+						savedCount++; // 저장된 데이터 수 증가
+					}
+
+					// 팀에 대한 bans 정보 가져와서 처리
+//					List<Map<String, Object>> bansList = (List<Map<String, Object>>) gameteams.get("bans");
+//					for (Map<String, Object> bans : bansList) {
+//						if (summonerService.savebansdata(bans) > 0) { // savebansdata 메소드가 성공하면
+//							savedCount++; // 저장된 데이터 수 증가
+//						}
+//					}
+				}
+				List<Map<String, Object>> leagueInfoList = (List<Map<String, Object>>) response.get("leagueInfo");
+				for (Map<String, Object> leagueInfo : leagueInfoList) {
+					if (leagueInfo != null) {
+						if (summonerService.saveLeagueInfo(leagueInfo) > 0) {
+							savedCount++; // 저장된 데이터 수 증가
+						}
+
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -113,8 +123,10 @@ public class SummonerRestController {
 		String puuid = summonerService.puuid(gameName, tagLine);
 		List<String> matchIdList = summonerService.matchIdList(puuid);
 		List<Map<String, Object>> newGameDataList = summonerService.gameInfoList(matchIdList);
-//		List<Map<String, Object>> timeLineDataList = summonerService.timeLineList(matchIdList);
 		log.info("Updating game data...");
+
+		String summonerId = summonerService.SummonerId(puuid);
+		List<Map<String, Object>> leagueInfo = summonerService.SummonerLeagueInfo(summonerId);
 
 		// 데이터베이스에 저장된 최신 게임 데이터 가져오기
 		List<Map<String, Object>> dbGameDataList = summonerService.getCombinedGameData(gameName, tagLine);
@@ -126,9 +138,12 @@ public class SummonerRestController {
 
 		log.info("hasDuplicate:" + hasDuplicate);
 		if (!hasDuplicate) {
-			newGameDataList.addAll(dbGameDataList);
+			for (Map<String, Object> gameData : newGameDataList) {
+				gameData.put("leagueInfo", leagueInfo);
+			}
 
 			// 최신 게임 데이터 저장 및 반환
+			newGameDataList.addAll(dbGameDataList);
 			newGameDataList = summonerService.saveAndRetrieveGameData(newGameDataList);
 		}
 //	    log.info("newGameDataList:" + newGameDataList);

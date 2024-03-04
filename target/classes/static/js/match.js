@@ -26,7 +26,7 @@ function search(position){
 			const html=document.createElement("tr")
 			html.classList.add("result-body")
 			html.innerHTML=`<td class="body-text number">${i}</td>
-			<td class="body-text"><a href="" class="champ"><div class="champ-box"><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/${championName}.png'></div><strong>${match.championName}</strong></a></td>
+			<td class="body-text"><a href="" class="champ"><div class="champ-box"><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/${championName}.png'></div><strong>${championName}</strong></a></td>
 			<td class="body-text chart"><div class="chart-mother"><div class="chart-child" style="width:${match.win_ratio}%"></div></div><strong>${match.win_ratio}%<strong></td>
 			<td class="body-text">${match.total_count}</td>`
 			temp.append(html)	
