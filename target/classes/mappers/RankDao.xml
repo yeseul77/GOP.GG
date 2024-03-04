@@ -9,7 +9,8 @@ select trim(leading from summonerName) as summonerName, championName, round(coun
  from lol_datas 
  where not summonerName like '' 
  group by summonerName, championName 
- order by playgame desc, ranklist desc limit 10;
+ having playgame>5
+ order by ranklist desc limit 10;
  
 </select>
 

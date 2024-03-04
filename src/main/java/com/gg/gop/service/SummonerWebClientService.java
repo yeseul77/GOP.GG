@@ -13,7 +13,7 @@ import com.gg.gop.dto.SummonerDto;
 
 @Service
 public class SummonerWebClientService {
-	private static final String RIOT_API_KEY = "RGAPI-839c783f-7df0-462c-8b80-1c7ea25cf990";
+	private static final String RIOT_API_KEY = "RGAPI-953215fc-9845-49e6-988f-07a6f4e122cb";
 	private static final String RIOT_API_URL = "https://asia.api.riotgames.com/riot/account/v1/accounts/by-riot-id/";
 	private static final String RIOT_API_URL2 = "https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/";
 	private Map<String, Long> lastRequestTimes = new HashMap<>();
