@@ -49,7 +49,7 @@
           	<a href="${contextPath}/match">시너지분석</a>
           </li>
           <li>
-            <a href="javascript:void(0)">칼바람 나락</a>
+            <a href="${contextPath}/aram/list">칼바람 나락</a>
           </li>
           <li>
             <a href="${contextPath}/chat/chatList">듀 오</a>
