@@ -169,7 +169,7 @@ $(document).ready(function () {
    	                	    "<div class='time'>" + Math.floor(playerInfo.gameDuration / 60) + "분" + ((Math.floor(playerInfo.gameDuration % 60)) < 10 ? "0" : "") + Math.floor(playerInfo.gameDuration % 60) + "초 </div>" +
 	                    	"</div>" +
 	                    	"<div class='summonerBox'>" +
-   	                    	"<div class='summonerPhoto'><a href=''><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/" + playerInfo.championName + ".png' alt='" + playerInfo.championName + "'></a></div>" +
+   	                    	"<div class='summonerPhoto'><a href='/champion/detail?championName="+playerInfo.championName+"'><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/" + playerInfo.championName + ".png' alt='" + playerInfo.championName + "'></a></div>" +
    	                    	"<div class='summonerTier'>" + leagueInfoForSummoner.tier + "&nbsp;" + leagueInfoForSummoner.ranked + "</div>" +
    	                    	"</div>" +
    	                    	"<div class='kdaRecode'>" +
@@ -254,7 +254,7 @@ $(document).ready(function () {
    		            showMore += 
    		                "<tr class='win'>" +
    		                "<td class='win-body summoner'>" +
-       		            "<div class='win-image'><a href=''><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/" + winTeamPlayerInfo.championName + ".png' alt='" + winTeamPlayerInfo.championName + "'href='/champion/detail?championName="+winTeamPlayerInfo.championName+"'></a></div>" +
+       		            "<div class='win-image'><a href='/champion/detail?championName="+winTeamPlayerInfo.championName+"'><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/" + winTeamPlayerInfo.championName + ".png' alt='" + winTeamPlayerInfo.championName + "'></a></div>" +
        		            "<div class='win-user'><div class='riotIdGameName'><a href='/summonerSearch?gameName="+winTeamPlayerInfo.riotIdGameName+"&tagLine="+winTeamPlayerInfo.riotIdTagline+"'>" + winTeamPlayerInfo.riotIdGameName + "</a></div><div class='championName'>" + winTeamPlayerInfo.championName + "</div></div>" +
        		            		
    		                "</td>" +
@@ -304,7 +304,7 @@ $(document).ready(function () {
        		        	showMore += 
 	       		             "<tr class='lose'>" +
 	 		                "<td class='lose-body summoner'>" +
-	     		            "<div class='lose-image'><a href=''><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/" + loseTeamPlayerInfo.championName + ".png' alt='" + loseTeamPlayerInfo.championName + "'></a></div>" +
+	     		            "<div class='lose-image'><a href='/champion/detail?championName="+winTeamPlayerInfo.championName+"'><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/" + loseTeamPlayerInfo.championName + ".png' alt='" + loseTeamPlayerInfo.championName + "'></a></div>" +
 	     		            "<div class='lose-user'><div class='riotIdGameName'><a href='/summonerSearch?gameName="+loseTeamPlayerInfo.riotIdGameName+"&tagLine="+loseTeamPlayerInfo.riotIdTagline+"'> " + loseTeamPlayerInfo.riotIdGameName + "</div><div class='championName'>" + loseTeamPlayerInfo.championName + "</div></div>" +
 	     		            "</td>" +
 	     		            "<td class='lose-body'>" + kdaDisplay + "</td>" +
@@ -359,7 +359,7 @@ $(document).ready(function () {
         	    const championName = champion === 'FiddleSticks' ? 'Fiddlesticks' : champion;
                	
         	    playerRow += "<div class='champion-box'>" +
-        	        "<div class='face'><a href=''><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/" + championName + ".png' alt='" + championName + "'></a></div>" +
+        	        "<div class='face'><a href='/champion/detail?championName="+championName+"'><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/" + championName + ".png' alt='" + championName + "'></a></div>" +
         	        "<div class='info'>" + championName + "</div>";
 
         	    // 챔피언별 평균 KDA와 승률 추가
@@ -434,6 +434,7 @@ $(document).ready(function () {
     
     $("#updateButton").click(function () {
         updateGameData();
+        location.reload(true);
     });
  
     function saveGameDataToServer(data) {
@@ -535,7 +536,7 @@ $(document).ready(function () {
             }
             gamedata.push(dataList);
         }
-        console.log(gamedata);
+        console.log("gamedata",gamedata);
 		let data2 = JSON.stringify(gamedata);
 		console.log("Sending data:", data2);
         $.ajax({
@@ -546,7 +547,7 @@ $(document).ready(function () {
             		tagLine:tagLine},
             success: function (res) {
                 console.log(res);
-                
+                location.reload(true);
             },
             error: function (xhr, textStatus, errorThrown) {
                 handleAjaxError(xhr, textStatus, errorThrown);
