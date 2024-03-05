@@ -248,7 +248,7 @@ table {
   margin-left: 120px;		
 } 
 .synergy-result .inner #synergy-table tbody .result-body .body-text.chart .chart-mother .chart-child {
-  width: 80%;
+  /*width: 80%;*/
   height: 15px;
   background-color: #00b890;	
 } 

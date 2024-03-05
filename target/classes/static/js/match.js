@@ -27,12 +27,30 @@ function search(position){
 			html.classList.add("result-body")
 			html.innerHTML=`<td class="body-text number">${i}</td>
 			<td class="body-text"><a href="" class="champ"><div class="champ-box"><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/${championName}.png'></div><strong>${championName}</strong></a></td>
-			<td class="body-text chart"><div class="chart-mother"><div class="chart-child" style="width:${match.win_ratio}%"></div></div><strong>${match.win_ratio}%<strong></td>
+			<td class="body-text chart"><div class="chart-mother"><div class="chart-child" style="width:0"></div></div><strong class="numStrong">0<strong></td>
 			<td class="body-text">${match.total_count}</td>`
-			temp.append(html)	
+			temp.append(html)
+			
+			let t = 0;
+            let totalMinwon = match.win_ratio;
+            const animationWidth = html.querySelector(".chart-child");
+            const animationNum = html.querySelector(".numStrong");
+            
+            const barAnimation = setInterval(() => {
+              animationWidth.style.width =  t + "%";
+              t++ >= totalMinwon && clearInterval(barAnimation)
+            }, 40);
+            
+            const numAnimation = setInterval(() => {
+              animationNum.textContent =  t + " %";
+              t++ >= totalMinwon && clearInterval(numAnimation)
+            }, 40);		
 		})
+		
+		
 		$('#result').next().remove();
         $('#result').after(temp);
+        
 	})
 }
 

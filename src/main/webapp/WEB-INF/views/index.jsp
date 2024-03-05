@@ -5,7 +5,8 @@
 <head>
 <!-- 헤더 위치 -->
  <%@include file="/WEB-INF/tiles/header.jsp" %>
- <!--헤더 위치 -->  
+ <!--헤더 위치 --> 
+ <title>메인 GOP.GG</title> 
  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
  <script>
  // 메시지 변수 설정
@@ -79,7 +80,7 @@
 
 
 <link rel="stylesheet" href="/css/index.css">
-<script defer src="/js/indexchat.js"></script>
+<script defer src="/js/chatindex.js"></script>
 <script defer src="/js/index.js"></script>
 <script defer src="/js/rank.js"></script>
 
