@@ -96,7 +96,7 @@
             <span></span>
           </div>
           <div class="findIdPw">
-            <a href="javascript:void(0)">아이디 / 비밀번호 찾기</a>   
+            <a href="/findPw">비밀번호를잊어버리셨나요?</a>   
           </div>
         </div>
       </div>
@@ -129,7 +129,7 @@
       </div>
 
       <div class="logout">
-        <a href="${contextPath}/member/logout">로그아웃&nbsp;<span class="material-symbols-outlined">logout</span></a>
+        <a href="${contextPath}/logout">로그아웃&nbsp;<span class="material-symbols-outlined">logout</span></a>
       </div>
 
     </div>
@@ -137,5 +137,6 @@
     </c:if>
 
  </div>
+
 </body>
 </html>
