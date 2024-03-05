@@ -78,7 +78,26 @@
 		losses = #{losses}
 		WHERE summonerId = #{summonerId};
 	</insert>
-
+	
+	<insert id="saveLeagueNull">
+		INSERT IGNORE INTO leagueInfo
+			VALUES
+			(#{summonerId},
+			'RANKED_SOLO_5x5', 'UNRANK', 'UNRANK', 0, 0,
+			0);
+	</insert>
+	<insert id="updateLeagueNull">
+		UPDATE leagueInfo
+		SET
+		queueType = 'RANKED_SOLO_5x5',
+		tier = 'UNRANK',
+		ranked = 'UNRANK',
+		leaguePoints = 0,
+		wins = 0,
+		losses = 0
+		WHERE summonerId = #{summonerId};
+	</insert>
+	
 	<select id="getGameInfoFromDB" parameterType="String"
 		resultType="Map">
 		SELECT * FROM info where matchId !='' ORDER BY

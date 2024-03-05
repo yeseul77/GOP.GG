@@ -16,8 +16,7 @@
 $(document).ready(function () {
 	var gameName = "${param.gameName}";
     var tagLine = "${param.tagLine}";
-	var summonerid="${summonerId}";
-	console.log(summonerid);
+
     <%
         List<Map<String, Object>> gameInfoList = (List<Map<String, Object>>) request.getAttribute("gameInfoList");
 
@@ -37,11 +36,11 @@ $(document).ready(function () {
     console.log("gameInfoList2:", gameInfoList2);
     if (gameInfoList2.length > 0) {
     	try{
-        console.log("Received gameData in result page:", gameInfoList2);
-        displayGameInfo(gameInfoList2);
-    	}catch{
-    		updateGameData();
-    	}
+            console.log("Received gameData in result page:", gameInfoList2);
+            displayGameInfo(gameInfoList2);
+        	}catch{
+        		updateGameData();
+        	}
     } else {
         console.log("No gameInfoList parameter found.");
     }
@@ -107,15 +106,24 @@ $(document).ready(function () {
 	   	                	default :
 	   	                	    tierColor = '#333333';
 	   	                	}
-	   	                	var winLose = ((leagueInfoForSummoner.wins / (leagueInfoForSummoner.wins + leagueInfoForSummoner.losses)) * 100).toFixed(1); 
-   	   	                    var summonerLeagueInfo = "<div class='rank'>" +
-   	   	                        "<div class='rankImage'><img src='/images/" + leagueInfoForSummoner.tier + ".webp' alt='tier'></div>" +
-   	   	              			"<div class='rankTier'><div class='tier' style='color:"+ tierColor +";'>" + leagueInfoForSummoner.tier + "&nbsp;&nbsp;"+ leagueInfoForSummoner.ranked + "</div><div class='lp'>" + leagueInfoForSummoner.leaguePoints + "&nbsp;LP</div></div></div>" +
-   	   	              			"</div>" +
-   	   	              			"<div class='chart-box'>"+
-   	   	              			"<div class='chart'><div class='chart-mo'>" + leagueInfoForSummoner.losses + "&nbsp;&nbsp;<div class='chart-child' style=width:"+ winLose +"%>&nbsp;&nbsp;" + leagueInfoForSummoner.wins + "</div></div></div>" +
-   	   	              			"<div class='winRate'><div class='winlose'>" + leagueInfoForSummoner.wins + "승&nbsp;" + leagueInfoForSummoner.losses + "패</div><div class='rate'>승률&nbsp;" + (leagueInfoForSummoner.wins/(leagueInfoForSummoner.wins+leagueInfoForSummoner.losses)*100).toFixed(0) + "%</div></div>" +
-   	   	              			"</div>";
+	   	                	if(!(leagueInfoForSummoner.tier==='UNRANK')){
+	   	                		console.log("rank")
+		   	                	var winLose = ((leagueInfoForSummoner.wins / (leagueInfoForSummoner.wins + leagueInfoForSummoner.losses)) * 100).toFixed(1); 
+	   	   	                    var summonerLeagueInfo = "<div class='rank'>" +
+	   	   	                        "<div class='rankImage'><img src='/images/" + leagueInfoForSummoner.tier + ".webp' alt='tier'></div>" +
+	   	   	              			"<div class='rankTier'><div class='tier' style='color:"+ tierColor +";'>" + leagueInfoForSummoner.tier + "&nbsp;&nbsp;"+ leagueInfoForSummoner.ranked + "</div><div class='lp'>" + leagueInfoForSummoner.leaguePoints + "&nbsp;LP</div></div></div>" +
+	   	   	              			"</div>" +
+	   	   	              			"<div class='chart-box'>"+
+	   	   	              			"<div class='chart'><div class='chart-mo'>" + leagueInfoForSummoner.losses + "&nbsp;&nbsp;<div class='chart-child' style=width:"+ winLose +"%>&nbsp;&nbsp;" + leagueInfoForSummoner.wins + "</div></div></div>" +
+	   	   	              			"<div class='winRate'><div class='winlose'>" + leagueInfoForSummoner.wins + "승&nbsp;" + leagueInfoForSummoner.losses + "패</div><div class='rate'>승률&nbsp;" + (leagueInfoForSummoner.wins/(leagueInfoForSummoner.wins+leagueInfoForSummoner.losses)*100).toFixed(0) + "%</div></div>" +
+	   	   	              			"</div>";
+   	   	                	}else{
+   	   	                		console.log("unrank");
+   	   	                		var summonerLeagueInfo = "<div class='rank'>" +
+   	   	                        						 "<div class='rankImage'><img src='/images/" + leagueInfoForSummoner.tier + ".webp' alt='tier'></div>" +
+						   	   	              		 	 "<div class='rankTier'><div class='tier' style='color:"+ tierColor +";'>" + leagueInfoForSummoner.tier + "&nbsp;&nbsp;"+ leagueInfoForSummoner.ranked + "</div><div class='lp'>" + leagueInfoForSummoner.leaguePoints + "&nbsp;LP</div></div></div>" +
+						   	   	              			 "</div>";
+   	   	              		}
    	   	                }
    	   	                
             
@@ -294,16 +302,16 @@ $(document).ready(function () {
    		       	        var takeDamageChart = ((loseTeamPlayerInfo.totalDamageTaken / 30000) * 100).toFixed(1);
         				
        		        	showMore += 
-        		                "<tr class='lose'>" +
-        		                "<td class='lose-body summoner'>" +
-            		            "<div class='lose-image'><a href=''><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/" + loseTeamPlayerInfo.championName + ".png' alt='" + loseTeamPlayerInfo.championName + "'></a></div>" +
-            		            "<div class='lose-user'><div class='riotIdGameName'><a href='/summonerSearch?gameName="+loseTeamPlayerInfo.riotIdGameName+"&tagLine="+loseTeamPlayerInfo.riotIdTagline+"'> " + loseTeamPlayerInfo.riotIdGameName + "</div><div class='championName'>" + loseTeamPlayerInfo.championName + "</div></div>" +
-            		            "</td>" +
-            		            "<td class='lose-body'>" + kdaDisplay + "</td>" +
-        		                "<td class='lose-bodyChart1'><div class='chartMain'><span>" + giveDamage + "</span><div class='chart-mo'><div class='chart-ch' style='width:" + giveDamageChart + "%'></div></div></div></td>" +
-        		                "<td class='lose-bodyChart2'><div class='chartMain'><span>" + takeDamage + "</span><div class='chart-mo'><div class='chart-ch' style='width:" + takeDamageChart + "%'></div></div></div></td>" +
-        		                "<td class='lose-body'>" + loseTeamPlayerInfo.totalMinionsKilled + "&nbsp;개</td>" +
-        		                "</tr>";      		                
+	       		             "<tr class='lose'>" +
+	 		                "<td class='lose-body summoner'>" +
+	     		            "<div class='lose-image'><a href=''><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/" + loseTeamPlayerInfo.championName + ".png' alt='" + loseTeamPlayerInfo.championName + "'></a></div>" +
+	     		            "<div class='lose-user'><div class='riotIdGameName'><a href='/summonerSearch?gameName="+loseTeamPlayerInfo.riotIdGameName+"&tagLine="+loseTeamPlayerInfo.riotIdTagline+"'> " + loseTeamPlayerInfo.riotIdGameName + "</div><div class='championName'>" + loseTeamPlayerInfo.championName + "</div></div>" +
+	     		            "</td>" +
+	     		            "<td class='lose-body'>" + kdaDisplay + "</td>" +
+	 		                "<td class='lose-bodyChart1'><div class='chartMain'><span>" + giveDamage + "</span><div class='chart-mo'><div class='chart-ch' style='width:" + giveDamageChart + "%'></div></div></div></td>" +
+	 		                "<td class='lose-bodyChart2'><div class='chartMain'><span>" + takeDamage + "</span><div class='chart-mo'><div class='chart-ch' style='width:" + takeDamageChart + "%'></div></div></div></td>" +
+	 		                "<td class='lose-body'>" + loseTeamPlayerInfo.totalMinionsKilled + "&nbsp;개</td>" +
+	 		                "</tr>";      		                      
         		                      		            	
        		       	}
        		    }
@@ -416,7 +424,7 @@ $(document).ready(function () {
             data: { gameName: gameName, tagLine: tagLine },
             success: function (data) {
                 console.log("Received data:", data);
-                displayGameInfo(data,summonerid);
+                displayGameInfo(data);
             },
             error: function (xhr, textStatus, errorThrown) {
                 handleAjaxError(xhr, textStatus, errorThrown);
@@ -425,40 +433,37 @@ $(document).ready(function () {
     });
     
     $("#updateButton").click(function () {
-    	console.log("update start");
         updateGameData();
     });
  
-    function saveGameDataToServer(data,summonerid) {
-    	console.log(summonerid);
+    function saveGameDataToServer(data) {
     	gamedata = [];
         for (var i = 0; i < data.length; i++) {
         	var dataList = {};
         	var teamdata = [];
             var infodata = [];
             var leagueInfodata = [];
-            try{
-	        var LL = {
-	           	summonerId: data[i].leagueInfo[0].summonerId,
-	           	queueType: data[i].leagueInfo[0].queueType,
-	           	tier: data[i].leagueInfo[0].tier,
-	           	ranked: data[i].leagueInfo[0].rank,
-	           	leaguePoints: data[i].leagueInfo[0].leaguePoints,
-	           	wins: data[i].leagueInfo[0].wins,
-	           	losses: data[i].leagueInfo[0].losses
+	        try{
+	            var LL = {
+		           	summonerId: data[i].leagueInfo[0].summonerId,
+		           	queueType: data[i].leagueInfo[0].queueType,
+		           	tier: data[i].leagueInfo[0].tier,
+		           	ranked: data[i].leagueInfo[0].rank,
+		           	leaguePoints: data[i].leagueInfo[0].leaguePoints,
+		           	wins: data[i].leagueInfo[0].wins,
+		           	losses: data[i].leagueInfo[0].losses
 	        };
-            }catch{
-            	var LL={
-            		summmonerId: summonerid,
-            		queueType:"unrank",
-            		tier:"unrank",
-            		ranked:"unrank",
-            		leaguePoints:0,
-            		wins:"unrank",
-            		losses:"unrank"
-            	};
-            }
-	        console.log(LL)
+	        }catch{
+	        	var LL = {
+	    	           	summonerId: data[i].summonerId,
+	    	           	queueType: 'RANKED_SOLO_5x5',
+	    	           	tier: 'unRank',
+	    	           	ranked: 'unRank',
+	    	           	leaguePoints: 0,
+	    	           	wins: 0,
+	    	           	losses: 0
+	    	        };
+	        }
             leagueInfodata.push(LL);
             dataList.leagueInfo = leagueInfodata;
             
@@ -536,10 +541,12 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "/summonerSaveData",
-            data: { encodedData: encodeURIComponent(data2)},
+            data: { encodedData: encodeURIComponent(data2),
+            		gameName:gameName,
+            		tagLine:tagLine},
             success: function (res) {
                 console.log(res);
-                location.reload(true)
+                
             },
             error: function (xhr, textStatus, errorThrown) {
                 handleAjaxError(xhr, textStatus, errorThrown);

@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.gg.gop.dao.SummonerDao;
@@ -45,18 +44,15 @@ public class SummonerService {
 		return webClient.getSummonerLeagueInfo(summonerId);
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> gameInfoList(List<String> matchId) { // 최근전적 정보 가져오기
 		List<Map<String, Object>> gameInfoList = new ArrayList<>();
 		for (int i = 0; i < matchId.size(); i++) {
-			@SuppressWarnings("rawtypes")
 			Map gameInfo = webClient.getGameInfo(matchId.get(i));
 			gameInfoList.add(gameInfo);
 		}
 		return gameInfoList;
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> saveAndRetrieveGameData(List<Map<String, Object>> gameDataList)
 			throws JsonProcessingException {
 		List<Map<String, Object>> savedDataList = new ArrayList<>();
@@ -72,7 +68,6 @@ public class SummonerService {
 					sDao.saveteamsdata((Map<String, Object>) gameData.get("teams"));
 					// 리그 정보 저장
 					sDao.saveLeagueInfo((Map<String, Object>) gameData.get("SummonerLeagueInfo"));
-					
 					// 저장된 데이터 조회하지 않고, 저장된 데이터를 그대로 사용
 					savedDataList.add(gameData);
 				} else {
@@ -99,6 +94,8 @@ public class SummonerService {
 	}
 
 	public List<Map<String, Object>> getCombinedGameData(String gameName, String tagLine) {
+		String puuid2=puuid(gameName, tagLine);
+		String summonerId2=SummonerId(puuid2);
 		List<Map<String, Object>> gameInfoList = sDao.getGameInfoFromDB(gameName, tagLine);
 		List<Map<String, Object>> gameTeamsList = sDao.getGameTeamsFromDB(gameName, tagLine);
 		List<Map<String, Object>> leagueInfoList = sDao.getLeagueInfoFromDB(gameName, tagLine);
@@ -124,11 +121,19 @@ public class SummonerService {
 			j++;
 			gameTeamsByMatchId.computeIfAbsent(matchId, k -> new ArrayList<>()).add(gameTeams);
 		}
-		for (Map<String, Object> leagueInfo : leagueInfoList) {
-			String summonerId = (String) leagueInfo.get("summonerId");
-			log.info(summonerId);
-			summonerIdList.add(summonerId);
-			leagueInfoBySummonerId.computeIfAbsent(summonerId, k -> new ArrayList<>()).add(leagueInfo);
+		if(leagueInfoList!=null) {
+			for (Map<String, Object> leagueInfo : leagueInfoList) {
+				String summonerId = (String) leagueInfo.get("summonerId");
+				summonerIdList.add(summonerId);
+				leagueInfoBySummonerId.computeIfAbsent(summonerId, k -> new ArrayList<>()).add(leagueInfo);
+				log.info("leagueInfo{}",leagueInfo);
+			}
+		}else {
+			for (int i=0;i<5;i++){
+				String puuid=puuid(gameName, tagLine);
+				String summonerId=SummonerId(puuid);
+				summonerIdList.add(summonerId);
+			}
 		}
 		List<Map<String, Object>> combinedDataList = new ArrayList<>();
 //		log.info("{}", gameDataByMatchId.keySet());
@@ -149,7 +154,7 @@ public class SummonerService {
 					}
 				}
 			}
-
+			combinedData.put("summonerId",summonerId2);
 			combinedData.put("info", gameInfoData);
 			combinedData.put("teams", gameTeamsData);
 			combinedData.put("leagueInfo", leagueInfoData);
@@ -189,7 +194,7 @@ public class SummonerService {
 //		}
 //	}
 
-	public int saveLeagueInfo(Map<String, Object> leagueInfo) {
+	public int saveLeagueInfo(Map<String, Object> leagueInfo, String gameName, String tagLine) {
 	    String summonerId = (String) leagueInfo.get("summonerId");
 	    if (summonerId != null) {
 	        int rowsAffected = sDao.saveLeagueInfo(leagueInfo); // 일단 삽입을 시도합니다.
@@ -199,9 +204,13 @@ public class SummonerService {
 	        }
 	        return rowsAffected;
 	    } else {
-	    	Model model = null;
-	    	String nullsummonerId = (String)model.getAttribute("summonerId");
-	    	log.error("summonerId is null. Cannot insert or update data.");
+	    	String puuid=puuid(gameName, tagLine);
+	    	String nullsummonerId=SummonerId(puuid);
+	    	int rowAffected =sDao.saveLeagueNull(nullsummonerId);
+	    	if(rowAffected==0) {
+	    		
+	    	}
+	        log.error("summonerId is null. Cannot insert or update data.");
 	        return 0;
 	    }
 	

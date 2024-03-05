@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MatchDto {
+	String championNameKr;
 	String championName;
 	String teamPosition;
 	String myteamPosition;
