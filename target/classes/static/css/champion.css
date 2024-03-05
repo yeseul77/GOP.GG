@@ -1,24 +1,329 @@
-/* 이미지 스타일 */
-img {
-  width: 50px;
-  height: auto;
-  margin-right: 1px; /* 이미지 간격을 1px로 설정 */
-  margin-bottom: 1px; /* 이미지 간격을 1px로 설정 */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset; 
+  -webkit-text-fill-color: #333;
 }
 
-#champion {
- margin-top: 80px;
+body {
+ color: #333;
+ font-size: 16px;
+ font-weight: 400;
+ line-height: 1.4;
+ font-family: "Roboto", "Noto Sans KR", sans-serif;
 }
-
-/* 챔피언 리스트 스타일 */
+a {
+ text-decoration: none;
+ color: #333;
+}
+.back {
+ top: 51px;
+ width: 100%;
+ height: 100vh;
+ background-color: #f0f0f0;
+ position:fixed;
+ z-index: -2;
+}
+#wrap {
+ width: 100%;
+ min-height: calc(100vh - 200px);
+ margin-bottom: 50px;
+}
+#wrap .inner {
+ width: 1130px;
+ margin: 0 auto;
+ position: relative;
+ margin-top: 140px; 
+}
 .championList {
-  list-style: none;
   display: flex;
   flex-wrap: wrap;
-  padding-left: 8px;
   gap: 8px;
-  flex-direction: row; /* 가로 방향으로 배치 */
 }
+
+.championList aside {
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.searchBar {
+ border: 1.5px solid #e1e1e1;
+ background-color: white;
+ border-radius: 6px;
+ padding: 13px;
+ display: flex;
+ flex-direction: column;
+ gap: 10px;
+}
+.searchBar .searchInput {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.searchBar .searchInput .championInput {
+  display: block;
+  width: 100%;
+  height: 34px; 
+  border-radius: 4px;
+  border: 1.5px solid #e1e1e1;
+  outline: none;
+  font-size: 14px;
+  background-color:#f0f0f0; 
+}
+.searchBar .searchInput .material-symbols-outlined {
+  position: absolute;
+  right: 10px;
+  color: #6c757e;
+  font-size: 20px;
+}
+.searchBar #lineButton {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.searchBar #lineButton .line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc((480px - 26px) / 6);
+  border: 1.5px solid #e1e1e1;
+  border-left: none;
+  height: 34px;
+  gap: 4px;
+}
+.searchBar #lineButton .line:first-child {
+  border-left: 1.5px solid #e1e1e1;
+}
+.searchBar #lineButton .line .searchIcon {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;	
+}
+.searchBar #lineButton .line .searchIcon > img {
+  
+} 
+.searchBar #lineButton .line > span.searchName {
+  font-size: 14px; 
+}
+.championNav {
+  width: 480px;
+  padding: 20px 36px;
+  background-color: white;
+  border-radius: 6px;
+  border: 1.5px solid #e1e1e1;	
+}
+.championNav .champList {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 25px;
+}
+.championNav .champList .champion-item {
+ text-align: center;
+ display: flex;
+ flex-direction: column;
+ gap: 4px;
+ transition: .4s;	
+}
+.championNav .champList .champion-item:hover {
+ transform: scale(1.2);	
+}
+.championNav .champList .champion-item .img-link {
+	
+}
+.championNav .champList .champion-item .img-link .champion-img {
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+}
+.championNav .champList .champion-item .img-link .champion-img>img {
+  filter: brightness(110%);
+  transform: scale(.5);	
+}
+.championNav .champList .champion-item > span {
+  font-size: 12px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  display: block; 
+}
+.championList main {
+  flex-grow: 1;
+  max-width: 642px; 
+}
+.mainBody {
+  border: 1.5px solid #e1e1e1;	
+  background-color: white;
+  border-radius: 6px;
+  padding: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.mainBody .lineBtt {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.mainBody .lineBtt .All,
+.mainBody .lineBtt .Top,
+.mainBody .lineBtt .Jungle,
+.mainBody .lineBtt .Middle,
+.mainBody .lineBtt .Bottom,
+.mainBody .lineBtt .Utility {
+  width: calc((642px - 26px) / 6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1.5px solid #e1e1e1;
+  height: 34px;
+  gap: 4px;
+  border-left: none;
+}
+.mainBody .lineBtt .All {
+  border-left: 1.5px solid #e1e1e1;
+} 
+.mainBody .lineBtt .All .lineIcon,
+.mainBody .lineBtt .Top .lineIcon,
+.mainBody .lineBtt .Jungle .lineIcon,
+.mainBody .lineBtt .Middle .lineIcon,
+.mainBody .lineBtt .Bottom .lineIcon,
+.mainBody .lineBtt .Utility .lineIcon {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.mainBody .lineBtt .All .lineIcon>img,
+.mainBody .lineBtt .Top .lineIcon>img,
+.mainBody .lineBtt .Jungle .lineIcon>img,
+.mainBody .lineBtt .Middle .lineIcon>img,
+.mainBody .lineBtt .Bottom .lineIcon>img,
+.mainBody .lineBtt .Utility .lineIcon>img {
+	
+}
+.mainBody .lineBtt .All .lineName,
+.mainBody .lineBtt .Top .lineName,
+.mainBody .lineBtt .Jungle .lineName,
+.mainBody .lineBtt .Middle .lineName,
+.mainBody .lineBtt .Bottom .lineName,
+.mainBody .lineBtt .Utility .lineName {
+  font-size: 14px;
+}
+
+.championInfo {
+	display: block;
+	border: 1.5px solid #e1e1e1;
+	
+}
+.championInfo colgroup {
+	width: 100px;
+}
+.championInfo thead {
+	text-align: center;
+	background-color: #f0f0f0;
+	height: 34px;
+	line-height: 34px;
+	font-size: 14px;
+	font-weight: 700;
+	/*border-bottom: 1.5px solid #e1e1e1;*/
+}
+.championInfo tbody {
+	font-size: 14px;
+	text-align: center;
+	color:#6c757e;
+}
+.championInfo tbody tr {
+	height: 58px;
+	border-top: 1.5px solid #e1e1e1;
+}
+.championInfo tbody tr:nth-child(even) {
+	background-color:#f0f0f0;
+}
+.championInfo tbody tr td {
+	vertical-align: middle;
+}
+.championInfo tbody tr .tier {
+	font-weight: 700;
+}
+.championInfo tbody .champions {
+   text-overflow: ellipsis;
+   overflow: hidden;
+   white-space: nowrap;
+   font-weight: 700;
+   
+}
+.championInfo tbody .champions>a {
+	display: flex;
+	gap: 11px;
+	align-items: center;
+}
+.championInfo tbody .champions>a .chamBox {
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 40px;
+	height: 40px;
+	border-radius: 4px;
+	transition: .4s;	
+}
+.championInfo tbody .champions>a .chamBox:hover {
+	transform: scale(1.2);
+} 
+.championInfo tbody .champions > a > .chamBox img {
+	transform: scale(1.2);
+	filter: brightness(110%);
+	border: 1px solid transparent;
+}
+.championInfo tbody .champions > a > .chamName {
+ display: block;
+ color:#6c757e;
+}
+
+ul.champList>li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;	
+  transition: .4s;
+}
+ul.champList>li:hover {
+  transform: scale(1.2);
+}
+ul.champList>li>a {
+  width: 48px;	
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 4px;
+  
+}
+ul.champList>li>a:hover {
+	
+}
+ul.champList>li>a>img {
+  transform: scale(.5);
+  filter: brightness(110%);	
+}
+ul.champList>li>span {
+  font-size: 12px;
+  text-align: center;	
+}
+  
+
+
+/* 챔피언 리스트 스타일 */
+
 
 /* 챔피언 아이템 스타일 */
 .champion-item {
@@ -29,7 +334,7 @@ img {
 }
 
 /* 챔피언 이름 스타일 */
-span {
+/*span {
   display: block;
   width: 46px;
   line-height: 14px;
@@ -38,16 +343,11 @@ span {
   white-space: nowrap;
   text-overflow: ellipsis;
   color: var(--gray500);
-  margin-top: 4px;
+  margin-top: 4px;*/
 /*   height: 16px; */
-}
 
 /* 이미지 링크 스타일 */
-.img-link {
-  cursor: pointer;
-  text-decoration: none;
-  color: var(--gray900);
-}
+
 
 /* 챔피언 이미지 스타일 */
 .champion-img {
@@ -55,16 +355,8 @@ span {
   display: block;
 }
 
-/* 챔피언 리스트 옆에 있는 요소 스타일 */
-.championList>aside {
-  margin-right: 8px;
-  flex-basis: 332px;
-  max-width: 332px;
-}
 
-aside {
-  display: block;
-}
+
 
 /* 화면에서 숨겨진 요소 스타일 */
 caption,
@@ -82,16 +374,7 @@ label {
   cursor: pointer;
 }
 
-/* 메인 요소 스타일 */
-.championList > main {
-  flex-grow: 1;
-  max-width: 740px;
-}
 
-/* 검색창 스타일 */
-[data-theme="dark"] .search[type="text"] {
-  background-color: rgb(28, 28, 31);
-}
 
 .search[type="text"] {
   padding: 8px 16px 8px 40px;
@@ -102,8 +385,4 @@ label {
   background-size: 24px;
   background-position: left 8px center;
   background-image: url(https://s-lol-web.op.gg/images/icon/icon-search.svg);
-}
-
-.championNav {
-	margin-top : 15px;
 }

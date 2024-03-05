@@ -164,7 +164,7 @@ $(document).ready(function () {
    	                	var gameRow = "<div class='summary' style='background-color:"+backColor+"; border-left: 8px solid "+fontColor+";'>" +
    	                	    "<div class='gameInfomation'>" +
    	                	    "<div class='gameMode' style='color:"+fontColor+"'>" + gameMode + "</div>" +
-   	                	    "<div class='summonerName'>" + playerInfo.championName + "</div>" +
+   	                	    "<div class='summonerName'>" + playerInfo.championNameKr + "</div>" +
    	                	    "<div class='victoryLose' style='color:"+fontColor+"'>" + (playerInfo.win ? "승리" : "패배") + "</div>" +
    	                	    "<div class='time'>" + Math.floor(playerInfo.gameDuration / 60) + "분" + ((Math.floor(playerInfo.gameDuration % 60)) < 10 ? "0" : "") + Math.floor(playerInfo.gameDuration % 60) + "초 </div>" +
 	                    	"</div>" +
@@ -249,13 +249,13 @@ $(document).ready(function () {
    		       	    winTeamPlayerInfo.championName === 'FiddleSticks' ? 'Fiddlesticks' : winTeamPlayerInfo.championName;	
    		       	    var takeDamage = winTeamPlayerInfo.totalDamageTaken.toLocaleString();
    		       	    var giveDamage = winTeamPlayerInfo.totalDamageDealtToChampions.toLocaleString();
-   		       	    var giveDamageChart = ((winTeamPlayerInfo.totalDamageDealtToChampions / 30000) * 100).toFixed(1);
-   		       	    var takeDamageChart = ((winTeamPlayerInfo.totalDamageTaken / 30000) * 100).toFixed(1);
+   		       	    var giveDamageChart = ((winTeamPlayerInfo.totalDamageDealtToChampions / 60000) * 100).toFixed(1);
+   		       	    var takeDamageChart = ((winTeamPlayerInfo.totalDamageTaken / 60000) * 100).toFixed(1);
    		            showMore += 
    		                "<tr class='win'>" +
    		                "<td class='win-body summoner'>" +
        		            "<div class='win-image'><a href='/champion/detail?championName="+winTeamPlayerInfo.championName+"'><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/" + winTeamPlayerInfo.championName + ".png' alt='" + winTeamPlayerInfo.championName + "'></a></div>" +
-       		            "<div class='win-user'><div class='riotIdGameName'><a href='/summonerSearch?gameName="+winTeamPlayerInfo.riotIdGameName+"&tagLine="+winTeamPlayerInfo.riotIdTagline+"'>" + winTeamPlayerInfo.riotIdGameName + "</a></div><div class='championName'>" + winTeamPlayerInfo.championName + "</div></div>" +
+       		            "<div class='win-user'><div class='riotIdGameName'><a href='/summonerSearch?gameName="+winTeamPlayerInfo.riotIdGameName+"&tagLine="+winTeamPlayerInfo.riotIdTagline+"'>" + winTeamPlayerInfo.riotIdGameName + "</a></div><div class='championName'>" + winTeamPlayerInfo.championNameKr + "</div></div>" +
        		            		
    		                "</td>" +
        		            "<td class='win-body'>" + kdaDisplay + "</td>" +
@@ -298,14 +298,14 @@ $(document).ready(function () {
         				winTeamPlayerInfo.championName === 'FiddleSticks' ? 'Fiddlesticks' : winTeamPlayerInfo.championName;	
        		       	    var takeDamage = loseTeamPlayerInfo.totalDamageTaken.toLocaleString();
        		       	    var giveDamage = loseTeamPlayerInfo.totalDamageDealtToChampions.toLocaleString();
-       		       	    var giveDamageChart = ((loseTeamPlayerInfo.totalDamageDealtToChampions / 30000) * 100).toFixed(1);
-   		       	        var takeDamageChart = ((loseTeamPlayerInfo.totalDamageTaken / 30000) * 100).toFixed(1);
+       		       	    var giveDamageChart = ((loseTeamPlayerInfo.totalDamageDealtToChampions / 60000) * 100).toFixed(1);
+   		       	        var takeDamageChart = ((loseTeamPlayerInfo.totalDamageTaken / 60000) * 100).toFixed(1);
         				
        		        	showMore += 
 	       		             "<tr class='lose'>" +
 	 		                "<td class='lose-body summoner'>" +
 	     		            "<div class='lose-image'><a href='/champion/detail?championName="+winTeamPlayerInfo.championName+"'><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/" + loseTeamPlayerInfo.championName + ".png' alt='" + loseTeamPlayerInfo.championName + "'></a></div>" +
-	     		            "<div class='lose-user'><div class='riotIdGameName'><a href='/summonerSearch?gameName="+loseTeamPlayerInfo.riotIdGameName+"&tagLine="+loseTeamPlayerInfo.riotIdTagline+"'> " + loseTeamPlayerInfo.riotIdGameName + "</div><div class='championName'>" + loseTeamPlayerInfo.championName + "</div></div>" +
+	     		            "<div class='lose-user'><div class='riotIdGameName'><a href='/summonerSearch?gameName="+loseTeamPlayerInfo.riotIdGameName+"&tagLine="+loseTeamPlayerInfo.riotIdTagline+"'> " + loseTeamPlayerInfo.riotIdGameName + "</div><div class='championName'>" + loseTeamPlayerInfo.championNameKr + "</div></div>" +
 	     		            "</td>" +
 	     		            "<td class='lose-body'>" + kdaDisplay + "</td>" +
 	 		                "<td class='lose-bodyChart1'><div class='chartMain'><span>" + giveDamage + "</span><div class='chart-mo'><div class='chart-ch' style='width:" + giveDamageChart + "%'></div></div></div></td>" +
@@ -324,10 +324,13 @@ $(document).ready(function () {
              for (var j = 0; j < gameInfo.info.length; j++) {
                  var playerInfo = gameInfo.info[j];
                  var champion = playerInfo.championName;
+                 var championKr=playerInfo.championNameKr;
+//                  console.log("championKr",championKr)
                  // 플레이어의 게임 이름과 태그 라인이 일치할 경우에만 플레이 횟수를 누적
                  if (playerInfo.riotIdGameName === gameName && playerInfo.riotIdTagline === tagLine) {
                 	 if (!championStats[champion]) {
                          championStats[champion] = {
+                        	 championKr,
                              gamesPlayed: 0,
                              totalKills: 0,
                              totalDeaths: 0,
@@ -339,6 +342,7 @@ $(document).ready(function () {
                      championStats[champion].totalKills += playerInfo.kills;
                      championStats[champion].totalDeaths += playerInfo.deaths;
                      championStats[champion].totalAssists += playerInfo.assists;
+//                      console.log("championStats",championStats);
                      if (playerInfo.win) {
                          championStats[champion].totalWins++;
                      }
@@ -348,19 +352,24 @@ $(document).ready(function () {
                          championPlayCounts[champion]++;
                      }
                  }
+                 
              }
          }
+//          console.log(championPlayCounts);
       // 챔피언별 플레이 횟수를 테이블에 추가
          var sortedChampionPlayCounts = Object.entries(championPlayCounts).sort((a, b) => b[1] - a[1]);
          var playerRow = "";
+         console.log("championStats",championStats)
          for (var i = 0; i < sortedChampionPlayCounts.length; i++) {
+//         	 	console.log(sortedChampionPlayCounts)
         	    var champion = sortedChampionPlayCounts[i][0];
         	    var playCount = sortedChampionPlayCounts[i][1];
+        	    var championKr=championStats[champion].championKr
         	    const championName = champion === 'FiddleSticks' ? 'Fiddlesticks' : champion;
                	
         	    playerRow += "<div class='champion-box'>" +
         	        "<div class='face'><a href='/champion/detail?championName="+championName+"'><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/" + championName + ".png' alt='" + championName + "'></a></div>" +
-        	        "<div class='info'>" + championName + "</div>";
+        	        "<div class='info'>" + championKr + "</div>";
 
         	    // 챔피언별 평균 KDA와 승률 추가
         	    if (championStats[champion]) {

@@ -7,7 +7,7 @@ $(document).ready(function() {
 	const nav = document.createElement('nav');
 	nav.classList.add('championNav')
 	const ul = document.createElement('ul');
-	ul.classList.add('championList');
+	ul.classList.add('champList');
 
 	championList.append(nav);
 	nav.append(ul);
@@ -40,10 +40,6 @@ $(document).ready(function() {
 
 			ul.appendChild(li);
 
-			// 5개씩 나오도록 추가
-			if ((i + 1) % 6 === 0) {
-				ul.appendChild(document.createElement('br')); // 줄바꿈 추가
-			}
 		}
 	}
 
@@ -113,7 +109,14 @@ $(document).ready(function() {
 	buttonLabels.forEach((label, index) => {
 		const button = document.createElement('button');
 		button.className = 'line'
-		button.textContent = buttonKRLabel[index]; // 버튼 텍스트 설정
+		const searchIcon = document.createElement('div');
+		searchIcon.classList.add('searchIcon');		
+		searchIcon.innerHTML = `<img src="/images/${label}.svg" alt=${label}>`
+		button.append(searchIcon);
+		const searchName = document.createElement('span');
+		searchName.classList.add('searchName');
+		searchName.textContent = buttonKRLabel[index];
+		button.append(searchName);
 		button.name = label
 		button.id = label
 		button.value = label
@@ -175,7 +178,8 @@ $(document).ready(function() {
 
 					// 챔피언 이름과 매칭되는 한글 이름을 찾아 span 태그에 설정
 					for (let i = 0; i < championNames.length; i++) {
-						if (championNames[i].champion_name === champion.championName) {
+						const championName = champion.championName === 'FiddleSticks' ? 'Fiddlesticks' : champion.championName;
+						if (championNames[i].champion_name === championName) {
 							lineSpan.textContent = championNames[i].champion_name_kr;
 							break;
 						}
@@ -186,9 +190,7 @@ $(document).ready(function() {
 
 					ul.appendChild(lineLi);
 
-					if ((index + 1) % 6 === 0) {
-						ul.appendChild(document.createElement('br'));
-					}
+					
 				});
 			},
 			error: function(error) {
@@ -208,6 +210,7 @@ $(document).ready(function() {
 
 	const mainElement = document.querySelector('main');
 	const divElement = mainElement.querySelector('div');
+	divElement.classList.add('mainBody');
 	const table = document.createElement('table')
 	table.classList.add('championInfo')
 	const colgroup = document.createElement('colgroup')
@@ -215,8 +218,8 @@ $(document).ready(function() {
 	const tbody = document.createElement('tbody')
 	const theadTr = document.createElement('tr')
 
-	const widths = ['auto', '60px', '60px', '94px', '110px', '94px'];
-	const thText = ['챔피언', '티어', '포지션', '승률', '픽률', '벤률']
+	const widths = ['15%', '25%', '15%', '15%', '15%', '15%'];
+	const thText = ['티 어', '챔피언', '포지션', '승 률', '픽 률', '벤 률']
 	for (let i = 0; i < 6; i++) {
 		const col = document.createElement('col')
 		col.style.width = widths[i]
@@ -256,7 +259,7 @@ $(document).ready(function() {
 
 				response.sort((a, b) => b.avgTierNum - a.avgTierNum);
 
-				const tdCName = ['champions', 'tier', 'position', 'winRate', 'pickRate', 'banRate']
+				const tdCName = ['tier', 'champions', 'position', 'winRate', 'pickRate', 'banRate']
 				for (let i = 0; i < response.length; i++) {
 					let championInfo = response[i]
 					const tbodyTr = document.createElement('tr')
@@ -268,22 +271,26 @@ $(document).ready(function() {
 						if (tdCName[j] === 'champions') {
 							const championAnchor = document.createElement('a');
 							championAnchor.href = '/champion/detail?championName=' + championInfo.championName;
+							const chamBox = document.createElement('div')
+							chamBox.classList.add('chamBox')
 							const championImage = document.createElement('img');
 							const championName = championInfo.championName === 'FiddleSticks' ? 'Fiddlesticks' : championInfo.championName; // 피들스틱 S -> s변경
 							championImage.src = `https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/${championName}.png`; // 이미지 URL을 추가하세요
 							championImage.alt = championName; // 이미지에 대한 대체 텍스트
 							championImage.style.width = '40px'; // 이미지 크기 설정
-							const strong = document.createElement('strong')
+							const span = document.createElement('span')
+							span.classList.add('chamName')
+							chamBox.append(championImage)
 
 							for (let i = 0; i < championNames.length; i++) {
 								if (championNames[i].champion_name === championName) {
-									strong.textContent = championNames[i].champion_name_kr;
+									span.textContent = championNames[i].champion_name_kr;
 									break;
 								}
 							}
 
-							championAnchor.appendChild(championImage);
-							championAnchor.appendChild(strong)
+							championAnchor.appendChild(chamBox);
+							championAnchor.appendChild(span)
 							td.appendChild(championAnchor);
 						} else if (tdCName[j] === 'tier') {
 							console.log(championInfo.banRate)
@@ -346,7 +353,7 @@ $(document).ready(function() {
 	                return avgB - avgA; // 내림차순 정렬
             	});
 				
-				const tdCName = ['champions', 'tier', 'position', 'winRate', 'pickRate', 'banRate']
+				const tdCName = ['tier', 'champions', 'position', 'winRate', 'pickRate', 'banRate']
 				for (let i = 0; i < response.length; i++) {
 					let championInfo = response[i]
 					const tbodyTr = document.createElement('tr')
@@ -358,22 +365,26 @@ $(document).ready(function() {
 						if (tdCName[j] === 'champions') {
 							const championAnchor = document.createElement('a');
 							championAnchor.href = '/champion/detail?championName=' + championInfo.championName;
+							const chamBox = document.createElement('div')
+							chamBox.classList.add('chamBox')
 							const championImage = document.createElement('img');
 							const championName = championInfo.championName === 'FiddleSticks' ? 'Fiddlesticks' : championInfo.championName; // 피들스틱 S -> s변경
 							championImage.src = `https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/${championName}.png`; // 이미지 URL을 추가하세요
 							championImage.alt = championName; // 이미지에 대한 대체 텍스트
 							championImage.style.width = '40px'; // 이미지 크기 설정
-							const strong = document.createElement('strong')
+							const span = document.createElement('span')
+							span.classList.add('chamName')
+							chamBox.append(championImage)
 
 							for (let i = 0; i < championNames.length; i++) {
 								if (championNames[i].champion_name === championName) {
-									strong.textContent = championNames[i].champion_name_kr;
+									span.textContent = championNames[i].champion_name_kr;
 									break;
 								}
 							}
 
-							championAnchor.appendChild(championImage);
-							championAnchor.appendChild(strong)
+							championAnchor.appendChild(chamBox);
+							championAnchor.appendChild(span)
 							td.appendChild(championAnchor);
 						} else if (tdCName[j] === 'tier') {
 							let avgNum = []
@@ -420,15 +431,24 @@ $(document).ready(function() {
 
 	const divBtt = document.createElement('div')
 	divBtt.classList.add('lineBtt')
+	
 
 	let bttline = ['All', 'Top', 'Jungle', 'Middle', 'Bottom', 'Utility']
 	let bttline_kr = ['전체', '탑', '정글', '미드', '원딜', '서폿']
 	for (let i = 0; i < 6; i++) {
+		
+		const lineIcon = document.createElement('div')
+		lineIcon.classList.add('lineIcon')
+		lineIcon.innerHTML = `<img src="/images/${bttline[i]}.svg" alt="${bttline[i]}">`
+		const lineName = document.createElement('span')
+		lineName.classList.add('lineName')
+		lineName.textContent = bttline_kr[i]
 		const lineBtt = document.createElement('button')
 		lineBtt.className = bttline[i]
 		lineBtt.value = bttline[i]
-		lineBtt.textContent = bttline_kr[i]
 		lineBtt.setAttribute('data-line', bttline[i])
+		lineBtt.append(lineIcon)
+		lineBtt.append(lineName)
 		divBtt.appendChild(lineBtt)
 	}
 

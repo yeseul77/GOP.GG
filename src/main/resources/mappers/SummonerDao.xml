@@ -100,8 +100,9 @@
 	
 	<select id="getGameInfoFromDB" parameterType="String"
 		resultType="Map">
-		SELECT * FROM info where matchId !='' ORDER BY
-		gameStartTimestamp DESC;
+		SELECT ifo.*, ch.champion_name_kr as championNameKr FROM info ifo , champion_names ch 
+		where ch.champion_name=ifo.championName and matchId !='' ORDER BY gameStartTimestamp DESC;
+
 		<!-- where matchId = #{matchId}; -->
 	</select>
 	<select id="getGameTeamsFromDB" parameterType="String"
@@ -127,9 +128,10 @@
 	<!-- </select> -->
 	<select id="getGameDataFromDB" parameterType="java.util.Map"
 		resultType="java.util.Map">
-		SELECT *
-		FROM GameInfo
-		WHERE matchId = #{matchId} AND
+		SELECT gi.*, ch.champion_name_kr as championNameKr
+		FROM GameInfo gi, champion_names ch 
+		where gi.championName=ch.champion_name 
+		and matchId = #{matchId} AND
 		riotIdGameName = #{riotIdGameName} ORDER BY
 		gameStartTimestamp DESC;
 	</select>
