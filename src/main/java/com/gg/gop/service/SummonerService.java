@@ -35,7 +35,7 @@ public class SummonerService {
 
 	public String SummonerId(String puuid) {
 		String summonerId = webClient.getSummonerId(puuid);
-		log.info(summonerId);
+//		log.info(summonerId);
 		return summonerId;
 	}
 
@@ -207,10 +207,10 @@ public class SummonerService {
 	    	String nullsummonerId=SummonerId(puuid);
 	    	int rowAffected =sDao.saveLeagueNull(nullsummonerId);
 	    	if(rowAffected==0) {
-	    		
+	            rowAffected = sDao.updateLeagueInfo(leagueInfo);
 	    	}
-	        log.error("summonerId is null. Cannot insert or update data.");
-	        return 0;
+//	        log.error("summonerId is null. Cannot insert or update data.");
+	        return rowAffected;
 	    }
 	
 	}

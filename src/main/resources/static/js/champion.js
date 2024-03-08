@@ -47,8 +47,8 @@ $(document).ready(function() {
 
 	const searchChampion = document.getElementById('searchChampion')
 
-	searchChampion.addEventListener('keydown', function(event) {
-		if (event.key === 'Enter') {
+	searchChampion.addEventListener('keyup', function(event) {
+		//if (event.key === 'Enter') {
 			let search = $(this).val();
 			console.log(search);
 
@@ -66,8 +66,8 @@ $(document).ready(function() {
 
 					// 받은 데이터를 이용하여 목록을 구성
 					data.forEach(function(champion) {
-						console.log("name : ", champion.champion_name_kr);
 						const listItem = document.createElement('li');
+						listItem.className = 'champion-item'
 
 						// 링크 생성
 						const link = document.createElement('a');
@@ -97,7 +97,7 @@ $(document).ready(function() {
 					console.logg(error)
 				}
 			})
-		}
+		//}
 	});
 
 
@@ -293,12 +293,10 @@ $(document).ready(function() {
 							championAnchor.appendChild(span)
 							td.appendChild(championAnchor);
 						} else if (tdCName[j] === 'tier') {
-							console.log(championInfo.banRate)
 							let avgNum = []
 							let avg = (championInfo.winRate + championInfo.pickRate + championInfo.banRate) / 3
 							avg = avg.toFixed(1)
 							avgNum.push(avg)
-							console.log(avg)
 							let tier = '';
 							
 							 if (avg >= 25) {

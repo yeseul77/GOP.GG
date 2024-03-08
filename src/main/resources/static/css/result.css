@@ -20,7 +20,7 @@ img {
 }
 a {
  text-decoration: none;
- color: #333;
+ 
 }
 .back {
  top: 51px;
@@ -616,7 +616,9 @@ a {
 #wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .lose .lose-body.summoner .lose-user .riotIdGameName {
  color:#333;	
 }
-
+#wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .lose .lose-body.summoner .lose-user .championName > a {
+ color: #8a8b9e;
+}
 
 #wrap .summoner-result .summonerMain .search-result #gameInfoTable table tbody .win .win-bodyChart1 {
  font-size: 12px;

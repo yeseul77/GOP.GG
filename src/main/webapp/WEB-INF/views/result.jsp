@@ -414,8 +414,6 @@ $(document).ready(function () {
         var gameName = result[1];
         var tagLine = result[2];
         updateURL(gameName, tagLine);
-        location.reload(true);
-        
         if (gameName.trim() === "") {
             alert("gameName cannot be empty.");
             return;
@@ -439,11 +437,12 @@ $(document).ready(function () {
                 handleAjaxError(xhr, textStatus, errorThrown);
             }
         });
+        location.reload(true);
     });
     
     $("#updateButton").click(function () {
         updateGameData();
-        location.reload(true);
+//         location.reload(true);
     });
  
     function saveGameDataToServer(data) {

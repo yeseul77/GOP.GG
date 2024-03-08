@@ -6,14 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RankDto {
-	String summonerName;
-	String championName;
-	double winrate;
-	int playgame;
-	int gametime;
-	int kda;
+@Builder
+public class CounterDto {
+	private String championName;
+	private String enemy_championName;
+	private String games_played;
+	private String win_rate;
+	
 }

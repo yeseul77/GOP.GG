@@ -9,7 +9,10 @@ import com.gg.gop.dao.AramDao;
 import com.gg.gop.dao.ChampionDao;
 import com.gg.gop.dto.AramDto;
 import com.gg.gop.dto.ChampionDto;
+import com.gg.gop.dto.ItemDto;
 import com.gg.gop.dto.RecordDto;
+import com.gg.gop.dto.RuneDto;
+import com.gg.gop.dto.SpellDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,20 +38,39 @@ public class AramService {
 		return cList;
 	}
 
-	public List<RecordDto> lineChampionList(String line) {
-		List<RecordDto> lineList = aDao.lineChampionList(line);
-		return lineList;
-	}
-
+//	public List<RecordDto> lineChampionList(String line) {
+//		List<RecordDto> lineList = aDao.lineChampionList(line);
+//		return lineList;
+//	}
+//
 	public List<AramDto> lineRecord() {
 		List<AramDto> lineRList = aDao.lineRecode();
 		log.info("test : {}", lineRList);
 		return lineRList;
 	}
+//
+//	public List<RecordDto> lineInfo(String line) {
+//		List<RecordDto> lineList = aDao.lineInfo(line);
+//		log.info("line : {}", line);
+//		return lineList;
+//	}
+	public List<RuneDto> getChampionRune(String championName) {
+		List<RuneDto> rLsit = aDao.getChampionRune(championName);
+		return rLsit;
+	}
 
-	public List<RecordDto> lineInfo(String line) {
-		List<RecordDto> lineList = aDao.lineInfo(line);
-		log.info("line : {}", line);
-		return lineList;
+	public AramDto getRates(String championName) {
+		AramDto rateList = aDao.getRates(championName);
+		return rateList;
+	}
+
+	public List<SpellDto> getSpells(String championName) {
+		List<SpellDto> sList = aDao.getSpells(championName);
+		return sList;
+	}
+
+	public List<ItemDto> getChampionItem(String championName) {
+		List<ItemDto> iList = aDao.getChampionItem(championName);
+		return iList;
 	}
 }

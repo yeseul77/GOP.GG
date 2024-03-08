@@ -5,32 +5,18 @@
 <mapper namespace="com.gg.gop.dao.RankDao">
 <select id="getWinRate">
 
-select trim(leading from summonerName) as summonerName, championName, round(count(case when win='true' then 1 end)/count(distinct gameId)*100,2) as ranklist, count(distinct gameid) as playgame
- from lol_datas 
- where not summonerName like '' 
- group by summonerName, championName 
- having playgame>5
- order by ranklist desc limit 10;
+select * from wranklist;
  
 </select>
 
 <select id="getGameRate">
 
-select summonerName, championName, sum(gameDuration) as ranklist 
-from lol_datas 
-where not summonerName like '' 
-group by summonerName, championName 
-order by ranklist desc limit 10;
-
+select * from granklist;
 </select>
 
 <select id="getKdaRate">
 
-select summonerName, championName, round(max(kda) ,2)as ranklist
-from lol_datas 
-group by summonerName ,championName 
-order by ranklist desc limit 10;
-
+select * from kranklist;
 </select>
 
 </mapper>

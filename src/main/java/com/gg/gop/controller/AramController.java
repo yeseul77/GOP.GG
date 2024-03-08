@@ -34,7 +34,20 @@ public class AramController {
 		log.info("{}", championListJson);
 		return "aram/aram";
 	}
-	
+	@GetMapping("/aram/detail")
+	public String championInfo(@RequestParam("championName") String championName, Model model) throws Exception {
+		log.info("name : {}", championName);
+		ChampionDto champion = aSer.findChampion(championName);
+		
+		log.info("info : {}", champion);
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		String championNames = objectMapper.writeValueAsString(champion);
+		
+		model.addAttribute("cName", championNames);
+		
+		return "aram/aramInfo";
+	}
 	
 	
 }

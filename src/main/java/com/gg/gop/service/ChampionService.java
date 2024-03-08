@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.gg.gop.dao.ChampionDao;
 import com.gg.gop.dto.ChampionDto;
+import com.gg.gop.dto.CounterDto;
+import com.gg.gop.dto.ItemDto;
 import com.gg.gop.dto.RecordDto;
 import com.gg.gop.dto.RuneDto;
+import com.gg.gop.dto.SpellDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,13 +45,11 @@ public class ChampionService {
 
 	public List<RecordDto> lineRecord() {
 		List<RecordDto> lineRList = cDao.lineRecode();
-		log.info("test : {}", lineRList);
 		return lineRList;
 	}
 
 	public List<RecordDto> lineInfo(String line) {
 		List<RecordDto> lineList = cDao.lineInfo(line);
-		log.info("line : {}", line);
 		return lineList;
 	}
 
@@ -64,13 +65,32 @@ public class ChampionService {
 
 	public RecordDto getRates(String championName, String firstLine) {
 		RecordDto rateList = cDao.getRates(championName, firstLine);
-		log.info("{}", rateList);
 		return rateList;
 	}
 
-	public List<String> getSpells(String championName, String position) {
-		List<String> sList = cDao.getSpells(championName, position);
+	public List<SpellDto> getSpells(String championName, String position) {
+		List<SpellDto> sList = cDao.getSpells(championName, position);
 		return sList;
+	}
+
+	public List<ItemDto> getChampionItem(String championName, String position) {
+		List<ItemDto> iList = cDao.getChampionItem(championName, position);
+		return iList;
+	}
+
+	public List<String> getChampionStartItem(String championName, String position) {
+		List<String> startList = cDao.getChampionStartItem(championName, position);
+		return startList;
+	}
+
+	public List<CounterDto> getChampionEasyCounter(String championName, String position) {
+		List<CounterDto> counterEasyList = cDao.getChampionEasyCounter(championName, position);
+		return counterEasyList;
+	}
+
+	public List<CounterDto> getChampionHardCounter(String championName, String position) {
+		List<CounterDto> counterHardList = cDao.getChampionHardCounter(championName, position);
+		return counterHardList;
 	}
 
 }

@@ -22,7 +22,7 @@ $("document").ready(function(){
 			<div class="rankNum">${num}</div>
 			<div class="rankPhoto"><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/${winlist.championName}.png' alt='${winlist.championName}'></div>
 			<div class="rankInfo"><div class="summonerName">${winlist.summonerName}</div><div class="championName">${winlist.championName}</div></div></div>
-			<div class="rankDate">${winlist.ranklist}&nbsp;%&nbsp;&nbsp;</div>
+			<div class="rankDate">${winlist.winrate}&nbsp;%&nbsp;&nbsp;</div>
 			`
 			temp.append(html)
 			i++
@@ -39,7 +39,7 @@ $("document").ready(function(){
 		$.each(result, function(index, winlist){
 			console.log(winlist)
 			winlist.championName === 'FiddleSticks' ? 'Fiddlesticks' : winlist.championName;
-			const playTime = (winlist.ranklist / 3600).toFixed(1);
+			const playTime = (winlist.gametime / 3600).toFixed(1);
 			const html=document.createElement("div")
 			const medal = `<span class="material-symbols-outlined">workspace_premium</span>`
 			const num = i>3 ? i : medal;  
@@ -74,7 +74,7 @@ $("document").ready(function(){
 			<div class="rankNum">${num}</div>
 			<div class="rankPhoto"><img src='https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/${winlist.championName}.png' alt='${winlist.championName}'></div>
 			<div class="rankInfo"><div class="summonerName">${winlist.summonerName}</div><div class="championName">${winlist.championName}</div></div></div>
-			<div class="rankDate">${winlist.ranklist}&nbsp;점&nbsp;&nbsp;</div>
+			<div class="rankDate">${winlist.kda}&nbsp;점&nbsp;&nbsp;</div>
 			`
 			temp.append(html)
 			i++

@@ -127,7 +127,6 @@ $(document).ready(function() {
 			type: "get",
 			url: "/champion/" + championInfo.champion_name + "/" + position + "/rates",
 			success: function(res) {
-				console.log("res : ", res);
 				// 데이터를 받아온 후에 원하는 작업 수행
 				rateData(res);
 			},
@@ -147,8 +146,12 @@ $(document).ready(function() {
 			readRune(position) // 룬 AJAX
 
 			readSpell(position) // 스펠 AJAX
-			
+
 			readItem(position) // 아이템 AJAX
+
+			readEasyCounter(position) // 카운터 AJAX
+			
+			readHardCounter(position) // 카운터 AJAX
 		});
 	});
 
@@ -267,8 +270,6 @@ $(document).ready(function() {
 			url: "/champion/" + championInfo.champion_name + "/rune",
 			data: { position: position },
 			success: function(res) {
-				console.log(res)
-
 				runeData(res)
 			},
 			error: function(error) {
@@ -282,37 +283,59 @@ $(document).ready(function() {
 
 	// 스펠 데이터
 	const spellList = document.querySelector('.spellList')
-	const firstSpell = document.createElement('div')
-	const secondSpell = document.createElement('div')
-
-	firstSpell.classList.add('firstSpell')
-	secondSpell.classList.add('secondSpell')
-
-	spellList.appendChild(firstSpell)
-	spellList.appendChild(secondSpell)
 
 	function spellData(res) {
+		spellList.innerHTML = ''
+		const firstSpell = document.createElement('div')
+		const secondSpell = document.createElement('div')
+
+		firstSpell.classList.add('firstSpell')
+		secondSpell.classList.add('secondSpell')
+
+		spellList.appendChild(firstSpell)
+		spellList.appendChild(secondSpell)
 		const oneSpell = document.createElement('div')
 		const twoSpell = document.createElement('div')
 
 		const ulOne = document.createElement('ul');
 		const ulTwo = document.createElement('ul');
 
-		const spell1 = document.createElement('li');
-		spell1.textContent = res[0];
-		ulOne.appendChild(spell1);
+		// 첫 번째 객체의 스펠 처리
+		for (const key in res[0]) {
+			if (res[0].hasOwnProperty(key) && /^[^\uAC00-\uD7A3]*$/.test(res[1][key])) {
+				// playCount일 경우 '판' 문자열을 추가하여 처리
+				if (key != 'playCount') {
+					const spell = document.createElement('li');
+					const spellImg = document.createElement('img')
+					spellImg.src = `https://ddragon.leagueoflegends.com/cdn/14.4.1/img/spell/${res[0][key]}.png`
+					spell.appendChild(spellImg)
+					ulOne.appendChild(spell);
+				}
+			}
+		}
 
-		const spell2 = document.createElement('li');
-		spell2.textContent = res[1];
-		ulOne.appendChild(spell2);
+		// 첫번 째
+		const firstPlay = document.createElement('div');
+		firstPlay.textContent = res[0]['playCount'] + '판';
+		firstSpell.parentNode.insertBefore(firstPlay, firstSpell.nextSibling);
 
-		const spell3 = document.createElement('li');
-		spell3.textContent = res[2];
-		ulTwo.appendChild(spell3);
+		// 두 번째 객체의 스펠 처리
+		for (const key in res[1]) {
+			if (res[1].hasOwnProperty(key) && /^[^\uAC00-\uD7A3]*$/.test(res[1][key])) {
+				if (key != 'playCount') {
+					const spell = document.createElement('li');
+					const spellImg = document.createElement('img')
+					spellImg.src = `https://ddragon.leagueoflegends.com/cdn/14.4.1/img/spell/${res[1][key]}.png`
+					spell.appendChild(spellImg)
+					ulTwo.appendChild(spell);
+				}
+			}
+		}
 
-		const spell4 = document.createElement('li');
-		spell4.textContent = res[3];
-		ulTwo.appendChild(spell4);
+		// 두번 째
+		const secondPlay = document.createElement('div');
+		secondPlay.textContent = res[1]['playCount'] + '판';
+		firstSpell.parentNode.insertBefore(secondPlay, secondSpell.nextSibling);
 
 		oneSpell.appendChild(ulOne);
 		twoSpell.appendChild(ulTwo)
@@ -320,15 +343,12 @@ $(document).ready(function() {
 		secondSpell.appendChild(twoSpell)
 	}
 
-
 	function readSpell(position) {
 		$.ajax({
 			type: "get",
 			url: "/champion/" + championInfo.champion_name + "/spell",
 			data: { position: position },
 			success: function(res) {
-				console.log(res)
-
 				spellData(res)
 			},
 			error: function(error) {
@@ -340,47 +360,69 @@ $(document).ready(function() {
 	// 스펠
 	readSpell(firstLine)
 
-
-	// 아이템
-	const startItemList = document.querySelector('.startItemList')
-	const thead = document.createElement('thead')
-	const thead_tr = document.createElement('tr')
-
-	for (let i = 0; i < 3; i++) {
-		const thead_th = document.createElement('th');
-		thead_th.setAttribute('scope', 'col');
-		if (i === 0) {
-			thead_th.textContent = '시작 아이템';
-		}
-		thead_tr.appendChild(thead_th);
-	}
-
-	thead.appendChild(thead_tr)
-
-	const tbody = document.createElement('tbody')
-	for (let i = 0; i < 2; i++) {
-		const tbody_tr = document.createElement('tr');
-
-		for (let j = 0; j < 3; j++) {
-			const td = document.createElement('td');
-			td.className = 'itemStart'
-			tbody_tr.appendChild(td);
-
-			const outerDiv = document.createElement('div');
-			for (let k = 0; k < 2; k++) {
-				const item_div = document.createElement('div');
-				item_div.className = 'itemName'
-				outerDiv.appendChild(item_div);
-			}
-			td.appendChild(outerDiv);
-		}
-		tbody.appendChild(tbody_tr);
-	}
-	
+	// 코어 아이템
 	function itemData(res) {
-		for(let i = 0; i < res.length; i++) {
-			
+		const table = document.querySelector('.startItemList')
+		table.innerHTML = ''
+
+		const tbody = document.createElement('tbody')
+		const thead = document.createElement('thead')
+
+		const headerRow = document.createElement('tr')
+		const header1 = document.createElement('th')
+		header1.textContent = '아이템'
+		const header2 = document.createElement('th')
+		header2.textContent = '픽률'
+		const header3 = document.createElement('th')
+		header3.textContent = '승률'
+
+		headerRow.appendChild(header1)
+		headerRow.appendChild(header2)
+		headerRow.appendChild(header3)
+		thead.appendChild(headerRow)
+
+		for (let i = 0; i < 5; i++) {
+			let item = res[i];
+
+			if (item) {
+				const row = document.createElement('tr');
+
+				const classTd = ['first', 'second', 'third'];
+				for (let j = 1; j <= 3; j++) {
+					const td = document.createElement('td');
+					if (j === 1) {
+						td.className = classTd[j - 1];
+						for (let k = 0; k < 3; k++) {
+							const div = document.createElement('div');
+
+							const itemImg = document.createElement('img');
+							itemImg.src = `https://ddragon.leagueoflegends.com/cdn/14.4.1/img/item/${item[`core${k + 1}`]}.png`;
+
+							div.appendChild(itemImg);
+							td.appendChild(div);
+						}
+					} else if (j === 2) {
+						td.className = classTd[j - 1];
+
+						const pickSpan = document.createElement('span');
+
+						pickSpan.textContent = item.core3_percentage + '%'
+						td.appendChild(pickSpan);
+					} else {
+						td.className = classTd[j - 1];
+
+						const winSpan = document.createElement('span');
+
+						winSpan.textContent = item.core3_win_percentage + '%'
+						td.appendChild(winSpan);
+					}
+					row.appendChild(td);
+				}
+				tbody.appendChild(row);
+			}
 		}
+		table.appendChild(thead)
+		table.appendChild(tbody)
 	}
 
 	function readItem(position) {
@@ -389,8 +431,6 @@ $(document).ready(function() {
 			url: "/champion/" + championInfo.champion_name + "/item",
 			data: { position: position },
 			success: function(res) {
-				console.log(res)
-
 				itemData(res)
 			},
 			error: function(error) {
@@ -398,11 +438,116 @@ $(document).ready(function() {
 			}
 		})
 	}
-	
+
 	// 아이템
 	readItem(firstLine)
 
-	startItemList.appendChild(thead)
-	startItemList.appendChild(tbody)
+	// 챔피언 카운터 TOP 5
+	const championCounter = document.querySelector('.championCounter')
 
+	const championCounterEasy = document.createElement('div')
+	championCounterEasy.classList.add('championCounterEasy')
+	championCounterEasy.textContent = '상대하기 편한 챔피언'
+	
+	const championCounterHard = document.createElement('div')
+	championCounterHard.classList.add('championCounterHard')
+	championCounterHard.textContent = '상대하기 어려운 챔피언'
+	
+	const championEasyCounterUl = document.createElement('ul')
+	championEasyCounterUl.classList.add('championEasyCounterUl')
+	
+	const championHardCounterUl = document.createElement('ul')
+	championHardCounterUl.classList.add('championHardCounterUl')
+
+	championCounter.appendChild(championCounterEasy)
+	championCounter.appendChild(championEasyCounterUl)
+	championCounter.appendChild(championCounterHard)
+	championCounter.appendChild(championHardCounterUl)
+		
+	function counterEasyData(res) {
+		championEasyCounterUl.innerHTML = ''
+
+		for (let i = 0; i < 5; i++) {
+			let counter = res[i]
+			const championCounterIl = document.createElement('li')
+			championCounterIl.className = 'counterChmapions'
+
+			const counterImg = document.createElement('img')
+			const enemy_championName = counter.enemy_championName === 'FiddleSticks' ? 'Fiddlesticks' : counter.enemy_championName;
+			counterImg.src = `https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/${enemy_championName}.png`
+			counterImg.alt = enemy_championName
+
+			const winDiv = document.createElement('div')
+			winDiv.textContent = counter.win_rate + '%'
+
+			const playdiv = document.createElement('div')
+			playdiv.innerHTML = counter.games_played.toLocaleString() + '<br>게임'
+
+			championCounterIl.appendChild(counterImg)
+			championCounterIl.appendChild(winDiv)
+			championCounterIl.appendChild(playdiv)
+			championEasyCounterUl.appendChild(championCounterIl)
+		}
+	}
+	
+	function counterHardData(res) {
+		championHardCounterUl.innerHTML = ''
+		
+		for (let i = 0; i < 5; i++) {
+			let counter = res[i]
+			const championCounterIl = document.createElement('li')
+			championCounterIl.className = 'counterChmapions'
+
+			const counterImg = document.createElement('img')
+			const enemy_championName = counter.enemy_championName === 'FiddleSticks' ? 'Fiddlesticks' : counter.enemy_championName;
+			counterImg.src = `https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/${enemy_championName}.png`
+			counterImg.alt = enemy_championName
+
+			const winDiv = document.createElement('div')
+			winDiv.textContent = counter.win_rate + '%'
+
+			const playdiv = document.createElement('div')
+			playdiv.innerHTML = counter.games_played.toLocaleString() + '<br>게임'
+
+			championCounterIl.appendChild(counterImg)
+			championCounterIl.appendChild(winDiv)
+			championCounterIl.appendChild(playdiv)
+			championHardCounterUl.appendChild(championCounterIl)
+		}
+	}
+	
+	function readEasyCounter(position) {
+		$.ajax({
+			type: "get",
+			url: "/champion/" + championInfo.champion_name + "/easycounter",
+			data: { position: position },
+			success: function(res) {
+				console.log('counter2 :', res)
+				counterEasyData(res)
+			},
+			error: function(error) {
+				console.log(error)
+			}
+		})
+	}
+
+	readEasyCounter(firstLine)
+	
+	// counter2
+	function readHardCounter(position) {
+		$.ajax({
+			type: "get",
+			url: "/champion/" + championInfo.champion_name + "/hardcounter",
+			data: { position: position },
+			success: function(res) {
+				console.log('counter :', res)
+				counterHardData(res)
+			},
+			error: function(error) {
+				console.log(error)
+			}
+		})
+	}
+
+	readHardCounter(firstLine)
 })

@@ -35,11 +35,81 @@
 
 	<select id="lineRecode">
 <!-- 	전체 출력 -->
-		select ar.*, ac.champion_name_kr from aramdata ar, aramchampion ac where ar.championName=ac.championName;
+		select ar.*, ac.champion_name_kr from aramdata2 ar, aramchampion ac where ar.championName=ac.championName;
 	</select>
 	
-<!-- 	<select id="lineInfo"> -->
-<!--  	라인 출력 --> 
-<!-- 	select championName, position, winRate, pickRate, banRate from champdata where position = #{line} -->
-<!-- 	</select> -->
+    <select id="getChampionRune">
+		SELECT * FROM aram_rune
+		WHERE championName = #{championName}
+		AND main_name IN (
+		    SELECT main_name 
+		    FROM aram_rune
+		    WHERE championName = #{championName}
+		    GROUP BY main_name
+		    HAVING COUNT(*) / (SELECT COUNT(*) FROM aram_rune WHERE championName = #{championName}) * 100 >= 15);
+	</select>
+
+	
+	<select id="getRates">
+		select win_rate, pickRate, dpm from aramchampion 
+		where championName = #{championName};
+	</select>
+	
+	<select id="getSpells">
+	SELECT 
+	summoner1Id,
+    summoner2Id,
+    spell1Id,
+    spell2Id,   
+    spell1name,
+    spell2name,
+    COUNT(*) AS playCount,
+    ROUND(COUNT(*) / (
+		            SELECT COUNT(*)
+		            FROM aram
+		            WHERE championName = #{championName} 
+		        ) * 100, 2) AS pickRate,
+		        ROUND((COUNT(CASE WHEN win = 'True' THEN 1 END) / COUNT(*) * 100), 2) AS winRate
+	
+    FROM 
+   ( SELECT     summoner1Id, summoner2Id, spell_list.id AS spell1Id, spell_list2.id AS spell2Id , spell_list.name as spell1name,spell_list2.name as spell2name,
+                win
+		    FROM aram
+		    JOIN spell_list ON aram.summoner1Id = spell_list.spell_id
+		    JOIN spell_list AS spell_list2 ON aram.summoner2Id = spell_list2.spell_id
+            WHERE championName = #{championName}
+			AND summoner1Id > summoner2Id
+            ) as subquery
+
+GROUP BY 
+    summoner1Id,
+    summoner2Id,
+    spell1Id,
+    spell2Id,
+    spell1name,
+    spell2name
+ORDER BY 
+    playCount DESC
+    limit 2;
+	</select>
+	
+	<select id="getChampionItem">
+		SELECT championName_KR, core1, core2, core3, COUNT(*) AS core3_count,
+		    ROUND(COUNT(*) / (
+		            SELECT COUNT(*)
+		            FROM aram_core1
+		            WHERE championName = #{championName} AND core1 != 0 AND core2 != 0 AND core3 != 0
+		        ) * 100, 2) AS core3_percentage,
+		    ROUND((COUNT(CASE WHEN win = 'True' THEN 1 END) / COUNT(*) * 100), 2) AS core3_win_percentage
+		FROM aram_core1
+		WHERE
+		    championName = #{championName}     
+		    AND core1 != 0 AND core2 != 0 AND core3 != 0 and core1 != core2 and core2 != core3 and core1 != core3
+		GROUP BY
+		    championName_KR, core1, core2, core3
+		Having core3_win_percentage != 0
+		ORDER BY
+		    core3_count DESC
+		LIMIT 3;
+	</select>
 </mapper>
