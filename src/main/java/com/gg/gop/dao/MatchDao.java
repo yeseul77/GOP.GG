@@ -10,4 +10,6 @@ public interface MatchDao {
 
 	List<MatchDto> getMatchData(String championName, String champteamPosition, String myteamPosition);
 
+	String getengName(String championName);
+
 }

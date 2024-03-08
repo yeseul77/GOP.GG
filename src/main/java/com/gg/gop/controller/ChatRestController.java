@@ -25,12 +25,15 @@ public class ChatRestController {
 	
 	@GetMapping("/chatroom/list")
 	public List<ChatDto> list(){
+		log.info("getlist");
 		List<ChatDto> clist=cSer.roomlist();
-		cSer.deleteRoom();
+		log.info("====={}",clist);
+//		cSer.deleteRoom();
 		return clist;
 	}
 	@GetMapping("chatroom/mylist")
 	public List<ChatMemberDto> mylist(){
+		log.info("getmylist");
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
 		UserDetails userDetails = (UserDetails)principal;
 		Object username= userDetails.getUsername();

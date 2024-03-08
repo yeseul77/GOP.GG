@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 에러시 window-preferences-maven검색-Download Artifact javadoc 체크할것 -->
+<mapper namespace="com.gg.gop.dao.AramDao">
+
+	<select id="allChampion">
+		select championId, champion_name, champion_name_kr from
+		champion_names
+	</select>
+
+	<select id="findChampion">
+		select * from champion_names where champion_name =
+		#{championName}
+	</select>
+
+	
+	<!-- Rest -->
+	<select id="searchList">
+		SELECT champion_name_kr, champion_name
+		FROM  
+		champion_names
+		WHERE champion_name_kr like concat('%', #{search}, '%');
+	</select>
+	
+<!-- 	<select id="lineChampionList"> -->
+<!-- 		SELECT championName, -->
+<!-- 		ROUND((COUNT(CASE WHEN -->
+<!-- 		teamPosition = #{line} THEN gameId END) / COUNT(DISTINCT matchId) * -->
+<!-- 		100), 1) AS pick_rate -->
+<!-- 		FROM lol_datas -->
+<!-- 		GROUP BY championName -->
+<!-- 		HAVING pick_rate > 10 -->
+<!-- 	</select> -->
+
+	<select id="lineRecode">
+<!-- 	전체 출력 -->
+		select ar.*, ac.champion_name_kr from aramdata ar, aramchampion ac where ar.championName=ac.championName;
+	</select>
+	
+<!-- 	<select id="lineInfo"> -->
+<!--  	라인 출력 --> 
+<!-- 	select championName, position, winRate, pickRate, banRate from champdata where position = #{line} -->
+<!-- 	</select> -->
+</mapper>

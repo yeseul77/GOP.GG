@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gg.gop.dto.ChampionDto;
+import com.gg.gop.dto.CounterDto;
+import com.gg.gop.dto.ItemDto;
 import com.gg.gop.dto.RecordDto;
 import com.gg.gop.dto.RuneDto;
+import com.gg.gop.dto.SpellDto;
 import com.gg.gop.service.ChampionService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -84,9 +87,32 @@ public class ChampionRestController {
 	}
 	
 	@GetMapping("/champion/{championName}/spell")
-	public List<String> getSpells(@PathVariable String championName, @RequestParam String position) {
-		List<String> sList = cSer.getSpells(championName, position);
+	public List<SpellDto> getSpells(@PathVariable String championName, @RequestParam String position) {
+		List<SpellDto> sList = cSer.getSpells(championName, position);
 		return sList;
 	}
 	
+//	@GetMapping("/champion/{championName}/startItem")
+//	public List<String> getChampionStartItem(@PathVariable String championName, @RequestParam String position) {
+//		List<String> startList = cSer.getChampionStartItem(championName, position);
+//		return startList;
+//	}
+	
+	@GetMapping("/champion/{championName}/item")
+	public List<ItemDto> getChampionItem(@PathVariable String championName, @RequestParam String position) {
+		List<ItemDto> iList = cSer.getChampionItem(championName, position);
+		return iList;
+	}
+	
+	@GetMapping("/champion/{championName}/easycounter")
+	public List<CounterDto> getChampionEasyCounter(@PathVariable String championName, @RequestParam String position) {
+		List<CounterDto> counterEasyList = cSer.getChampionEasyCounter(championName, position);
+		return counterEasyList;
+	}
+	
+	@GetMapping("/champion/{championName}/hardcounter")
+	public List<CounterDto> getChampionHardCounter(@PathVariable String championName, @RequestParam String position) {
+		List<CounterDto> counterEasyList = cSer.getChampionHardCounter(championName, position);
+		return counterEasyList;
+	}
 }

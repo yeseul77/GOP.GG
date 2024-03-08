@@ -293,12 +293,10 @@ $(document).ready(function() {
 							championAnchor.appendChild(span)
 							td.appendChild(championAnchor);
 						} else if (tdCName[j] === 'tier') {
-							console.log(championInfo.banRate)
 							let avgNum = []
 							let avg = (championInfo.winRate + championInfo.pickRate + championInfo.banRate) / 3
 							avg = avg.toFixed(1)
 							avgNum.push(avg)
-							console.log(avg)
 							let tier = '';
 							
 							 if (avg >= 25) {

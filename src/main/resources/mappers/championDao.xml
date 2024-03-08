@@ -72,11 +72,83 @@
 	</select>
 	
 	<select id="getSpells">
-		SELECT spell1Name, spell2Name, COUNT(*) AS combinationCount
-		FROM lol_datas
-		WHERE championName = #{championName} AND teamPosition = #{position}
+		SELECT 
+		    MIN(spell1Id) AS spell1Id, MIN(spell2Id) AS spell2Id, COUNT(*) AS playCount,
+		    round(COUNT(*) / (SELECT COUNT(*) FROM lol_datas WHERE championName = #{championName} AND teamPosition = #{position}) * 100 ,2) AS pickRate,
+		    round(SUM(CASE WHEN win = 'true' THEN 1 ELSE 0 END) / COUNT(*) * 100, 2) AS winRate
+		FROM (
+		    SELECT
+		        spell1Name,
+		        spell2Name,
+		        spell_list.id AS spell1Id,
+		        spell_list2.id AS spell2Id,
+		        win
+		    FROM lol_datas
+		    JOIN spell_list ON lol_datas.spell1Name = spell_list.name
+		    JOIN spell_list AS spell_list2 ON lol_datas.spell2Name = spell_list2.name
+		    WHERE championName = #{championName} AND teamPosition = #{position}
+		    AND spell1Name &lt; spell2Name 
+		) AS subquery
 		GROUP BY spell1Name, spell2Name
-		ORDER BY combinationCount DESC
-		LIMIT 4;
+		ORDER BY playCount DESC
+		LIMIT 2;
+	</select>
+	
+	<select id="getChampionStartItem">
+		select start_item from sitem where championName = #{championName} and teamPosition = #{position};
+	</select>
+	
+	<select id="getChampionItem">
+		SELECT championName_KR, teamPosition, core1, core2, core3, COUNT(*) AS core3_count,
+		    ROUND(COUNT(*) / (
+		            SELECT COUNT(*)
+		            FROM core
+		            WHERE championName = #{championName} and teamPosition = #{position} AND core1 != 0 AND core2 != 0 AND core3 != 0
+		        ) * 100, 2) AS core3_percentage,
+		    ROUND((COUNT(CASE WHEN win = 1 THEN 1 END) / COUNT(*) * 100), 2) AS core3_win_percentage
+		FROM core
+		WHERE
+		    championName = #{championName} and teamPosition = #{position}
+		    AND core1 != 0 AND core2 != 0 AND core3 != 0 and core1 != core2 and core2 != core3 and core1 != core3
+		GROUP BY
+		    championName_KR, teamPosition, core1, core2, core3
+		Having core3_win_percentage != 0
+		ORDER BY
+		    core3_count DESC
+		LIMIT 3;
+	</select>
+	
+	<select id="getChampionEasyCounter">
+		select d.championName as championName, o.championName as enemy_championName, 
+		COUNT(DISTINCT d.gameId) AS games_played,
+		round(SUM(CASE WHEN d.win = 'true' THEN 1 ELSE 0 END) / (COUNT(*)) * 100 ,2) AS win_rate
+		FROM lol_datas d, lol_datas o 
+		WHERE d.gameId = o.gameId 
+			AND d.championName = #{championName}
+		    AND d.teamPosition = #{position}
+		    AND o.teamPosition = #{position}
+		    AND o.championName != #{championName}
+		group by o.championName
+		Having win_rate > 50 and win_rate &lt; 100 
+<!-- 		and games_played > 60 -->
+		order by games_played DESC
+		limit 5;
+	</select>
+	
+	<select id="getChampionHardCounter">
+		select d.championName as championName, o.championName as enemy_championName, 
+		COUNT(DISTINCT d.gameId) AS games_played,
+		round(SUM(CASE WHEN d.win = 'true' THEN 1 ELSE 0 END) / (COUNT(*)) * 100 ,2) AS win_rate
+		FROM lol_datas d, lol_datas o 
+		WHERE d.gameId = o.gameId 
+			AND d.championName = #{championName}
+		    AND d.teamPosition = #{position}
+		    AND o.teamPosition = #{position}
+		    AND o.championName != #{championName}
+		group by o.championName
+		Having win_rate > 40 and win_rate &lt; 100 
+<!-- 		and games_played > 60 -->
+		order by win_rate asc
+		limit 5;
 	</select>
 </mapper>

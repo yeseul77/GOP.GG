@@ -21,7 +21,7 @@
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> 
 
   <link rel="stylesheet" href="/css/header.css">
   <script defer src="/js/header.js"></script>
@@ -45,10 +45,10 @@
             <a href="${contextPath}/champion/list">챔피언 분석</a>
           </li>
           <li>
-          	<a href="${contextPath}/match">시너지분석</a>
+          	<a href="${contextPath}/match">시너지 분석</a>
           </li>
           <li>
-            <a href="javascript:void(0)">칼바람 나락</a>
+            <a href="${contextPath}/aram/list">칼바람 나락</a>
           </li>
           <li>
             <a href="${contextPath}/chat/chatList">듀 오</a>

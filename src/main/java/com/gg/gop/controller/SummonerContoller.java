@@ -8,12 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.gg.gop.dto.RankDto;
-import com.gg.gop.dto.SummonerDto;
-import com.gg.gop.service.RankService;
 import com.gg.gop.service.SummonerService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,17 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 public class SummonerContoller {
 	@Autowired
 	private SummonerService summonerService;
-	@Autowired
-	private RankService rSer;
-	
+
 	@GetMapping("/")
-	public String summoner(Model model) {
-//		List<RankDto> winRank= rSer.getWinList();
-//		List<RankDto> gameRank=rSer.getGameList();
-//		List<RankDto> kdaRank=rSer.getKdaList();
-//		model.addAttribute("winRank", winRank);
-//		model.addAttribute("gameRank", gameRank);
-//		model.addAttribute("kdaRank", kdaRank);
+	public String summoner() {
 		return "index";
 	}
 
@@ -53,9 +41,7 @@ public class SummonerContoller {
 	public String summonerSearch(@RequestParam String gameName, @RequestParam String tagLine, Model model) {
 	    List<Map<String, Object>> combinedGameData = summonerService.getCombinedGameData(gameName, tagLine);
 	    List<Map<String, Object>> filteredGameData = new ArrayList<>();
-		String puuid = summonerService.puuid(gameName, tagLine);
-		String summonerid=summonerService.SummonerId(puuid);
-		model.addAttribute("summonerId",summonerid);
+
 	    // 최근 10게임만 추출하고, 검색한 소환사 이름과 태그 라인이 일치하는 게임 정보만 필터링
 	    int gameCount = 0;
 	    for (Map<String, Object> gameData : combinedGameData) {

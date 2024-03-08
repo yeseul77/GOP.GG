@@ -11,6 +11,7 @@ $(document).ready(function() {
 	const img = document.createElement('img')
 	img.className = 'champion-img'
 	img.alt = championInfo.champion_name_kr;
+	document.title = `${championInfo.champion_name_kr} 분석 GOP.GG`
 	img.src = `https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/${championInfo.champion_name}.png`;
 
 	div.appendChild(img)
@@ -33,6 +34,7 @@ $(document).ready(function() {
 
 	for (let i = 0; i < skillCount; i++) {
 		const div_skill = document.createElement('div')
+		div_skill.classList.add('imgBox')
 		const skill_img = document.createElement('img')
 
 		// 스킬 이미지 설정
@@ -70,9 +72,32 @@ $(document).ready(function() {
 			uniquePositions.forEach(position => {
 				if (position.trim() !== '') { // 빈 값이 아닌 경우에만 버튼을 생성
 					const button = document.createElement('button');
-					button.textContent = position;
+					const lineIcon = document.createElement('div')
+					lineIcon.classList.add('lineIcon')
+					lineIcon.innerHTML = `<img src="/images/${position}.svg" alt="${position}">`
+					const lineName = document.createElement('span')
+					lineName.classList.add('lineName');
+					switch (position) {
+						case 'TOP':
+							lineName.textContent = '탑';
+							break;
+						case 'MIDDLE':
+							lineName.textContent = '미드';
+							break;
+						case 'JUNGLE':
+							lineName.textContent = '정글';
+							break;
+						case 'BOTTOM':
+							lineName.textContent = '원딜';
+							break;
+						case 'UTILITY':
+							lineName.textContent = '서폿';
+							break;
+					}
 					button.classList.add('line');
 					button.dataset.position = position; // 버튼에 포지션 정보를 데이터 속성으로 추가
+					button.append(lineIcon);
+					button.append(lineName);
 					button.addEventListener('click', lineButton); // 클릭 이벤트 처리기 추가
 					lineButton.appendChild(button);
 				}
@@ -92,17 +117,10 @@ $(document).ready(function() {
 
 		rates.innerHTML = ''; // 기존 값 초기화
 
-		// 첫 번째 div 생성
-		const div1 = document.createElement('div');
-		div1.classList.add('rate-info');
 
 		// 승, 픽, 벤 레이블 추가
 		const labels = ['승률', '픽률', '벤률'];
-		labels.forEach(label => {
-			const span = document.createElement('span');
-			span.textContent = label;
-			div1.appendChild(span);
-		});
+
 
 		// 두 번째 div 생성
 		const div2 = document.createElement('div');
@@ -110,15 +128,47 @@ $(document).ready(function() {
 
 		// 승, 픽, 벤 비율 값 추가
 		const values = [res.winRate, res.pickRate, res.banRate];
-		values.forEach(value => {
-			const span = document.createElement('span');
-			span.textContent = value;
-			div2.appendChild(span);
-		});
+		
 
-		// 부모 요소에 자식 요소 추가
-		rates.appendChild(div1);
+		// 부모 요소에 자식 요소 추가		
 		rates.appendChild(div2);
+
+		google.charts.load('current', { 'packages': ['corechart'] });
+		google.charts.setOnLoadCallback(drawCharts);
+
+		function drawCharts() {
+			var data1 = google.visualization.arrayToDataTable([
+				['항목', '퍼센트', { role: 'style' }, { role: 'annotation' }],
+				['승률(%)', res.winRate, 'color: #5d9ceb', `${res.winRate}`],
+				['픽률(%)', res.pickRate, 'color: #00c29f', `${res.pickRate}`],
+				['벤률(%)', res.banRate, 'color: #e57474', `${res.banRate}`]
+			]);
+
+			var options1 = {
+				width: 600,
+				height: 250,
+				fontSize: 14,				
+				textStyle: { bold: true, fontSize: 14 },
+				hAxis: {
+					textStyle: { bold: true, fontSize: 14 } // X축 레이블에 대한 스타일 설정
+				},
+				vAxis: {
+					textStyle: { bold: true, fontSize: 14 } // Y축 레이블에 대한 스타일 설정
+				},
+				legend: {
+					position: 'none'
+				},
+				animation: {
+					startup: true,
+					duration: 1000,
+					easing: 'out'
+				}
+			};
+
+			var chart1 = new google.visualization.BarChart(document.getElementById('myChart'));
+			chart1.draw(data1, options1);
+		}	
+
 	}
 
 	function readRates(position) {
@@ -127,7 +177,6 @@ $(document).ready(function() {
 			type: "get",
 			url: "/champion/" + championInfo.champion_name + "/" + position + "/rates",
 			success: function(res) {
-				console.log("res : ", res);
 				// 데이터를 받아온 후에 원하는 작업 수행
 				rateData(res);
 			},
@@ -135,6 +184,7 @@ $(document).ready(function() {
 				console.log(error);
 			}
 		});
+
 	}
 
 	// 버튼 이벤트
@@ -147,8 +197,12 @@ $(document).ready(function() {
 			readRune(position) // 룬 AJAX
 
 			readSpell(position) // 스펠 AJAX
-			
+
 			readItem(position) // 아이템 AJAX
+
+			readEasyCounter(position) // 카운터 AJAX
+
+			readHardCounter(position) // 카운터 AJAX
 		});
 	});
 
@@ -219,13 +273,16 @@ $(document).ready(function() {
 			const mostCommonMainPerks = [mostCommonMainPerks1, mostCommonMainPerks2, mostCommonMainPerks3, mostCommonMainPerks4];
 
 			for (let i = 0; i < mostCommonMainPerks.length; i++) {
+				const perksBox = document.createElement('div');
+				perksBox.classList.add('perksBox');
 				const mainPerksImg = document.createElement('img');
 				const mainPerksName = mostCommonMainPerks[i];
 
 				mainPerksImg.src = `https://opgg-static.akamaized.net/meta/images/lol/14.4.1/perk/${mainPerksName}.png?image=q_auto,f_webp,w_64,h_64&v=1708681571653`;
 				mainPerksImg.alt = mainPerksName;
 
-				mainPerks.appendChild(mainPerksImg);
+				perksBox.append(mainPerksImg);
+				mainPerks.appendChild(perksBox);
 			}
 
 			const subRuneImg = document.createElement('img')
@@ -234,24 +291,158 @@ $(document).ready(function() {
 
 			const mostCommonSubPerks = [mostCommonSubPerks1, mostCommonSubPerks2];
 			for (let j = 0; j < mostCommonSubPerks.length; j++) {
+				const perksBox = document.createElement('div');
+				perksBox.classList.add('perksBox');
 				const subPerksImg = document.createElement('img');
 				const subPerksName = mostCommonSubPerks[j];
 
 				subPerksImg.src = `https://opgg-static.akamaized.net/meta/images/lol/14.4.1/perk/${subPerksName}.png?image=q_auto,f_webp,w_64,h_64&v=1708681571653`;
 				subPerksImg.alt = subPerksName;
 
-				subPerks.appendChild(subPerksImg);
+				perksBox.append(subPerksImg);
+				subPerks.appendChild(perksBox);
 			}
+
+			const runeMain = document.querySelector('.main');
+			const listLineFirst = document.querySelector('.listLine1');
+
+			switch (mostCommonMainName) {
+				case '8000':
+					runeMain.style.border = '1.5px solid #faca7b';
+					runeMain.style.boxShadow = '0 0 6px #faca7b';
+					listLineFirst.style.backgroundColor = '#faca7b';
+					listLineFirst.style.boxShadow = '0 0 6px #faca7b';
+					break;
+				case '8100':
+					runeMain.style.border = '1.5px solid #eb1950';
+					runeMain.style.boxShadow = '0 0 6px #eb1950';
+					listLineFirst.style.backgroundColor = '#eb1950';
+					listLineFirst.style.boxShadow = '0 0 6px #eb1950';
+					break;
+				case '8200':
+					runeMain.style.border = '1.5px solid #8662f2';
+					runeMain.style.boxShadow = '0 0 6px #8662f2';
+					listLineFirst.style.backgroundColor = '#8662f2';
+					listLineFirst.style.boxShadow = '0 0 6px #8662f2';
+					break;
+				case '8300':
+					runeMain.style.border = '1.5px solid #5aafc2';
+					runeMain.style.boxShadow = '0 0 6px #5aafc2';
+					listLineFirst.style.backgroundColor = '#5aafc2';
+					listLineFirst.style.boxShadow = '0 0 6px #5aafc2';
+					break;
+				case '8400':
+					runeMain.style.border = '1.5px solid #56ce4a';
+					runeMain.style.boxShadow = '0 0 6px #56ce4a';
+					listLineFirst.style.backgroundColor = '#56ce4a';
+					listLineFirst.style.boxShadow = '0 0 6px #56ce4a';
+					break;
+			}
+
+			const runePerksBoxs = document.querySelectorAll('.mainPerks .perksBox');
+			runePerksBoxs.forEach(runePerksBox => {
+				switch (mostCommonMainName) {
+					case '8000':
+						runePerksBox.style.border = '1.5px solid #faca7b';
+						runePerksBox.style.boxShadow = '0 0 6px #faca7b';
+						break;
+					case '8100':
+						runePerksBox.style.border = '1.5px solid #eb1950';
+						runePerksBox.style.boxShadow = '0 0 6px #eb1950';
+						break;
+					case '8200':
+						runePerksBox.style.border = '1.5px solid #8662f2';
+						runePerksBox.style.boxShadow = '0 0 6px #8662f2';
+						break;
+					case '8300':
+						runePerksBox.style.border = '1.5px solid #5aafc2';
+						runePerksBox.style.boxShadow = '0 0 6px #5aafc2';
+						break;
+					case '8400':
+						runePerksBox.style.border = '1.5px solid #56ce4a';
+						runePerksBox.style.boxShadow = '0 0 6px #56ce4a';
+						break;
+				}
+			})
+
+			const runeSub = document.querySelector('.subRune');
+			const listLineSecond = document.querySelector('.listLine2');
+			const listLineThird = document.querySelector('.listLine3');
+			listLineThird.style.backgroundColor = '#333';
+			listLineThird.style.boxShadow = '0 0 6px #333';
+			switch (mostCommonSubName) {
+				case '8000':
+					runeSub.style.border = '1.5px solid #faca7b';
+					runeSub.style.boxShadow = '0 0 6px #faca7b';
+					listLineSecond.style.backgroundColor = '#faca7b';
+					listLineSecond.style.boxShadow = '0 0 6px #faca7b';
+					break;
+				case '8100':
+					runeSub.style.border = '1.5px solid #eb1950';
+					runeSub.style.boxShadow = '0 0 6px #eb1950';
+					listLineSecond.style.backgroundColor = '#eb1950';
+					listLineSecond.style.boxShadow = '0 0 6px #eb1950';
+					break;
+				case '8200':
+					runeSub.style.border = '1.5px solid #8662f2';
+					runeSub.style.boxShadow = '0 0 6px #8662f2';
+					listLineSecond.style.backgroundColor = '#8662f2';
+					listLineSecond.style.boxShadow = '0 0 6px #8662f2';
+					break;
+				case '8300':
+					runeSub.style.border = '1.5px solid #5aafc2';
+					runeSub.style.boxShadow = '0 0 6px #5aafc2';
+					listLineSecond.style.backgroundColor = '#5aafc2';
+					listLineSecond.style.boxShadow = '0 0 6px #5aafc2';
+					break;
+				case '8400':
+					runeSub.style.border = '1.5px solid #56ce4a';
+					runeSub.style.boxShadow = '0 0 6px #56ce4a';
+					listLineSecond.style.backgroundColor = '#56ce4a';
+					listLineSecond.style.boxShadow = '0 0 6px #56ce4a';
+					break;
+			}
+
+			const runeSubPerksBoxs = document.querySelectorAll('.subPerks .perksBox');
+			runeSubPerksBoxs.forEach(runeSubPerksBox => {
+				switch (mostCommonSubName) {
+					case '8000':
+						runeSubPerksBox.style.border = '1.5px solid #faca7b';
+						runeSubPerksBox.style.boxShadow = '0 0 6px #faca7b';
+						break;
+					case '8100':
+						runeSubPerksBox.style.border = '1.5px solid #eb1950';
+						runeSubPerksBox.style.boxShadow = '0 0 6px #eb1950';
+						break;
+					case '8200':
+						runeSubPerksBox.style.border = '1.5px solid #8662f2';
+						runeSubPerksBox.style.boxShadow = '0 0 6px #8662f2';
+						break;
+					case '8300':
+						runeSubPerksBox.style.border = '1.5px solid #5aafc2';
+						runeSubPerksBox.style.boxShadow = '0 0 6px #5aafc2';
+						break;
+					case '8400':
+						runeSubPerksBox.style.border = '1.5px solid #56ce4a';
+						runeSubPerksBox.style.boxShadow = '0 0 6px #56ce4a';
+						break;
+				}
+			})
+
+
 
 			const mostCommonStatPerks = [mostCommonStatPerks1, mostCommonStatPerks2, mostCommonStatPerks3];
 			for (let z = 0; z < mostCommonStatPerks.length; z++) {
+				const perksBox = document.createElement('div');
+				perksBox.classList.add('perksBox');
 				const statPerksImg = document.createElement('img');
 				const statPerksName = mostCommonStatPerks[z];
 
 				statPerksImg.src = `https://opgg-static.akamaized.net/meta/images/lol/perkShard/${statPerksName}.png?image=q_auto,f_webp,w_64,h_64&v=1708681571653`;
 				statPerksImg.alt = statPerksName;
 
-				statPerks.appendChild(statPerksImg);
+				perksBox.append(statPerksImg);
+				statPerks.appendChild(perksBox);
 			}
 
 			mainRune.appendChild(mainRuneImg)
@@ -267,8 +458,6 @@ $(document).ready(function() {
 			url: "/champion/" + championInfo.champion_name + "/rune",
 			data: { position: position },
 			success: function(res) {
-				console.log(res)
-
 				runeData(res)
 			},
 			error: function(error) {
@@ -282,44 +471,93 @@ $(document).ready(function() {
 
 	// 스펠 데이터
 	const spellList = document.querySelector('.spellList')
-	const firstSpell = document.createElement('div')
-	const secondSpell = document.createElement('div')
-
-	firstSpell.classList.add('firstSpell')
-	secondSpell.classList.add('secondSpell')
-
-	spellList.appendChild(firstSpell)
-	spellList.appendChild(secondSpell)
 
 	function spellData(res) {
-		const oneSpell = document.createElement('div')
-		const twoSpell = document.createElement('div')
+		spellList.innerHTML = ''
+		const firstSpell = document.createElement('div')
+		const secondSpell = document.createElement('div')
+
+		firstSpell.classList.add('firstSpell')
+		secondSpell.classList.add('secondSpell')
+
+		spellList.appendChild(firstSpell)
+		spellList.appendChild(secondSpell)
 
 		const ulOne = document.createElement('ul');
+		ulOne.classList.add('ulOne');
 		const ulTwo = document.createElement('ul');
+		ulTwo.classList.add('ulTwo');
+		firstSpell.append(ulOne);
+		secondSpell.append(ulTwo);
 
-		const spell1 = document.createElement('li');
-		spell1.textContent = res[0];
-		ulOne.appendChild(spell1);
+		// 첫 번째 객체의 스펠 처리
+		for (const key in res[0]) {
+			if (res[0].hasOwnProperty(key) && /^[^\uAC00-\uD7A3]*$/.test(res[1][key]) && key !== 'pickRate' && key !== 'winRate') {
+				// playCount일 경우 '판' 문자열을 추가하여 처리
+				if (key != 'playCount') {
+					const spell = document.createElement('li');
+					const spellImg = document.createElement('img')
+					spellImg.src = `https://ddragon.leagueoflegends.com/cdn/14.4.1/img/spell/${res[0][key]}.png`
+					spell.appendChild(spellImg)
+					ulOne.appendChild(spell);
+				}
+			}
+		}
 
-		const spell2 = document.createElement('li');
-		spell2.textContent = res[1];
-		ulOne.appendChild(spell2);
+		// 첫번 째
+		const firstTotal = document.createElement('div');
+		firstTotal.classList.add('firstTotal');
+		const firstPlay = document.createElement('div');
+		firstPlay.classList.add('firstData');
+		firstPlay.textContent = '총 ' + res[0]['playCount'] + ' 게임';
+		firstTotal.append(firstPlay);
 
-		const spell3 = document.createElement('li');
-		spell3.textContent = res[2];
-		ulTwo.appendChild(spell3);
+		const firstPick = document.createElement('div');
+		firstPick.classList.add('firstPick');
+		firstPick.textContent = '픽률 ' + res[0]['pickRate'] + ' %';
+		firstTotal.append(firstPick);
 
-		const spell4 = document.createElement('li');
-		spell4.textContent = res[3];
-		ulTwo.appendChild(spell4);
+		const firstWin = document.createElement('div');
+		firstWin.classList.add('firstWin');
+		firstWin.textContent = '승률 ' + res[0]['winRate'] + ' %';
+		firstTotal.append(firstWin);
 
-		oneSpell.appendChild(ulOne);
-		twoSpell.appendChild(ulTwo)
-		firstSpell.appendChild(oneSpell)
-		secondSpell.appendChild(twoSpell)
+		firstSpell.append(firstTotal);
+
+		// 두 번째 객체의 스펠 처리
+		for (const key in res[1]) {
+			if (res[1].hasOwnProperty(key) && /^[^\uAC00-\uD7A3]*$/.test(res[1][key]) && key !== 'pickRate' && key !== 'winRate') {
+				if (key != 'playCount') {
+					const spell = document.createElement('li');
+					const spellImg = document.createElement('img')
+					spellImg.src = `https://ddragon.leagueoflegends.com/cdn/14.4.1/img/spell/${res[1][key]}.png`
+					spell.appendChild(spellImg)
+					ulTwo.appendChild(spell);
+				}
+			}
+		}
+
+		// 두번 째
+		const secondTotal = document.createElement('div');
+		secondTotal.classList.add('secondTota');
+		const secondPlay = document.createElement('div');
+		secondPlay.classList.add('secondData');
+		secondPlay.textContent = '총 ' + res[1]['playCount'] + ' 게임';
+		secondTotal.append(secondPlay);
+
+		const secondPick = document.createElement('div');
+		secondPick.classList.add('secondPick');
+		secondPick.textContent = '픽률 ' + res[1]['pickRate'] + ' %';
+		secondTotal.append(secondPick);
+
+		const secondWin = document.createElement('div');
+		secondWin.classList.add('secondWin');
+		secondWin.textContent = '승률 ' + res[1]['winRate'] + ' %';
+		secondTotal.append(secondWin);
+
+		secondSpell.append(secondTotal);
+
 	}
-
 
 	function readSpell(position) {
 		$.ajax({
@@ -327,8 +565,6 @@ $(document).ready(function() {
 			url: "/champion/" + championInfo.champion_name + "/spell",
 			data: { position: position },
 			success: function(res) {
-				console.log(res)
-
 				spellData(res)
 			},
 			error: function(error) {
@@ -340,47 +576,57 @@ $(document).ready(function() {
 	// 스펠
 	readSpell(firstLine)
 
-
-	// 아이템
-	const startItemList = document.querySelector('.startItemList')
-	const thead = document.createElement('thead')
-	const thead_tr = document.createElement('tr')
-
-	for (let i = 0; i < 3; i++) {
-		const thead_th = document.createElement('th');
-		thead_th.setAttribute('scope', 'col');
-		if (i === 0) {
-			thead_th.textContent = '시작 아이템';
-		}
-		thead_tr.appendChild(thead_th);
-	}
-
-	thead.appendChild(thead_tr)
-
-	const tbody = document.createElement('tbody')
-	for (let i = 0; i < 2; i++) {
-		const tbody_tr = document.createElement('tr');
-
-		for (let j = 0; j < 3; j++) {
-			const td = document.createElement('td');
-			td.className = 'itemStart'
-			tbody_tr.appendChild(td);
-
-			const outerDiv = document.createElement('div');
-			for (let k = 0; k < 2; k++) {
-				const item_div = document.createElement('div');
-				item_div.className = 'itemName'
-				outerDiv.appendChild(item_div);
-			}
-			td.appendChild(outerDiv);
-		}
-		tbody.appendChild(tbody_tr);
-	}
-	
+	// 코어 아이템
 	function itemData(res) {
-		for(let i = 0; i < res.length; i++) {
-			
+		const table = document.querySelector('.startItemList')
+		table.innerHTML = ''
+
+		const tbody = document.createElement('tbody')
+
+
+		for (let i = 0; i < 5; i++) {
+			let item = res[i];
+
+			if (item) {
+				const row = document.createElement('tr');
+
+				const classTd = ['first', 'second', 'third'];
+				for (let j = 1; j <= 3; j++) {
+					const td = document.createElement('td');
+					if (j === 1) {
+						td.className = classTd[j - 1];
+						for (let k = 0; k < 3; k++) {
+							const div = document.createElement('div');
+							div.classList.add('itemBox');
+
+							const itemImg = document.createElement('img');
+							itemImg.src = `https://ddragon.leagueoflegends.com/cdn/14.4.1/img/item/${item[`core${k + 1}`]}.png`;
+
+							div.appendChild(itemImg);
+							td.appendChild(div);
+						}
+					} else if (j === 2) {
+						td.className = classTd[j - 1];
+
+						const pickSpan = document.createElement('span');
+
+						pickSpan.textContent = '픽률 ' + item.core3_percentage + '%'
+						td.appendChild(pickSpan);
+					} else {
+						td.className = classTd[j - 1];
+
+						const winSpan = document.createElement('span');
+
+						winSpan.textContent = '승률 ' + item.core3_win_percentage + '%'
+						td.appendChild(winSpan);
+					}
+					row.appendChild(td);
+				}
+				tbody.appendChild(row);
+			}
 		}
+
+		table.appendChild(tbody)
 	}
 
 	function readItem(position) {
@@ -389,8 +635,6 @@ $(document).ready(function() {
 			url: "/champion/" + championInfo.champion_name + "/item",
 			data: { position: position },
 			success: function(res) {
-				console.log(res)
-
 				itemData(res)
 			},
 			error: function(error) {
@@ -398,11 +642,138 @@ $(document).ready(function() {
 			}
 		})
 	}
-	
+
 	// 아이템
 	readItem(firstLine)
 
-	startItemList.appendChild(thead)
-	startItemList.appendChild(tbody)
+	// 챔피언 카운터 TOP 5
+	const championCounter = document.querySelector('.championCounter')
 
+	const championLeft = document.createElement('div')
+	championLeft.classList.add('championLeft')
+	const championRight = document.createElement('div')
+	championRight.classList.add('championRight')
+
+	const championCounterEasy = document.createElement('div')
+	championCounterEasy.classList.add('championCounterEasy')
+	championCounterEasy.textContent = '상대하기 편한 챔피언'
+
+	const championCounterHard = document.createElement('div')
+	championCounterHard.classList.add('championCounterHard')
+	championCounterHard.textContent = '상대하기 어려운 챔피언'
+
+	const championEasyCounterUl = document.createElement('ul')
+	championEasyCounterUl.classList.add('championEasyCounterUl')
+
+	const championHardCounterUl = document.createElement('ul')
+	championHardCounterUl.classList.add('championHardCounterUl')
+
+	championLeft.appendChild(championCounterEasy)
+	championLeft.appendChild(championEasyCounterUl)
+	championRight.appendChild(championCounterHard)
+	championRight.appendChild(championHardCounterUl)
+
+	championCounter.append(championLeft);
+	championCounter.append(championRight);
+
+	function counterEasyData(res) {
+		championEasyCounterUl.innerHTML = ''
+
+		for (let i = 0; i < 5; i++) {
+			let counter = res[i]
+			const championCounterIl = document.createElement('li')
+			championCounterIl.className = 'counterChampions'
+
+			const counterImageBox = document.createElement('div')
+			counterImageBox.classList.add('counterImageBox')
+
+			const counterImg = document.createElement('img')
+			const enemy_championName = counter.enemy_championName === 'FiddleSticks' ? 'Fiddlesticks' : counter.enemy_championName;
+			counterImg.src = `https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/${enemy_championName}.png`
+			counterImg.alt = enemy_championName
+
+			const resultBox = document.createElement('div')
+			resultBox.classList.add('resultBox')
+			const winDiv = document.createElement('div')
+			winDiv.textContent = '승률 ' + counter.win_rate + ' %,'
+
+			const playdiv = document.createElement('div')
+			playdiv.innerHTML = counter.games_played.toLocaleString() + ' 게임'
+
+			counterImageBox.appendChild(counterImg)
+			resultBox.appendChild(winDiv)
+			resultBox.appendChild(playdiv)
+			championCounterIl.appendChild(counterImageBox)
+			championCounterIl.appendChild(resultBox)
+			championEasyCounterUl.appendChild(championCounterIl)
+		}
+	}
+
+	function counterHardData(res) {
+		championHardCounterUl.innerHTML = ''
+
+		for (let i = 0; i < 5; i++) {
+			let counter = res[i]
+			const championCounterIl = document.createElement('li')
+			championCounterIl.className = 'counterChampions'
+
+			const counterImageBox = document.createElement('div')
+			counterImageBox.classList.add('counterImageBox')
+
+			const counterImg = document.createElement('img')
+			const enemy_championName = counter.enemy_championName === 'FiddleSticks' ? 'Fiddlesticks' : counter.enemy_championName;
+			counterImg.src = `https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/${enemy_championName}.png`
+			counterImg.alt = enemy_championName
+
+			const resultBox = document.createElement('div')
+			resultBox.classList.add('resultBox')
+			const winDiv = document.createElement('div')
+			winDiv.textContent = '승률 ' + counter.win_rate + ' %,'
+
+			const playdiv = document.createElement('div')
+			playdiv.innerHTML = counter.games_played.toLocaleString() + ' 게임'
+
+			counterImageBox.appendChild(counterImg)
+			resultBox.appendChild(winDiv)
+			resultBox.appendChild(playdiv)
+			championCounterIl.appendChild(counterImageBox)
+			championCounterIl.appendChild(resultBox)
+			championHardCounterUl.appendChild(championCounterIl)
+		}
+	}
+
+	function readEasyCounter(position) {
+		$.ajax({
+			type: "get",
+			url: "/champion/" + championInfo.champion_name + "/easycounter",
+			data: { position: position },
+			success: function(res) {
+				console.log('counter2 :', res)
+				counterEasyData(res)
+			},
+			error: function(error) {
+				console.log(error)
+			}
+		})
+	}
+
+	readEasyCounter(firstLine)
+
+	// counter2
+	function readHardCounter(position) {
+		$.ajax({
+			type: "get",
+			url: "/champion/" + championInfo.champion_name + "/hardcounter",
+			data: { position: position },
+			success: function(res) {
+				console.log('counter :', res)
+				counterHardData(res)
+			},
+			error: function(error) {
+				console.log(error)
+			}
+		})
+	}
+
+	readHardCounter(firstLine)
 })

@@ -2,18 +2,13 @@ package com.gg.gop.controller;
 
 import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -65,7 +60,7 @@ public class SummonerRestController {
 	}
 
 	@PostMapping("/summonerSaveData")
-	public int saveData(@RequestParam("encodedData") String encodedData) throws JsonProcessingException {
+	public int saveData(@RequestParam("encodedData") String encodedData,String gameName, String tagLine) throws JsonProcessingException {
 		int savedCount = 0; // 저장된 데이터의 수를 세기 위한 변수
 		ObjectMapper objectMapper = new ObjectMapper();
 		log.info("savedCount : " + savedCount);
@@ -103,9 +98,10 @@ public class SummonerRestController {
 				List<Map<String, Object>> leagueInfoList = (List<Map<String, Object>>) response.get("leagueInfo");
 				for (Map<String, Object> leagueInfo : leagueInfoList) {
 					if (leagueInfo != null) {
-						if (summonerService.saveLeagueInfo(leagueInfo) > 0) {
+						if (summonerService.saveLeagueInfo(leagueInfo,gameName, tagLine) > 0) {
 							savedCount++; // 저장된 데이터 수 증가
 						}
+
 					}
 				}
 			}

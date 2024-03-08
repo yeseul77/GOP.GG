@@ -6,7 +6,7 @@
 <!-- 헤더 위치 -->
  <%@include file="/WEB-INF/tiles/header.jsp" %>
  <!--헤더 위치 --> 
- <title>메인 GOP.GG</title> 
+ <title>메인 페이지 GOP.GG</title> 
  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
  <script>
  // 메시지 변수 설정

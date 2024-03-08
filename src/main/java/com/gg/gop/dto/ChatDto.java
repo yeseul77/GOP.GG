@@ -16,4 +16,5 @@ public class ChatDto {
 	private String champion;
 	private String position;
 	private String memo;
+	private int display;
 }

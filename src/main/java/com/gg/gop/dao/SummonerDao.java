@@ -28,6 +28,10 @@ public interface SummonerDao { // 소환사 전적 검색
 	List<Map> retrieveAllDataFromDB();
 
 	int saveLeagueInfo(Map<String, Object> leagueInfo);
+	
+	int saveLeagueNull(String summonerId);
+	
+	int updateLeagueNull(String summonerId);
 
 	int updateLeagueInfo(Map<String, Object> leagueInfo);
 

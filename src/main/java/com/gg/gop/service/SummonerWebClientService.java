@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class SummonerWebClientService {
-	private static final String RIOT_API_KEY = "RGAPI-953215fc-9845-49e6-988f-07a6f4e122cb";
+	private static final String RIOT_API_KEY = "RGAPI-c194999b-55b5-4908-ae1e-d89190219e1e";//송용호 api
 	private static final String RIOT_API_URL = "https://asia.api.riotgames.com/riot/account/v1/accounts/by-riot-id/";
 	private static final String RIOT_API_URL2 = "https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/";
 	private Map<String, Long> lastRequestTimes = new HashMap<>();

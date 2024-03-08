@@ -78,11 +78,31 @@
 		losses = #{losses}
 		WHERE summonerId = #{summonerId};
 	</insert>
-
+	
+	<insert id="saveLeagueNull">
+		INSERT IGNORE INTO leagueInfo
+			VALUES
+			(#{summonerId},
+			'RANKED_SOLO_5x5', 'UNRANK', 'UNRANK', 0, 0,
+			0);
+	</insert>
+	<insert id="updateLeagueNull">
+		UPDATE leagueInfo
+		SET
+		queueType = 'RANKED_SOLO_5x5',
+		tier = 'UNRANK',
+		ranked = 'UNRANK',
+		leaguePoints = 0,
+		wins = 0,
+		losses = 0
+		WHERE summonerId = #{summonerId};
+	</insert>
+	
 	<select id="getGameInfoFromDB" parameterType="String"
 		resultType="Map">
-		SELECT * FROM info where matchId !='' ORDER BY
-		gameStartTimestamp DESC;
+		SELECT ifo.*, ch.champion_name_kr as championNameKr FROM info ifo , champion_names ch 
+		where ch.champion_name=ifo.championName and matchId !='' ORDER BY gameStartTimestamp DESC;
+
 		<!-- where matchId = #{matchId}; -->
 	</select>
 	<select id="getGameTeamsFromDB" parameterType="String"
@@ -108,9 +128,10 @@
 	<!-- </select> -->
 	<select id="getGameDataFromDB" parameterType="java.util.Map"
 		resultType="java.util.Map">
-		SELECT *
-		FROM GameInfo
-		WHERE matchId = #{matchId} AND
+		SELECT gi.*, ch.champion_name_kr as championNameKr
+		FROM GameInfo gi, champion_names ch 
+		where gi.championName=ch.champion_name 
+		and matchId = #{matchId} AND
 		riotIdGameName = #{riotIdGameName} ORDER BY
 		gameStartTimestamp DESC;
 	</select>
