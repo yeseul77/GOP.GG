@@ -85,7 +85,7 @@
 		</div>
 
 	</form>
-<!-- 모달-->
+	<!-- 모달-->
 	<div class="modal fade" id="feedbackModal" tabindex="-1"
 		aria-labelledby="modalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -105,13 +105,14 @@
 			</div>
 		</div>
 	</div>
+	]
+
 	<script type="text/javascript">
-	function showFeedbackModal(title, message) {
-	    $('#feedbackModal .modal-title').text(title);
-	    $('#feedbackModal .modal-body').text(message);
-	    $('#feedbackModal').modal('show');
-	}
+		function showFeedbackModal(title, message) {
+			$('#feedbackModal .modal-title').text(title);
+			$('#feedbackModal .modal-body').text(message);
+			$('#feedbackModal').modal('show');
+		}
 	</script>
 </body>
 </html>
-​
