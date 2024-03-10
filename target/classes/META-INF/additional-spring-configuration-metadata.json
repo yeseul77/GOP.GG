@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "riot.api.requestLimitPerSecond",
+  "type": "java.lang.String",
+  "description": "A description for 'riot.api.requestLimitPerSecond'"
+}]}

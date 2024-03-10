@@ -80,6 +80,63 @@ a {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  position: relative;
+}
+.searchBar #lineButton .sortBtn {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 9px;
+  right: -118px;	
+}
+.searchBar #lineButton .sortBtn1 {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 9px;
+  right: -458px;	
+}
+.searchBar #lineButton .sortBtn2 {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 9px;
+  right: -548px;	
+}
+.searchBar #lineButton .sortBtn3 {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 9px;
+  right: -638px;	
+}
+.searchBar #lineButton .sortBtn #ascendingButton,
+.searchBar #lineButton .sortBtn #descendingButton,
+.searchBar #lineButton .sortBtn1 #ascendingButton1,
+.searchBar #lineButton .sortBtn1 #descendingButton1,
+.searchBar #lineButton .sortBtn2 #ascendingButton2,
+.searchBar #lineButton .sortBtn2 #descendingButton2,
+.searchBar #lineButton .sortBtn3 #ascendingButton3,
+.searchBar #lineButton .sortBtn3 #descendingButton3 {
+  width: 20px;
+  height: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: transparent;	
+}
+
+.searchBar #lineButton .sortBtn #ascendingButton > .material-symbols-outlined,
+.searchBar #lineButton .sortBtn #descendingButton > .material-symbols-outlined,
+.searchBar #lineButton .sortBtn1 #ascendingButton1 > .material-symbols-outlined,
+.searchBar #lineButton .sortBtn1 #descendingButton1 > .material-symbols-outlined,
+.searchBar #lineButton .sortBtn2 #ascendingButton2 > .material-symbols-outlined,
+.searchBar #lineButton .sortBtn2 #descendingButton2 > .material-symbols-outlined,
+.searchBar #lineButton .sortBtn3 #ascendingButton3 > .material-symbols-outlined,
+.searchBar #lineButton .sortBtn3 #descendingButton3 > .material-symbols-outlined {
+  font-size: 18px;
+  color: #6c757e;	
 }
 .searchBar #lineButton .line {
   display: flex;
@@ -130,9 +187,7 @@ a {
 .championNav .champList .champion-item:hover {
  transform: scale(1.2);	
 }
-.championNav .champList .champion-item .img-link {
-	
-}
+
 .championNav .champList .champion-item .img-link .champion-img {
   width: 48px;
   height: 48px;
@@ -308,9 +363,7 @@ ul.champList>li>a {
   border-radius: 4px;
   
 }
-ul.champList>li>a:hover {
-	
-}
+
 ul.champList>li>a>img {
   transform: scale(.5);
   filter: brightness(110%);	
@@ -333,30 +386,11 @@ ul.champList>li>span {
 /*   margin-top : 5px; */
 }
 
-/* 챔피언 이름 스타일 */
-/*span {
-  display: block;
-  width: 46px;
-  line-height: 14px;
-  font-size: 12px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  color: var(--gray500);
-  margin-top: 4px;*/
-/*   height: 16px; */
-
-/* 이미지 링크 스타일 */
-
-
 /* 챔피언 이미지 스타일 */
 .champion-img {
   position: relative;
   display: block;
 }
-
-
-
 
 /* 화면에서 숨겨진 요소 스타일 */
 caption,
@@ -373,8 +407,6 @@ caption,
 label {
   cursor: pointer;
 }
-
-
 
 .search[type="text"] {
   padding: 8px 16px 8px 40px;

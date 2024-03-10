@@ -43,6 +43,14 @@
   
   <div class="synergy-result">
     <div class="inner">
+      <div class="sortBtn1">
+        <button id="ascendingButton1"><span class="material-symbols-outlined">arrow_drop_up</span></button>
+        <button id="descendingButton1"><span class="material-symbols-outlined">arrow_drop_down</span></button>
+      </div>
+      <div class="sortBtn">
+        <button id="ascendingButton"><span class="material-symbols-outlined">arrow_drop_up</span></button>
+        <button id="descendingButton"><span class="material-symbols-outlined">arrow_drop_down</span></button>
+      </div>
        <table id="synergy-table">
     	 <colgroup>
       	  <col width="15%">
@@ -51,7 +59,7 @@
       	  <col width="15%"> 
     	 </colgroup>
     	 <thead id="result">
-      	  <tr class="result-head">
+      	  <tr class="result-head">     	  
        	    <th class="head-menu"><span>순&nbsp;&nbsp;위</span></th>
        	    <th class="head-menu"><span>시너지&nbsp;&nbsp;챔피언</span></th>
        	    <th class="head-menu"><span>시너지&nbsp;&nbsp;승률</span></th>
@@ -62,6 +70,9 @@
   	  </table>
     </div>
   </div>
+  
+  
+  
   
   	
 </div>

@@ -7,7 +7,7 @@
 <title>챔피언 분석 GOP.GG</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="/css/champion.css">
-<script src="/js/champion.js"></script>
+<script defer src="/js/champion.js"></script>
 </head>
 <body>
 <div class="back"></div>
@@ -31,7 +31,24 @@
 			  <div class="material-symbols-outlined">search</div>
 		    </div>
 		    			
-			<div id="lineButton"></div>
+			<div id="lineButton">
+			  <div class="sortBtn">
+                <button id="ascendingButton"><span class="material-symbols-outlined">arrow_drop_up</span></button>
+                <button id="descendingButton"><span class="material-symbols-outlined">arrow_drop_down</span></button>
+              </div>
+              <div class="sortBtn1">
+                <button id="ascendingButton1"><span class="material-symbols-outlined">arrow_drop_up</span></button>
+                <button id="descendingButton1"><span class="material-symbols-outlined">arrow_drop_down</span></button>
+              </div>
+              <div class="sortBtn2">
+                <button id="ascendingButton2"><span class="material-symbols-outlined">arrow_drop_up</span></button>
+                <button id="descendingButton2"><span class="material-symbols-outlined">arrow_drop_down</span></button>
+              </div>
+              <div class="sortBtn3">
+                <button id="ascendingButton3"><span class="material-symbols-outlined">arrow_drop_up</span></button>
+                <button id="descendingButton3"><span class="material-symbols-outlined">arrow_drop_down</span></button>
+              </div>
+			</div>
 		  
 		  </div>
 			

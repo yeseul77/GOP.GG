@@ -49,54 +49,54 @@ $(document).ready(function() {
 
 	searchChampion.addEventListener('keyup', function(event) {
 		//if (event.key === 'Enter') {
-			let search = $(this).val();
-			console.log(search);
+		let search = $(this).val();
+		console.log(search);
 
-			$.ajax({
-				type: 'GET',
-				url: "/champion/searchChampionList",
-				data: { search: search },
-				success: function(data) {
-					console.log("data : ", data)
+		$.ajax({
+			type: 'GET',
+			url: "/champion/searchChampionList",
+			data: { search: search },
+			success: function(data) {
+				console.log("data : ", data)
 
-					// 기존에 생성된 ul 요소가 있다면 삭제
-					while (ul.firstChild) {
-						ul.removeChild(ul.firstChild);
-					}
-
-					// 받은 데이터를 이용하여 목록을 구성
-					data.forEach(function(champion) {
-						const listItem = document.createElement('li');
-						listItem.className = 'champion-item'
-
-						// 링크 생성
-						const link = document.createElement('a');
-						link.href = '/champion/detail?championName=' + champion.champion_name; // 챔피언 페이지로 이동할 URL 설정
-
-						// 챔피언 이미지 생성 및 설정
-						const img = document.createElement('img');
-						img.src = `https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/${champion.champion_name}.png`;
-						img.alt = champion.champion_name;
-						link.appendChild(img);
-
-						// 챔피언 이름 추가
-						const championName = document.createElement('span');
-						championName.textContent = champion.champion_name_kr;
-
-						// 이미지를 리스트 아이템에 추가
-						listItem.appendChild(link);
-						listItem.appendChild(championName); // 챔피언 이름을 이미지 아래에 배치
-
-						ul.appendChild(listItem);
-					});
-
-					// nav 요소에 ul 요소를 추가
-					nav.appendChild(ul);
-				},
-				error: function(error) {
-					console.logg(error)
+				// 기존에 생성된 ul 요소가 있다면 삭제
+				while (ul.firstChild) {
+					ul.removeChild(ul.firstChild);
 				}
-			})
+
+				// 받은 데이터를 이용하여 목록을 구성
+				data.forEach(function(champion) {
+					const listItem = document.createElement('li');
+					listItem.className = 'champion-item'
+
+					// 링크 생성
+					const link = document.createElement('a');
+					link.href = '/champion/detail?championName=' + champion.champion_name; // 챔피언 페이지로 이동할 URL 설정
+
+					// 챔피언 이미지 생성 및 설정
+					const img = document.createElement('img');
+					img.src = `https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/${champion.champion_name}.png`;
+					img.alt = champion.champion_name;
+					link.appendChild(img);
+
+					// 챔피언 이름 추가
+					const championName = document.createElement('span');
+					championName.textContent = champion.champion_name_kr;
+
+					// 이미지를 리스트 아이템에 추가
+					listItem.appendChild(link);
+					listItem.appendChild(championName); // 챔피언 이름을 이미지 아래에 배치
+
+					ul.appendChild(listItem);
+				});
+
+				// nav 요소에 ul 요소를 추가
+				nav.appendChild(ul);
+			},
+			error: function(error) {
+				console.logg(error)
+			}
+		})
 		//}
 	});
 
@@ -110,7 +110,7 @@ $(document).ready(function() {
 		const button = document.createElement('button');
 		button.className = 'line'
 		const searchIcon = document.createElement('div');
-		searchIcon.classList.add('searchIcon');		
+		searchIcon.classList.add('searchIcon');
 		searchIcon.innerHTML = `<img src="/images/${label}.svg" alt=${label}>`
 		button.append(searchIcon);
 		const searchName = document.createElement('span');
@@ -190,7 +190,7 @@ $(document).ready(function() {
 
 					ul.appendChild(lineLi);
 
-					
+
 				});
 			},
 			error: function(error) {
@@ -238,7 +238,7 @@ $(document).ready(function() {
 
 	table.appendChild(colgroup)
 	table.appendChild(thead)
-	
+
 	getChampionInfo()
 
 	function getChampionInfo() {
@@ -250,12 +250,12 @@ $(document).ready(function() {
 			success: function(response) {
 				// AJAX 요청이 성공했을 때의 처리
 				console.log("res : ", response);
-				
+
 				response.sort((a, b) => {
-	                let avgA = (a.winRate + a.pickRate + a.banRate) / 3;
-	                let avgB = (b.winRate + b.pickRate + b.banRate) / 3;
-	                return avgB - avgA; // 내림차순 정렬
-            	});
+					let avgA = (a.winRate + a.pickRate + a.banRate) / 3;
+					let avgB = (b.winRate + b.pickRate + b.banRate) / 3;
+					return avgB - avgA; // 내림차순 정렬
+				});
 
 				response.sort((a, b) => b.avgTierNum - a.avgTierNum);
 
@@ -298,30 +298,30 @@ $(document).ready(function() {
 							avg = avg.toFixed(1)
 							avgNum.push(avg)
 							let tier = '';
-							
-							 if (avg >= 25) {
-						        tier = 'OP';
-						    } else if (avg >= 20 && avg < 25) {
-						        tier = '1티어';
-						    } else if (avg >= 15 && avg < 20) {
-						        tier = '2티어';
-						    } else if (avg >= 10 && avg < 15) {
-						        tier = '3티어';
-						    } else if (avg >= 5 && avg < 10) {
-						        tier = '4티어';
-						    } else {
+
+							if (avg >= 25) {
+								tier = 'OP';
+							} else if (avg >= 20 && avg < 25) {
+								tier = '1티어';
+							} else if (avg >= 15 && avg < 20) {
+								tier = '2티어';
+							} else if (avg >= 10 && avg < 15) {
+								tier = '3티어';
+							} else if (avg >= 5 && avg < 10) {
+								tier = '4티어';
+							} else {
 								tier = '5티어'
 							}
 
-						    td.textContent = tier;;
+							td.textContent = tier;;
 						} else if (tdCName[j] === 'position') {
 							td.textContent = championInfo.position;
 						} else if (tdCName[j] === 'winRate') {
-							td.textContent = championInfo.winRate + "%";
+							td.textContent = championInfo.winRate + " %";
 						} else if (tdCName[j] === 'pickRate') {
-							td.textContent = championInfo.pickRate + "%";;
+							td.textContent = championInfo.pickRate + " %";;
 						} else if (tdCName[j] === 'banRate') {
-							td.textContent = championInfo.banRate + "%";;
+							td.textContent = championInfo.banRate + " %";;
 						}
 						tbodyTr.appendChild(td);
 					}
@@ -344,13 +344,13 @@ $(document).ready(function() {
 			success: function(response) {
 				// AJAX 요청이 성공했을 때의 처리
 				console.log("r : ", response);
-				
-				 response.sort((a, b) => {
-	                let avgA = (a.winRate + a.pickRate + a.banRate) / 3;
-	                let avgB = (b.winRate + b.pickRate + b.banRate) / 3;
-	                return avgB - avgA; // 내림차순 정렬
-            	});
-				
+
+				response.sort((a, b) => {
+					let avgA = (a.winRate + a.pickRate + a.banRate) / 3;
+					let avgB = (b.winRate + b.pickRate + b.banRate) / 3;
+					return avgB - avgA; // 내림차순 정렬
+				});
+
 				const tdCName = ['tier', 'champions', 'position', 'winRate', 'pickRate', 'banRate']
 				for (let i = 0; i < response.length; i++) {
 					let championInfo = response[i]
@@ -390,30 +390,30 @@ $(document).ready(function() {
 							avg = avg.toFixed(1)
 							avgNum.push(avg)
 							let tier = '';
-							
-							 if (avg >= 25) {
-						        tier = 'OP';
-						    } else if (avg >= 20 && avg < 25) {
-						        tier = '1티어';
-						    } else if (avg >= 15 && avg < 20) {
-						        tier = '2티어';
-						    } else if (avg >= 10 && avg < 15) {
-						        tier = '3티어';
-						    } else if (avg >= 5 && avg < 10) {
-						        tier = '4티어';
-						    } else {
+
+							if (avg >= 25) {
+								tier = 'OP';
+							} else if (avg >= 20 && avg < 25) {
+								tier = '1티어';
+							} else if (avg >= 15 && avg < 20) {
+								tier = '2티어';
+							} else if (avg >= 10 && avg < 15) {
+								tier = '3티어';
+							} else if (avg >= 5 && avg < 10) {
+								tier = '4티어';
+							} else {
 								tier = '5티어'
 							}
 
-						    td.textContent = tier;
+							td.textContent = tier;
 						} else if (tdCName[j] === 'position') {
 							td.textContent = championInfo.position;
 						} else if (tdCName[j] === 'winRate') {
-							td.textContent = championInfo.winRate + "%";
+							td.textContent = championInfo.winRate + " %";
 						} else if (tdCName[j] === 'pickRate') {
-							td.textContent = championInfo.pickRate + "%";;
+							td.textContent = championInfo.pickRate + " %";;
 						} else if (tdCName[j] === 'banRate') {
-							td.textContent = championInfo.banRate + "%";;
+							td.textContent = championInfo.banRate + " %";;
 						}
 						tbodyTr.appendChild(td);
 					}
@@ -429,12 +429,12 @@ $(document).ready(function() {
 
 	const divBtt = document.createElement('div')
 	divBtt.classList.add('lineBtt')
-	
+
 
 	let bttline = ['All', 'Top', 'Jungle', 'Middle', 'Bottom', 'Utility']
 	let bttline_kr = ['전체', '탑', '정글', '미드', '원딜', '서폿']
 	for (let i = 0; i < 6; i++) {
-		
+
 		const lineIcon = document.createElement('div')
 		lineIcon.classList.add('lineIcon')
 		lineIcon.innerHTML = `<img src="/images/${bttline[i]}.svg" alt="${bttline[i]}">`
@@ -452,10 +452,10 @@ $(document).ready(function() {
 
 	table.appendChild(tbody)
 	divElement.appendChild(divBtt)
-	
+
 	function clickDelete() {
 		const tbody = document.querySelector('tbody');
-    	tbody.innerHTML = ''; // 테이블의 tbody 내용을 삭제
+		tbody.innerHTML = ''; // 테이블의 tbody 내용을 삭제
 	}
 
 	// 전체 버튼 누르면 전체 표시
@@ -476,5 +476,168 @@ $(document).ready(function() {
 	});
 
 	divElement.appendChild(table)
-	
+
 });
+
+// (티어) 랭킹 오름차순 내림차순 
+
+function extractNumber(text) {
+	return text.match(/\d+/) ? parseInt(text.match(/\d+/)[0]) : '0';
+}
+
+function sortAscending() {
+
+	// 게임 판수를 기준으로 정렬 
+	const sortedRows = Array.from(document.querySelectorAll('.championInfo tbody tr')).sort((a, b) => {
+		const aGameCount = extractNumber(a.querySelector('.tier').textContent);
+		const bGameCount = extractNumber(b.querySelector('.tier').textContent);
+		return aGameCount - bGameCount;
+	});
+
+	// 정렬된 순서대로 테이블 내용 업데이트
+	const tbody = document.querySelector('tbody');
+	sortedRows.forEach(row => {
+		tbody.append(row);
+	});
+}
+
+// 아래쪽 버튼 클릭 시 호출되는 함수
+function sortDescending() {
+
+	// 게임 판수를 기준으로 정렬
+	const sortedRows = Array.from(document.querySelectorAll('.championInfo tbody tr')).sort((a, b) => {
+		const aGameCount = extractNumber(a.querySelector('.tier').textContent);
+		const bGameCount = extractNumber(b.querySelector('.tier').textContent);
+		return bGameCount - aGameCount;
+	});
+
+	// 정렬된 순서대로 테이블 내용 업데이트
+	const tbody = document.querySelector('tbody');
+	sortedRows.forEach(row => {
+		tbody.append(row);
+	});
+}
+
+// 위쪽 버튼 클릭 시 정렬 함수 호출
+document.getElementById('ascendingButton').addEventListener('click', sortAscending);
+
+// 아래쪽 버튼 클릭 시 정렬 함수 호출
+document.getElementById('descendingButton').addEventListener('click', sortDescending);
+
+
+
+// // (승률) 오름차순 내림차순 버튼
+function sortAscending1() {
+	// 게임 판수를 기준으로 정렬
+	const sortedRows = Array.from(document.querySelectorAll('.championInfo tbody tr')).sort((a, b) => {
+		const aGameCount = Number(a.querySelector('.winRate').textContent.replace('%', ''));
+		const bGameCount = Number(b.querySelector('.winRate').textContent.replace('%', ''));
+		return aGameCount - bGameCount;
+	});
+
+	// 정렬된 순서대로 테이블 내용 업데이트
+	const tbody = document.querySelector('tbody');
+	sortedRows.forEach(row => {
+		tbody.appendChild(row);
+	});
+};
+
+// %있는 항목 오름차순 내림차순 버튼
+function sortDescending1() {
+	// 게임 판수를 기준으로 정렬
+	const sortedRows = Array.from(document.querySelectorAll('.championInfo tbody tr')).sort((a, b) => {
+		const aGameCount = Number(a.querySelector('.winRate').textContent.replace('%', ''));
+		const bGameCount = Number(b.querySelector('.winRate').textContent.replace('%', ''));
+		return bGameCount - aGameCount;
+	});
+
+	// 정렬된 순서대로 테이블 내용 업데이트
+	const tbody = document.querySelector('tbody');
+	sortedRows.forEach(row => {
+		tbody.appendChild(row);
+	});
+};
+
+// 위쪽 버튼 클릭 시 정렬 함수 호출
+document.getElementById('ascendingButton1').addEventListener('click', sortAscending1);
+
+// 아래쪽 버튼 클릭 시 정렬 함수 호출
+document.getElementById('descendingButton1').addEventListener('click', sortDescending1);
+
+
+// // (픽률)  오름차순 내림차순 버튼
+function sortAscending2() {
+	// 게임 판수를 기준으로 정렬
+	const sortedRows = Array.from(document.querySelectorAll('.championInfo tbody tr')).sort((a, b) => {
+		const aGameCount = Number(a.querySelector('.pickRate').textContent.replace('%', ''));
+		const bGameCount = Number(b.querySelector('.pickRate').textContent.replace('%', ''));
+		return aGameCount - bGameCount;
+	});
+
+	// 정렬된 순서대로 테이블 내용 업데이트
+	const tbody = document.querySelector('tbody');
+	sortedRows.forEach(row => {
+		tbody.appendChild(row);
+	});
+};
+
+// %있는 항목 오름차순 내림차순 버튼
+function sortDescending2() {
+	// 게임 판수를 기준으로 정렬
+	const sortedRows = Array.from(document.querySelectorAll('.championInfo tbody tr')).sort((a, b) => {
+		const aGameCount = Number(a.querySelector('.pickRate').textContent.replace('%', ''));
+		const bGameCount = Number(b.querySelector('.pickRate').textContent.replace('%', ''));
+		return bGameCount - aGameCount;
+	});
+
+	// 정렬된 순서대로 테이블 내용 업데이트
+	const tbody = document.querySelector('tbody');
+	sortedRows.forEach(row => {
+		tbody.appendChild(row);
+	});
+};
+
+// 위쪽 버튼 클릭 시 정렬 함수 호출
+document.getElementById('ascendingButton2').addEventListener('click', sortAscending2);
+
+// 아래쪽 버튼 클릭 시 정렬 함수 호출
+document.getElementById('descendingButton2').addEventListener('click', sortDescending2);
+
+
+// // (벤률)  오름차순 내림차순 버튼
+function sortAscending3() {
+	// 게임 판수를 기준으로 정렬
+	const sortedRows = Array.from(document.querySelectorAll('.championInfo tbody tr')).sort((a, b) => {
+		const aGameCount = Number(a.querySelector('.banRate').textContent.replace('%', ''));
+		const bGameCount = Number(b.querySelector('.banRate').textContent.replace('%', ''));
+		return aGameCount - bGameCount;
+	});
+
+	// 정렬된 순서대로 테이블 내용 업데이트
+	const tbody = document.querySelector('tbody');
+	sortedRows.forEach(row => {
+		tbody.appendChild(row);
+	});
+};
+
+// %있는 항목 오름차순 내림차순 버튼
+function sortDescending3() {
+	// 게임 판수를 기준으로 정렬
+	const sortedRows = Array.from(document.querySelectorAll('.championInfo tbody tr')).sort((a, b) => {
+		const aGameCount = Number(a.querySelector('.banRate').textContent.replace('%', ''));
+		const bGameCount = Number(b.querySelector('.banRate').textContent.replace('%', ''));
+		return bGameCount - aGameCount;
+	});
+
+	// 정렬된 순서대로 테이블 내용 업데이트
+	const tbody = document.querySelector('tbody');
+	sortedRows.forEach(row => {
+		tbody.appendChild(row);
+	});
+};
+
+// 위쪽 버튼 클릭 시 정렬 함수 호출
+document.getElementById('ascendingButton3').addEventListener('click', sortAscending3);
+
+// 아래쪽 버튼 클릭 시 정렬 함수 호출
+document.getElementById('descendingButton3').addEventListener('click', sortDescending3);

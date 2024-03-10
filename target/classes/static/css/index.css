@@ -183,11 +183,12 @@ a {
   height: 240px;
   border-radius: 10px;
   box-sizing: border-box;
-  border: 1px solid #006C5F;
+  border: 1.5px solid #006C5F;
   box-shadow: #006C5F 0px 0px 2px;
   background-color: white;
   font-size: 30px;
   text-align: center;
+  overflow: hidden;
 }
 .duo .swiper .swiper-wrapper .swiper-slide #rlist {
   display: flex;

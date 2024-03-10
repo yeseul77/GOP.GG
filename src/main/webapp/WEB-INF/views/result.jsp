@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <title>${param.gameName} - 전적 검색</title>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
+<script defer src="/js/machine_leaning.js"></script>
 <script>
 $(document).ready(function () {
 	var gameName = "${param.gameName}";
@@ -107,7 +107,7 @@ $(document).ready(function () {
 	   	                	    tierColor = '#333333';
 	   	                	}
 	   	                	if(!(leagueInfoForSummoner.tier==='UNRANK')){
-	   	                		console.log("rank")
+// 	   	                		console.log("rank")
 		   	                	var winLose = ((leagueInfoForSummoner.wins / (leagueInfoForSummoner.wins + leagueInfoForSummoner.losses)) * 100).toFixed(1); 
 	   	   	                    var summonerLeagueInfo = "<div class='rank'>" +
 	   	   	                        "<div class='rankImage'><img src='/images/" + leagueInfoForSummoner.tier + ".webp' alt='tier'></div>" +
@@ -157,7 +157,7 @@ $(document).ready(function () {
    	            		playerInfo.championName === 'FiddleSticks' ? 'Fiddlesticks' : playerInfo.championName;
    	            		
    	            		var newIndex = index+3;
-   	            		
+//    	            		console.log(playerInfo);
    	            		
    	            		var backColor = (playerInfo.win ? "승리" : "패배") === "승리" ? "#e8f0fd" : "#fbece9";
    	            		var fontColor = (playerInfo.win ? "승리" : "패배") === "승리" ? "#5d9ceb" : "#e57474";
@@ -181,7 +181,7 @@ $(document).ready(function () {
    	                    	"<span>킬&nbsp;관여</span>" +
    	                    	"<div class='data'>" + parseFloat(((playerInfo.kills + playerInfo.assists) / matchingTeam.teamchampionkills)* 100).toFixed(0) +"%</div>" +
    	                    	"</div>" +
-   	                    	"<div class='showMore'><button class='btn_toggle' data-index='" + index + "'><span class='material-symbols-outlined' style='color:"+fontColor+"'>expand_more</span></button></div>" +
+   	                    	"<div class='showMore'><button class='btn_toggle' data-index='" + index + "')><span class='material-symbols-outlined' style='color:"+fontColor+"'>expand_more</span></button></div>" +
    	                    	"</div>";
    	                    
                  	  		   	                    	 	                    	
@@ -232,11 +232,14 @@ $(document).ready(function () {
    		            "<th class='tableHead'>입힌 피해량</th>" +
    		            "<th class='tableHead'>받은 피해량</th>" +
    		            "<th class='tableHead'>CS</th>" +
+//    		            "<th class='tableHead'>숙련도</th>"+
    		            "</tr>" +
    		            "</thead>"+
    		            "<tbody class='winTeam' style='background-color: #e8f0fd'>";
    		            
    		        for (var k = 0; k < gameInfo.info.length; k++) {
+   		        	
+//    		        	console.log(gameInfo.info[k]);
    		       	    var winTeamPlayerInfo = gameInfo.info[k];
    		       		var kdaDisplay;
            			if (winTeamPlayerInfo.kda === 0) {
@@ -245,7 +248,27 @@ $(document).ready(function () {
            		    	kdaDisplay = winTeamPlayerInfo.kda.toFixed(2) + "&nbsp;평점";
            			}
    		       	    if(winTeamPlayerInfo.win === true){
-   		       	    	
+//    		       	    var damagecheck="test";
+//    	   		       	console.log(winTeamPlayerInfo.champExperience)
+   		       	   	var damagecheck=champExp(winTeamPlayerInfo.championName,winTeamPlayerInfo.champExperience);
+			   		function champExp(championName,champExp){
+			   		  		var data={ championName: championName, champExp: champExp};
+			   		   	   	console.log(data)
+			   		  		 $.ajax({
+			   		  	     type: "GET",
+			   		  	     url: "DamageCheck",
+			   		  	     data: data,
+			   		  	     async:false,
+			   		  	     success: function (data) {
+			   		  			 console.log(data);
+			   		  	    	 return data;
+			   		  	     },
+			   		  	     error: function (xhr, textStatus, errorThrown) {
+			   		  			console.log(textStatus, errorThrown);
+			   		  	     }
+			   		  	})
+			   		  }
+			   		console.log(damagecheck)
    		       	    winTeamPlayerInfo.championName === 'FiddleSticks' ? 'Fiddlesticks' : winTeamPlayerInfo.championName;	
    		       	    var takeDamage = winTeamPlayerInfo.totalDamageTaken.toLocaleString();
    		       	    var giveDamage = winTeamPlayerInfo.totalDamageDealtToChampions.toLocaleString();
@@ -262,11 +285,14 @@ $(document).ready(function () {
    		                "<td class='win-bodyChart1'><div class='chartMain'><span>" + giveDamage + "</span><div class='chart-mo'><div class='chart-ch' style='width:" + giveDamageChart + "%'></div></div></div></td>" +
    		                "<td class='win-bodyChart2'><div class='chartMain'><span>" + takeDamage + "</span><div class='chart-mo'><div class='chart-ch' style='width:" + takeDamageChart + "%'></div></div></div></td>" +
    		                "<td class='win-body'>" + winTeamPlayerInfo.totalMinionsKilled + "&nbsp;개</td>" +
+//    		                "<td class='win-body'>"+damagecheck+"&nbsp</td>"+
    		                "</tr>";
    		                
    		                   		                
    		       	    }
    		        }
+
+   		        
    		     	showMore += "<table class='Toggle" + index + "' style='display:none'>" +
    		            "<colgroup>" +
    		            "<col width='23%'>" +
@@ -282,6 +308,7 @@ $(document).ready(function () {
    		            "<th class='tableHead'>입힌 피해량</th>" +
    		            "<th class='tableHead'>받은 피해량</th>" +
    		            "<th class='tableHead'>CS</th>" +
+//    		         	"<th class='tableHead'>숙련도</th>"+
    		            "</tr>" +
    		            "</thead>"+
    		            "<tbody class='loseTeam' style='background-color: #fbece9'>";
@@ -311,6 +338,7 @@ $(document).ready(function () {
 	 		                "<td class='lose-bodyChart1'><div class='chartMain'><span>" + giveDamage + "</span><div class='chart-mo'><div class='chart-ch' style='width:" + giveDamageChart + "%'></div></div></div></td>" +
 	 		                "<td class='lose-bodyChart2'><div class='chartMain'><span>" + takeDamage + "</span><div class='chart-mo'><div class='chart-ch' style='width:" + takeDamageChart + "%'></div></div></div></td>" +
 	 		                "<td class='lose-body'>" + loseTeamPlayerInfo.totalMinionsKilled + "&nbsp;개</td>" +
+// 	   		                "<td class='lose-body'>"+damagecheck+"&nbsp</td>"+
 	 		                "</tr>";      		                      
         		                      		            	
        		       	}
@@ -320,6 +348,7 @@ $(document).ready(function () {
    		    }
    		 var championPlayCounts = {};
          for (var index = 0; index < gameInfoList.length; index++) {
+//         	 console.log(gameInfoList);
              var gameInfo = gameInfoList[index];
              for (var j = 0; j < gameInfo.info.length; j++) {
                  var playerInfo = gameInfo.info[j];
@@ -359,7 +388,7 @@ $(document).ready(function () {
       // 챔피언별 플레이 횟수를 테이블에 추가
          var sortedChampionPlayCounts = Object.entries(championPlayCounts).sort((a, b) => b[1] - a[1]);
          var playerRow = "";
-         console.log("championStats",championStats)
+//          console.log("championStats",championStats)
          for (var i = 0; i < sortedChampionPlayCounts.length; i++) {
 //         	 	console.log(sortedChampionPlayCounts)
         	    var champion = sortedChampionPlayCounts[i][0];
@@ -430,14 +459,14 @@ $(document).ready(function () {
             url: "summonerSearch2",
             data: { gameName: gameName, tagLine: tagLine },
             success: function (data) {
-                console.log("Received data:", data);
+//                 console.log("Received data:", data);
                 displayGameInfo(data);
             },
             error: function (xhr, textStatus, errorThrown) {
                 handleAjaxError(xhr, textStatus, errorThrown);
             }
         });
-        location.reload(true);
+//         location.reload(true);
     });
     
     $("#updateButton").click(function () {
@@ -518,6 +547,7 @@ $(document).ready(function () {
                     gameMode: data[i].info.gameMode,
                     teamId: data[i].info.participants[j].teamId,
                     win: data[i].info.participants[j].win,
+                    champExperience: data[i].info.participants[j].champExperience,
                     championName: data[i].info.participants[j].championName,
                     kills: data[i].info.participants[j].kills,
                     deaths: data[i].info.participants[j].deaths,
@@ -539,6 +569,7 @@ $(document).ready(function () {
                     totalDamageTaken: data[i].info.participants[j].totalDamageTaken,
                     totalMinionsKilled: data[i].info.participants[j].totalMinionsKilled
                 };
+//                 console.log(gg);
                 infodata.push(gg);
                 dataList.info = infodata;
             }
@@ -546,7 +577,7 @@ $(document).ready(function () {
         }
         console.log("gamedata",gamedata);
 		let data2 = JSON.stringify(gamedata);
-		console.log("Sending data:", data2);
+// 		console.log("Sending data:", data2);
         $.ajax({
             type: "POST",
             url: "/summonerSaveData",
@@ -555,7 +586,7 @@ $(document).ready(function () {
             		tagLine:tagLine},
             success: function (res) {
                 console.log(res);
-                location.reload(true);
+//                 location.reload(true);
             },
             error: function (xhr, textStatus, errorThrown) {
                 handleAjaxError(xhr, textStatus, errorThrown);
@@ -589,7 +620,6 @@ $(document).ready(function () {
         console.error("Error occurred during AJAX request:", textStatus, errorThrown);
         alert("Error occurred during AJAX request. See the console for details.");
     }
-    
 
 });
 

@@ -15,6 +15,7 @@
 		#{gameMode},
 		#{teamId},
 		#{win},
+		#{champExperience},
 		#{championName},
 		#{kills},
 		#{deaths},
@@ -54,12 +55,6 @@
 		#{teamtowerkills},
 		#{teamwin});
 	</insert>
-	<!-- <insert id="savebansdata"> -->
-	<!-- INSERT IGNORE INTO bans -->
-	<!-- VALUES -->
-	<!-- (#{matchId},#{championId}, #{pickTurn}); -->
-	<!-- </insert> -->
-
 	<insert id="saveLeagueInfo">
 		INSERT IGNORE INTO leagueInfo
 		VALUES
@@ -102,30 +97,21 @@
 		resultType="Map">
 		SELECT ifo.*, ch.champion_name_kr as championNameKr FROM info ifo , champion_names ch 
 		where ch.champion_name=ifo.championName and matchId !='' ORDER BY gameStartTimestamp DESC;
-
-		<!-- where matchId = #{matchId}; -->
 	</select>
 	<select id="getGameTeamsFromDB" parameterType="String"
 		resultType="Map">
 		SELECT * FROM teams where matchId !='';
-		<!-- where matchId = #{matchId}; -->
 	</select>
 	<select id="getLeagueInfoFromDB" parameterType="String"
 		resultType="Map">
 		SELECT * FROM leagueInfo where summonerId !='';
-		<!-- where matchId = #{matchId}; -->
 	</select>
-
 	<select id="checkDuplicateKey" resultType="int">
 		SELECT COUNT(*) FROM
 		GameInfo WHERE matchId = #{matchId} AND riotIdGameName
 		=
 		#{riotIdGameName};
 	</select>
-	<!-- <select id="retrieveAllDataFromDB" resultType="java.util.Map"> -->
-	<!-- select * from -->
-	<!-- GameInfo ORDER BY matchId DESC; -->
-	<!-- </select> -->
 	<select id="getGameDataFromDB" parameterType="java.util.Map"
 		resultType="java.util.Map">
 		SELECT gi.*, ch.champion_name_kr as championNameKr

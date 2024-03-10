@@ -207,9 +207,9 @@ $(document).ready(function() {
 
 						    td.textContent = tier;;
 						}else if (tdCName[j] === 'win_rate') {
-							td.textContent = championInfo.win_rate + "%";
+							td.textContent = championInfo.win_rate + " %";
 						} else if (tdCName[j] === 'pickRate') {
-							td.textContent = championInfo.pickRate + "%";;
+							td.textContent = championInfo.pickRate + " %";;
 						} else if (tdCName[j] === 'dpm') {
 							td.textContent = championInfo.dpm  ;
 						} else if (tdCName[j] === 'pentakills') {
@@ -243,7 +243,205 @@ $(document).ready(function() {
 });
 
 
+// (티어) 랭킹 오름차순 내림차순 
+
+function extractNumber(text) {
+	return text.match(/\d+/) ? parseInt(text.match(/\d+/)[0]) : '0';
+}
+
+function sortAscending() {
+
+	// 게임 판수를 기준으로 정렬 
+	const sortedRows = Array.from(document.querySelectorAll('.championInfo tbody tr')).sort((a, b) => {
+		const aGameCount = extractNumber(a.querySelector('.tier').textContent);
+		const bGameCount = extractNumber(b.querySelector('.tier').textContent);
+		return aGameCount - bGameCount;
+	});
+
+	// 정렬된 순서대로 테이블 내용 업데이트
+	const tbody = document.querySelector('tbody');
+	sortedRows.forEach(row => {
+		tbody.append(row);
+	});
+}
+
+// 아래쪽 버튼 클릭 시 호출되는 함수
+function sortDescending() {
+
+	// 게임 판수를 기준으로 정렬
+	const sortedRows = Array.from(document.querySelectorAll('.championInfo tbody tr')).sort((a, b) => {
+		const aGameCount = extractNumber(a.querySelector('.tier').textContent);
+		const bGameCount = extractNumber(b.querySelector('.tier').textContent);
+		return bGameCount - aGameCount;
+	});
+
+	// 정렬된 순서대로 테이블 내용 업데이트
+	const tbody = document.querySelector('tbody');
+	sortedRows.forEach(row => {
+		tbody.append(row);
+	});
+}
+
+// 위쪽 버튼 클릭 시 정렬 함수 호출
+document.getElementById('ascendingButton').addEventListener('click', sortAscending);
+
+// 아래쪽 버튼 클릭 시 정렬 함수 호출
+document.getElementById('descendingButton').addEventListener('click', sortDescending);
 
 
 
+// // (승률) 오름차순 내림차순 버튼
+function sortAscending1() {
+	// 게임 판수를 기준으로 정렬
+	const sortedRows = Array.from(document.querySelectorAll('.championInfo tbody tr')).sort((a, b) => {
+		const aGameCount = Number(a.querySelector('.win_rate').textContent.replace('%', ''));
+		const bGameCount = Number(b.querySelector('.win_rate').textContent.replace('%', ''));
+		return aGameCount - bGameCount;
+	});
+
+	// 정렬된 순서대로 테이블 내용 업데이트
+	const tbody = document.querySelector('tbody');
+	sortedRows.forEach(row => {
+		tbody.appendChild(row);
+	});
+};
+
+// %있는 항목 오름차순 내림차순 버튼
+function sortDescending1() {
+	// 게임 판수를 기준으로 정렬
+	const sortedRows = Array.from(document.querySelectorAll('.championInfo tbody tr')).sort((a, b) => {
+		const aGameCount = Number(a.querySelector('.win_rate').textContent.replace('%', ''));
+		const bGameCount = Number(b.querySelector('.win_rate').textContent.replace('%', ''));
+		return bGameCount - aGameCount;
+	});
+
+	// 정렬된 순서대로 테이블 내용 업데이트
+	const tbody = document.querySelector('tbody');
+	sortedRows.forEach(row => {
+		tbody.appendChild(row);
+	});
+};
+
+// 위쪽 버튼 클릭 시 정렬 함수 호출
+document.getElementById('ascendingButton1').addEventListener('click', sortAscending1);
+
+// 아래쪽 버튼 클릭 시 정렬 함수 호출
+document.getElementById('descendingButton1').addEventListener('click', sortDescending1);
+
+
+// // (픽률)  오름차순 내림차순 버튼
+function sortAscending2() {
+	// 게임 판수를 기준으로 정렬
+	const sortedRows = Array.from(document.querySelectorAll('.championInfo tbody tr')).sort((a, b) => {
+		const aGameCount = Number(a.querySelector('.pickRate').textContent.replace('%', ''));
+		const bGameCount = Number(b.querySelector('.pickRate').textContent.replace('%', ''));
+		return aGameCount - bGameCount;
+	});
+
+	// 정렬된 순서대로 테이블 내용 업데이트
+	const tbody = document.querySelector('tbody');
+	sortedRows.forEach(row => {
+		tbody.appendChild(row);
+	});
+};
+
+// %있는 항목 오름차순 내림차순 버튼
+function sortDescending2() {
+	// 게임 판수를 기준으로 정렬
+	const sortedRows = Array.from(document.querySelectorAll('.championInfo tbody tr')).sort((a, b) => {
+		const aGameCount = Number(a.querySelector('.pickRate').textContent.replace('%', ''));
+		const bGameCount = Number(b.querySelector('.pickRate').textContent.replace('%', ''));
+		return bGameCount - aGameCount;
+	});
+
+	// 정렬된 순서대로 테이블 내용 업데이트
+	const tbody = document.querySelector('tbody');
+	sortedRows.forEach(row => {
+		tbody.appendChild(row);
+	});
+};
+
+// 위쪽 버튼 클릭 시 정렬 함수 호출
+document.getElementById('ascendingButton2').addEventListener('click', sortAscending2);
+
+// 아래쪽 버튼 클릭 시 정렬 함수 호출
+document.getElementById('descendingButton2').addEventListener('click', sortDescending2);
+
+
+// // (DPM)  오름차순 내림차순 버튼
+function sortAscending3() {
+	// 게임 판수를 기준으로 정렬
+	const sortedRows = Array.from(document.querySelectorAll('.championInfo tbody tr')).sort((a, b) => {
+		const aGameCount = Number(a.querySelector('.dpm').textContent);
+		const bGameCount = Number(b.querySelector('.dpm').textContent);
+		return aGameCount - bGameCount;
+	});
+
+	// 정렬된 순서대로 테이블 내용 업데이트
+	const tbody = document.querySelector('tbody');
+	sortedRows.forEach(row => {
+		tbody.appendChild(row);
+	});
+};
+
+// %있는 항목 오름차순 내림차순 버튼
+function sortDescending3() {
+	// 게임 판수를 기준으로 정렬
+	const sortedRows = Array.from(document.querySelectorAll('.championInfo tbody tr')).sort((a, b) => {
+		const aGameCount = Number(a.querySelector('.dpm').textContent);
+		const bGameCount = Number(b.querySelector('.dpm').textContent);
+		return bGameCount - aGameCount;
+	});
+
+	// 정렬된 순서대로 테이블 내용 업데이트
+	const tbody = document.querySelector('tbody');
+	sortedRows.forEach(row => {
+		tbody.appendChild(row);
+	});
+};
+
+// 위쪽 버튼 클릭 시 정렬 함수 호출
+document.getElementById('ascendingButton3').addEventListener('click', sortAscending3);
+
+// 아래쪽 버튼 클릭 시 정렬 함수 호출
+document.getElementById('descendingButton3').addEventListener('click', sortDescending3);
+
+
+// // (펜타킬)  오름차순 내림차순 버튼
+function sortAscending4() {
+	// 게임 판수를 기준으로 정렬
+	const sortedRows = Array.from(document.querySelectorAll('.championInfo tbody tr')).sort((a, b) => {
+		const aGameCount = Number(a.querySelector('.pentakills').textContent);
+		const bGameCount = Number(b.querySelector('.pentakills').textContent);
+		return aGameCount - bGameCount;
+	});
+
+	// 정렬된 순서대로 테이블 내용 업데이트
+	const tbody = document.querySelector('tbody');
+	sortedRows.forEach(row => {
+		tbody.appendChild(row);
+	});
+};
+
+// %있는 항목 오름차순 내림차순 버튼
+function sortDescending4() {
+	// 게임 판수를 기준으로 정렬
+	const sortedRows = Array.from(document.querySelectorAll('.championInfo tbody tr')).sort((a, b) => {
+		const aGameCount = Number(a.querySelector('.pentakills').textContent);
+		const bGameCount = Number(b.querySelector('.pentakills').textContent);
+		return bGameCount - aGameCount;
+	});
+
+	// 정렬된 순서대로 테이블 내용 업데이트
+	const tbody = document.querySelector('tbody');
+	sortedRows.forEach(row => {
+		tbody.appendChild(row);
+	});
+};
+
+// 위쪽 버튼 클릭 시 정렬 함수 호출
+document.getElementById('ascendingButton4').addEventListener('click', sortAscending4);
+
+// 아래쪽 버튼 클릭 시 정렬 함수 호출
+document.getElementById('descendingButton4').addEventListener('click', sortDescending4);
 

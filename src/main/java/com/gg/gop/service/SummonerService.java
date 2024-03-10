@@ -1,5 +1,9 @@
 package com.gg.gop.service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,18 +73,19 @@ public class SummonerService {
 					sDao.saveLeagueInfo((Map<String, Object>) gameData.get("SummonerLeagueInfo"));
 					// 저장된 데이터 조회하지 않고, 저장된 데이터를 그대로 사용
 					savedDataList.add(gameData);
+//					log.info("gameData{}",gameData.get("info"));
 				} else {
 					hasDuplicateKey = true;
 				}
 			} catch (Exception e) {
-				log.error("Exception occurred:", e);
+//				log.error("Exception occurred:", e);
 			}
 		}
 
 		if (hasDuplicateKey) {
 			
 		}
-		log.info("savedDataList : {}", savedDataList);
+//		log.info("savedDataList : {}", savedDataList);
 		return savedDataList;
 	}
 
@@ -110,6 +115,7 @@ public class SummonerService {
 			setmatchidList.add(matchId);
 			gameDataByMatchId.computeIfAbsent(matchId, k -> new ArrayList<>()).add(gameInfo);
 		}
+//		log.info("gameDataByMatchId={}",gameDataByMatchId);
 		for (int i = 1; i < setmatchidList.size(); i++) {
 			if (!(setmatchidList.get(i - 1).equals(setmatchidList.get(i)))) {
 				matchidList.add(setmatchidList.get(i - 1));
@@ -125,7 +131,7 @@ public class SummonerService {
 				String summonerId = (String) leagueInfo.get("summonerId");
 				summonerIdList.add(summonerId);
 				leagueInfoBySummonerId.computeIfAbsent(summonerId, k -> new ArrayList<>()).add(leagueInfo);
-				log.info("leagueInfo{}",leagueInfo);
+//				log.info("leagueInfo{}",leagueInfo);
 			}
 		}else {
 			for (int i=0;i<5;i++){
@@ -135,7 +141,7 @@ public class SummonerService {
 			}
 		}
 		List<Map<String, Object>> combinedDataList = new ArrayList<>();
-//		log.info("{}", gameDataByMatchId.keySet());
+		log.info("{}", gameDataByMatchId.keySet());
 		for (int i = 0; i < matchidList.size(); i++) {
 			String matchId = matchidList.get(i);
 //			String summonerId = summonerIdList.get(i);
@@ -153,6 +159,7 @@ public class SummonerService {
 					}
 				}
 			}
+//			log.info("gameInfodata={}",gameInfoData);
 			combinedData.put("summonerId",summonerId2);
 			combinedData.put("info", gameInfoData);
 			combinedData.put("teams", gameTeamsData);
@@ -218,4 +225,16 @@ public class SummonerService {
 //	public List<ChampionRanking> getChampionRanking() {
 //		return sDao.getChampionRankingFromDB();
 //	}
+	
+	public void processbulider() throws IOException {
+		ProcessBuilder processBuilder=new ProcessBuilder("python","C:/Users/takealook/Desktop/develope/lol_final/src/main/resources/static/python/damagecheck.py");
+		Process process=processBuilder.start();
+		InputStream inputStream=process.getInputStream();
+		BufferedReader reader=new BufferedReader(new InputStreamReader(inputStream));
+		String line;
+		while ((line = reader.readLine()) != null) {
+			// 실행 결과 처리
+		    System.out.println(line);
+		}
+	}
 }

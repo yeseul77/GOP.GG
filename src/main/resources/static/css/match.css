@@ -149,6 +149,7 @@ table {
 
 .synergy-result {
  border-radius: 4px;
+ position: relative;
 }
 .synergy-result .inner {
  
@@ -160,12 +161,7 @@ table {
 	 border-collapse: collapse;
      border-radius: 6px;
  }
-.synergy-result .inner #synergy-table #result {
-	
- }
-.synergy-result .inner #synergy-table #result .result-head {	 
-	
- }
+
 .synergy-result .inner #synergy-table #result .result-head .head-menu {
 	text-align: center;
 	font-size: 16px;
@@ -173,20 +169,54 @@ table {
 	font-weight: 700;
 	height: 60px;
 	line-height: 60px;
-	background-color: #edf9f2; 
-
-	
+	background-color: #edf9f2; 	
  }
-.synergy-result .inner #synergy-table #result .result-head th.head-menu:first-of-type {
-	
-	
+.synergy-result .inner .sortBtn {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 20.5px;
+  right: 29px;	
 }
-.synergy-result .inner #synergy-table tbody {
-	
+.synergy-result .inner .sortBtn1 {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 20.5px;
+  right: 417px;	
+}
+.synergy-result .inner .sortBtn #ascendingButton,
+.synergy-result .inner .sortBtn #descendingButton {
+  width: 20px;
+  height: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: transparent;	
+}
+.synergy-result .inner .sortBtn1 #ascendingButton1,
+.synergy-result .inner .sortBtn1 #descendingButton1 {
+  width: 20px;
+  height: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: transparent;	
+}
+.synergy-result .inner .sortBtn #ascendingButton > .material-symbols-outlined,
+.synergy-result .inner .sortBtn #descendingButton > .material-symbols-outlined {
+  font-size: 18px;
+  color: #6c757e;	
+}
+.synergy-result .inner .sortBtn1 #ascendingButton1 > .material-symbols-outlined,
+.synergy-result .inner .sortBtn1 #descendingButton1 > .material-symbols-outlined {
+  font-size: 18px;
+  color: #6c757e;	
 }
 .synergy-result .inner #synergy-table tbody .result-body {
- 	border-top : 1.5px solid #e1e1e1;
- 	
+  border-top : 1.5px solid #e1e1e1;	
 } 
 .synergy-result .inner #synergy-table tbody .result-body .body-text {
   height: 70px;
@@ -194,15 +224,14 @@ table {
   vertical-align: middle;
   font-size: 15px;  
 }
+
 .synergy-result .inner #synergy-table tbody .result-body .body-text.number {
   font-size: 18px; 	
 }
 .synergy-result .inner #synergy-table tbody .result-body:nth-child(even) {
 	background-color: #edf9f2;
 }
-.synergy-result .inner #synergy-table tbody .result-body:last-child {
-	
-}
+
 .synergy-result .inner #synergy-table tbody .result-body .body-text .champ {	
   display: flex;
   gap: 15px;	
@@ -229,7 +258,7 @@ table {
 } 
 .synergy-result .inner #synergy-table tbody .result-body .body-text .champ strong {
   display: block;
-  width: 77px;
+  width: 94px;
   text-align: start;
   line-height: 50px;
   text-overflow: ellipsis;
@@ -243,6 +272,10 @@ table {
   align-items: center;
   gap: 40px;
 }
+.synergy-result .inner #synergy-table tbody .result-body .body-text.chart .numStrong {
+  font-weight: 700;	
+}
+
 .synergy-result .inner #synergy-table tbody .result-body .body-text.chart .chart-mother {
   width: 300px;
   height: 15px;

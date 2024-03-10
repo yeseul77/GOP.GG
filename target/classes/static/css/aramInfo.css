@@ -1,0 +1,540 @@
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset; 
+  -webkit-text-fill-color: #333;
+}
+
+body {
+ color: #333;
+ font-size: 16px;
+ font-weight: 400;
+ line-height: 1.4;
+ font-family: "Roboto", "Noto Sans KR", sans-serif;
+}
+a {
+ text-decoration: none;
+ color: #333;
+}
+.back {
+ top: 51px;
+ width: 100%;
+ height: 100vh;
+ background-color: #f0f0f0;
+ position:fixed;
+ z-index: -2;
+}
+#wrap {
+ width: 100%;
+ min-height: calc(100vh - 200px);
+ margin-bottom: 50px;
+}
+#wrap .inner {
+ width: 1130px;
+ margin: 0 auto;
+ position: relative;
+ margin-top: 140px;
+ display: flex;
+ flex-direction: column;
+ gap: 8px; 
+}
+.championInfo {
+ width: 100%;	
+ display: flex;
+ gap: 8px;
+}
+.championInfo .info-left {
+ width: 487px;
+ 
+ border: 1.5px solid #e1e1e1;
+ background-color: white;
+ border-radius: 6px;
+ padding: 13px;
+ display: flex;
+ flex-direction: column;
+ gap: 13px;
+}
+.championInfo .info-left .left-first {
+ display: flex;
+ gap: 13px;
+ padding-bottom: 13px;
+ border-bottom: 1px solid #e1e1e1;	
+}
+.championInfo .info-left .left-second {
+ 	
+}
+.championInfo .info-left .left-second .spell {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;	
+}
+.championInfo .info-left .left-second .spell .playerSpell {
+  font-weight: 700;
+  color: #8a8b9e;
+  font-size: 18px;
+}
+.championInfo .info-left .left-second .spell .spellList {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;	
+}
+.championInfo .info-left .left-second .spell .spellList .firstSpell {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.championInfo .info-left .left-second .spell .spellList .firstSpell .ulOne {
+  display: flex;
+  gap: 8px;
+}
+.championInfo .info-left .left-second .spell .spellList .firstSpell .ulOne > li {
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;	
+}
+.championInfo .info-left .left-second .spell .spellList .firstSpell .ulOne > li > img {
+  transform: scale(.8);
+}
+.championInfo .info-left .left-second .spell .spellList .firstSpell,
+.championInfo .info-left .left-second .spell .spellList .secondSpell {
+  text-align: end;
+}
+.championInfo .info-left .left-second .spell .spellList .firstSpell .firstData,
+.championInfo .info-left .left-second .spell .spellList .firstSpell .firstPick,
+.championInfo .info-left .left-second .spell .spellList .firstSpell .firstWin {
+  color: #8a8b9e;
+  font-size: 14px;
+}
+.championInfo .info-left .left-second .spell .spellList .firstSpell .firstWin,
+.championInfo .info-left .left-second .spell .spellList .secondSpell .secondWin {
+  font-weight: 700;	
+}
+.championInfo .info-left .left-second .spell .spellList .secondSpell .secondData,
+.championInfo .info-left .left-second .spell .spellList .secondSpell .secondPick,
+.championInfo .info-left .left-second .spell .spellList .secondSpell .secondWin {
+  color: #8a8b9e;
+  font-size: 14px;
+}
+.championInfo .info-left .left-second .spell .spellList .secondSpell {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.championInfo .info-left .left-second .spell .spellList .secondSpell .ulTwo {
+  display: flex;
+  gap: 8px;
+}
+.championInfo .info-left .left-second .spell .spellList .secondSpell .ulTwo > li {
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;		
+}
+.championInfo .info-left .left-second .spell .spellList .secondSpell .ulTwo > li > img {
+  transform: scale(.8);	
+}
+.championInfo .info-left .left-second .spell .spellList .secondSpell .secondData {
+  color: #8a8b9e;
+}
+.championInfo .info-left .left-first .champion-box {
+	
+}
+.championInfo .info-left .left-first .champion-box .img-box {
+ width: 120px;
+ height: 120px;
+ overflow: hidden;
+ border-radius: 4px;
+ display: flex;
+ justify-content: center;
+ align-items: center;	
+}
+.championInfo .info-left .left-first .champion-box .img-box .champion-img {
+  transform: scale(1.2);	
+  filter: brightness(110%);	
+}
+.championInfo .info-left .left-first .champion-detail {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ gap: 25px;
+}
+.championInfo .info-left .left-first .champion-detail .detail-up {
+ display: flex;
+ height: 34px;
+ gap: 13px;	
+}
+.championInfo .info-left .left-first .champion-detail .detail-up .champion-info {
+ font-weight: 700;
+ font-size: 20px;
+ line-height: 34px;	
+}
+.championInfo .info-left .left-first .champion-detail .detail-up .lineButton {
+ display: flex;
+ gap: 8px;	
+}
+.championInfo .info-left .left-first .champion-detail .detail-up .lineButton .line {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 75px;
+    border: 1.5px solid #e1e1e1;
+    height: 34px;
+    gap: 4px;
+    border-radius: 4px;	
+}
+.championInfo .info-left .left-first .champion-detail .detail-up .lineButton .line .lineIcon {
+	width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.championInfo .info-left .left-first .champion-detail .detail-up .lineButton .line .lineIcon > img {
+	
+}
+.championInfo .info-left .left-first .champion-detail .detail-up .lineButton .line .lineName {
+	font-size: 14px;
+}
+.championInfo .info-left .left-first .champion-detail .bottom-info {
+ position: relative;
+ width: 272px; 	
+}
+.championInfo .info-left .left-first .champion-detail .bottom-info .champion-skills {
+ 	
+}
+.championInfo .info-left .left-first .champion-detail .bottom-info ul.qwer {
+ position: absolute;
+ display: flex;
+ z-index: 2;
+ gap: 36px;
+ right: 0;
+ bottom: 0;	
+}
+.championInfo .info-left .left-first .champion-detail .bottom-info ul.qwer > li {
+ color: white;
+ font-size: 12px;
+ width: 20px;
+ height: 20px;
+ line-height: 18px;
+ font-weight: 700;
+ background-color: #232734;
+ text-align: center;
+ border-bottom-right-radius: 4px;
+}
+.championInfo .info-left .left-first .champion-detail .bottom-info .champion-skills .skill-img {
+ display: flex;
+ gap: 8px;	
+}
+.championInfo .info-left .left-first .champion-detail .bottom-info .champion-skills .skill-img .imgBox {
+ width: 48px;
+ height: 48px;
+ overflow: hidden;
+ border-radius: 4px;
+ display: flex;
+ justify-content: center;
+ align-items: center;	
+}
+.championInfo .info-left .left-first .champion-detail .bottom-info .champion-skills .skill-img .imgBox > img {
+ transform: scale(.8);	
+}
+.championInfo .info-chart {
+ flex-grow: 1;
+ border: 1.5px solid #e1e1e1;
+ background-color: white;
+ border-radius: 6px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ height: 267.31px;	
+}
+.championInfo .info-chart .chart-box {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ margin-left: 30px;
+ margin-top: -8px;
+}
+.championInfo .info-chart .chart-box #myChart {
+ 
+}
+.championInfo .info-chart .allRate {
+ 
+}
+.championInfo .info-chart .allRate .rates {
+	
+}
+.championInfo .info-chart .allRate .rates .rate-values {
+ position: relative;
+ font-size: 14px;
+ font-weight: 700;
+}
+.championInfo .info-chart .allRate .rates .rate-values .value0 {
+ position: absolute;
+ top: 20px;
+ right: 20px;
+ color: #5d9ceb;	
+ 
+}
+.championInfo .info-chart .allRate .rates .rate-values .value1{
+ position: absolute;	
+}
+.championInfo .info-chart .allRate .rates .rate-values .value2{
+ position: absolute;	
+}
+
+
+.championTree {
+ display: flex;
+ gap: 8px;	
+}
+.championTree .Tree-left {
+ width: 487px;
+ display: flex;
+ flex-direction: column;
+ gap: 8px;	
+}
+.championTree .Tree-left .runeBuild {
+ display: flex;
+ flex-direction: column;
+ gap: 13px;
+ border: 1.5px solid #e1e1e1;
+ border-radius: 6px;
+ background-color: white;
+ padding: 13px;	
+}
+.championTree .Tree-left .runeBuild .runeTitle {
+ font-size: 18px;
+ font-weight: 700;
+ color: #8a8b9e;	
+}
+.championTree .Tree-left .runeBuild .runeList {
+ display: flex;
+ justify-content:center;
+ align-items: start;
+ position: relative;
+ /*gap: 100px;*/
+}
+.championTree .Tree-left .runeBuild .runeList .listLine1 {
+ position: absolute;
+ width: 3px;
+ height: 200px;
+ top: 20px;
+ left: 75px;	
+}
+.championTree .Tree-left .runeBuild .runeList .listLine2 {
+ position: absolute;
+ width: 3px;
+ height: 103px;
+ top: 20px;
+ left: 228px;	
+}
+.championTree .Tree-left .runeBuild .runeList .listLine3 {
+ position: absolute;
+ width: 3px;
+ height: 103px;
+ top: 20px;
+ left: 380px;	
+}
+.championTree .Tree-left .runeBuild .runeList .runeFirst {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ gap: 8px;
+ width: calc((487px - 26px) / 3);
+ z-index: 3;
+}
+.championTree .Tree-left .runeBuild .runeList .runeFirst .main {
+ width: 42px;
+ height: 42px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ overflow: hidden;
+ border-radius: 50px;
+}
+.championTree .Tree-left .runeBuild .runeList .runeFirst .main > img {
+ transform: scale(.7);
+ background-color:#f8f9fb;	
+}
+.championTree .Tree-left .runeBuild .runeList .runeFirst .mainPerks {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 8px;
+}
+.championTree .Tree-left .runeBuild .runeList .runeFirst .mainPerks .perksBox {
+ width: 42px;
+ height: 42px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ overflow: hidden;
+ border-radius: 50px;	
+}
+.championTree .Tree-left .runeBuild .runeList .runeFirst .mainPerks .perksBox > img {
+ transform: scale(.8);
+ background-color: rgb(0,0,0);	
+ background-color:#f8f9fb;		
+}
+.championTree .Tree-left .runeBuild .runeList .runeSecond {
+ display: flex;
+ flex-direction: column;
+ justify-content: start;
+ align-items: center;
+ gap: 8px;
+ width: calc((487px - 26px) / 3);
+ height: 242px;
+ border-left: 1px solid #e1e1e1;
+ border-right : 1px solid #e1e1e1;
+ position: relative;
+}
+.championTree .Tree-left .runeBuild .runeList .runeSecond .subRune {
+ width: 42px;
+ height: 42px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ overflow: hidden;
+ border-radius: 50px;
+}
+.championTree .Tree-left .runeBuild .runeList .runeSecond .subRune > img {
+ transform: scale(.7);
+ background-color: #f8f9fb;		
+}
+.championTree .Tree-left .runeBuild .runeList .runeSecond .subPerks {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 8px;
+}
+.championTree .Tree-left .runeBuild .runeList .runeSecond .subPerks .perksBox {
+ width: 42px;
+ height: 42px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ overflow: hidden;
+ border-radius: 50px;	
+}
+.championTree .Tree-left .runeBuild .runeList .runeSecond .subPerks .perksBox > img {
+ transform: scale(.8);
+ background-color: rgb(0,0,0);		
+}
+.championTree .Tree-left .runeBuild .runeList .statPerks {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 8px;
+ width: calc((487px - 26px) / 3);
+ height: 242px;
+		
+}
+.championTree .Tree-left .runeBuild .runeList .statPerks .perksBox {
+ width: 42px;
+ height: 42px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ overflow: hidden;
+ border-radius: 50px;
+ border: 1px solid;		
+}
+.championTree .Tree-left .runeBuild .runeList .statPerks .perksBox > img {
+ transform: scale(.8);
+ background-color: rgb(0,0,0);		
+}
+
+.championTree .Tree-right {
+ display: flex;
+ flex-direction: column;
+ gap: 8px;
+ border: 1.5px solid #e1e1e1;
+ border-radius: 6px;
+ background-color: white;
+ padding: 13px;	
+ position: relative;
+ flex-grow: 1;
+}
+.championTree .Tree-right #startItem {
+ font-size: 18px;
+ font-weight: 700;
+ color: #8a8b9e;	
+}
+.championTree .Tree-right .arrowFirst {
+ position: absolute;
+ display: flex;
+ gap: 53px;
+ top: 68px;
+ left: 82px;
+ color: #8a8b9e;	
+}
+.championTree .Tree-right .arrowSecond {
+ position: absolute;
+ display: flex;
+ gap: 53px;
+ top: 134px;
+ left: 82px;
+ color: #8a8b9e;		
+}
+.championTree .Tree-right .arrowThird {
+ position: absolute;
+ display: flex;
+ gap: 53px;
+ top: 199px;
+ left: 82px;
+ color: #8a8b9e;		
+}
+
+.championTree .Tree-right .startItemList tbody tr {
+ height: 66px;
+ vertical-align: middle;
+ font-size: 14px;
+ color: #8a8b9e;
+ 	
+}
+.championTree .Tree-right .startItemList tbody tr .first {
+ display: flex;
+ align-items: center;
+ gap: 30px;
+ height: 66px;
+ vertical-align: middle;
+ margin-left: 16px;	
+}
+.championTree .Tree-right .startItemList tbody tr .first .itemBox {
+ width: 48px;
+ height: 48px;
+ overflow: hidden;
+ border-radius: 4px;
+ display: flex;
+ justify-content: center;
+ align-items: center;	
+}
+.championTree .Tree-right .startItemList tbody tr .first .itemBox > img {
+ transform: scale(.8);	
+}
+.championTree .Tree-right .startItemList tbody tr .second {
+ vertical-align: middle;
+ text-align: end;
+ margin-left: 10px;	
+}
+.championTree .Tree-right .startItemList tbody tr .third {
+ vertical-align: middle;
+ text-align: center;
+ font-weight: 700;
+}
+
+
+
+
+
+
+
+
+

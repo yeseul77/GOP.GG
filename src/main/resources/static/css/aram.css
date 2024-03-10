@@ -54,6 +54,74 @@ a {
  display: flex;
  flex-direction: column;
  gap: 10px;
+ position: relative;
+}
+.searchBar .sortBtn {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 21px;
+  right: -105px;	
+}
+.searchBar .sortBtn1 {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 21px;
+  right: -354px;	
+}
+.searchBar .sortBtn2 {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 21px;
+  right: -446px;	
+}
+.searchBar .sortBtn3 {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 21px;
+  right: -535px;	
+}
+.searchBar .sortBtn4 {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 20.5px;
+  right: -630px;	
+}
+.searchBar .sortBtn #ascendingButton,
+.searchBar .sortBtn #descendingButton,
+.searchBar .sortBtn1 #ascendingButton1,
+.searchBar .sortBtn1 #descendingButton1,
+.searchBar .sortBtn2 #ascendingButton2,
+.searchBar .sortBtn2 #descendingButton2,
+.searchBar .sortBtn3 #ascendingButton3,
+.searchBar .sortBtn3 #descendingButton3,
+.searchBar .sortBtn4 #ascendingButton4,
+.searchBar .sortBtn4 #descendingButton4 {
+  width: 20px;
+  height: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: transparent;	
+}
+
+.searchBar .sortBtn #ascendingButton > .material-symbols-outlined,
+.searchBar .sortBtn #descendingButton > .material-symbols-outlined,
+.searchBar .sortBtn1 #ascendingButton1 > .material-symbols-outlined,
+.searchBar .sortBtn1 #descendingButton1 > .material-symbols-outlined,
+.searchBar .sortBtn2 #ascendingButton2 > .material-symbols-outlined,
+.searchBar .sortBtn2 #descendingButton2 > .material-symbols-outlined,
+.searchBar .sortBtn3 #ascendingButton3 > .material-symbols-outlined,
+.searchBar .sortBtn3 #descendingButton3 > .material-symbols-outlined,
+.searchBar .sortBtn4 #ascendingButton4 > .material-symbols-outlined,
+.searchBar .sortBtn4 #descendingButton4 > .material-symbols-outlined {
+  font-size: 18px;
+  color: #6c757e;	
 }
 .searchBar .searchInput {
   display: flex;
@@ -99,9 +167,7 @@ a {
 .championNav .champList .champion-item:hover {
  transform: scale(1.2);	
 }
-.championNav .champList .champion-item .img-link {
-	
-}
+
 .championNav .champList .champion-item .img-link .champion-img {
   width: 48px;
   height: 48px;
@@ -230,9 +296,7 @@ ul.champList>li>a {
   border-radius: 4px;
   
 }
-ul.champList>li>a:hover {
-	
-}
+
 ul.champList>li>a>img {
   transform: scale(.5);
   filter: brightness(110%);	
@@ -312,8 +376,6 @@ caption,
 label {
   cursor: pointer;
 }
-
-
 
 .search[type="text"] {
   padding: 8px 16px 8px 40px;

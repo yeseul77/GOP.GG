@@ -54,81 +54,14 @@ $(document).ready(function() {
 
 	skills.appendChild(div_skills)
 
-	// 버튼 생성 후 첫번 째 버튼의 라인 값 가지고 가서 승,픽,벤률 값 가져오기
-//	const lineButton = document.querySelector('.lineButton')
-//
-//	$.ajax({
-//		type: "get",
-//		url: "/champion/" + championInfo.champion_name + "/teamposition",
-//		async: false, // 비동기 -> 동기로 변환.(권장하진 않는다.)
-//		success: function(res) {
-//			// 데이터를 빈도순으로 정렬
-//			const sortedPositions = res.sort((a, b) => res.filter(item => item === b).length - res.filter(item => item === a).length);
-//
-//			// 중복된 값을 제거하고 유일한 값들을 포함한 배열을 얻음
-//			const uniquePositions = Array.from(new Set(sortedPositions));
-//
-//			// 유일한 값을 기반으로 버튼 생성
-//			uniquePositions.forEach(position => {
-//				if (position.trim() !== '') { // 빈 값이 아닌 경우에만 버튼을 생성
-//					const button = document.createElement('button');
-//					const lineIcon = document.createElement('div')
-//		            lineIcon.classList.add('lineIcon')
-//		            lineIcon.innerHTML = `<img src="/images/${position}.svg" alt="${position}">`
-//		            const lineName = document.createElement('span')
-//		            lineName.classList.add('lineName');
-//					switch(position){
-//					 case 'TOP':
-//					  lineName.textContent = '탑';
-//					  break;
-//					 case 'MIDDLE':
-//					  lineName.textContent = '미드';
-//					  break;
-//					 case 'JUNGLE':
-//					  lineName.textContent = '정글';
-//					  break;
-//					 case 'BOTTOM':
-//					  lineName.textContent = '원딜';
-//					  break;
-//					 case 'UTILITY':
-//					  lineName.textContent = '서폿';
-//					  break; 	 	
-//					}
-//					button.classList.add('line');
-//					button.dataset.position = position; // 버튼에 포지션 정보를 데이터 속성으로 추가
-//					button.append(lineIcon);
-//					button.append(lineName);
-//					button.addEventListener('click', lineButton); // 클릭 이벤트 처리기 추가
-//					lineButton.appendChild(button);
-//				}
-//			});
-//		},
-//		error: function(error) {
-//			console.log(error)
-//		}
-//	})
-
-	// 첫 번째 버튼의 값
-//	const buttons = document.querySelectorAll('.line');
-//	const firstLine = buttons[0].dataset.position;
 
 	function rateData(res) {
 		const rates = document.querySelector('.rates')
 
 		rates.innerHTML = ''; // 기존 값 초기화
-
-		// 첫 번째 div 생성
-		const div1 = document.createElement('div');
-		div1.classList.add('rate-info');
-
+	
 		// 승, 픽, dpm 레이블 추가
-		const labels = ['승률', '픽률', 'dpm'];
-		labels.forEach(label => {
-			const span = document.createElement('span');
-			span.textContent = label;
-			div1.appendChild(span);
-			
-		});
+		const labels = ['승률', '픽률', 'dpm'];		
 
 		// 두 번째 div 생성
 		const div2 = document.createElement('div');
@@ -136,49 +69,79 @@ $(document).ready(function() {
 
 		// 승, 픽, dpm 비율 값 추가
 		const values = [res.win_rate, res.pickRate, res.dpm];
-		values.forEach(value => {
-			const span = document.createElement('span');
-			span.textContent = value;
-			div2.appendChild(span);
-		});
+		
 
 		// 부모 요소에 자식 요소 추가
-		rates.appendChild(div1);
 		rates.appendChild(div2);
 		
-		const ctx = document.getElementById('myChart');
+		google.charts.load('current', { 'packages': ['corechart'] });
+		google.charts.setOnLoadCallback(drawCharts1);
 		
-		new Chart(ctx, {
-      		type: 'bar',
-      		data: {
-        		labels: [labels[0], labels[1], labels[2]],
-        		datasets: [{
-          		  label: '',
-          		  data: [res.winRate, res.pickRate, res.dpm],
-          		  backgroundColor: ['#5d9ceb','#00c29f','#e57474'
-          		  ],
-      		    borderWidth: 0
-      		  }]
-   		   },
-     		 options: {  				
-    		    indexAxis: 'y',
-    		    scales: {
-     		     x: {
-     		       beginAtZero: true     		       
-    		      }
-     		   },
-     		   plugins : {
-     		     legend : {
-      		      labels : {
-       		       boxWidth : 0,
-       		       
-     		       }
-     		     }
-    		    }
-   		   }
-   		 });
+		function drawCharts1() {
+			var data1 = google.visualization.arrayToDataTable([
+				['항목', '퍼센트', { role: 'style' }, { role: 'annotation' }],
+				['승률(%)', res.win_rate, 'color: #5d9ceb', `${res.win_rate}`],
+				['픽률(%)', res.pickRate, 'color: #00c29f', `${res.pickRate}`]
+				]);
+						
+		    var options1 = {
+				width: 300,
+				height: 250,
+				fontSize: 14,				
+				textStyle: { bold: true, fontSize: 14 },
+				hAxis: {
+					textStyle: { bold: true, fontSize: 14 } // X축 레이블에 대한 스타일 설정
+				},
+				vAxis: {
+					textStyle: { bold: true, fontSize: 14 } // Y축 레이블에 대한 스타일 설정
+				},
+				legend: {
+					position: 'none'
+				},
+				animation: {
+					startup: true,
+					duration: 1000,
+					easing: 'out'
+				}
+			};
+
+			var chart1 = new google.visualization.ColumnChart(document.getElementById('myChart'));
+			chart1.draw(data1, options1);			
+		}
 		
+		google.charts.setOnLoadCallback(drawCharts2);
+		function drawCharts2() {
+			var data2 = google.visualization.arrayToDataTable([
+				['항목', '퍼센트', { role: 'style' }, { role: 'annotation' }],				
+				['DPM', res.dpm, 'color: #e57474', `${res.dpm}`]
+			]);
 		
+		    var options2 = {
+				width: 300,
+				height: 250,
+				fontSize: 14,
+				bar: {groupWidth: '30%'},				
+				textStyle: { bold: true, fontSize: 14 },
+				hAxis: {
+					textStyle: { bold: true, fontSize: 14 } // X축 레이블에 대한 스타일 설정
+				},
+				vAxis: {
+					textStyle: { bold: true, fontSize: 14 } // Y축 레이블에 대한 스타일 설정
+				},
+				legend: {
+					position: 'none'
+				},
+				animation: {
+					startup: true,
+					duration: 2000,
+					easing: 'out'
+				}
+			};
+
+			var chart2 = new google.visualization.ColumnChart(document.getElementById('myChartTwo'));
+			chart2.draw(data2, options2);
+		}		
+	
 	}
 
 	function readRates() {
@@ -293,7 +256,134 @@ $(document).ready(function() {
 				perksBox.append(subPerksImg);
 				subPerks.appendChild(perksBox);
 			}
+            
+            const runeMain = document.querySelector('.main');
+			const listLineFirst = document.querySelector('.listLine1');
 
+			switch (mostCommonMainName) {
+				case '8000':
+					runeMain.style.border = '1.5px solid #faca7b';
+					runeMain.style.boxShadow = '0 0 6px #faca7b';
+					listLineFirst.style.backgroundColor = '#faca7b';
+					listLineFirst.style.boxShadow = '0 0 6px #faca7b';
+					break;
+				case '8100':
+					runeMain.style.border = '1.5px solid #eb1950';
+					runeMain.style.boxShadow = '0 0 6px #eb1950';
+					listLineFirst.style.backgroundColor = '#eb1950';
+					listLineFirst.style.boxShadow = '0 0 6px #eb1950';
+					break;
+				case '8200':
+					runeMain.style.border = '1.5px solid #8662f2';
+					runeMain.style.boxShadow = '0 0 6px #8662f2';
+					listLineFirst.style.backgroundColor = '#8662f2';
+					listLineFirst.style.boxShadow = '0 0 6px #8662f2';
+					break;
+				case '8300':
+					runeMain.style.border = '1.5px solid #5aafc2';
+					runeMain.style.boxShadow = '0 0 6px #5aafc2';
+					listLineFirst.style.backgroundColor = '#5aafc2';
+					listLineFirst.style.boxShadow = '0 0 6px #5aafc2';
+					break;
+				case '8400':
+					runeMain.style.border = '1.5px solid #56ce4a';
+					runeMain.style.boxShadow = '0 0 6px #56ce4a';
+					listLineFirst.style.backgroundColor = '#56ce4a';
+					listLineFirst.style.boxShadow = '0 0 6px #56ce4a';
+					break;
+			}
+
+			const runePerksBoxs = document.querySelectorAll('.mainPerks .perksBox');
+			runePerksBoxs.forEach(runePerksBox => {
+				switch (mostCommonMainName) {
+					case '8000':
+						runePerksBox.style.border = '1.5px solid #faca7b';
+						runePerksBox.style.boxShadow = '0 0 6px #faca7b';
+						break;
+					case '8100':
+						runePerksBox.style.border = '1.5px solid #eb1950';
+						runePerksBox.style.boxShadow = '0 0 6px #eb1950';
+						break;
+					case '8200':
+						runePerksBox.style.border = '1.5px solid #8662f2';
+						runePerksBox.style.boxShadow = '0 0 6px #8662f2';
+						break;
+					case '8300':
+						runePerksBox.style.border = '1.5px solid #5aafc2';
+						runePerksBox.style.boxShadow = '0 0 6px #5aafc2';
+						break;
+					case '8400':
+						runePerksBox.style.border = '1.5px solid #56ce4a';
+						runePerksBox.style.boxShadow = '0 0 6px #56ce4a';
+						break;
+				}
+			})
+
+			const runeSub = document.querySelector('.subRune');
+			const listLineSecond = document.querySelector('.listLine2');
+			const listLineThird = document.querySelector('.listLine3');
+			listLineThird.style.backgroundColor = '#333';
+			listLineThird.style.boxShadow = '0 0 6px #333';
+			switch (mostCommonSubName) {
+				case '8000':
+					runeSub.style.border = '1.5px solid #faca7b';
+					runeSub.style.boxShadow = '0 0 6px #faca7b';
+					listLineSecond.style.backgroundColor = '#faca7b';
+					listLineSecond.style.boxShadow = '0 0 6px #faca7b';
+					break;
+				case '8100':
+					runeSub.style.border = '1.5px solid #eb1950';
+					runeSub.style.boxShadow = '0 0 6px #eb1950';
+					listLineSecond.style.backgroundColor = '#eb1950';
+					listLineSecond.style.boxShadow = '0 0 6px #eb1950';
+					break;
+				case '8200':
+					runeSub.style.border = '1.5px solid #8662f2';
+					runeSub.style.boxShadow = '0 0 6px #8662f2';
+					listLineSecond.style.backgroundColor = '#8662f2';
+					listLineSecond.style.boxShadow = '0 0 6px #8662f2';
+					break;
+				case '8300':
+					runeSub.style.border = '1.5px solid #5aafc2';
+					runeSub.style.boxShadow = '0 0 6px #5aafc2';
+					listLineSecond.style.backgroundColor = '#5aafc2';
+					listLineSecond.style.boxShadow = '0 0 6px #5aafc2';
+					break;
+				case '8400':
+					runeSub.style.border = '1.5px solid #56ce4a';
+					runeSub.style.boxShadow = '0 0 6px #56ce4a';
+					listLineSecond.style.backgroundColor = '#56ce4a';
+					listLineSecond.style.boxShadow = '0 0 6px #56ce4a';
+					break;
+			}
+
+			const runeSubPerksBoxs = document.querySelectorAll('.subPerks .perksBox');
+			runeSubPerksBoxs.forEach(runeSubPerksBox => {
+				switch (mostCommonSubName) {
+					case '8000':
+						runeSubPerksBox.style.border = '1.5px solid #faca7b';
+						runeSubPerksBox.style.boxShadow = '0 0 6px #faca7b';
+						break;
+					case '8100':
+						runeSubPerksBox.style.border = '1.5px solid #eb1950';
+						runeSubPerksBox.style.boxShadow = '0 0 6px #eb1950';
+						break;
+					case '8200':
+						runeSubPerksBox.style.border = '1.5px solid #8662f2';
+						runeSubPerksBox.style.boxShadow = '0 0 6px #8662f2';
+						break;
+					case '8300':
+						runeSubPerksBox.style.border = '1.5px solid #5aafc2';
+						runeSubPerksBox.style.boxShadow = '0 0 6px #5aafc2';
+						break;
+					case '8400':
+						runeSubPerksBox.style.border = '1.5px solid #56ce4a';
+						runeSubPerksBox.style.boxShadow = '0 0 6px #56ce4a';
+						break;
+				}
+			})
+            
+            
 			const mostCommonStatPerks = [mostCommonStatPerks1, mostCommonStatPerks2, mostCommonStatPerks3];
 			for (let z = 0; z < mostCommonStatPerks.length; z++) {
 				const perksBox = document.createElement('div');
@@ -443,20 +533,7 @@ $(document).ready(function() {
 		table.innerHTML = ''
 
 		const tbody = document.createElement('tbody')
-		const thead = document.createElement('thead')
-
-		const headerRow = document.createElement('tr')
-		const header1 = document.createElement('th')
-		header1.textContent = '아이템'
-		const header2 = document.createElement('th')
-		header2.textContent = '픽률'
-		const header3 = document.createElement('th')
-		header3.textContent = '승률'
-
-		headerRow.appendChild(header1)
-		headerRow.appendChild(header2)
-		headerRow.appendChild(header3)
-		thead.appendChild(headerRow)
+		
 
 		for (let i = 0; i < 5; i++) {
 			let item = res[i];
@@ -471,6 +548,7 @@ $(document).ready(function() {
 						td.className = classTd[j - 1];
 						for (let k = 0; k < 3; k++) {
 							const div = document.createElement('div');
+							div.classList.add('itemBox');
 
 							const itemImg = document.createElement('img');
 							itemImg.src = `https://ddragon.leagueoflegends.com/cdn/14.4.1/img/item/${item[`core${k + 1}`]}.png`;
@@ -483,14 +561,14 @@ $(document).ready(function() {
 
 						const pickSpan = document.createElement('span');
 
-						pickSpan.textContent = item.core3_percentage + '%'
+						pickSpan.textContent = '픽률 ' + item.core3_percentage + '%'
 						td.appendChild(pickSpan);
 					} else {
 						td.className = classTd[j - 1];
 
 						const winSpan = document.createElement('span');
 
-						winSpan.textContent = item.core3_win_percentage + '%'
+						winSpan.textContent = '승률 ' + item.core3_win_percentage + '%'
 						td.appendChild(winSpan);
 					}
 					row.appendChild(td);
@@ -498,7 +576,7 @@ $(document).ready(function() {
 				tbody.appendChild(row);
 			}
 		}
-		table.appendChild(thead)
+		
 		table.appendChild(tbody)
 	}
 

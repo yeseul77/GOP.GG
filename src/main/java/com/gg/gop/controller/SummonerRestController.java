@@ -1,11 +1,13 @@
 package com.gg.gop.controller;
 
+import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,12 +30,12 @@ public class SummonerRestController {
 	SummonerDao sDao;
 
 	@PostMapping("/summonerSearch2")
-	public List<Map<String, Object>> summonerSearch2(SummonerDto gameName, SummonerDto tagLine) {
+	public List<Map<String, Object>> summonerSearch2(SummonerDto gameName, SummonerDto tagLine) throws IOException {
 		List<Map<String, Object>> combinedGameData = summonerService.getCombinedGameData(gameName.getGameName(),
 				tagLine.getTagLine());
 		List<Map<String, Object>> filteredGameData = new ArrayList<>();
 		
-
+		summonerService.processbulider();
 		// 최근 10게임만 추출하고, 검색한 소환사 이름과 태그 라인이 일치하는 게임 정보만 필터링
 		int gameCount = 0;
 		for (Map<String, Object> gameData : combinedGameData) {
@@ -75,6 +77,7 @@ public class SummonerRestController {
 
 			for (Map<String, Object> response : mapList) {
 				List<Map<String, Object>> infoList = (List<Map<String, Object>>) response.get("info");
+				log.info("{}",infoList);
 				for (Map<String, Object> gameinfo : infoList) {
 					if (summonerService.saveinfodata(gameinfo) > 0) { // saveinfodata 메소드가 성공하면
 						savedCount++; // 저장된 데이터 수 증가
@@ -132,7 +135,6 @@ public class SummonerRestController {
 		boolean hasDuplicate = dbGameDataList.stream()
 				.anyMatch(gameInfo -> gameName.equals(gameInfo.get("riotIdGameName"))
 						&& tagLine.equals(gameInfo.get("riotIdTagline")));
-
 		log.info("hasDuplicate:" + hasDuplicate);
 		if (!hasDuplicate) {
 			for (Map<String, Object> gameData : newGameDataList) {
@@ -141,9 +143,15 @@ public class SummonerRestController {
 
 			// 최신 게임 데이터 저장 및 반환
 			newGameDataList.addAll(dbGameDataList);
+//			log.info("{}",newGameDataList);
 			newGameDataList = summonerService.saveAndRetrieveGameData(newGameDataList);
 		}
 //	    log.info("newGameDataList:" + newGameDataList);
 		return newGameDataList;
+	}
+	@GetMapping("/DamageCheck")
+	public Object champDamageCheck(@RequestParam Map<String,Object> champion) {
+		log.info("championName{}",champion.get("champExp"));
+		return champion.get("champExp");
 	}
 }
