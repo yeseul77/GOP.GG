@@ -28,6 +28,7 @@ $(document).ready(function() {
 	$('#email_address').on('change', function() {
 		if ($(this).val() === 'direct') {
 			$('#email_direct').show();
+			$('#email_address').hide();
 		} else {
 			$('#email_direct').hide();
 		}
@@ -100,11 +101,11 @@ function sendNumber() {
 			mail: email//$("#email").val()
 		},
 		success: function(response) {
-			showFeedbackModal('인증 번호 전송', '메일을 확인해주세요!!');
+			showFeedbackModal('인증 번호 전송', '이메일을 확인해주세요.');
 		},
 		error: function(xhr, status, error) {
 			console.error("Error: ", status, error);
-			showFeedbackModal('오류!!', '인증 번호 전송에실패했습니다,유효한이메일인지 확인해주세요');
+			showFeedbackModal('인증번호 전송 실패', '유효한 이메일인지 확인해주세요.');
 		}
 	});
 
@@ -133,7 +134,7 @@ function confirmCode() {
 		},
 		error: function() {
 
-			showFeedbackModal('서버 오류', '서버 오류로 인해 인증을 완료할 수 없습니다. 나중에 다시 시도해주세요.');
+			showFeedbackModal('서버 오류', '인증을 완료할 수 없습니다. 나중에 다시 시도해주세요.');
 		}
 	});
 }
