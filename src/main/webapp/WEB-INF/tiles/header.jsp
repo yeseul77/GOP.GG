@@ -52,8 +52,8 @@
 				<ul class="menu">
 					<li><a href="${contextPath}/">홈</a></li>
 					<li><a href="${contextPath}/champion/list">챔피언 분석</a></li>
-					<li><a href="${contextPath}/match">시너지분석</a></li>
 					<li><a href="${contextPath}/aram/list">칼바람 나락</a></li>
+					<li><a href="${contextPath}/match">시너지분석</a></li>
 					<li><a href="${contextPath}/chat/chatList">듀 오</a></li>
 					<li><a href="${contextPath}/boardlist">커뮤니티</a></li>
 				</ul>

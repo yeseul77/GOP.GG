@@ -13,8 +13,10 @@ import com.gg.gop.dao.MemberDao;
 import com.gg.gop.dto.MemberDto;
 import com.gg.gop.dto.ProfileDto;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class MemberService {
 
     @Autowired
@@ -137,15 +139,18 @@ public class MemberService {
     public boolean sendpwdCode(String email) {
 
         MemberDto memberDto = memberDao.getMemberInfo(email);
-
+        
         if (memberDto != null) {
             // 임시 비밀번호 생성
             String tempPassword = generateTempPassword();
-
+            
             // 회원 정보에 임시 비밀번호 저장
-            memberDto.setPassword(tempPassword);
+            BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
+            log.info(pwEncoder.encode(tempPassword));
+            String encoPwd=pwEncoder.encode(tempPassword);
+            System.out.println(encoPwd);
             memberDao.updatePassword(memberDto);
-
+            log.info("{}",memberDto);
             // 이메일로 임시 비밀번호 전송
             boolean emailSent = mailService.sendpwdCode(email, tempPassword);
 

@@ -188,7 +188,7 @@ public class MemberController {
 		return "member/withdraw";
 	}
 
-	@PostMapping("/member/mypage/withdraw")
+	@PostMapping("/memberinfo/withdraw")
 	public String withdraw(@RequestParam String email, @RequestParam String password,
 	                       HttpSession session, RedirectAttributes rttr) {
 	    Boolean result = memberService.withdraw(email, password);

@@ -47,7 +47,7 @@ public class BoardService {
 		Integer likes = boardDao.selectLikes(idx, username);
 		System.out.println("좋아요 bb");
 
-		if (likes != null && likes > 0) {
+		if (likes ==1) {
 			if (boardDao.deleteLikes(idx, username)) {
 				System.out.println("좋아요 취소");
 				return false;

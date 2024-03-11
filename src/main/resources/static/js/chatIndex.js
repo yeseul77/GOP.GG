@@ -117,7 +117,6 @@ $(document).ready(function(){
 							  <div class="hostInfo">
 							   <a>${chatlist.userId}</a>|<a>${chatlist.champion}</a>				 
 							  </div>
-							  <button type="button" class="chatBtn" onclick="submit(${chatlist.chatroomId})">참가신청</button>
 							 </div>							
 							</div>				
 							`

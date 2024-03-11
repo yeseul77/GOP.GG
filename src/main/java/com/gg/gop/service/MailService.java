@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.gg.gop.dao.MemberDao;
@@ -81,7 +82,9 @@ public class MailService {
 		MemberDto memberDto = memberDao.getMemberInfo(email);
 		if (memberDto != null) {
 			//System.out.println("test");
-			memberDto.setPassword(tempPassword);
+            BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
+            String encoPwd=pwEncoder.encode(tempPassword);
+			memberDto.setPassword(encoPwd);
 			memberDao.updatePassword(memberDto);
 			return tempPassword;
 		}

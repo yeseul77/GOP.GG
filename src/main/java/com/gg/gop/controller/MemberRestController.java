@@ -17,7 +17,7 @@ public class MemberRestController {
 
     
 
-    @PostMapping("/confirmchange")
+    @PostMapping("/confirmusername")
     public ResponseEntity<Boolean> confirmUsername(@RequestParam("username") String username) {
         boolean result;
 

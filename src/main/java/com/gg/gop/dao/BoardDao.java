@@ -44,7 +44,7 @@ public interface BoardDao {
 	@Select("Select count(*) as likes from like_tb where idx = #{idx}")
 	BoardDto SelectUpdateLikes(int idx);
 	//좋아요수 업데이트
-	@Update("Update likes set likes = #{likes} where idx = #{idx}")
+	@Update("Update like_tb set username = #{likes} where idx = #{idx}")
 	boolean updateLikes(int likes, int idx);
 
 }

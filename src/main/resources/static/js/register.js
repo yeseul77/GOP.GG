@@ -10,7 +10,7 @@ $(document).ready(function() {
 		}
 
 		$.ajax({
-			url: './confirmusername',
+			url: '/confirmusername',
 			data: { 'username': username },
 			type: 'POST',
 			success: function(result) {
