@@ -13,6 +13,7 @@ import com.gg.gop.dao.MemberDao;
 import com.gg.gop.dto.MemberDto;
 
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
 //MemberService 클래스에서 구핸해도 됨
 @Component

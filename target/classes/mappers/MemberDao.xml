@@ -2,38 +2,89 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.gg.gop.dao.MemberDao">
-	<!-- 회원가입 -->
+	<!-- 회원가입 //프로필이미지는 default -->
 	<insert id="insertMember" parameterType="MemberDto">
 		INSERT INTO member_tb
 		(email, password, username, profile)
-		VALUES (#{email}, #{password},
-		#{username}, 'default')
+		VALUES (#{email},
+		#{password},#{username},'default')
 	</insert>
 
 	<!-- 닉네임 중복검사 쿼리 -->
 	<select id="selectusername" resultType="boolean">
-	    SELECT COUNT(*) > 0
-	    FROM member_tb
-	    WHERE username = #{username}
+		SELECT COUNT(*) > 0
+		FROM
+		member_tb
+		WHERE username = #{username}
 	</select>
+
 	<!-- 로그인 -->
 	<select id="getSecurityPw" parameterType="String"
 		resultType="String">
-		select * from member_tb where username=#{email}
+		select * from member_tb
+		where email=#{email}
 	</select>
 	<!-- 회원정보 -->
-	<select id="getMemberInfo" resultType="MemberDto">
-		select
-		email,password,username from member_tb where email=#{email};
+	<select id="getMemberInfo" parameterType="String"
+		resultType="MemberDto">
+		select email,password,username
+		from member_tb
+		where
+		email=#{email};
 	</select>
-	<!-- 회원정보 변경 -->
-	<update id="updateMemberProfile" parameterType="MemberDto">
+
+
+	<!-- 이메일로 사용자 조회 -->
+	<select id="findByEmail" resultType="MemberDto">
+		SELECT * FROM member_tb
+		WHERE email = #{email}
+	</select>
+	
+	  <!-- 프로필 업데이트 -->
+    <update id="updateProfile" parameterType="MemberDto">
+        UPDATE member_tb
+        SET username = #{username},
+            email = #{email}
+        WHERE username = #{username}
+    </update>
+    
+    <update id="updateProfileInfo" parameterType="MemberDto">
+   	 UPDATE member_tb
+        SET username = #{username}
+        WHERE email = #{email}
+    </update>
+
+	<!-- 닉네임 업데이트 -->
+	<update id="updateUsername" parameterType="map">
 		UPDATE member_tb
-		<set>
-			<if test="username != null">username = #{username},</if>
-			<if test="profile != null">profile = #{profile},</if>
-		</set>
+		SET
+		username = #{username}
+		WHERE email = #{email}
+	</update>
+
+		<insert id="profileInsertMap" parameterType="map">
+		INSERT INTO member_tb (username, oriFileName, sysFileName, filePath)
+		VALUES (#{username}, #{oriFileName}, #{sysFileName}, #{filePath})
+	</insert>
+
+	<!-- 프로필 이미지 경로 업데이트 -->
+	<update id="updateProfileImage" parameterType="map">
+		UPDATE member_tb
+		SET profile = #{profileImagePath}
+		WHERE email = #{email}
+	</update>
+
+	<!-- 임시비멀번호로 변경 -->
+	<update id="updatePassword" parameterType="MemberDto">
+		UPDATE member_tb
+		SET
+		password = #{password}
 		WHERE email = #{email}
 	</update>
 	
+	<!-- 변경사항 저장 -->
+	<insert id="saveinfo" parameterType="MemberDto">
+		INSERT INTO member_tb (username, email, password, profile)
+		VALUES (#{username}, #{email}, #{password}, #{profile})
+	</insert>
 </mapper>

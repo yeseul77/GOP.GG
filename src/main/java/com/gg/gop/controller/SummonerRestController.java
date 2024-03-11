@@ -35,7 +35,7 @@ public class SummonerRestController {
 				tagLine.getTagLine());
 		List<Map<String, Object>> filteredGameData = new ArrayList<>();
 		
-		summonerService.processbulider();
+//		summonerService.processbulider();
 		// 최근 10게임만 추출하고, 검색한 소환사 이름과 태그 라인이 일치하는 게임 정보만 필터링
 		int gameCount = 0;
 		for (Map<String, Object> gameData : combinedGameData) {

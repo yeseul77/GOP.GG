@@ -25,15 +25,15 @@
         <select id= "teamPosition" name="teamPosition" class="championSelect">
 		  <option value="">&nbsp;내 포지션</option>
 		  <option value="top">top</option>
-		  <option value="middle">middle</option>
 		  <option value="jungle">jungle</option>
+		  <option value="middle">middle</option>
 		  <option value="bottom">bottom</option>
 		  <option value="utility">support</option>
 	    </select>
 	    <div class="position" onclick="handleClick(event)">
 	      <button id="myteamPosition" onclick="search('top')"><img src="/images/top.svg" alt="top" class="lineImage"><span class="lineText">탑</span></button>
-	      <button id="myteamPosition" onclick="search('middle')"><img src="/images/middle.svg" alt="middle" class="lineImage"><span class="lineText">미드</span></button>
 	      <button id="myteamPosition" onclick="search('jungle')"><img src="/images/jungle.svg" alt="jungle" class="lineImage"><span class="lineText">정글</span></button>
+	      <button id="myteamPosition" onclick="search('middle')"><img src="/images/middle.svg" alt="middle" class="lineImage"><span class="lineText">미드</span></button>
 	      <button id="myteamPosition" onclick="search('bottom')"><img src="/images/bottom.svg" alt="bottom" class="lineImage"><span class="lineText">바텀</span></button>
 	      <button id="myteamPosition" onclick="search('utility')"><img src="/images/supporter.svg" alt="supporter" class="lineImage"><span class="lineText">서폿</span></button>
 	    </div>

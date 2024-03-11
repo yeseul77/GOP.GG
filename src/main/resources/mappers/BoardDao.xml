@@ -1,40 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gg.gop.dao.BoardDao">
-    <!-- 모든 게시글 조회 -->
-    <select id="getAllBoards" resultType="com.gg.gop.dto.BoardDto">
-        SELECT b_bno, b_title, b_contents, b_writer, username, b_views, b_date
-        FROM board_tb;
-    </select>
 
-    <!-- 게시글 삽입 -->
-    <insert id="insertBoard" parameterType="com.gg.gop.dto.BoardDto">
-        INSERT INTO board_tb (b_title, b_contents, b_writer, username, b_views)
-        VALUES (#{b_title}, #{b_contents}, #{b_writer}, #{username}, #{b_views});
-    </insert>
+	<!-- 모든 게시글 리스트 조회 -->
+	<select id="selectBoardList" resultType="BoardDto">
+		SELECT *
+		FROM board_tb
+	</select>
 
-<!--     게시글 조회수 업데이트 -->
-<!--     <update id="updateBoardView" parameterType="int"> -->
-<!--         UPDATE board_tb SET b_views = b_views + 1 -->
-<!--         WHERE b_bno = #{b_bno}; -->
-<!--     </update> -->
+	<!-- 게시글 작성 -->
+	<insert id="saveWrite" parameterType="BoardDto">
+    INSERT INTO board_tb (title, content, username,likes, boardtype)
+    VALUES (#{title}, #{content}, #{username},#{likes}, #{boardtype})
+</insert>
 
-<!--     게시글 상세 조회 -->
-<!--     <select id="getBoard" parameterType="int" resultType="com.gg.gop.dto.BoardDto"> -->
-<!--         SELECT b_bno, b_title, b_contents, b_writer, username, b_views, b_date -->
-<!--         FROM board_tb -->
-<!--         WHERE b_bno = #{b_bno}; -->
-<!--     </select> -->
+	<!-- 게시글 상세보기 -->
+	<select id="getBoardDetail" resultType="BoardDto"
+		parameterType="Integer">
+		SELECT bt.idx, bt.title, bt.content, bt.viewcount, bt.username, lt.likes
+		FROM board_tb bt, (Select idx, count(*) as likes from like_tb where idx = #{idx}) lt
+		WHERE bt.idx = #{idx};
+	</select>
+	
+	<!-- 조회수 1씩증가 -->
+	   <update id="updateViewsCnt" parameterType="int">
+        UPDATE board_tb
+        SET viewcount = viewcount + 1
+        WHERE idx = #{idx}
+    </update>
 
-<!--     게시글 삭제 -->
-<!--     <delete id="deleteBoard" parameterType="int"> -->
-<!--         DELETE FROM board_tb WHERE b_bno = #{b_bno}; -->
-<!--     </delete> -->
-
-<!--     게시글 수정 -->
-<!--     <update id="updateBoard" parameterType="com.gg.gop.dto.BoardDto"> -->
-<!--         UPDATE board_tb -->
-<!--         SET b_title = #{b_title}, b_contents = #{b_contents}, username = #{username} -->
-<!--         WHERE b_bno = #{b_bno}; -->
-<!--     </update> -->
 </mapper>

@@ -7,6 +7,9 @@ let chatroomId
 $('document').ready(function(){
 	username=document.getElementById('username').value
 	chatroomId=document.getElementById('chatroomId').value
+	console.log(chatroomId);
+	console.log(document.title);
+	document.title=chatroomId
 })
 
 function enterRoom(socket) {

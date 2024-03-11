@@ -573,6 +573,13 @@ a {
  justify-content: center;	
 }
 .championTree .Tree-right .championCounter .championLeft .championEasyCounterUl .counterChampions .counterImageBox {
+ transition: .4s;	
+}
+ 
+.championTree .Tree-right .championCounter .championLeft .championEasyCounterUl .counterChampions .counterImageBox:hover {
+ transform: scale(1.2);	
+}
+.championTree .Tree-right .championCounter .championLeft .championEasyCounterUl .counterChampions .counterImageBox > a {
  width: 60px;
  height: 60px;
  overflow: hidden;
@@ -581,7 +588,7 @@ a {
  justify-content: center;
  align-items: center;	
 }
-.championTree .Tree-right .championCounter .championLeft .championEasyCounterUl .counterChampions .counterImageBox > img {
+.championTree .Tree-right .championCounter .championLeft .championEasyCounterUl .counterChampions .counterImageBox > a > img {
  transform: scale(.6);
  filter: brightness(110%);	
 }
@@ -620,6 +627,13 @@ a {
  gap: 47px;	
 }
 .championTree .Tree-right .championCounter .championRight .championHardCounterUl .counterChampions .counterImageBox {
+ transition: .4s;
+}
+.championTree .Tree-right .championCounter .championRight .championHardCounterUl .counterChampions .counterImageBox:hover {
+ transform: scale(1.2);	
+}
+
+.championTree .Tree-right .championCounter .championRight .championHardCounterUl .counterChampions .counterImageBox > a {
  width: 60px;
  height: 60px;
  overflow: hidden;
@@ -628,10 +642,10 @@ a {
  justify-content: center;
  align-items: center;	
 }
-.championTree .Tree-right .championCounter .championRight .championHardCounterUl .counterChampions .counterImageBox > img {
+.championTree .Tree-right .championCounter .championRight .championHardCounterUl .counterChampions .counterImageBox > a > img {
  transform: scale(.6);
  filter: brightness(110%);	
-}
+} 
 .championTree .Tree-right .championCounter .championRight .championHardCounterUl .counterChampions .resultBox {
  color: #8a8b9e;
  font-size: 14px;

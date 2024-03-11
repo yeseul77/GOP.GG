@@ -226,14 +226,14 @@ public class SummonerService {
 //		return sDao.getChampionRankingFromDB();
 //	}
 	
-	public void processbulider() throws IOException {
-		ProcessBuilder processBuilder=new ProcessBuilder("python","C:/Users/takealook/Desktop/develope/lol_final/src/main/resources/static/python/damagecheck.py");
+	public void processbulider(String tier, String championName, int Damage,int champExp) throws IOException {
+		String filePath="src/main/resources/static/python/damagecheck.py";
+		ProcessBuilder processBuilder=new ProcessBuilder("python",filePath);
 		Process process=processBuilder.start();
 		InputStream inputStream=process.getInputStream();
 		BufferedReader reader=new BufferedReader(new InputStreamReader(inputStream));
 		String line;
 		while ((line = reader.readLine()) != null) {
-			// 실행 결과 처리
 		    System.out.println(line);
 		}
 	}

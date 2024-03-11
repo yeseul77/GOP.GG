@@ -1,9 +1,9 @@
-const login = document.querySelector('.side-menu .login');
-const loginBox = login.querySelector('.loginBox');
+const loginMenu = document.querySelector('.side-menu .login');
+const loginBox = document.querySelector('.loginBox');
 const shadow = document.querySelector('.header .shadow');
 
 
-login.addEventListener('click', function(e) {
+loginMenu.addEventListener('click', function(e) {
   e.stopPropagation();
   if(loginBox.classList.contains('show') && shadow.classList.contains('show')) {
     loginBox.classList.remove('show');

@@ -49,7 +49,7 @@ socket.onmessage = function(e) {
 		let roomId = msg.roomId;
 		let popOption="width=650px, height=550px, top=300px, left=300px. scrollbars=yes";
 //		location.href=`/chat/chatroom?chatroomId=${msg.roomId}`;
-		window.open(`/chat/firstchatroom?chatroomId=${roomId}`,'pop', popOption);
+		window.open(`/chat/firstchatroom?chatroomId=${roomId}`,`pop${roomId}`, popOption);
 		location.href="/chat/chatList"
 	} else if(msg.type=="denied"){
 		alert("신청이 거부되었습니다");
@@ -72,7 +72,7 @@ function accept(roomId, master, sender){
 	console.log(accMsg);
 	socket.send(JSON.stringify(accMsg));
 //	location.href=`/chat/chatroom?chatroomId=${roomId}`;
-	window.open(`/chat/chatroom?chatroomId=${roomId}`,'pop', popOption);
+	window.open(`/chat/chatroom?chatroomId=${roomId}`,`pop${roomId}`, popOption);
 }
 
 function denine(){
@@ -209,7 +209,7 @@ list=setInterval(function(){
 }, 300000)
 function popup(roomId){
 	console.log(roomId);
-	window.open(`/chat/chatroom?chatroomId=${roomId}`,'pop', popOption);
+	window.open(`/chat/chatroom?chatroomId=${roomId}`,`pop${roomId}`, popOption);
 }
 
 
@@ -270,6 +270,26 @@ $('#roomsearch').keyup(function(){
 		$('#clist').empty().append(temp)
 	})
 });
+var newName, n=0;
+
+    //팝업 창 제목 만들기 함수(다중 팝업을 위한..)   
+    function newWindow(value)
+    {
+       n = n + 1;
+       newName = value + n;     
+    }
+
+ 
+
+    function MyOpenWindow()
+    {
+        newWindow("MyWindow");
+        window.open("PopupWindow.aspx", newName, 
+         "width=1050,height=800,toolbar=no,location=no,status=no," +
+
+         "menubar=no,scrollbars=yes,resizable=yes,left=200,top=50");
+    }
+
 
 
 

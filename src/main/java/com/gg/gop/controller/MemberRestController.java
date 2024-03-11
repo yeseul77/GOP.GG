@@ -15,16 +15,21 @@ public class MemberRestController {
     @Autowired
     private MemberService memberService;
 
-    @PostMapping("/confirmusername")
+    
+
+    @PostMapping("/confirmchange")
     public ResponseEntity<Boolean> confirmUsername(@RequestParam("username") String username) {
         boolean result;
 
         if (username.trim().isEmpty()) {
             result = false;
         } else {
-            result = !memberService.selectusername(username);
+            result = memberService.selectusername(username);
         }
 
         return new ResponseEntity<>(result, HttpStatus.OK);
+    
+    
     }
+    
 }

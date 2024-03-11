@@ -148,7 +148,7 @@ a {
   height: 34px;
   gap: 4px;
 }
-.searchBar #lineButton .line:first-child {
+.searchBar #lineButton #All {
   border-left: 1.5px solid #e1e1e1;
 }
 .searchBar #lineButton .line .searchIcon {

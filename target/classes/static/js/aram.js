@@ -48,57 +48,58 @@ $(document).ready(function() {
 
 	const searchChampion = document.getElementById('searchChampion')
 
-	searchChampion.addEventListener('keydown', function(event) {
-		if (event.key === 'Enter') {
-			let search = $(this).val();
-			console.log(search);
+	
+	searchChampion.addEventListener('keyup', function(event) {
+		//if (event.key === 'Enter') {
+		let search = $(this).val();
+		console.log(search);
 
-			$.ajax({
-				type: 'GET',
-				url: "/aram/searchChampionList",
-				data: { search: search },
-				success: function(data) {
-					console.log("data : ", data)
+		$.ajax({
+			type: 'GET',
+			url: "/champion/searchChampionList",
+			data: { search: search },
+			success: function(data) {
+				console.log("data : ", data)
 
-					// 기존에 생성된 ul 요소가 있다면 삭제
-					while (ul.firstChild) {
-						ul.removeChild(ul.firstChild);
-					}
-
-					// 받은 데이터를 이용하여 목록을 구성
-					data.forEach(function(champion) {
-						console.log("name : ", champion.champion_name_kr);
-						const listItem = document.createElement('li');
-
-						// 링크 생성
-						const link = document.createElement('a');
-						link.href = '/aram/detail?championName=' + champion.champion_name; // 챔피언 페이지로 이동할 URL 설정
-
-						// 챔피언 이미지 생성 및 설정
-						const img = document.createElement('img');
-						img.src = `https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/${champion.champion_name}.png`;
-						img.alt = champion.champion_name;
-						link.appendChild(img);
-
-						// 챔피언 이름 추가
-						const championName = document.createElement('span');
-						championName.textContent = champion.champion_name_kr;
-
-						// 이미지를 리스트 아이템에 추가
-						listItem.appendChild(link);
-						listItem.appendChild(championName); // 챔피언 이름을 이미지 아래에 배치
-
-						ul.appendChild(listItem);
-					});
-
-					// nav 요소에 ul 요소를 추가
-					nav.appendChild(ul);
-				},
-				error: function(error) {
-					console.logg(error)
+				// 기존에 생성된 ul 요소가 있다면 삭제
+				while (ul.firstChild) {
+					ul.removeChild(ul.firstChild);
 				}
-			})
-		}
+
+				// 받은 데이터를 이용하여 목록을 구성
+				data.forEach(function(champion) {
+					const listItem = document.createElement('li');
+					listItem.className = 'champion-item'
+
+					// 링크 생성
+					const link = document.createElement('a');
+					link.href = '/champion/detail?championName=' + champion.champion_name; // 챔피언 페이지로 이동할 URL 설정
+
+					// 챔피언 이미지 생성 및 설정
+					const img = document.createElement('img');
+					img.src = `https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/${champion.champion_name}.png`;
+					img.alt = champion.champion_name;
+					link.appendChild(img);
+
+					// 챔피언 이름 추가
+					const championName = document.createElement('span');
+					championName.textContent = champion.champion_name_kr;
+
+					// 이미지를 리스트 아이템에 추가
+					listItem.appendChild(link);
+					listItem.appendChild(championName); // 챔피언 이름을 이미지 아래에 배치
+
+					ul.appendChild(listItem);
+				});
+
+				// nav 요소에 ul 요소를 추가
+				nav.appendChild(ul);
+			},
+			error: function(error) {
+				console.logg(error)
+			}
+		})
+		//}
 	});
 
 

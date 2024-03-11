@@ -681,14 +681,18 @@ $(document).ready(function() {
 
 		for (let i = 0; i < 5; i++) {
 			let counter = res[i]
+			const enemy_championName = counter.enemy_championName === 'FiddleSticks' ? 'Fiddlesticks' : counter.enemy_championName;
+			
 			const championCounterIl = document.createElement('li')
 			championCounterIl.className = 'counterChampions'
 
 			const counterImageBox = document.createElement('div')
 			counterImageBox.classList.add('counterImageBox')
-
+			
+			const easyCounterA = document.createElement('a')
+			easyCounterA.href = '/champion/detail?championName=' + enemy_championName
+			
 			const counterImg = document.createElement('img')
-			const enemy_championName = counter.enemy_championName === 'FiddleSticks' ? 'Fiddlesticks' : counter.enemy_championName;
 			counterImg.src = `https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/${enemy_championName}.png`
 			counterImg.alt = enemy_championName
 
@@ -700,7 +704,8 @@ $(document).ready(function() {
 			const playdiv = document.createElement('div')
 			playdiv.innerHTML = counter.games_played.toLocaleString() + ' 게임'
 
-			counterImageBox.appendChild(counterImg)
+			counterImageBox.appendChild(easyCounterA)
+			easyCounterA.appendChild(counterImg)
 			resultBox.appendChild(winDiv)
 			resultBox.appendChild(playdiv)
 			championCounterIl.appendChild(counterImageBox)
@@ -714,14 +719,18 @@ $(document).ready(function() {
 
 		for (let i = 0; i < 5; i++) {
 			let counter = res[i]
+			const enemy_championName = counter.enemy_championName === 'FiddleSticks' ? 'Fiddlesticks' : counter.enemy_championName;
+			
 			const championCounterIl = document.createElement('li')
 			championCounterIl.className = 'counterChampions'
 
 			const counterImageBox = document.createElement('div')
 			counterImageBox.classList.add('counterImageBox')
+			
+			const hardCounterA = document.createElement('a')
+			hardCounterA.href = '/champion/detail?championName=' + enemy_championName
 
 			const counterImg = document.createElement('img')
-			const enemy_championName = counter.enemy_championName === 'FiddleSticks' ? 'Fiddlesticks' : counter.enemy_championName;
 			counterImg.src = `https://ddragon.leagueoflegends.com/cdn/14.3.1/img/champion/${enemy_championName}.png`
 			counterImg.alt = enemy_championName
 
@@ -733,7 +742,8 @@ $(document).ready(function() {
 			const playdiv = document.createElement('div')
 			playdiv.innerHTML = counter.games_played.toLocaleString() + ' 게임'
 
-			counterImageBox.appendChild(counterImg)
+			counterImageBox.appendChild(hardCounterA)
+			hardCounterA.appendChild(counterImg)
 			resultBox.appendChild(winDiv)
 			resultBox.appendChild(playdiv)
 			championCounterIl.appendChild(counterImageBox)

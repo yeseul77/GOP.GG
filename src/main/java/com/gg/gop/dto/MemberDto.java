@@ -1,11 +1,6 @@
 package com.gg.gop.dto;
 
 
-import java.util.Collection;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,13 +12,12 @@ import lombok.experimental.Accessors;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberDto implements UserDetails{
+public class MemberDto {
 
 
 	private String email; //로그인할 아이디
 	private String username;  //웹페이지내에 보여지는 아이디
 	private String password;
-	private String role; 
 	private Boolean deleteYn; // 탈퇴 여부 0이면가입 탈퇴면1
 	private String profile;//사진정보
 	
@@ -56,14 +50,6 @@ public class MemberDto implements UserDetails{
 	    }
 
 
-	    public String getRole() {
-	        return role;
-	    }
-
-	    public void setRole(String role) {
-	        this.role = role;
-	    }
-
 	    public Boolean getDeleteYn() {
 	        return deleteYn;
 	    }
@@ -80,35 +66,6 @@ public class MemberDto implements UserDetails{
 			this.profile = profile;
 		}
 
-		@Override
-		public Collection<? extends GrantedAuthority> getAuthorities() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public boolean isAccountNonExpired() {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public boolean isAccountNonLocked() {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public boolean isCredentialsNonExpired() {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public boolean isEnabled() {
-			// TODO Auto-generated method stub
-			return false;
-		}
 
 	
 }

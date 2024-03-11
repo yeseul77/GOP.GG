@@ -18,9 +18,11 @@
 	<!-- Rest -->
 	<select id="searchList">
 		SELECT champion_name_kr, champion_name
-		FROM  
-		champion_names
-		WHERE champion_name_kr like concat('%', #{search}, '%');
+		FROM
+		champlist
+		WHERE champion_name_kr like concat('%', #{search}, '%')
+		or champion_name like concat('%',#{search},'%')
+		or champion_name_cons like concat('%',#{search},'%')
 	</select>
 	
 <!-- 	<select id="lineChampionList"> -->
