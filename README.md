@@ -17,9 +17,10 @@ SpringBoot 와 빅데이터를 활용해 만든 커뮤니티 사이트입니다.
 ***
 ###💻개발 환경
 
-JAVA 17
-JDK 17
-IDE STS 4.2
-DataBase: MySQL
-ORM : Mybatis
+JAVA 17<br>
+JDK 17<br>
+IDE STS 4.2<br>
+DataBase: MySQL<br>
+ORM : Mybatis<br>
 
+***
