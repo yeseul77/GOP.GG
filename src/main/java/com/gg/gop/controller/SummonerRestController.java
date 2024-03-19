@@ -1,68 +1,14 @@
-<<<<<<< HEAD
-//package com.gg.gop.controller;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.Map;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//import com.fasterxml.jackson.core.JsonProcessingException;
-//import com.fasterxml.jackson.databind.JsonMappingException;
-//import com.gg.gop.dto.SummonerDto;
-//import com.gg.gop.service.SummonerService;
-//import com.google.gson.Gson;
-//
-//@RestController
-//public class SummonerRestController {
-//	@Autowired
-//	private SummonerService summonerService;
-//
-//	@PostMapping("/summonerSearch")
-//	public List<Map> matchId(SummonerDto gameName, SummonerDto tagLine) {
-//		String puuid = summonerService.puuid(gameName.getGameName(), tagLine.getTagLine());
-//		List<String> matchIdList = summonerService.matchIdList(puuid);
-//		List<Map> gameInfoList = summonerService.gameInfoList(matchIdList);
-//
-//		// 중복 여부 확인
-////		boolean hasDuplicate = gameInfoList.stream()
-//				.anyMatch(gameInfo -> gameName.getGameName().equals(gameInfo.get("riotIdGameName"))
-//						&& tagLine.getTagLine().equals(gameInfo.get("riotIdTagline")));
-//
-//		if (!hasDuplicate) {
-//			List<Map> dbGameInfoList = summonerService.getGameInfoFromDB(gameName.getGameName(), tagLine.getTagLine());
-//			gameInfoList.addAll(dbGameInfoList);
-//		}
-//
-//		return gameInfoList;
-//	}
-//
-//	@PostMapping("/summonerSaveData")
-//	public int saveData(String gamedataList) throws JsonMappingException, JsonProcessingException {
-//		Gson gson = new Gson();
-//		List<Map> map1 = gson.fromJson(gamedataList, ArrayList.class);
-//		System.out.println(map1);
-//		int data = summonerService.saveGamedata(map1);
-//		System.out.println("rest옴" + data);
-//		return data;
-//	}
-//
-//}
-=======
 package com.gg.gop.controller;
 
+import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -84,15 +30,16 @@ public class SummonerRestController {
 	SummonerDao sDao;
 
 	@PostMapping("/summonerSearch2")
-	public List<Map<String, Object>> summonerSearch2(SummonerDto gameName, SummonerDto tagLine) {
+	public List<Map<String, Object>> summonerSearch2(SummonerDto gameName, SummonerDto tagLine) throws IOException {
 		List<Map<String, Object>> combinedGameData = summonerService.getCombinedGameData(gameName.getGameName(),
 				tagLine.getTagLine());
 		List<Map<String, Object>> filteredGameData = new ArrayList<>();
-
+		
+//		summonerService.processbulider();
 		// 최근 10게임만 추출하고, 검색한 소환사 이름과 태그 라인이 일치하는 게임 정보만 필터링
 		int gameCount = 0;
 		for (Map<String, Object> gameData : combinedGameData) {
-			if (gameCount >= 10) {
+			if (gameCount >= 100) {
 				break; // 최대 10게임까지만 처리
 			}
 
@@ -101,7 +48,7 @@ public class SummonerRestController {
 			for (Map<String, Object> playerInfo : playerInfoList) {
 				String playerName = (String) playerInfo.get("riotIdGameName");
 				String playerTagLine = (String) playerInfo.get("riotIdTagline");
-
+				
 				// 검색한 소환사 이름과 태그 라인이 일치하는 플레이어 정보인 경우에만 추가
 				if (playerName.equals(gameName.getGameName()) && playerTagLine.equals(tagLine.getTagLine())) {
 					filteredGameData.add(gameData);
@@ -115,7 +62,7 @@ public class SummonerRestController {
 	}
 
 	@PostMapping("/summonerSaveData")
-	public int saveData(@RequestParam("encodedData") String encodedData) throws JsonProcessingException {
+	public int saveData(@RequestParam("encodedData") String encodedData,String gameName, String tagLine) throws JsonProcessingException {
 		int savedCount = 0; // 저장된 데이터의 수를 세기 위한 변수
 		ObjectMapper objectMapper = new ObjectMapper();
 		log.info("savedCount : " + savedCount);
@@ -130,6 +77,7 @@ public class SummonerRestController {
 
 			for (Map<String, Object> response : mapList) {
 				List<Map<String, Object>> infoList = (List<Map<String, Object>>) response.get("info");
+				log.info("{}",infoList);
 				for (Map<String, Object> gameinfo : infoList) {
 					if (summonerService.saveinfodata(gameinfo) > 0) { // saveinfodata 메소드가 성공하면
 						savedCount++; // 저장된 데이터 수 증가
@@ -138,17 +86,26 @@ public class SummonerRestController {
 
 				List<Map<String, Object>> teamsList = (List<Map<String, Object>>) response.get("teams");
 				for (Map<String, Object> gameteams : teamsList) {
-				    if (summonerService.saveteamsdata(gameteams) > 0) { // saveteamsdata 메소드가 성공하면
-				        savedCount++; // 저장된 데이터 수 증가
-				    }
-				    
-				    // 팀에 대한 bans 정보 가져와서 처리
-				    List<Map<String, Object>> bansList = (List<Map<String, Object>>) gameteams.get("bans");
-				    for (Map<String, Object> bans : bansList) {
-				        if (summonerService.savebansdata(bans) > 0) { // savebansdata 메소드가 성공하면
-				            savedCount++; // 저장된 데이터 수 증가
-				        }
-				    }
+					if (summonerService.saveteamsdata(gameteams) > 0) { // saveteamsdata 메소드가 성공하면
+						savedCount++; // 저장된 데이터 수 증가
+					}
+
+					// 팀에 대한 bans 정보 가져와서 처리
+//					List<Map<String, Object>> bansList = (List<Map<String, Object>>) gameteams.get("bans");
+//					for (Map<String, Object> bans : bansList) {
+//						if (summonerService.savebansdata(bans) > 0) { // savebansdata 메소드가 성공하면
+//							savedCount++; // 저장된 데이터 수 증가
+//						}
+//					}
+				}
+				List<Map<String, Object>> leagueInfoList = (List<Map<String, Object>>) response.get("leagueInfo");
+				for (Map<String, Object> leagueInfo : leagueInfoList) {
+					if (leagueInfo != null) {
+						if (summonerService.saveLeagueInfo(leagueInfo,gameName, tagLine) > 0) {
+							savedCount++; // 저장된 데이터 수 증가
+						}
+
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -166,8 +123,10 @@ public class SummonerRestController {
 		String puuid = summonerService.puuid(gameName, tagLine);
 		List<String> matchIdList = summonerService.matchIdList(puuid);
 		List<Map<String, Object>> newGameDataList = summonerService.gameInfoList(matchIdList);
-//		List<Map<String, Object>> timeLineDataList = summonerService.timeLineList(matchIdList);
 		log.info("Updating game data...");
+
+		String summonerId = summonerService.SummonerId(puuid);
+		List<Map<String, Object>> leagueInfo = summonerService.SummonerLeagueInfo(summonerId);
 
 		// 데이터베이스에 저장된 최신 게임 데이터 가져오기
 		List<Map<String, Object>> dbGameDataList = summonerService.getCombinedGameData(gameName, tagLine);
@@ -176,16 +135,23 @@ public class SummonerRestController {
 		boolean hasDuplicate = dbGameDataList.stream()
 				.anyMatch(gameInfo -> gameName.equals(gameInfo.get("riotIdGameName"))
 						&& tagLine.equals(gameInfo.get("riotIdTagline")));
-
 		log.info("hasDuplicate:" + hasDuplicate);
 		if (!hasDuplicate) {
-			newGameDataList.addAll(dbGameDataList);
+			for (Map<String, Object> gameData : newGameDataList) {
+				gameData.put("leagueInfo", leagueInfo);
+			}
 
 			// 최신 게임 데이터 저장 및 반환
+			newGameDataList.addAll(dbGameDataList);
+//			log.info("{}",newGameDataList);
 			newGameDataList = summonerService.saveAndRetrieveGameData(newGameDataList);
 		}
 //	    log.info("newGameDataList:" + newGameDataList);
 		return newGameDataList;
 	}
+	@GetMapping("/DamageCheck")
+	public Object champDamageCheck(@RequestParam Map<String,Object> champion) {
+		log.info("championName{}",champion.get("champExp"));
+		return champion.get("champExp");
+	}
 }
->>>>>>> YS
