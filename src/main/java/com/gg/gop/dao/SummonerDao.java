@@ -13,17 +13,27 @@ public interface SummonerDao { // 소환사 전적 검색
 
 	int saveteamsdata(Map<String, Object> gamedata);
 	
-	int savebansdata(Map<String, Object> bans);
+//	int savebansdata(Map<String, Object> bans);
 	
-	Map getGameDataFromDB(Map<String, Object> gameData);
+	List<Map<String, Object>> getGameDataFromDB();
 
 	List<Map<String, Object>> getGameInfoFromDB(String gameName, String tagLine);
 
 	List<Map<String, Object>> getGameTeamsFromDB(String gameName, String tagLine);
 
+	List<Map<String, Object>> getLeagueInfoFromDB(String gameName, String tagLine);
+
 	int checkDuplicateKey(String matchId, String riotIdGameName);
   
 	List<Map> retrieveAllDataFromDB();
+
+	int saveLeagueInfo(Map<String, Object> leagueInfo);
+	
+	int saveLeagueNull(String summonerId);
+	
+	int updateLeagueNull(String summonerId);
+
+	int updateLeagueInfo(Map<String, Object> leagueInfo);
 
 
 //	List<ChampionRanking> getChampionRankingFromDB();
